@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/menu_specialite_title">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/cyno_fragment"
+                    android:icon="@drawable/ic_menu_dog"
+                    android:title="@string/menu_specialite_cyno_title" />
+
+                <item
+                    android:id="@+id/sd_fragment"
+                    android:icon="@drawable/ic_menu_sd"
+                    android:title="@string/menu_specialite_sd_title" />
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/agentFragment"
+        android:icon="@drawable/ic_menu_agents"
+        android:title="@string/menu_agents_title" />
+
+    <item
+        android:id="@+id/settings_fragment"
+        android:icon="@drawable/ic_menu_settings"
+        android:title="@string/menu_settings_title" />
+
+</menu>

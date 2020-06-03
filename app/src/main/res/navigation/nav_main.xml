@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/addOperationFragment">
+
+    <fragment
+        android:id="@+id/agentFragment"
+        android:name="com.loic.spe95.team.ui.AgentFragment"
+        android:label="@string/screen_title_agents_list"
+        tools:layout="@layout/fragment_agents">
+        <action
+            android:id="@+id/action_agentFragment_to_agentDetailsFragment"
+            app:destination="@id/agentDetailsFragment" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/agentDetailsFragment"
+        android:name="com.loic.spe95.team.ui.AgentDetailsFragment"
+        android:label="@string/screen_title_agent_detail">
+
+        <argument
+            android:name="agentId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/speOperationFragment"
+        android:name="com.loic.spe95.speoperations.ui.SpeOperationFragment"
+        android:label="@string/screen_title_operations_list">
+        <action
+            android:id="@+id/action_speOperationFragment_to_speOperationDetailsFragment"
+            app:destination="@id/speOperationDetailsDetailsFragment" />
+
+        <action
+            android:id="@+id/action_speOperationFragment_to_addOperationFragment"
+            app:destination="@id/addOperationFragment"
+            app:enterAnim="@android:anim/fade_in" />
+
+        <argument
+            android:name="specialtyId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/speOperationDetailsDetailsFragment"
+        android:name="com.loic.spe95.speoperations.ui.SpeOperationDetailsFragment"
+        android:label="@string/screen_title_operation_detail">
+
+        <action
+            android:id="@+id/action_agentFragment_to_agentDetailsFragment"
+            app:destination="@id/agentDetailsFragment" />
+
+        <argument
+            android:name="specialtyDetailsId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+        <argument
+            android:name="speOperationId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/addOperationFragment"
+        android:name="com.loic.spe95.speoperations.ui.AddOperationFragment"
+        android:label="@string/screen_title_add_operation">
+
+        <argument
+            android:name="specialtyId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+        <argument
+            android:name="typeId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_addOperationFragment_to_speOperationFragment"
+            app:destination="@id/speOperationFragment"
+            app:enterAnim="@android:anim/fade_out" />
+    </fragment>
+
+</navigation>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/speOperationDetailsDetailsFragment">
+
+    <fragment
+        android:id="@+id/speOperationDetailsDetailsFragment"
+        android:name="com.loic.spe95.speoperations.ui.SpeOperationDetailsFragment"
+        android:label="@string/screen_title_operation_detail">
+
+        <action
+            android:id="@+id/action_agentFragment_to_agentDetailsFragment"
+            app:destination="@id/agentDetailsFragment" />
+
+        <argument
+            android:name="specialtyDetailsId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+        <argument
+            android:name="speOperationId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+    </fragment>
+
+</navigation>

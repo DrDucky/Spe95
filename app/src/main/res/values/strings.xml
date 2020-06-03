@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Spe95</string>
+    <string name="add_operation_intervention_nb_hint">Numéro d\'intervention</string>
+    <string name="add_operation_motif_hint">Motif</string>
+    <string name="add_operation_address_hint">Adresse</string>
+    <string name="personnel_title">Personnel</string>
+    <string name="equipment_title">Matériel</string>
+    <string name="add_operation_nb_helper">Nom des agents présents</string>
+    <string name="add_operation_label_with">Avec</string>
+    <string name="add_operation_chip_team_text">%01$s %02$s</string>
+    <string name="add_operation_chip_team_text_with_time">%01$s - %02$d:%03$d</string>
+    <string name="add_operation_btn_title">Ajouter</string>
+    <string name="add_operation_error_mandatory_field">Ce champ est obligatoire</string>
+    <string name="add_operation_operation_added">L\'opération a été sauvegardée</string>
+    <string name="space">&#160;</string>
+    <string name="agents_chip_filter_cyno">Cyno</string>
+    <string name="agents_chip_filter_sd">SD</string>
+    <string name="spe_operation_personnel_title">Personnel</string>
+    <string name="spe_operation_personnel_unit_chief_title">Chef d\'unité</string>
+    <string name="spe_operation_personnel_subtitle">Personnel engagé</string>
+    <string name="menu_specialite_title">Spécialités</string>
+    <string name="menu_specialite_cyno_title">Cynotechnique</string>
+    <string name="menu_specialite_sd_title">Sauvetage-déblaiement</string>
+    <string name="menu_agents_title">Agents</string>
+    <string name="menu_settings_title">Paramètres</string>
+    <string name="menu_csp_name_title">CSP Argenteuil</string>
+
+    <!-- Screen titles -->
+    <string name="screen_title_operations_list">Liste d\'opérations</string>
+    <string name="screen_title_operation_detail">Détail de l\'opération</string>
+    <string name="screen_title_agents_list">Liste des agents</string>
+    <string name="screen_title_agent_detail">Détail de l\'agent</string>
+    <string name="screen_title_add_operation">Ajouter une opération</string>
+
+</resources>
