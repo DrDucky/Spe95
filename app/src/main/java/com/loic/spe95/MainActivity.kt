@@ -1,7 +1,9 @@
 package com.loic.spe95
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -11,7 +13,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.loic.spe95.databinding.ActivityMainBinding
+import com.loic.spe95.signin.ui.SignInActivity
 import com.loic.spe95.utils.Constants.Companion.SHARED_PREF_FRAGMENT_KEY
 
 
@@ -22,6 +26,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var navController: NavController
     private lateinit var args: Bundle
     private lateinit var graph: NavGraph
+    private lateinit var auth: FirebaseAuth
+
+
+    public override fun onStart() {
+        super.onStart()
+        auth = FirebaseAuth.getInstance()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            Toast.makeText(this, "User : ${currentUser.email}", Toast.LENGTH_LONG).show()
+        } else {
+            intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        //updateUI(currentUser)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

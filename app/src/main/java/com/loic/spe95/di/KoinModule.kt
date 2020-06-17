@@ -1,5 +1,7 @@
 package com.loic.spe95.di
 
+import com.loic.spe95.signin.data.LoginRepository
+import com.loic.spe95.signin.ui.LoginViewModel
 import com.loic.spe95.speoperations.data.SpeOperationRepository
 import com.loic.spe95.speoperations.ui.SpeOperationViewModel
 import com.loic.spe95.team.data.AgentRepository
@@ -15,7 +17,9 @@ val viewModelModule = module {
     single { AgentRepository() }
 
     viewModel { (specialtyId: String) -> SpeOperationViewModel(specialtyId, get()) }
+    viewModel { LoginViewModel(get()) }
 
     single { SpeOperationRepository() }
+    single { LoginRepository() }
 
 }

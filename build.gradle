@@ -27,6 +27,7 @@ ext {
     lifecycle_version = '2.2.0'
     firebase_firestore_database_version = '21.4.1'
     firebase_storage_version = '19.1.1'
+    firebase_auth_version = '19.3.1'
     glide_version = '4.11.0'
     firestore_ui_version = '3.3.0'
     constraint_layout_version = '2.0.0-beta4'
