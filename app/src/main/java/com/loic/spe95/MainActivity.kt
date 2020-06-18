@@ -3,7 +3,6 @@ package com.loic.spe95
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -14,9 +13,11 @@ import androidx.navigation.ui.*
 import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.loic.spe95.databinding.ActivityMainBinding
 import com.loic.spe95.signin.ui.SignInActivity
 import com.loic.spe95.utils.Constants.Companion.SHARED_PREF_FRAGMENT_KEY
+import kotlinx.android.synthetic.main.nav_header.view.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -28,26 +29,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var graph: NavGraph
     private lateinit var auth: FirebaseAuth
 
+    private lateinit var binding: ActivityMainBinding
+
 
     public override fun onStart() {
         super.onStart()
         auth = FirebaseAuth.getInstance()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
-        if (currentUser != null) {
-            Toast.makeText(this, "User : ${currentUser.email}", Toast.LENGTH_LONG).show()
-        } else {
+        if (currentUser == null) {
             intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
             finish()
         }
-        //updateUI(currentUser)
+
+        updateUi(currentUser)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding: ActivityMainBinding =
+        binding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
         drawerLayout = binding.drawerLayout
 
@@ -85,7 +87,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.navigationView.setupWithNavController(navController)
         binding.navigationView.setNavigationItemSelectedListener(this)
         binding.navigationView.setCheckedItem(R.id.cyno_fragment)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -114,5 +115,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 )
             }
         }
+    }
+
+    private fun updateUi(currentUser: FirebaseUser?) {
+        binding.navigationView.getHeaderView(0).tv_header_username.text = currentUser?.email
     }
 }

@@ -27,6 +27,7 @@ import com.loic.spe95.databinding.FragmentAddOperationBinding
 import com.loic.spe95.team.data.Agent
 import com.loic.spe95.team.ui.AgentViewModel
 import com.loic.spe95.utils.Constants
+import com.loic.spe95.utils.getFirestoreCollection
 import com.loic.spe95.utils.getTypeToString
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
