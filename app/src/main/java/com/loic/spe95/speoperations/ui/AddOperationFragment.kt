@@ -109,8 +109,7 @@ class AddOperationFragment : Fragment() {
         binding.btnAddOperation.setOnClickListener(View.OnClickListener {
             if (validate(speOperationViewModel, binding)) {
                 speOperationViewModel._team.value = teamList
-                binding.mainLayoutAddOperation.visibility = View.GONE
-                binding.progressbarAddOperation.visibility = View.VISIBLE
+                displayMainBloc(binding, false)
                 speOperationViewModel.addOperationIntoFirestore()
             }
         })
@@ -124,8 +123,7 @@ class AddOperationFragment : Fragment() {
 
         //Observables
         speOperationViewModel.operationAdded.observe(viewLifecycleOwner, Observer {
-            binding.progressbarAddOperation.visibility = View.GONE
-            binding.mainLayoutAddOperation.visibility = View.VISIBLE
+            displayMainBloc(binding, true)
             Snackbar.make(
                 view!!,
                 getString(R.string.add_operation_operation_added),
@@ -137,9 +135,31 @@ class AddOperationFragment : Fragment() {
             findNavController().navigate(direction)
         })
 
+        speOperationViewModel._genericException.observe(viewLifecycleOwner, Observer {
+            displayMainBloc(binding, true)
+            Snackbar.make(
+                view!!,
+                getString(R.string.add_operation_exception, it),
+                Snackbar.LENGTH_LONG
+            ).show()
+        })
+
         setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    fun displayMainBloc(binding: FragmentAddOperationBinding, isShow: Boolean) {
+        when (isShow) {
+            true  -> {
+                binding.mainLayoutAddOperation.visibility = View.VISIBLE
+                binding.progressbarAddOperation.visibility = View.GONE
+            }
+            false -> {
+                binding.mainLayoutAddOperation.visibility = View.GONE
+                binding.progressbarAddOperation.visibility = View.VISIBLE
+            }
+        }
     }
 
     /**

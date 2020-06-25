@@ -25,7 +25,7 @@ ext {
     retrofit_version = '2.7.1'
     nav_version = "2.3.0-alpha02"
     lifecycle_version = '2.2.0'
-    firebase_firestore_database_version = '21.4.1'
+    firebase_firestore_database_version = '21.4.3'
     firebase_storage_version = '19.1.1'
     firebase_auth_version = '19.3.1'
     glide_version = '4.11.0'

@@ -3,6 +3,8 @@ package com.loic.spe95
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -30,63 +32,77 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var auth: FirebaseAuth
 
     private lateinit var binding: ActivityMainBinding
-
-
-    public override fun onStart() {
-        super.onStart()
-        auth = FirebaseAuth.getInstance()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        if (currentUser == null) {
-            intent = Intent(this, SignInActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        updateUi(currentUser)
+    private fun goToLoginActivity() {
+        intent = Intent(this, SignInActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding =
-            DataBindingUtil.setContentView(this, R.layout.activity_main)
-        drawerLayout = binding.drawerLayout
+        // Check if user is signed in (non-null) and update UI accordingly.
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            goToLoginActivity()
+        } else {
+            binding =
+                DataBindingUtil.setContentView(this, R.layout.activity_main)
+            drawerLayout = binding.drawerLayout
 
-        navController = findNavController(R.id.nav_host)
+            navController = findNavController(R.id.nav_host)
 
-        // Set up ActionBar
-        setSupportActionBar(binding.toolbar)
+            // Set up ActionBar
+            setSupportActionBar(binding.toolbar)
 
-        val isTablet = resources.getBoolean(R.bool.isTablet)
-        val navInflater = navController.navInflater
+            val isTablet = resources.getBoolean(R.bool.isTablet)
+            val navInflater = navController.navInflater
 
-        when (isTablet) {
-            false -> {
-                graph = navInflater.inflate(R.navigation.nav_main)
-                graph.startDestination = R.id.speOperationFragment
+            when (isTablet) {
+                false -> {
+                    graph = navInflater.inflate(R.navigation.nav_main)
+                    graph.startDestination = R.id.speOperationFragment
+                }
+                true  -> {
+                    graph = navInflater.inflate(R.navigation.nav_speoperation_tab)
+                    graph.startDestination = R.id.speOperationFragment
+
+                }
             }
-            true  -> {
-                graph = navInflater.inflate(R.navigation.nav_speoperation_tab)
-                graph.startDestination = R.id.speOperationFragment
 
-            }
+
+            val pref: Int =
+                PreferenceManager.getDefaultSharedPreferences(this)
+                    .getInt(SHARED_PREF_FRAGMENT_KEY, 1)
+            args = Bundle()
+            args.putInt("specialtyId", pref)
+
+            navController.setGraph(graph, args)
+
+            appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+            setupActionBarWithNavController(navController, appBarConfiguration)
+            // Set up navigation menu
+            binding.navigationView.setupWithNavController(navController)
+            binding.navigationView.setNavigationItemSelectedListener(this)
+            binding.navigationView.setCheckedItem(R.id.cyno_fragment)
+            binding.logout.setOnClickListener(::logout)
+            binding.navigationView.getHeaderView(0).tv_header_username.text = currentUser?.email
+
         }
+    }
 
-
-        val pref: Int =
-            PreferenceManager.getDefaultSharedPreferences(this).getInt(SHARED_PREF_FRAGMENT_KEY, 1)
-        args = Bundle()
-        args.putInt("specialtyId", pref)
-
-        navController.setGraph(graph, args)
-
-        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        // Set up navigation menu
-        binding.navigationView.setupWithNavController(navController)
-        binding.navigationView.setNavigationItemSelectedListener(this)
-        binding.navigationView.setCheckedItem(R.id.cyno_fragment)
+    private fun logout(v: View) {
+        AlertDialog.Builder(this)
+            .setTitle("Déconnexion")
+            .setMessage("Etes-vous sûr de vouloir vous déconnecter ?")
+            .setPositiveButton(
+                android.R.string.yes
+            ) { dialogInterface, which ->
+                auth.signOut()
+                goToLoginActivity()
+            }
+            .show()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -118,6 +134,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun updateUi(currentUser: FirebaseUser?) {
-        binding.navigationView.getHeaderView(0).tv_header_username.text = currentUser?.email
     }
 }

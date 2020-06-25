@@ -63,6 +63,8 @@ class SpeOperationViewModel(
     val team: LiveData<List<Int>> = _team
     var _teamError: MutableLiveData<String> = MutableLiveData()
 
+    var _genericException: MutableLiveData<String> = MutableLiveData()
+
     /**
      * Get an operation with its id
      */
@@ -110,7 +112,7 @@ class SpeOperationViewModel(
             when (val result =
                 repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation)) {
                 is Result.Success -> _operationAdded.call()
-                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
+                is Result.Error   -> _genericException.value = result.exception.message
                 //is Result2.Canceled -> _snackbarText.value = R.string.canceled
             }
         }

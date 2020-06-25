@@ -1,6 +1,7 @@
 package com.loic.spe95.speoperations.data
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.loic.spe95.data.Result
 import com.loic.spe95.data.await
 
@@ -55,16 +56,20 @@ class SpeOperationRepository {
         specialtyDocument: String,
         speOperation: SpeOperation
     ): Result<String> {
-        return when (val resultDocumentSnapshot =
-            specialtiesCollection.document(specialtyDocument).collection("activities")
-                .add(speOperation)
-                .await()) {
-            is Result.Success  -> {
-                val speOperationId = resultDocumentSnapshot.data.id
-                Result.Success(speOperationId)
+        try {
+            return when (val resultDocumentSnapshot =
+                specialtiesCollection.document(specialtyDocument).collection("activities")
+                    .add(speOperation)
+                    .await()) {
+                is Result.Success  -> {
+                    val speOperationId = resultDocumentSnapshot.data.id
+                    Result.Success(speOperationId)
+                }
+                is Result.Error    -> Result.Error(resultDocumentSnapshot.exception)
+                is Result.Canceled -> Result.Canceled(resultDocumentSnapshot.exception)
             }
-            is Result.Error    -> Result.Error(resultDocumentSnapshot.exception)
-            is Result.Canceled -> Result.Canceled(resultDocumentSnapshot.exception)
+        } catch (exception: FirebaseFirestoreException) {
+            return Result.Error(exception)
         }
     }
 }
