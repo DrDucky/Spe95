@@ -8,11 +8,19 @@
         <import type="android.view.View" />
 
         <variable
-            name="isCheckboxChecked"
+            name="isIpsoChecked"
             type="java.lang.Boolean" />
 
         <variable
             name="isNanoChecked"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="isNeroneChecked"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="isPriaxeChecked"
             type="java.lang.Boolean" />
     </data>
 
@@ -23,6 +31,9 @@
         android:layout_margin="@dimen/dimen_4dp"
         app:cardCornerRadius="@dimen/dimen_4dp"
         app:cardElevation="@dimen/dimen_2dp"
+        android:paddingStart="@dimen/dimen_4dp"
+        android:paddingTop="@dimen/dimen_8dp"
+        android:paddingBottom="@dimen/dimen_8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -31,17 +42,17 @@
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/label_end"
+                android:id="@+id/guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:barrierDirection="end"
-                app:constraint_referenced_ids="ipso,nano" />
+                app:constraint_referenced_ids="ipso,nano, nerone, priaxe" />
 
             <CheckBox
                 android:id="@+id/ipso"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@={isCheckboxChecked}"
+                android:checked="@={isIpsoChecked}"
                 android:layout_marginTop="20dp"
                 android:text="Ipso"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,15 +63,18 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
                 android:hint="Durée"
-                android:visibility="@{isCheckboxChecked ? View.VISIBLE : View.GONE, default = gone}"
+                app:helperText="@string/add_operation_time_helper"
+                app:helperTextEnabled="true"
+                android:visibility="@{isIpsoChecked ? View.VISIBLE : View.GONE, default = gone}"
                 app:layout_constraintBottom_toBottomOf="@+id/ipso"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toTopOf="@+id/ipso"
                 tools:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tipEd"
+                    android:id="@+id/ed_ipso_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="5"
@@ -73,32 +87,88 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:checked="@={isNanoChecked}"
-                android:text="lalalala"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="Nano"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ipso" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.2" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nano_time"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
                 android:hint="Durée"
                 android:visibility="@{isNanoChecked ? View.VISIBLE : View.GONE, default = gone}"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/nano"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/nano"
                 tools:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ispo_time"
+                    android:id="@+id/et_nano_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="5"
+                    android:inputType="time" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/nerone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:checked="@={isNeroneChecked}"
+                android:text="Nerone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nano" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nerone_time"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:hint="Durée"
+                android:visibility="@{isNeroneChecked ? View.VISIBLE : View.GONE, default = gone}"
+                app:layout_constraintBottom_toBottomOf="@+id/nerone"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/nerone"
+                tools:visibility="visible">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_nerone_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="5"
+                    android:inputType="time" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/priaxe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:checked="@={isPriaxeChecked}"
+                android:text="Pri-Axe"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nerone" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/priaxe_time"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:hint="Durée"
+                android:visibility="@{isPriaxeChecked ? View.VISIBLE : View.GONE, default = gone}"
+                app:layout_constraintBottom_toBottomOf="@+id/priaxe"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/priaxe"
+                tools:visibility="visible">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_priaxe_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="5"

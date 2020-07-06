@@ -42,7 +42,11 @@ data class SpeOperation(
 
     @get:PropertyName("unit_chief")
     @set:PropertyName("unit_chief")
-    var unitChief: String? = ""
+    var unitChief: String? = "",
+
+    @get:PropertyName("materialsCyno")
+    @set:PropertyName("materialsCyno")
+    var materialsCyno: List<MaterialCyno>? = ArrayList()
 
 )
 

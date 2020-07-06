@@ -11,6 +11,7 @@ import com.loic.spe95.databinding.FragmentSpeOperationDetailsBinding
 import com.loic.spe95.speoperations.data.SpeOperation
 import com.loic.spe95.team.ui.AgentAdapter
 import com.loic.spe95.team.ui.AgentViewModel
+import com.loic.spe95.team.ui.MaterialAdapter
 import com.loic.spe95.utils.getFirestoreCollection
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -40,10 +41,12 @@ class SpeOperationDetailsFragment : Fragment() {
         val speOperationId = args.speOperationId
         specialtyDocument = args.specialtyDetailsId.getFirestoreCollection()
         val adapter = AgentAdapter()
+        val materialAdapter = MaterialAdapter()
         binding.rvTeamAgentList.adapter = adapter
+        binding.rvMaterialAgentList.adapter = materialAdapter
 
         speOperationViewModel.fetchSpeOperationInformation(speOperationId)
-        subscribeUi(binding, specialtyDocument, adapter)
+        subscribeUi(binding, specialtyDocument, adapter, materialAdapter)
         setHasOptionsMenu(true)
 
         return binding.root
@@ -52,12 +55,13 @@ class SpeOperationDetailsFragment : Fragment() {
     private fun subscribeUi(
         binding: FragmentSpeOperationDetailsBinding,
         specialtyDocument: String,
-        adapter: AgentAdapter
+        adapter: AgentAdapter,
+        materialAdapter: MaterialAdapter
     ) {
         speOperationViewModel.speOperationLd.observe(
             viewLifecycleOwner,
             Observer<SpeOperation> { it ->
-                bindView(binding, it)
+                bindView(binding, it, materialAdapter)
                 binding.cardsGroup.visibility = View.VISIBLE
 
                 agentsViewModel.fetchAgentsInformationFrom(it.agents)
@@ -68,11 +72,16 @@ class SpeOperationDetailsFragment : Fragment() {
         })
     }
 
-    private fun bindView(binding: FragmentSpeOperationDetailsBinding, speOperation: SpeOperation) {
+    private fun bindView(
+        binding: FragmentSpeOperationDetailsBinding,
+        speOperation: SpeOperation,
+        materialAdapter: MaterialAdapter
+    ) {
         speOperation.apply {
             binding.speOperation = speOperation
             binding.mainLayoutOperationDetail.visibility = View.VISIBLE
             binding.progressbarOperationDetail.visibility = View.GONE
+            materialAdapter.submitList(speOperation.materialsCyno)
         }
     }
 }

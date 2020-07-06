@@ -18,6 +18,19 @@ fun dateToString(
     }
 }
 
+fun timeToString(
+    value: Int?
+): String {
+    if (value != null) {
+        val hours = value / 3600
+        val minutes = (value % 3600) / 60;
+
+        return String.format("%02d:%02d", hours, minutes);
+    } else {
+        return ""
+    }
+}
+
 fun geopointToString(
     context: Context,
     value: GeoPoint?
