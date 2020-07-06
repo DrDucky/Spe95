@@ -56,21 +56,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             // Set up ActionBar
             setSupportActionBar(binding.toolbar)
 
-            val isTablet = resources.getBoolean(R.bool.isTablet)
             val navInflater = navController.navInflater
 
-            when (isTablet) {
-                false -> {
-                    graph = navInflater.inflate(R.navigation.nav_main)
-                    graph.startDestination = R.id.speOperationFragment
-                }
-                true  -> {
-                    graph = navInflater.inflate(R.navigation.nav_speoperation_tab)
-                    graph.startDestination = R.id.speOperationFragment
-
-                }
-            }
-
+            graph = navInflater.inflate(R.navigation.nav_main)
+            graph.startDestination = R.id.speOperationFragment
 
             val pref: Int =
                 PreferenceManager.getDefaultSharedPreferences(this)
