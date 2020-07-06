@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dimen_8dp"
             android:hint="Mot de passe"
+            app:passwordToggleEnabled="true"
             app:layout_constraintTop_toBottomOf="@id/email"
             app:layout_constraintStart_toStartOf="parent">
 

@@ -12,6 +12,7 @@
     <string name="add_operation_btn_title">Ajouter</string>
     <string name="add_operation_error_mandatory_field">Ce champ est obligatoire</string>
     <string name="add_operation_operation_added">L\'opération a été sauvegardée</string>
+    <string name="add_operation_exception">L\'opération a échouée : %01$s</string>
     <string name="space">&#160;</string>
     <string name="agents_chip_filter_cyno">Cyno</string>
     <string name="agents_chip_filter_sd">SD</string>
