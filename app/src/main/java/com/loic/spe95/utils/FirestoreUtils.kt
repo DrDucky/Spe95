@@ -26,3 +26,18 @@ fun String.getTimestamp(): Timestamp? {
     val parsedDate: Date? = formatter.parse(this)
     return parsedDate?.let { Timestamp(it) }
 }
+
+
+/**
+ * Time format hh:mm to seconds
+ */
+fun String.toTime(): Int {
+    if (this != null) {
+        val values = this.split(":")
+        val hours = values[0].toInt() * 3600
+        val minutes = values[1].toInt() * 60
+        return hours + minutes
+    } else {
+        return 0
+    }
+}

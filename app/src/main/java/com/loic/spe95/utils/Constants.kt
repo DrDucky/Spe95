@@ -16,5 +16,11 @@ class Constants {
 
         const val ADD_OPERATION_DATE_FORMAT_DISPLAY = "dd/MM/yyyy - HH:mm"
 
+        const val CYNO_DOG_IPSO = "Ipso"
+        const val CYNO_DOG_NANO = "Nano"
+        const val CYNO_DOG_NERONE = "Nerone"
+        const val CYNO_DOG_PRIAXE = "Priaxe"
+
+
     }
 }

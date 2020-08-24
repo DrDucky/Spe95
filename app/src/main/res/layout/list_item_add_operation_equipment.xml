@@ -8,6 +8,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="vmSpeOperation"
+            type="com.loic.spe95.speoperations.ui.SpeOperationViewModel" />
+
+        <variable
             name="isIpsoChecked"
             type="java.lang.Boolean" />
 
@@ -31,15 +35,13 @@
         android:layout_margin="@dimen/dimen_4dp"
         app:cardCornerRadius="@dimen/dimen_4dp"
         app:cardElevation="@dimen/dimen_2dp"
-        android:paddingStart="@dimen/dimen_4dp"
-        android:paddingTop="@dimen/dimen_8dp"
-        android:paddingBottom="@dimen/dimen_8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_8dp">
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/guideline"
@@ -78,7 +80,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="5"
-                    android:inputType="time" />
+                    android:inputType="time"
+                    android:text="@={vmSpeOperation._equipementCynoIpso}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <CheckBox
@@ -109,7 +112,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="5"
-                    android:inputType="time" />
+                    android:inputType="time"
+                    android:text="@={vmSpeOperation._equipementCynoNano}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <CheckBox
@@ -141,7 +145,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="5"
-                    android:inputType="time" />
+                    android:inputType="time"
+                    android:text="@={vmSpeOperation._equipementCynoNerone}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <CheckBox
@@ -172,7 +177,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="5"
-                    android:inputType="time" />
+                    android:inputType="time"
+                    android:text="@={vmSpeOperation._equipementCynoPriaxe}" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

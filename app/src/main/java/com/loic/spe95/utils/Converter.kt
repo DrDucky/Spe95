@@ -23,7 +23,7 @@ fun timeToString(
 ): String {
     if (value != null) {
         val hours = value / 3600
-        val minutes = (value % 3600) / 60;
+        val minutes = (value % 3600) / 60
 
         return String.format("%02d:%02d", hours, minutes);
     } else {

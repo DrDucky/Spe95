@@ -6,10 +6,13 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.GeoPoint
 import com.loic.spe95.data.Result
 import com.loic.spe95.data.SingleLiveEvent
+import com.loic.spe95.speoperations.data.MaterialCyno
 import com.loic.spe95.speoperations.data.SpeOperation
 import com.loic.spe95.speoperations.data.SpeOperationRepository
+import com.loic.spe95.utils.Constants
 import com.loic.spe95.utils.getTimestamp
 import com.loic.spe95.utils.getType
+import com.loic.spe95.utils.toTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -65,6 +68,11 @@ class SpeOperationViewModel(
 
     var _genericException: MutableLiveData<String> = MutableLiveData()
 
+    val _equipementCynoIpso: MutableLiveData<String> = MutableLiveData()
+    val _equipementCynoNano: MutableLiveData<String> = MutableLiveData()
+    val _equipementCynoNerone: MutableLiveData<String> = MutableLiveData()
+    val _equipementCynoPriaxe: MutableLiveData<String> = MutableLiveData()
+
     /**
      * Get an operation with its id
      */
@@ -106,6 +114,20 @@ class SpeOperationViewModel(
         newSpeOperation.startDate = _startDateTime.value!!.getTimestamp()
         newSpeOperation.address = _address.value!!
         newSpeOperation.unitChief = _teamUnitChief.value
+        val listOfMaterials = ArrayList<MaterialCyno>()
+        _equipementCynoIpso.value?.let {
+            listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_IPSO, it.toTime()))
+        }
+        _equipementCynoNano.value?.let {
+            listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_NANO, it.toTime()))
+        }
+        _equipementCynoNerone.value?.let {
+            listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_NERONE, it.toTime()))
+        }
+        _equipementCynoPriaxe.value?.let {
+            listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_PRIAXE, it.toTime()))
+        }
+        newSpeOperation.materialsCyno = listOfMaterials
 
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {

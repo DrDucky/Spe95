@@ -75,6 +75,7 @@ class AddOperationFragment : Fragment() {
 
         val autocompleteFragment =
             childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment?
+        autocompleteFragment?.setHint(getString(R.string.add_operation_address_hint))
         autocompleteFragment?.setPlaceFields(
             listOf(
                 Place.Field.ID,
