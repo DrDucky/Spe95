@@ -17,6 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.concurrent.ThreadLocalRandom
 import kotlin.coroutines.CoroutineContext
 
 
@@ -107,7 +108,12 @@ class SpeOperationViewModel(
      * Add an operation into Firestore
      */
     fun addOperationIntoFirestore() {
-        newSpeOperation.id = Integer.valueOf(id.value!!)
+        if (id.value == null) newSpeOperation.id =
+            ThreadLocalRandom.current().nextInt(
+                100000,
+                500000 + 1
+            ) else //If there is no id (for "Entrainements" for example), we generate a random ID between 100k & 500k
+            newSpeOperation.id = Integer.valueOf(id.value!!)
         newSpeOperation.motif = motif.value!!
         newSpeOperation.type = type.value!!.getType()
         newSpeOperation.agents = _team.value!!

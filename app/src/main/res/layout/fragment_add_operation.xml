@@ -6,6 +6,12 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="com.loic.spe95.utils.ConverterKt" />
+
+        <import type="com.loic.spe95.utils.Constants" />
+
         <variable
             name="vmAgents"
             type="com.loic.spe95.team.ui.AgentViewModel" />
@@ -90,7 +96,8 @@
                             app:error="@{vmSpeOperation._idError}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:visibility="@{ConverterKt.getStringToType(vmSpeOperation.type) == Constants.TYPE_OPERATION_INTERVENTION ? View.VISIBLE : View.GONE, default = gone}">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/et_id"

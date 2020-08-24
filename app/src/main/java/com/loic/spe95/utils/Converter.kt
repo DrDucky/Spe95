@@ -51,3 +51,11 @@ fun getTypeToString(value: Int): String {
     }
     return Constants.TYPE_OPERATION_INTERVENTION_TITLE //Default one
 }
+
+fun getStringToType(value: String): Int {
+    when (value) {
+        Constants.TYPE_OPERATION_INTERVENTION_TITLE -> return Constants.TYPE_OPERATION_INTERVENTION
+        Constants.TYPE_OPERATION_TRAINING_TITLE     -> return Constants.TYPE_OPERATION_TRAINING
+    }
+    return Constants.TYPE_OPERATION_INTERVENTION //Default one
+}
