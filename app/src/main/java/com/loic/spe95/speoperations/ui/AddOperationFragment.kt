@@ -24,6 +24,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 import com.loic.spe95.R
 import com.loic.spe95.databinding.FragmentAddOperationBinding
+import com.loic.spe95.databinding.ListItemAddOperationEquipmentSdBinding
 import com.loic.spe95.team.data.Agent
 import com.loic.spe95.team.ui.AgentViewModel
 import com.loic.spe95.utils.Constants
@@ -56,6 +57,10 @@ class AddOperationFragment : Fragment() {
     ): View? {
 
         val binding = FragmentAddOperationBinding.inflate(inflater, container, false)
+        val bindingListEquipmentCyno =
+            ListItemAddOperationEquipmentBinding.inflate(inflater, container, false)
+        val bindingListEquipmentSd =
+            ListItemAddOperationEquipmentSdBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = this
         context ?: return binding.root
@@ -63,6 +68,13 @@ class AddOperationFragment : Fragment() {
         specialtyDocument = args.specialtyId.getFirestoreCollection()
         speOperationViewModel._type.value = getTypeToString(args.typeId)
 
+        setCustomMaterialView(
+            speOperationViewModel,
+            args.specialtyId,
+            binding,
+            bindingListEquipmentCyno,
+            bindingListEquipmentSd
+        )
         //Binding
         val adapter =
             ArrayAdapter(
@@ -211,6 +223,29 @@ class AddOperationFragment : Fragment() {
             teamList.remove(person.id)
             chipGroup.removeView(chip as View)
         }
+    }
+
+    /**
+     * Include the specified material (equipment) layout depending of the specialty
+     */
+    private fun setCustomMaterialView(
+        vmSpeOperationViewModel: SpeOperationViewModel,
+        specialtyId: Int,
+        binding: FragmentAddOperationBinding,
+        bindingListEquipmentCyno: ListItemAddOperationEquipmentBinding,
+        bindingListEquipmentSd: ListItemAddOperationEquipmentSdBinding
+    ) {
+
+        bindingListEquipmentCyno.vmSpeOperation = vmSpeOperationViewModel
+        bindingListEquipmentSd.vmSpeOperation = vmSpeOperationViewModel
+
+        var layoutToAdd: View? = null
+        when (specialtyId) {
+            Constants.FIRESTORE_CYNO_ID_DOCUMENT -> layoutToAdd = bindingListEquipmentCyno.root
+            Constants.FIRESTORE_SD_ID_DOCUMENT   -> layoutToAdd = bindingListEquipmentSd.root
+        }
+
+        binding.equipment.addView(layoutToAdd)
     }
 
     /**
