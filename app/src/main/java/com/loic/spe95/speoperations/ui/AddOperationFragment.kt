@@ -24,6 +24,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 import com.loic.spe95.R
 import com.loic.spe95.databinding.FragmentAddOperationBinding
+import com.loic.spe95.databinding.ListItemAddOperationEquipmentCynoBinding
 import com.loic.spe95.databinding.ListItemAddOperationEquipmentSdBinding
 import com.loic.spe95.team.data.Agent
 import com.loic.spe95.team.ui.AgentViewModel
@@ -58,7 +59,7 @@ class AddOperationFragment : Fragment() {
 
         val binding = FragmentAddOperationBinding.inflate(inflater, container, false)
         val bindingListEquipmentCyno =
-            ListItemAddOperationEquipmentBinding.inflate(inflater, container, false)
+            ListItemAddOperationEquipmentCynoBinding.inflate(inflater, container, false)
         val bindingListEquipmentSd =
             ListItemAddOperationEquipmentSdBinding.inflate(inflater, container, false)
 
@@ -232,7 +233,7 @@ class AddOperationFragment : Fragment() {
         vmSpeOperationViewModel: SpeOperationViewModel,
         specialtyId: Int,
         binding: FragmentAddOperationBinding,
-        bindingListEquipmentCyno: ListItemAddOperationEquipmentBinding,
+        bindingListEquipmentCyno: ListItemAddOperationEquipmentCynoBinding,
         bindingListEquipmentSd: ListItemAddOperationEquipmentSdBinding
     ) {
 
