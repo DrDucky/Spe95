@@ -46,8 +46,11 @@ data class SpeOperation(
 
     @get:PropertyName("materialsCyno")
     @set:PropertyName("materialsCyno")
-    var materialsCyno: List<MaterialCyno>? = ArrayList()
+    var materialsCyno: List<MaterialCyno>? = ArrayList(),
 
+    @get:PropertyName("materialsSd")
+    @set:PropertyName("materialsSd")
+    var materialsSd: List<MaterialSd>? = ArrayList()
 )
 
 @BindingAdapter("entries")

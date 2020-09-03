@@ -13,6 +13,14 @@ fun Int.getFirestoreCollection(): String {
     return Constants.FIRESTORE_CYNO_DOCUMENT //Default one
 }
 
+fun String.getFirestoreIdCollection(): Int {
+    when (this) {
+        Constants.FIRESTORE_CYNO_DOCUMENT -> return Constants.FIRESTORE_CYNO_ID_DOCUMENT
+        Constants.FIRESTORE_SD_DOCUMENT   -> return Constants.FIRESTORE_SD_ID_DOCUMENT
+    }
+    return Constants.FIRESTORE_CYNO_ID_DOCUMENT //Default one
+}
+
 fun String.getType(): Int {
     when (this) {
         Constants.TYPE_OPERATION_INTERVENTION_TITLE -> return Constants.TYPE_OPERATION_INTERVENTION

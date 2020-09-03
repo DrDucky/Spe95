@@ -32,4 +32,15 @@
         <item>AVP</item>
         <item>Noyade</item>
     </string-array>
+    <string-array name="sd_gr_elec">
+        <item>Fixe</item>
+        <item>2200 n°1</item>
+        <item>2200 n°2</item>
+        <item>3000</item>
+    </string-array>
+    <string-array name="sd_eclairage">
+        <item>Solaris</item>
+        <item>Néon</item>
+        <item>Lunaphore</item>
+    </string-array>
 </resources>

@@ -5,16 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.loic.spe95.databinding.ListItemMaterialBinding
-import com.loic.spe95.speoperations.data.MaterialCyno
+import com.loic.spe95.databinding.ListItemMaterialSdBinding
+import com.loic.spe95.speoperations.data.MaterialSd
 
 
-class MaterialAdapter :
-    ListAdapter<MaterialCyno, MaterialAdapter.MaterialViewHolder>(DiffCallback()) {
+class MaterialSdAdapter :
+    ListAdapter<MaterialSd, MaterialSdAdapter.MaterialViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MaterialViewHolder {
         return MaterialViewHolder(
-            ListItemMaterialBinding.inflate(
+            ListItemMaterialSdBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
 
@@ -32,9 +32,9 @@ class MaterialAdapter :
     }
 
     class MaterialViewHolder(
-        val binding: ListItemMaterialBinding
+        val binding: ListItemMaterialSdBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: MaterialCyno) {
+        fun bind(item: MaterialSd) {
             binding.apply {
                 material = item
                 executePendingBindings()
@@ -42,12 +42,12 @@ class MaterialAdapter :
         }
     }
 
-    private class DiffCallback : DiffUtil.ItemCallback<MaterialCyno>() {
-        override fun areItemsTheSame(oldItem: MaterialCyno, newItem: MaterialCyno): Boolean {
+    private class DiffCallback : DiffUtil.ItemCallback<MaterialSd>() {
+        override fun areItemsTheSame(oldItem: MaterialSd, newItem: MaterialSd): Boolean {
             return oldItem.name == newItem.name
         }
 
-        override fun areContentsTheSame(oldItem: MaterialCyno, newItem: MaterialCyno): Boolean {
+        override fun areContentsTheSame(oldItem: MaterialSd, newItem: MaterialSd): Boolean {
             return oldItem == newItem
         }
     }

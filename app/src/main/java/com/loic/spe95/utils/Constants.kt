@@ -2,9 +2,9 @@ package com.loic.spe95.utils
 
 class Constants {
     companion object {
-        const val FIRESTORE_CYNO_ID_DOCUMENT = 1
+        const val FIRESTORE_CYNO_ID_DOCUMENT = 0
         const val FIRESTORE_CYNO_DOCUMENT = "cyno"
-        const val FIRESTORE_SD_ID_DOCUMENT = 2
+        const val FIRESTORE_SD_ID_DOCUMENT = 1
         const val FIRESTORE_SD_DOCUMENT = "sd"
 
         const val TYPE_OPERATION_INTERVENTION = 1
@@ -20,6 +20,15 @@ class Constants {
         const val CYNO_DOG_NANO = "Nano"
         const val CYNO_DOG_NERONE = "Nerone"
         const val CYNO_DOG_PRIAXE = "Priaxe"
+
+        const val SD_LSPCC = "Lspcc"
+        const val SD_GR_ELEC_FIXE = "Fixe"
+        const val SD_GR_ELEC_22001 = "22001"
+        const val SD_GR_ELEC_22002 = "22002"
+        const val SD_GR_ELEC_3000 = "3000"
+        const val SD_ECL_SOLARIS = "Solaris"
+        const val SD_ECL_NEON = "Néon"
+        const val SD_ECL_LUNAPHORE = "Lunaphore"
 
 
     }

@@ -8,10 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.loic.spe95.databinding.FragmentSpeOperationDetailsBinding
+import com.loic.spe95.speoperations.data.MaterialSd
 import com.loic.spe95.speoperations.data.SpeOperation
 import com.loic.spe95.team.ui.AgentAdapter
 import com.loic.spe95.team.ui.AgentViewModel
-import com.loic.spe95.team.ui.MaterialAdapter
+import com.loic.spe95.team.ui.MaterialCynoAdapter
+import com.loic.spe95.team.ui.MaterialSdAdapter
 import com.loic.spe95.utils.getFirestoreCollection
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -41,12 +43,14 @@ class SpeOperationDetailsFragment : Fragment() {
         val speOperationId = args.speOperationId
         specialtyDocument = args.specialtyDetailsId.getFirestoreCollection()
         val adapter = AgentAdapter()
-        val materialAdapter = MaterialAdapter()
+        val materialAdapter = MaterialCynoAdapter()
+        val materialSdAdapter = MaterialSdAdapter()
         binding.rvTeamAgentList.adapter = adapter
-        binding.rvMaterialAgentList.adapter = materialAdapter
+        binding.rvMaterialCynoList.adapter = materialAdapter
+        binding.rvMaterialSdList.adapter = materialSdAdapter
 
         speOperationViewModel.fetchSpeOperationInformation(speOperationId)
-        subscribeUi(binding, specialtyDocument, adapter, materialAdapter)
+        subscribeUi(binding, adapter, materialAdapter, materialSdAdapter)
         setHasOptionsMenu(true)
 
         return binding.root
@@ -54,14 +58,14 @@ class SpeOperationDetailsFragment : Fragment() {
 
     private fun subscribeUi(
         binding: FragmentSpeOperationDetailsBinding,
-        specialtyDocument: String,
         adapter: AgentAdapter,
-        materialAdapter: MaterialAdapter
+        materialCynoAdapter: MaterialCynoAdapter,
+        materialSdAdapter: MaterialSdAdapter
     ) {
         speOperationViewModel.speOperationLd.observe(
             viewLifecycleOwner,
             Observer<SpeOperation> { it ->
-                bindView(binding, it, materialAdapter)
+                bindView(binding, it, materialCynoAdapter, materialSdAdapter)
                 binding.cardsGroup.visibility = View.VISIBLE
 
                 agentsViewModel.fetchAgentsInformationFrom(it.agents)
@@ -75,13 +79,20 @@ class SpeOperationDetailsFragment : Fragment() {
     private fun bindView(
         binding: FragmentSpeOperationDetailsBinding,
         speOperation: SpeOperation,
-        materialAdapter: MaterialAdapter
+        materialCynoAdapter: MaterialCynoAdapter,
+        materialSdAdapter: MaterialSdAdapter
     ) {
         speOperation.apply {
             binding.speOperation = speOperation
             binding.mainLayoutOperationDetail.visibility = View.VISIBLE
             binding.progressbarOperationDetail.visibility = View.GONE
-            materialAdapter.submitList(speOperation.materialsCyno)
+            materialCynoAdapter.submitList(speOperation.materialsCyno)
+
+            val materialSd = ArrayList<MaterialSd>()
+            for (material in speOperation.materialsSd!!) {
+                if (material.checked!!) materialSd.add(material) //We take here only materials that has not been checked when added
+            }
+            materialSdAdapter.submitList(materialSd)
         }
     }
 }

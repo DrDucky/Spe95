@@ -14,6 +14,51 @@
     <string name="add_operation_error_mandatory_field">Ce champ est obligatoire</string>
     <string name="add_operation_operation_added">L\'opération a été sauvegardée</string>
     <string name="add_operation_exception">L\'opération a échouée : %01$s</string>
+    <!-- Equipment category Sauvetage -->
+    <string name="equipment_sauvetage_title">Sauvetage</string>
+    <string name="equipment_sauvetage_lspcc">LSPCC / Main courante</string>
+    <string name="equipment_sauvetage_echelle_coulisse">Echelle à coulisse</string>
+    <string name="equipment_sauvetage_telestep">Telestep</string>
+
+    <!-- Equipment category Eclairage -->
+    <string name="equipment_eclairage_title">Eclairage</string>
+    <string name="equipment_eclairage_groupe_electro">Groupe électrogène</string>
+    <string name="equipment_eclairage_eclairage">Eclairage</string>
+
+    <!-- Equipment category Percement -->
+    <string name="equipment_percement_title">Percement</string>
+    <string name="equipment_percement_groupe_hydraulique">Groupe hydraulique</string>
+    <string name="equipment_percement_tronconneuse_disque">Tronçonneuse à disque</string>
+    <string name="equipment_percement_tronconneuse_chaine">Tronçonneuse à chaine</string>
+    <string name="equipment_percement_chaine_diamant">Chaine diamant</string>
+    <string name="equipment_percement_chaine_carbure">Chaine carbure</string>
+    <string name="equipment_percement_perforateur">Perforateur</string>
+    <string name="equipment_percement_oxydecoupeur">Oxydécoupeur</string>
+
+    <!-- Equipment category Force -->
+    <string name="equipment_force_title">Force</string>
+    <string name="equipment_force_tirfor">Tirfor</string>
+    <string name="equipment_force_sangle_textile">Sangle textile</string>
+    <string name="equipment_force_coussin_levage">Coussin levage</string>
+
+    <!-- Equipment category Etaiement -->
+    <string name="equipment_etaiement_title">Etaiement</string>
+    <string name="equipment_etaiement_etai_pneumatique">Etai pneumatique</string>
+    <string name="equipment_etaiement_etai_metallique">Etai métallique</string>
+    <string name="equipment_etaiement_bois">Bois</string>
+
+    <!-- Equipment category Exploration -->
+    <string name="equipment_exploration_title">Exploration</string>
+    <string name="equipment_exploration_asb8">ASB8</string>
+    <string name="equipment_exploration_camera">Caméra</string>
+
+    <!-- Equipment category Petit matériel -->
+    <string name="equipment_petit_materiel_title">Petit matériel</string>
+    <string name="equipment_petit_materiel_visseuse">Visseuse</string>
+    <string name="equipment_petit_materiel_cordage">Cordage</string>
+    <string name="equipment_petit_materiel_servante">Servante</string>
+    <string name="equipment_petit_materiel_carburant">Carburant</string>
+
     <string name="space">&#160;</string>
     <string name="agents_chip_filter_cyno">Cyno</string>
     <string name="agents_chip_filter_sd">SD</string>
@@ -33,5 +78,7 @@
     <string name="screen_title_agents_list">Liste des agents</string>
     <string name="screen_title_agent_detail">Détail de l\'agent</string>
     <string name="screen_title_add_operation">Ajouter une opération</string>
+    <string name="cancel">Annuler</string>
+    <string name="ok">Ok</string>
 
 </resources>

@@ -7,12 +7,10 @@ import com.google.firebase.firestore.GeoPoint
 import com.loic.spe95.data.Result
 import com.loic.spe95.data.SingleLiveEvent
 import com.loic.spe95.speoperations.data.MaterialCyno
+import com.loic.spe95.speoperations.data.MaterialSd
 import com.loic.spe95.speoperations.data.SpeOperation
 import com.loic.spe95.speoperations.data.SpeOperationRepository
-import com.loic.spe95.utils.Constants
-import com.loic.spe95.utils.getTimestamp
-import com.loic.spe95.utils.getType
-import com.loic.spe95.utils.toTime
+import com.loic.spe95.utils.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -74,6 +72,25 @@ class SpeOperationViewModel(
     val _equipementCynoNerone: MutableLiveData<String> = MutableLiveData()
     val _equipementCynoPriaxe: MutableLiveData<String> = MutableLiveData()
 
+    val _equipementSdLspcc: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdGrElecFixe: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdGrElec22001: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdGrElec22002: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdGrElec3000: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    val _equipementSdEclSolaris: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdEclNeon: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdEclLunaphore: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    val _equipementSdPercGrHydrau: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdPercTroncDisque: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdPercTroncChaine: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdPercChaineDiamant: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdPercChaineCarbure: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdPercPerforateur: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdPercOxyDecoupeur: MutableLiveData<Boolean> = MutableLiveData(false)
+
+
     /**
      * Get an operation with its id
      */
@@ -120,20 +137,44 @@ class SpeOperationViewModel(
         newSpeOperation.startDate = _startDateTime.value!!.getTimestamp()
         newSpeOperation.address = _address.value!!
         newSpeOperation.unitChief = _teamUnitChief.value
-        val listOfMaterials = ArrayList<MaterialCyno>()
-        _equipementCynoIpso.value?.let {
-            listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_IPSO, it.toTime()))
+
+        /**
+         * CYNO Operation
+         */
+        if (specialtyDocument.getFirestoreIdCollection() == Constants.FIRESTORE_CYNO_ID_DOCUMENT) {
+            val listOfMaterials = ArrayList<MaterialCyno>()
+            _equipementCynoIpso.value?.let {
+                listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_IPSO, it.toTime()))
+            }
+            _equipementCynoNano.value?.let {
+                listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_NANO, it.toTime()))
+            }
+            _equipementCynoNerone.value?.let {
+                listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_NERONE, it.toTime()))
+            }
+            _equipementCynoPriaxe.value?.let {
+                listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_PRIAXE, it.toTime()))
+            }
+            newSpeOperation.materialsCyno = listOfMaterials
         }
-        _equipementCynoNano.value?.let {
-            listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_NANO, it.toTime()))
+
+        /**
+         * SD Operation
+         */
+        if (specialtyDocument.getFirestoreIdCollection() == Constants.FIRESTORE_SD_ID_DOCUMENT) {
+            val listOfMaterialsSd = ArrayList<MaterialSd>()
+
+            listOfMaterialsSd.add(MaterialSd(Constants.SD_LSPCC, _equipementSdLspcc.value))
+            listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_FIXE, _equipementSdGrElecFixe.value))
+            listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_22001, _equipementSdGrElec22001.value))
+            listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_22002, _equipementSdGrElec22002.value))
+            listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_3000, _equipementSdGrElec3000.value))
+            listOfMaterialsSd.add(MaterialSd(Constants.SD_ECL_SOLARIS, _equipementSdEclSolaris.value))
+            listOfMaterialsSd.add(MaterialSd(Constants.SD_ECL_NEON, _equipementSdEclNeon.value))
+            listOfMaterialsSd.add(MaterialSd(Constants.SD_ECL_LUNAPHORE, _equipementSdEclLunaphore.value))
+
+            newSpeOperation.materialsSd = listOfMaterialsSd
         }
-        _equipementCynoNerone.value?.let {
-            listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_NERONE, it.toTime()))
-        }
-        _equipementCynoPriaxe.value?.let {
-            listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_PRIAXE, it.toTime()))
-        }
-        newSpeOperation.materialsCyno = listOfMaterials
 
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {
