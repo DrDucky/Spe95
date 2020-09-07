@@ -46,6 +46,7 @@ class AddOperationFragment : Fragment() {
     private lateinit var specialtyDocument: String
     private val args: AddOperationFragmentArgs by navArgs()
     private val agentViewModel: AgentViewModel by viewModel()
+    private val regex = Regex("\\d*:\\d*")
     private val speOperationViewModel: SpeOperationViewModel by viewModel {
         parametersOf(
             specialtyDocument
@@ -169,7 +170,7 @@ class AddOperationFragment : Fragment() {
 
     fun displayMainBloc(binding: FragmentAddOperationBinding, isShow: Boolean) {
         when (isShow) {
-            true  -> {
+            true -> {
                 binding.mainLayoutAddOperation.visibility = View.VISIBLE
                 binding.progressbarAddOperation.visibility = View.GONE
             }
@@ -183,7 +184,18 @@ class AddOperationFragment : Fragment() {
     /**
      * Set the TimeDialog and assign the text "Martine - 02:34" to the chip
      */
-    private fun setTimePicker(v: Chip) {
+    private fun setTimePicker(v: Chip, firstname: String, lastname: String) {
+        var defaultHour = 0
+        var defaultMinute = 0
+        val oldText = v.text
+        //Retrieve time setted by parsing the chip text - not ideal, but it works
+        val oldAgentTime: String? = regex.find(oldText)?.groups?.first()?.value
+        if (oldAgentTime != null && oldAgentTime.isNotEmpty()) {
+            defaultHour = oldAgentTime.substringBefore(":").toInt()
+            defaultMinute = oldAgentTime.substringAfter(":").toInt()
+        }
+        v.text =
+            getString(R.string.add_operation_chip_team_text, firstname, lastname)
         TimePickerDialog(
             activity,
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
@@ -195,8 +207,8 @@ class AddOperationFragment : Fragment() {
                 )
             }
             ,
-            0,
-            0,
+            defaultHour,
+            defaultMinute,
             true).show()
     }
 
@@ -219,7 +231,7 @@ class AddOperationFragment : Fragment() {
         chip.isClickable = true
         chip.isCheckable = false
         chip.setOnClickListener {
-            setTimePicker(chip)
+            setTimePicker(chip, person.firstname, person.lastname)
         }
         chipGroup.addView(chip as View)
         chip.setOnCloseIconClickListener {
@@ -312,8 +324,20 @@ class AddOperationFragment : Fragment() {
             vmSpeOperationViewModel._teamError.value = mandatoryFieldError
             isValid = false
         } else {
-            vmSpeOperationViewModel._teamError.value =
-                null //Clear the value if error already displayed
+            //Une durée de travail est requise
+            var inError: Boolean = false
+            for (index in 0 until binding.chipGroupTeam.childCount) {
+                val childView: Chip = binding.chipGroupTeam.getChildAt(index) as Chip
+                if (!childView.text.contains(regex))
+                    inError = true
+                break
+            }
+            if (inError) {
+                vmSpeOperationViewModel._teamError.value = getString(R.string.add_operation_error_time_required)
+                isValid = false
+            } else
+                vmSpeOperationViewModel._teamError.value =
+                    null //Clear the value if error already displayed
         }
 
         return isValid
