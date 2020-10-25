@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             val pref: Int =
                 PreferenceManager.getDefaultSharedPreferences(this)
-                    .getInt(SHARED_PREF_FRAGMENT_KEY, 1)
+                    .getInt(SHARED_PREF_FRAGMENT_KEY, 0)
             args = Bundle()
             args.putInt("specialtyId", pref)
 
