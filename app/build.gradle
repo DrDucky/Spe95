@@ -28,6 +28,10 @@ android {
         buildConfigField("String", "API_PLACES_KEY", getEnvVariable('API_PLACES_KEY'))
     }
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
