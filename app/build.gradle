@@ -4,6 +4,8 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'com.google.gms.google-services'  // Google Services plugin
 
+apply plugin: 'com.google.firebase.crashlytics'
+
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
@@ -99,6 +101,8 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
     implementation "com.google.firebase:firebase-storage:$firebase_storage_version"
     implementation "com.firebaseui:firebase-ui-storage:$firestore_ui_version"
+    implementation "com.google.firebase:firebase-crashlytics:$firebase_crashlytics_version"
+    implementation "com.google.firebase:firebase-analytics:$firebase_analytics_version"
 
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
 

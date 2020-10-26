@@ -10,8 +10,9 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:4.3.3'  // Google Services plugin
+        classpath 'com.google.gms:google-services:4.3.4'  // Google Services plugin
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0-alpha03"
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.3.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -28,11 +29,13 @@ ext {
     firebase_firestore_database_version = '21.4.3'
     firebase_storage_version = '19.1.1'
     firebase_auth_version = '19.3.1'
+    firebase_crashlytics_version = '17.2.2'
+    firebase_analytics_version = '17.6.0'
     glide_version = '4.11.0'
     firestore_ui_version = '3.3.0'
     constraint_layout_version = '2.0.0-beta4'
-    preferences_version = "1.1.0"
-    places_version = "2.2.0"
+    preferences_version = '1.1.0'
+    places_version = '2.2.0'
 }
 
 allprojects {
