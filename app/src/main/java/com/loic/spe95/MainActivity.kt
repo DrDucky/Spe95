@@ -102,13 +102,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.cyno_fragment -> {
-                args.putInt("specialtyId", 1)
+                args.putInt("specialtyId", 0)
                 navController.navigate(R.id.speOperationFragment, args)
                 drawerLayout.closeDrawers()
                 return true
             }
-            R.id.sd_fragment   -> {
-                args.putInt("specialtyId", 2)
+            R.id.sd_fragment -> {
+                args.putInt("specialtyId", 1)
                 navController.navigate(R.id.speOperationFragment, args)
                 drawerLayout.closeDrawers()
                 return true

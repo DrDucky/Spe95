@@ -40,4 +40,10 @@
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
+    <style name="Error">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/holo_red_light</item>
+    </style>
+
 </resources>

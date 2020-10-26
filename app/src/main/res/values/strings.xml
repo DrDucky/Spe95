@@ -81,5 +81,6 @@
     <string name="screen_title_add_operation">Ajouter une opération</string>
     <string name="cancel">Annuler</string>
     <string name="ok">Ok</string>
+    <string name="operation_empty_state">Pas d\'opération présente ou sélectionnée pour le moment</string>
 
 </resources>
