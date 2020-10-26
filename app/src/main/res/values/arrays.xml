@@ -36,11 +36,13 @@
         <item>Fixe</item>
         <item>2200 n°1</item>
         <item>2200 n°2</item>
-        <item>3000</item>
+        <item>3000 n°1</item>
+        <item>3000 n°2</item>
     </string-array>
     <string-array name="sd_eclairage">
         <item>Solaris</item>
         <item>Néon</item>
-        <item>Lunaphore</item>
+        <item>Lumaphore</item>
+        <item>Valise BABY</item>
     </string-array>
 </resources>

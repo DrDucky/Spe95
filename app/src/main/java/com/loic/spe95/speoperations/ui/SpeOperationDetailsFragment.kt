@@ -37,6 +37,7 @@ class SpeOperationDetailsFragment : Fragment() {
         val binding = FragmentSpeOperationDetailsBinding.inflate(inflater, container, false)
         context ?: return binding.root
 
+        binding.tvOperationEmpty.visibility = View.GONE
         binding.mainLayoutOperationDetail.visibility = View.GONE
         binding.progressbarOperationDetail.visibility = View.VISIBLE
 
@@ -82,17 +83,24 @@ class SpeOperationDetailsFragment : Fragment() {
         materialCynoAdapter: MaterialCynoAdapter,
         materialSdAdapter: MaterialSdAdapter
     ) {
-        speOperation.apply {
-            binding.speOperation = speOperation
-            binding.mainLayoutOperationDetail.visibility = View.VISIBLE
-            binding.progressbarOperationDetail.visibility = View.GONE
-            materialCynoAdapter.submitList(speOperation.materialsCyno)
+        if (speOperation.id != 0) {
+            speOperation.apply {
+                binding.speOperation = speOperation
+                binding.tvOperationEmpty.visibility = View.GONE
+                binding.mainLayoutOperationDetail.visibility = View.VISIBLE
+                binding.progressbarOperationDetail.visibility = View.GONE
+                materialCynoAdapter.submitList(speOperation.materialsCyno)
 
-            val materialSd = ArrayList<MaterialSd>()
-            for (material in speOperation.materialsSd!!) {
-                if (material.checked!!) materialSd.add(material) //We take here only materials that has not been checked when added
+                val materialSd = ArrayList<MaterialSd>()
+                for (material in speOperation.materialsSd!!) {
+                    if (material.checked!!) materialSd.add(material) //We take here only materials that has not been checked when added
+                }
+                materialSdAdapter.submitList(materialSd)
             }
-            materialSdAdapter.submitList(materialSd)
+        } else {
+            binding.tvOperationEmpty.visibility = View.VISIBLE
+            binding.mainLayoutOperationDetail.visibility = View.GONE
+            binding.progressbarOperationDetail.visibility = View.GONE
         }
     }
 }

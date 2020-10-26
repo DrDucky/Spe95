@@ -349,11 +349,18 @@ private fun setEquipmentPopupCheckboxes(
     checkboxView: View,
     vmSpeOperationViewModel: SpeOperationViewModel
 ) {
-    val checkedItems = booleanArrayOf(
+    val checkedItemsGrElec = booleanArrayOf(
         vmSpeOperationViewModel._equipementSdGrElecFixe.value!!,
         vmSpeOperationViewModel._equipementSdGrElec22001.value!!,
         vmSpeOperationViewModel._equipementSdGrElec22002.value!!,
-        vmSpeOperationViewModel._equipementSdGrElec3000.value!!
+        vmSpeOperationViewModel._equipementSdGrElec30001.value!!,
+        vmSpeOperationViewModel._equipementSdGrElec30002.value!!
+    )
+    val checkedItemsGrEClairage = booleanArrayOf(
+        vmSpeOperationViewModel._equipementSdEclSolaris.value!!,
+        vmSpeOperationViewModel._equipementSdEclNeon.value!!,
+        vmSpeOperationViewModel._equipementSdEclSolaris.value!!,
+        vmSpeOperationViewModel._equipementSdEclBaby.value!!
     )
     val checkbox = checkboxView as CompoundButton
     when (checkbox.id) {
@@ -366,19 +373,21 @@ private fun setEquipmentPopupCheckboxes(
                     checkbox.isChecked = (vmSpeOperationViewModel._equipementSdGrElecFixe.value!!
                             || vmSpeOperationViewModel._equipementSdGrElec22001.value!!
                             || vmSpeOperationViewModel._equipementSdGrElec22002.value!!
-                            || vmSpeOperationViewModel._equipementSdGrElec3000.value!!)
+                            || vmSpeOperationViewModel._equipementSdGrElec30001.value!!
+                            || vmSpeOperationViewModel._equipementSdGrElec30002.value!!)
                 }
-                .setMultiChoiceItems(R.array.sd_gr_elec, checkedItems) { dialog, which, checked ->
+                .setMultiChoiceItems(R.array.sd_gr_elec, checkedItemsGrElec) { dialog, which, checked ->
                     when (which) {
                         0 -> vmSpeOperationViewModel._equipementSdGrElecFixe.value = checked
                         1 -> vmSpeOperationViewModel._equipementSdGrElec22001.value = checked
                         2 -> vmSpeOperationViewModel._equipementSdGrElec22002.value = checked
-                        3 -> vmSpeOperationViewModel._equipementSdGrElec3000.value = checked
+                        3 -> vmSpeOperationViewModel._equipementSdGrElec30001.value = checked
+                        4 -> vmSpeOperationViewModel._equipementSdGrElec30002.value = checked
                     }
                 }
                 .show()
         }
-        R.id.tv_eclairage_category_eclairage      -> {
+        R.id.tv_eclairage_category_eclairage -> {
             MaterialAlertDialogBuilder(context)
                 .setTitle(context.resources.getString(R.string.equipment_eclairage_eclairage))
                 .setPositiveButton(context.resources.getString(R.string.ok)) { dialog, which ->
@@ -386,13 +395,15 @@ private fun setEquipmentPopupCheckboxes(
                     //Except set the checkbox check if at least one of the item has been selected
                     checkbox.isChecked = (vmSpeOperationViewModel._equipementSdEclSolaris.value!!
                             || vmSpeOperationViewModel._equipementSdEclNeon.value!!
-                            || vmSpeOperationViewModel._equipementSdEclLunaphore.value!!)
+                            || vmSpeOperationViewModel._equipementSdEclLumaphore.value!!
+                            || vmSpeOperationViewModel._equipementSdEclBaby.value!!)
                 }
-                .setMultiChoiceItems(R.array.sd_eclairage, checkedItems) { dialog, which, checked ->
+                .setMultiChoiceItems(R.array.sd_eclairage, checkedItemsGrEClairage) { dialog, which, checked ->
                     when (which) {
                         0 -> vmSpeOperationViewModel._equipementSdEclSolaris.value = checked
                         1 -> vmSpeOperationViewModel._equipementSdEclNeon.value = checked
-                        2 -> vmSpeOperationViewModel._equipementSdEclLunaphore.value = checked
+                        2 -> vmSpeOperationViewModel._equipementSdEclLumaphore.value = checked
+                        3 -> vmSpeOperationViewModel._equipementSdEclBaby.value = checked
                     }
                 }
                 .show()

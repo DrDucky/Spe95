@@ -76,11 +76,13 @@ class SpeOperationViewModel(
     val _equipementSdGrElecFixe: MutableLiveData<Boolean> = MutableLiveData(false)
     val _equipementSdGrElec22001: MutableLiveData<Boolean> = MutableLiveData(false)
     val _equipementSdGrElec22002: MutableLiveData<Boolean> = MutableLiveData(false)
-    val _equipementSdGrElec3000: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdGrElec30001: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdGrElec30002: MutableLiveData<Boolean> = MutableLiveData(false)
 
     val _equipementSdEclSolaris: MutableLiveData<Boolean> = MutableLiveData(false)
     val _equipementSdEclNeon: MutableLiveData<Boolean> = MutableLiveData(false)
-    val _equipementSdEclLunaphore: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdEclLumaphore: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdEclBaby: MutableLiveData<Boolean> = MutableLiveData(false)
 
     val _equipementSdPercGrHydrau: MutableLiveData<Boolean> = MutableLiveData(false)
     val _equipementSdPercTroncDisque: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -168,10 +170,12 @@ class SpeOperationViewModel(
             listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_FIXE, _equipementSdGrElecFixe.value))
             listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_22001, _equipementSdGrElec22001.value))
             listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_22002, _equipementSdGrElec22002.value))
-            listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_3000, _equipementSdGrElec3000.value))
+            listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_30001, _equipementSdGrElec30001.value))
+            listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_30002, _equipementSdGrElec30002.value))
             listOfMaterialsSd.add(MaterialSd(Constants.SD_ECL_SOLARIS, _equipementSdEclSolaris.value))
             listOfMaterialsSd.add(MaterialSd(Constants.SD_ECL_NEON, _equipementSdEclNeon.value))
-            listOfMaterialsSd.add(MaterialSd(Constants.SD_ECL_LUNAPHORE, _equipementSdEclLunaphore.value))
+            listOfMaterialsSd.add(MaterialSd(Constants.SD_ECL_LUMAPHORE, _equipementSdEclLumaphore.value))
+            listOfMaterialsSd.add(MaterialSd(Constants.SD_ECL_BABY, _equipementSdEclBaby.value))
 
             newSpeOperation.materialsSd = listOfMaterialsSd
         }
