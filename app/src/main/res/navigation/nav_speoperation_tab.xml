@@ -5,9 +5,25 @@
     app:startDestination="@id/speOperationDetailsDetailsFragment">
 
     <fragment
+        android:id="@+id/agentDetailsFragment"
+        android:name="com.loic.spe95.team.ui.AgentDetailsFragment"
+        android:label="@string/screen_title_agent_detail">
+
+        <argument
+            android:name="agentId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+    </fragment>
+    
+    <fragment
         android:id="@+id/speOperationDetailsDetailsFragment"
         android:name="com.loic.spe95.speoperations.ui.SpeOperationDetailsFragment"
         android:label="@string/screen_title_operation_detail">
+
+        <action
+            android:id="@+id/action_agentFragment_to_agentDetailsFragment"
+            app:destination="@id/agentDetailsFragment" />
 
         <argument
             android:name="specialtyDetailsId"
