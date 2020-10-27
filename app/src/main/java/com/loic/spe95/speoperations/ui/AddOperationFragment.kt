@@ -80,14 +80,6 @@ class AddOperationFragment : Fragment() {
             bindingListEquipmentCyno,
             bindingListEquipmentSd
         )
-        //Binding
-        val adapter =
-            ArrayAdapter(
-                this.context!!,
-                android.R.layout.simple_list_item_1,
-                resources.getStringArray(R.array.motifs).asList()
-            )
-        binding.actvMotif.setAdapter(adapter)
         binding.vmSpeOperation = speOperationViewModel
         binding.vmAgents = agentViewModel
 
@@ -277,10 +269,24 @@ class AddOperationFragment : Fragment() {
         var layoutToAdd: View? = null
         when (specialtyId) {
             Constants.FIRESTORE_CYNO_ID_DOCUMENT -> layoutToAdd = bindingListEquipmentCyno.root
-            Constants.FIRESTORE_SD_ID_DOCUMENT   -> layoutToAdd = bindingListEquipmentSd.root
+            Constants.FIRESTORE_SD_ID_DOCUMENT -> layoutToAdd = bindingListEquipmentSd.root
         }
 
         binding.equipment.addView(layoutToAdd)
+
+        //Motifs
+        var arrayForMotifs: Int = R.array.motifs_cyno //Default value
+        when (specialtyId) {
+            Constants.FIRESTORE_CYNO_ID_DOCUMENT -> arrayForMotifs = R.array.motifs_cyno
+            Constants.FIRESTORE_SD_ID_DOCUMENT -> arrayForMotifs = R.array.motifs_sd
+        }
+        val adapter =
+            ArrayAdapter(
+                this.context!!,
+                android.R.layout.simple_list_item_1,
+                resources.getStringArray(arrayForMotifs).asList()
+            )
+        binding.actvMotif.setAdapter(adapter)
     }
 
     /**

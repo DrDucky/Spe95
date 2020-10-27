@@ -26,11 +26,22 @@
         <item name="grey_500" type="color">#9e9e9e</item>
         <item name="blue_grey_500" type="color">#607d8b</item>
     </array>
-    <string-array name="motifs">
+    <string-array name="motifs_cyno">
         <item>Effondrement</item>
         <item>Quête</item>
         <item>AVP</item>
         <item>Noyade</item>
+        <item>Recherche souterraine</item>
+    </string-array>
+    <string-array name="motifs_sd">
+        <item>Effondrement</item>
+        <item>Animaux</item>
+        <item>Manoeuvre de force</item>
+        <item>Etude batimentaire</item>
+        <item>Etaiement</item>
+        <item>Sauvetage / Evactuation</item>
+        <item>Percement</item>
+        <item>Sécurisation</item>
     </string-array>
     <string-array name="sd_gr_elec">
         <item>Fixe</item>
