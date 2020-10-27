@@ -5,9 +5,15 @@
 
     <data>
 
+        <variable
+            name="handler"
+            type="com.loic.spe95.speoperations.ui.SpeOperationHandlerClick" />
+
         <import type="android.view.View" />
 
         <import type="com.loic.spe95.utils.ConverterKt" />
+
+        <import type="com.loic.spe95.utils.Constants" />
 
         <variable
             name="speOperation"
@@ -37,7 +43,7 @@
                 app:layout_constraintEnd_toEndOf="@id/gl_side_right"
                 app:layout_constraintStart_toStartOf="@id/gl_side_left"
                 app:layout_constraintTop_toBottomOf="@id/gl_header_top"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <androidx.constraintlayout.widget.Group
                     android:id="@+id/cards_group"
@@ -68,7 +74,21 @@
                     android:textAppearance="?attr/textAppearanceHeadline5"
                     app:layout_constraintStart_toEndOf="@id/tv_type"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="654567" />
+                    tools:text="654567"
+                    android:visibility="@{speOperation.type == Constants.TYPE_OPERATION_INTERVENTION ? View.VISIBLE : View.GONE, default = gone}" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_date"
+                    style="@style/CategorySubtitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:paddingEnd="@dimen/dimen_4dp"
+                    android:paddingBottom="@dimen/dimen_8dp"
+                    android:text="@{ConverterKt.dateToString(speOperation.startDate)}"
+                    app:layout_constraintEnd_toStartOf="@id/iv_type"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="14 janvier 2020 - 14:32" />
 
                 <ImageView
                     android:id="@+id/iv_type"
@@ -77,7 +97,8 @@
                     app:imageResource="@{ConverterKt.getTypeToDrawable(speOperation.type)}"
                     android:tint="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/ic_type_training" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_operation_motif"
@@ -89,7 +110,7 @@
                     android:text="@{String.valueOf(speOperation.motif)}"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_operation_id"
+                    app:layout_constraintTop_toBottomOf="@id/tv_type"
                     tools:text="Effondrement" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -103,6 +124,9 @@
                     android:textAppearance="?attr/textAppearanceBody1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_operation_motif"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{(view) -> handler.onAddressClick(view, speOperation)}"
                     tools:text="18 rue Youri Gargarine, 95100 Argenteuil, France" />
 
                 <View

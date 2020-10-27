@@ -50,6 +50,9 @@ class SpeOperationDetailsFragment : Fragment() {
         binding.rvMaterialCynoList.adapter = materialAdapter
         binding.rvMaterialSdList.adapter = materialSdAdapter
 
+        val speOperationHandler = SpeOperationHandlerClick()
+        binding.handler = speOperationHandler
+
         speOperationViewModel.fetchSpeOperationInformation(speOperationId)
         subscribeUi(binding, adapter, materialAdapter, materialSdAdapter)
         setHasOptionsMenu(true)

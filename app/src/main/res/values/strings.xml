@@ -82,5 +82,7 @@
     <string name="cancel">Annuler</string>
     <string name="ok">Ok</string>
     <string name="operation_empty_state">Pas d\'opération présente ou sélectionnée pour le moment</string>
+    <string name="screen_title_exit_app">Sortir de l\'application</string>
+    <string name="screen_title_go_gmaps">Etes-vous sûr de vouloir sortir de l\'application pour aller sur Google Maps ?</string>
 
 </resources>
