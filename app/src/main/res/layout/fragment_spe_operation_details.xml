@@ -74,7 +74,7 @@
                     android:id="@+id/iv_type"
                     android:layout_width="46dp"
                     android:layout_height="46dp"
-                    android:src="@drawable/ic_type_intervention"
+                    app:imageResource="@{ConverterKt.getTypeToDrawable(speOperation.type)}"
                     android:tint="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

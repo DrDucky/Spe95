@@ -42,8 +42,12 @@ class SpeOperationAdapter :
             when (speOperation.type) {
                 Constants.TYPE_OPERATION_INTERVENTION ->
                     displayIcon(imageView, R.drawable.ic_type_intervention)
-                Constants.TYPE_OPERATION_TRAINING     ->
+                Constants.TYPE_OPERATION_TRAINING ->
                     displayIcon(imageView, R.drawable.ic_type_training)
+                Constants.TYPE_OPERATION_FORMATION ->
+                    displayIcon(imageView, R.drawable.ic_type_formation)
+                Constants.TYPE_OPERATION_INFORMATION ->
+                    displayIcon(imageView, R.drawable.ic_type_information)
             }
             itemView.tag = speOperation
         }

@@ -112,6 +112,66 @@
                         app:tint="@color/white" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/fab_add_formation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/colorSecondary"
+                        android:elevation="2dp"
+                        android:padding="@dimen/dimen_8dp"
+                        android:text="Formation"
+                        android:textColor="@color/white" />
+
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        style="@style/Widget.MaterialComponents.FloatingActionButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dimen_16dp"
+                        android:onClick="@{(view) -> handler.onAddOperationClick(view, specialtyId, 3)}"
+                        app:backgroundTint="@color/colorSecondary"
+                        app:fabSize="mini"
+                        app:rippleColor="@color/white"
+                        app:srcCompat="@drawable/ic_type_formation"
+                        app:tint="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/fab_add_information"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/colorSecondary"
+                        android:elevation="2dp"
+                        android:padding="@dimen/dimen_8dp"
+                        android:text="Information"
+                        android:textColor="@color/white" />
+
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        style="@style/Widget.MaterialComponents.FloatingActionButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dimen_16dp"
+                        android:onClick="@{(view) -> handler.onAddOperationClick(view, specialtyId, 4)}"
+                        app:backgroundTint="@color/colorSecondary"
+                        app:fabSize="mini"
+                        app:rippleColor="@color/white"
+                        app:srcCompat="@drawable/ic_type_information"
+                        app:tint="@color/white" />
+                </LinearLayout>
+
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab_add_operation"
                     style="@style/Widget.MaterialComponents.FloatingActionButton"

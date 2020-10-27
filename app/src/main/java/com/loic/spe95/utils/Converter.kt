@@ -4,6 +4,7 @@ import android.content.Context
 import android.location.Geocoder
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
+import com.loic.spe95.R
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -47,15 +48,29 @@ fun geopointToString(
 fun getTypeToString(value: Int): String {
     when (value) {
         Constants.TYPE_OPERATION_INTERVENTION -> return Constants.TYPE_OPERATION_INTERVENTION_TITLE
-        Constants.TYPE_OPERATION_TRAINING     -> return Constants.TYPE_OPERATION_TRAINING_TITLE
+        Constants.TYPE_OPERATION_TRAINING -> return Constants.TYPE_OPERATION_TRAINING_TITLE
+        Constants.TYPE_OPERATION_FORMATION -> return Constants.TYPE_OPERATION_FORMATION_TITLE
+        Constants.TYPE_OPERATION_INFORMATION -> return Constants.TYPE_OPERATION_INFORMATION_TITLE
     }
     return Constants.TYPE_OPERATION_INTERVENTION_TITLE //Default one
+}
+
+fun getTypeToDrawable(value: Int): Int {
+    when (value) {
+        Constants.TYPE_OPERATION_INTERVENTION -> return R.drawable.ic_type_intervention
+        Constants.TYPE_OPERATION_TRAINING -> return R.drawable.ic_type_training
+        Constants.TYPE_OPERATION_FORMATION -> return R.drawable.ic_type_formation
+        Constants.TYPE_OPERATION_INFORMATION -> return R.drawable.ic_type_information
+    }
+    return R.drawable.ic_type_intervention //Default one
 }
 
 fun getStringToType(value: String): Int {
     when (value) {
         Constants.TYPE_OPERATION_INTERVENTION_TITLE -> return Constants.TYPE_OPERATION_INTERVENTION
-        Constants.TYPE_OPERATION_TRAINING_TITLE     -> return Constants.TYPE_OPERATION_TRAINING
+        Constants.TYPE_OPERATION_TRAINING_TITLE -> return Constants.TYPE_OPERATION_TRAINING
+        Constants.TYPE_OPERATION_FORMATION_TITLE -> return Constants.TYPE_OPERATION_FORMATION
+        Constants.TYPE_OPERATION_INFORMATION_TITLE -> return Constants.TYPE_OPERATION_INFORMATION
     }
     return Constants.TYPE_OPERATION_INTERVENTION //Default one
 }

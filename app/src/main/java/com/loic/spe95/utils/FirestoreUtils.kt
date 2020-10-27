@@ -24,7 +24,9 @@ fun String.getFirestoreIdCollection(): Int {
 fun String.getType(): Int {
     when (this) {
         Constants.TYPE_OPERATION_INTERVENTION_TITLE -> return Constants.TYPE_OPERATION_INTERVENTION
-        Constants.TYPE_OPERATION_TRAINING_TITLE     -> return Constants.TYPE_OPERATION_TRAINING
+        Constants.TYPE_OPERATION_TRAINING_TITLE -> return Constants.TYPE_OPERATION_TRAINING
+        Constants.TYPE_OPERATION_FORMATION_TITLE -> return Constants.TYPE_OPERATION_FORMATION
+        Constants.TYPE_OPERATION_INFORMATION_TITLE -> return Constants.TYPE_OPERATION_INFORMATION
     }
     return Constants.TYPE_OPERATION_INTERVENTION //Default one
 }

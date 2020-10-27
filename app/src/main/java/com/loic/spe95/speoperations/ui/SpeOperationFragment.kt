@@ -46,15 +46,21 @@ class SpeOperationFragment : Fragment() {
          */
         fabInit(binding.fabAddIntervention)
         fabInit(binding.fabAddTraining)
+        fabInit(binding.fabAddFormation)
+        fabInit(binding.fabAddInformation)
         isRotate = false //Reinit the rotation (if leave the screen for example and go back)
         binding.fabAddOperation.setOnClickListener(View.OnClickListener {
             isRotate = it.rotateFab(!isRotate)
             if (isRotate) {
                 fabShowIn(binding.fabAddIntervention)
                 fabShowIn(binding.fabAddTraining)
+                fabShowIn(binding.fabAddFormation)
+                fabShowIn(binding.fabAddInformation)
             } else {
                 fabShowOut(binding.fabAddIntervention)
                 fabShowOut(binding.fabAddTraining)
+                fabShowOut(binding.fabAddFormation)
+                fabShowOut(binding.fabAddInformation)
             }
         })
 
