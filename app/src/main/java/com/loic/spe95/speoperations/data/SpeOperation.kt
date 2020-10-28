@@ -17,9 +17,6 @@ data class SpeOperation(
     @set:PropertyName("specialty_id")
     var specialtyId: Int = 0,
 
-    @field:SerializedName("agents")
-    var agents: List<Int> = ArrayList(),
-
     @field:SerializedName("id")
     var id: Int = 0,
 
@@ -43,6 +40,10 @@ data class SpeOperation(
     @get:PropertyName("unit_chief")
     @set:PropertyName("unit_chief")
     var unitChief: String? = "",
+
+    @get:PropertyName("agentsOperation")
+    @set:PropertyName("agentsOperation")
+    var agentOnOperation: List<AgentOnOperation>? = ArrayList(),
 
     @get:PropertyName("materialsCyno")
     @set:PropertyName("materialsCyno")

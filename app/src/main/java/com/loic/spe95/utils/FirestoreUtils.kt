@@ -8,7 +8,7 @@ import java.util.*
 fun Int.getFirestoreCollection(): String {
     when (this) {
         Constants.FIRESTORE_CYNO_ID_DOCUMENT -> return Constants.FIRESTORE_CYNO_DOCUMENT
-        Constants.FIRESTORE_SD_ID_DOCUMENT   -> return Constants.FIRESTORE_SD_DOCUMENT
+        Constants.FIRESTORE_SD_ID_DOCUMENT -> return Constants.FIRESTORE_SD_DOCUMENT
     }
     return Constants.FIRESTORE_CYNO_DOCUMENT //Default one
 }
@@ -16,7 +16,7 @@ fun Int.getFirestoreCollection(): String {
 fun String.getFirestoreIdCollection(): Int {
     when (this) {
         Constants.FIRESTORE_CYNO_DOCUMENT -> return Constants.FIRESTORE_CYNO_ID_DOCUMENT
-        Constants.FIRESTORE_SD_DOCUMENT   -> return Constants.FIRESTORE_SD_ID_DOCUMENT
+        Constants.FIRESTORE_SD_DOCUMENT -> return Constants.FIRESTORE_SD_ID_DOCUMENT
     }
     return Constants.FIRESTORE_CYNO_ID_DOCUMENT //Default one
 }
@@ -39,15 +39,11 @@ fun String.getTimestamp(): Timestamp? {
 
 
 /**
- * Time format hh:mm to seconds
+ * Time format hh:mm to minutes
  */
 fun String.toTime(): Int {
-    if (this != null) {
-        val values = this.split(":")
-        val hours = values[0].toInt() * 3600
-        val minutes = values[1].toInt() * 60
-        return hours + minutes
-    } else {
-        return 0
-    }
+    val values = this.split(":")
+    val hours = values[0].toInt() * 60
+    val minutes = values[1].toInt()
+    return hours + minutes
 }

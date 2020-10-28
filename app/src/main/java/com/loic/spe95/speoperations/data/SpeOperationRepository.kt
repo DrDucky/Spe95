@@ -36,8 +36,8 @@ class SpeOperationRepository {
                 .whereEqualTo("id", speOperationId)
                 .limit(1)
                 .get().await()) {
-            is Result.Success  -> {
-                var speOperation = SpeOperation(0, listOf(1), 0, 1, "lala")
+            is Result.Success -> {
+                var speOperation = SpeOperation(0, 0, 1, "lala")
                 if (documentSnapshot.data.documents.size > 0) {
                     speOperation =
                         documentSnapshot.data.documents[0].toObject(SpeOperation::class.java)!!

@@ -6,10 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.GeoPoint
 import com.loic.spe95.data.Result
 import com.loic.spe95.data.SingleLiveEvent
-import com.loic.spe95.speoperations.data.MaterialCyno
-import com.loic.spe95.speoperations.data.MaterialSd
-import com.loic.spe95.speoperations.data.SpeOperation
-import com.loic.spe95.speoperations.data.SpeOperationRepository
+import com.loic.spe95.speoperations.data.*
 import com.loic.spe95.utils.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -60,6 +57,9 @@ class SpeOperationViewModel(
 
     val _teamUnitChief: MutableLiveData<String> = MutableLiveData()
     val teamUnitChief: LiveData<String> = _teamUnitChief
+
+    val _teamAgent: MutableLiveData<List<AgentOnOperation>> = MutableLiveData()
+    val teamAgent: LiveData<List<AgentOnOperation>> = _teamAgent
 
     val _team: MutableLiveData<List<Int>> = MutableLiveData()
     val team: LiveData<List<Int>> = _team
@@ -135,7 +135,10 @@ class SpeOperationViewModel(
             newSpeOperation.id = Integer.valueOf(id.value!!)
         newSpeOperation.motif = motif.value!!
         newSpeOperation.type = type.value!!.getType()
-        newSpeOperation.agents = _team.value!!
+
+        newSpeOperation.agentOnOperation = _teamAgent.value!!
+
+        //newSpeOperation.agents = _team.value!!
         newSpeOperation.startDate = _startDateTime.value!!.getTimestamp()
         newSpeOperation.address = _address.value!!
         newSpeOperation.unitChief = _teamUnitChief.value

@@ -29,6 +29,7 @@ import com.loic.spe95.R
 import com.loic.spe95.databinding.FragmentAddOperationBinding
 import com.loic.spe95.databinding.ListItemAddOperationEquipmentCynoBinding
 import com.loic.spe95.databinding.ListItemAddOperationEquipmentSdBinding
+import com.loic.spe95.speoperations.data.AgentOnOperation
 import com.loic.spe95.team.data.Agent
 import com.loic.spe95.team.ui.AgentViewModel
 import com.loic.spe95.utils.Constants
@@ -52,7 +53,17 @@ class AddOperationFragment : Fragment() {
             specialtyDocument
         )
     }
-    private val teamList = arrayListOf<Int>()
+
+    /* List of Agent & time. Exemple :
+    Paul ID : 8
+    Time on operation : 01:15
+    hashmap = <8, Paul - 01:15>
+
+    Pierre ID : 9
+    Time on operation : 02:30
+    teamList = (<8, Paul - 01:15>, <9, Pierre - 02:30>)
+     */
+    private val teamList = arrayListOf<AgentOnOperation>()
 
 
     override fun onCreateView(
@@ -119,7 +130,8 @@ class AddOperationFragment : Fragment() {
 
         binding.btnAddOperation.setOnClickListener(View.OnClickListener {
             if (validate(speOperationViewModel, binding)) {
-                speOperationViewModel._team.value = teamList
+                speOperationViewModel._teamAgent.value = teamList
+                //speOperationViewModel._team.value = teamList
                 displayMainBloc(binding, false)
                 speOperationViewModel.addOperationIntoFirestore()
             }
@@ -176,7 +188,7 @@ class AddOperationFragment : Fragment() {
     /**
      * Set the TimeDialog and assign the text "Martine - 02:34" to the chip
      */
-    private fun setTimePicker(v: Chip, firstname: String, lastname: String) {
+    private fun setTimePicker(v: Chip, person: Agent, selectedAgent: AgentOnOperation) {
         var defaultHour = 0
         var defaultMinute = 0
         val oldText = v.text
@@ -187,7 +199,7 @@ class AddOperationFragment : Fragment() {
             defaultMinute = oldAgentTime.substringAfter(":").toInt()
         }
         v.text =
-            getString(R.string.add_operation_chip_team_text, firstname, lastname)
+            getString(R.string.add_operation_chip_team_text, person.firstname, person.lastname)
         TimePickerDialog(
             activity,
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
@@ -197,11 +209,18 @@ class AddOperationFragment : Fragment() {
                     hourOfDay,
                     minute
                 )
-            }
-            ,
+                val c = Calendar.getInstance()
+                c.set(Calendar.HOUR, hourOfDay)
+                c.set(Calendar.MINUTE, minute)
+
+                //Adding agent to list
+                selectedAgent.time = hourOfDay * 60 + minute
+                teamList.add(selectedAgent)
+            },
             defaultHour,
             defaultMinute,
-            true).show()
+            true
+        ).show()
     }
 
     /**
@@ -209,6 +228,7 @@ class AddOperationFragment : Fragment() {
      * Used for team members
      */
     private fun addChipToGroup(person: Agent, chipGroup: ChipGroup) {
+        val selectedAgent = AgentOnOperation(person.id)
         val chip = Chip(context)
         chip.text =
             getString(R.string.add_operation_chip_team_text, person.firstname, person.lastname)
@@ -216,19 +236,16 @@ class AddOperationFragment : Fragment() {
         chip.isCloseIconVisible = true
         chip.setChipIconTintResource(R.color.colorSecondary)
 
-        //Adding agent to list
-        teamList.add(person.id)
-
         // necessary to get single selection working
         chip.isClickable = true
         chip.isCheckable = false
         chip.setOnClickListener {
-            setTimePicker(chip, person.firstname, person.lastname)
+            setTimePicker(chip, person, selectedAgent)
         }
         chipGroup.addView(chip as View)
         chip.setOnCloseIconClickListener {
             //Remove agent from list
-            teamList.remove(person.id)
+            teamList.remove(selectedAgent)
             chipGroup.removeView(chip as View)
         }
     }

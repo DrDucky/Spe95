@@ -72,7 +72,11 @@ class SpeOperationDetailsFragment : Fragment() {
                 bindView(binding, it, materialCynoAdapter, materialSdAdapter)
                 binding.cardsGroup.visibility = View.VISIBLE
 
-                agentsViewModel.fetchAgentsInformationFrom(it.agents)
+                val agentsId = ArrayList<Int>()
+                for (agents in it.agentOnOperation!!) {
+                    agentsId.add(agents.id!!)
+                }
+                agentsViewModel.fetchAgentsInformationFrom(agentsId.toList())
             })
 
         agentsViewModel.agentsLd.observe(viewLifecycleOwner, Observer { it ->
