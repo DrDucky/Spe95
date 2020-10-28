@@ -2,6 +2,7 @@ package com.loic.spe95
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -15,7 +16,6 @@ import androidx.navigation.ui.*
 import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.loic.spe95.databinding.ActivityMainBinding
 import com.loic.spe95.signin.ui.SignInActivity
 import com.loic.spe95.utils.Constants.Companion.SHARED_PREF_FRAGMENT_KEY
@@ -122,6 +122,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun updateUi(currentUser: FirebaseUser?) {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.stats_fragment -> {
+                args.getInt("specialtyId", 0)
+                navController.navigate(R.id.statistiquesFragment)
+                true
+            }
+            else                -> super.onOptionsItemSelected(item)
+        }
     }
 }

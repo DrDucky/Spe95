@@ -87,4 +87,16 @@
             app:enterAnim="@android:anim/fade_out" />
     </fragment>
 
+    <fragment
+        android:id="@+id/statistiquesFragment"
+        android:name="com.loic.spe95.speoperations.ui.StatistiquesFragment"
+        android:label="@string/screen_title_statistiques">
+
+        <argument
+            android:name="specialtyId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+    </fragment>
+
 </navigation>

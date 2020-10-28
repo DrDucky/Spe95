@@ -72,6 +72,8 @@
     <string name="menu_agents_title">Agents</string>
     <string name="menu_settings_title">Paramètres</string>
     <string name="menu_csp_name_title">CSP Argenteuil</string>
+    <string name="menu_stats_title">Statistiques</string>
+
 
     <!-- Screen titles -->
     <string name="screen_title_operations_list">Liste d\'opérations</string>
@@ -79,6 +81,7 @@
     <string name="screen_title_agents_list">Liste des agents</string>
     <string name="screen_title_agent_detail">Détail de l\'agent</string>
     <string name="screen_title_add_operation">Ajouter une opération</string>
+    <string name="screen_title_statistiques">Statistiques</string>
     <string name="cancel">Annuler</string>
     <string name="ok">Ok</string>
     <string name="operation_empty_state">Pas d\'opération présente ou sélectionnée pour le moment</string>
