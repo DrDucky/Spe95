@@ -7,7 +7,10 @@ import com.google.firebase.firestore.GeoPoint
 import com.loic.spe95.data.Result
 import com.loic.spe95.data.SingleLiveEvent
 import com.loic.spe95.speoperations.data.*
-import com.loic.spe95.utils.*
+import com.loic.spe95.utils.Constants
+import com.loic.spe95.utils.getTimestamp
+import com.loic.spe95.utils.getType
+import com.loic.spe95.utils.toTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -142,11 +145,12 @@ class SpeOperationViewModel(
         newSpeOperation.startDate = _startDateTime.value!!.getTimestamp()
         newSpeOperation.address = _address.value!!
         newSpeOperation.unitChief = _teamUnitChief.value
+        newSpeOperation.specialty = specialtyDocument
 
         /**
          * CYNO Operation
          */
-        if (specialtyDocument.getFirestoreIdCollection() == Constants.FIRESTORE_CYNO_ID_DOCUMENT) {
+        if (specialtyDocument == Constants.FIRESTORE_CYNO_DOCUMENT) {
             val listOfMaterials = ArrayList<MaterialCyno>()
             _equipementCynoIpso.value?.let {
                 listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_IPSO, it.toTime()))
@@ -166,7 +170,7 @@ class SpeOperationViewModel(
         /**
          * SD Operation
          */
-        if (specialtyDocument.getFirestoreIdCollection() == Constants.FIRESTORE_SD_ID_DOCUMENT) {
+        if (specialtyDocument == Constants.FIRESTORE_SD_DOCUMENT) {
             val listOfMaterialsSd = ArrayList<MaterialSd>()
 
             listOfMaterialsSd.add(MaterialSd(Constants.SD_LSPCC, _equipementSdLspcc.value))

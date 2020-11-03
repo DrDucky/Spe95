@@ -8,7 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.loic.spe95.databinding.FragmentSpeOperationsBinding
-import com.loic.spe95.utils.*
+import com.loic.spe95.utils.fabInit
+import com.loic.spe95.utils.fabShowIn
+import com.loic.spe95.utils.fabShowOut
+import com.loic.spe95.utils.rotateFab
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -32,13 +35,12 @@ class SpeOperationFragment : Fragment() {
         val binding = FragmentSpeOperationsBinding.inflate(inflater, container, false)
         context ?: return binding.root
 
-        val specialtyId = args.specialtyId
-        specialtyDocument = args.specialtyId.getFirestoreCollection()
+        specialtyDocument = args.specialty
 
         val adapter = SpeOperationAdapter()
         val speOperationHandler = SpeOperationHandlerClick()
         binding.recyclerView.adapter = adapter
-        binding.specialtyId = specialtyId
+        binding.specialty = specialtyDocument
         binding.handler = speOperationHandler
 
         /**

@@ -37,7 +37,7 @@ class SpeOperationRepository {
                 .limit(1)
                 .get().await()) {
             is Result.Success -> {
-                var speOperation = SpeOperation(0, 0, 1, "lala")
+                var speOperation = SpeOperation("cyno", 0, 1, "lala")
                 if (documentSnapshot.data.documents.size > 0) {
                     speOperation =
                         documentSnapshot.data.documents[0].toObject(SpeOperation::class.java)!!

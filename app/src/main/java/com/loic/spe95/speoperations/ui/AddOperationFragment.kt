@@ -33,7 +33,6 @@ import com.loic.spe95.speoperations.data.AgentOnOperation
 import com.loic.spe95.team.data.Agent
 import com.loic.spe95.team.ui.AgentViewModel
 import com.loic.spe95.utils.Constants
-import com.loic.spe95.utils.getFirestoreCollection
 import com.loic.spe95.utils.getStringToType
 import com.loic.spe95.utils.getTypeToString
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -81,12 +80,12 @@ class AddOperationFragment : Fragment() {
         binding.lifecycleOwner = this
         context ?: return binding.root
 
-        specialtyDocument = args.specialtyId.getFirestoreCollection()
+        specialtyDocument = args.specialty
         speOperationViewModel._type.value = getTypeToString(args.typeId)
 
         setCustomMaterialView(
             speOperationViewModel,
-            args.specialtyId,
+            args.specialty,
             binding,
             bindingListEquipmentCyno,
             bindingListEquipmentSd
@@ -154,7 +153,7 @@ class AddOperationFragment : Fragment() {
             ).show()
             val direction =
                 AddOperationFragmentDirections.actionAddOperationFragmentToSpeOperationFragment()
-                    .setSpecialtyId(args.specialtyId)
+                    .setSpecialty(args.specialty)
             findNavController().navigate(direction)
         })
 
@@ -255,7 +254,7 @@ class AddOperationFragment : Fragment() {
      */
     private fun setCustomMaterialView(
         vmSpeOperationViewModel: SpeOperationViewModel,
-        specialtyId: Int,
+        specialtyId: String,
         binding: FragmentAddOperationBinding,
         bindingListEquipmentCyno: ListItemAddOperationEquipmentCynoBinding,
         bindingListEquipmentSd: ListItemAddOperationEquipmentSdBinding
@@ -285,8 +284,8 @@ class AddOperationFragment : Fragment() {
 
         var layoutToAdd: View? = null
         when (specialtyId) {
-            Constants.FIRESTORE_CYNO_ID_DOCUMENT -> layoutToAdd = bindingListEquipmentCyno.root
-            Constants.FIRESTORE_SD_ID_DOCUMENT -> layoutToAdd = bindingListEquipmentSd.root
+            Constants.FIRESTORE_CYNO_DOCUMENT -> layoutToAdd = bindingListEquipmentCyno.root
+            Constants.FIRESTORE_SD_DOCUMENT -> layoutToAdd = bindingListEquipmentSd.root
         }
 
         binding.equipment.addView(layoutToAdd)
@@ -294,8 +293,8 @@ class AddOperationFragment : Fragment() {
         //Motifs
         var arrayForMotifs: Int = R.array.motifs_cyno //Default value
         when (specialtyId) {
-            Constants.FIRESTORE_CYNO_ID_DOCUMENT -> arrayForMotifs = R.array.motifs_cyno
-            Constants.FIRESTORE_SD_ID_DOCUMENT -> arrayForMotifs = R.array.motifs_sd
+            Constants.FIRESTORE_CYNO_DOCUMENT -> arrayForMotifs = R.array.motifs_cyno
+            Constants.FIRESTORE_SD_DOCUMENT -> arrayForMotifs = R.array.motifs_sd
         }
         val adapter =
             ArrayAdapter(

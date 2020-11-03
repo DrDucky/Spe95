@@ -24,15 +24,15 @@ class SpeOperationHandlerClick {
                 val direction =
                     SpeOperationFragmentDirections.actionSpeOperationFragmentToSpeOperationDetailsFragment()
                         .setSpeOperationId(speOperation.id)
-                        .setSpecialtyDetailsId(speOperation.specialtyId)
+                        .setSpecialtyDetails(speOperation.specialty)
                 it.findNavController().navigate(direction)
             }
-            true  -> {
+            true -> {
                 val navHost =
                     it.findFragment<Fragment>().childFragmentManager.findFragmentById(R.id.fragment_spe_operation_details_container) as NavHostFragment
                 val bundle = bundleOf(
                     "speOperationId" to speOperation.id,
-                    "specialtyDetailsId" to speOperation.specialtyId
+                    "specialtyDetails" to speOperation.specialty
                 )
                 navHost.findNavController()
                     .navigate(R.id.speOperationDetailsDetailsFragment, bundle)
@@ -46,10 +46,10 @@ class SpeOperationHandlerClick {
         it.findNavController().navigate(direction)
     }
 
-    fun onAddOperationClick(it: View, specialtyId: Int, typeId: Int) {
+    fun onAddOperationClick(it: View, specialty: String, typeId: Int) {
         val direction =
             SpeOperationFragmentDirections.actionSpeOperationFragmentToAddOperationFragment()
-                .setSpecialtyId(specialtyId).setTypeId(typeId)
+                .setSpecialty(specialty).setTypeId(typeId)
         it.findNavController().navigate(direction)
     }
 

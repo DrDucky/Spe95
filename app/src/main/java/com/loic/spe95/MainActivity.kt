@@ -61,11 +61,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             graph = navInflater.inflate(R.navigation.nav_main)
             graph.startDestination = R.id.speOperationFragment
 
-            val pref: Int =
+            val pref: String? =
                 PreferenceManager.getDefaultSharedPreferences(this)
-                    .getInt(SHARED_PREF_FRAGMENT_KEY, 0)
+                    .getString(SHARED_PREF_FRAGMENT_KEY, "cyno")
             args = Bundle()
-            args.putInt("specialtyId", pref)
+            args.putString("specialty", pref)
 
             navController.setGraph(graph, args)
 
@@ -102,13 +102,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.cyno_fragment -> {
-                args.putInt("specialtyId", 0)
+                args.putString("specialty", "cyno")
                 navController.navigate(R.id.speOperationFragment, args)
                 drawerLayout.closeDrawers()
                 return true
             }
             R.id.sd_fragment -> {
-                args.putInt("specialtyId", 1)
+                args.putString("specialty", "sd")
                 navController.navigate(R.id.speOperationFragment, args)
                 drawerLayout.closeDrawers()
                 return true

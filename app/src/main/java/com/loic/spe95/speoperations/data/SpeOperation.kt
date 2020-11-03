@@ -13,9 +13,9 @@ import com.loic.spe95.team.ui.AgentAutocompleteAdapter
 
 data class SpeOperation(
 
-    @get:PropertyName("specialty_id")
-    @set:PropertyName("specialty_id")
-    var specialtyId: Int = 0,
+    @get:PropertyName("specialty")
+    @set:PropertyName("specialty")
+    var specialty: String = "",
 
     @field:SerializedName("id")
     var id: Int = 0,

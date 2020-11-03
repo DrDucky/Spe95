@@ -2,9 +2,7 @@ package com.loic.spe95.utils
 
 class Constants {
     companion object {
-        const val FIRESTORE_CYNO_ID_DOCUMENT = 0
         const val FIRESTORE_CYNO_DOCUMENT = "cyno"
-        const val FIRESTORE_SD_ID_DOCUMENT = 1
         const val FIRESTORE_SD_DOCUMENT = "sd"
 
         const val TYPE_OPERATION_INTERVENTION = 1

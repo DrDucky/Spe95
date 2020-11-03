@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="specialtyId"
-            type="Integer" />
+            name="specialty"
+            type="String" />
 
         <variable
             name="handler"

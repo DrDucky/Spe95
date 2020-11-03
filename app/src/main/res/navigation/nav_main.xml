@@ -42,9 +42,9 @@
             app:enterAnim="@android:anim/fade_in" />
 
         <argument
-            android:name="specialtyId"
-            android:defaultValue="-1"
-            app:argType="integer" />
+            android:name="specialty"
+            android:defaultValue="cyno"
+            app:argType="string" />
 
     </fragment>
     <fragment
@@ -57,9 +57,9 @@
             app:destination="@id/agentDetailsFragment" />
 
         <argument
-            android:name="specialtyDetailsId"
-            android:defaultValue="-1"
-            app:argType="integer" />
+            android:name="specialtyDetails"
+            android:defaultValue="cyno"
+            app:argType="string" />
 
         <argument
             android:name="speOperationId"
@@ -73,9 +73,9 @@
         android:label="@string/screen_title_add_operation">
 
         <argument
-            android:name="specialtyId"
-            android:defaultValue="-1"
-            app:argType="integer" />
+            android:name="specialty"
+            android:defaultValue="cyno"
+            app:argType="string" />
 
         <argument
             android:name="typeId"
@@ -93,9 +93,9 @@
         android:label="@string/screen_title_statistiques">
 
         <argument
-            android:name="specialtyId"
-            android:defaultValue="-1"
-            app:argType="integer" />
+            android:name="specialty"
+            android:defaultValue="cyno"
+            app:argType="string" />
 
     </fragment>
 

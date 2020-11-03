@@ -14,7 +14,6 @@ import com.loic.spe95.team.ui.AgentAdapter
 import com.loic.spe95.team.ui.AgentViewModel
 import com.loic.spe95.team.ui.MaterialCynoAdapter
 import com.loic.spe95.team.ui.MaterialSdAdapter
-import com.loic.spe95.utils.getFirestoreCollection
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -42,7 +41,7 @@ class SpeOperationDetailsFragment : Fragment() {
         binding.progressbarOperationDetail.visibility = View.VISIBLE
 
         val speOperationId = args.speOperationId
-        specialtyDocument = args.specialtyDetailsId.getFirestoreCollection()
+        specialtyDocument = args.specialtyDetails
         val adapter = AgentAdapter()
         val materialAdapter = MaterialCynoAdapter()
         val materialSdAdapter = MaterialSdAdapter()

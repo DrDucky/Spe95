@@ -26,9 +26,9 @@
             app:destination="@id/agentDetailsFragment" />
 
         <argument
-            android:name="specialtyDetailsId"
-            android:defaultValue="-1"
-            app:argType="integer" />
+            android:name="specialtyDetails"
+            android:defaultValue="cyno"
+            app:argType="string" />
 
         <argument
             android:name="speOperationId"
