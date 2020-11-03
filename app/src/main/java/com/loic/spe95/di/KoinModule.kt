@@ -4,6 +4,8 @@ import com.loic.spe95.signin.data.LoginRepository
 import com.loic.spe95.signin.ui.LoginViewModel
 import com.loic.spe95.speoperations.data.SpeOperationRepository
 import com.loic.spe95.speoperations.ui.SpeOperationViewModel
+import com.loic.spe95.statistiques.data.StatistiqueRepository
+import com.loic.spe95.statistiques.ui.StatistiquesViewModel
 import com.loic.spe95.team.data.AgentRepository
 import com.loic.spe95.team.ui.AgentDetailsViewModel
 import com.loic.spe95.team.ui.AgentViewModel
@@ -21,5 +23,8 @@ val viewModelModule = module {
 
     single { SpeOperationRepository() }
     single { LoginRepository() }
+
+    viewModel { StatistiquesViewModel(get()) }
+    single { StatistiqueRepository() }
 
 }

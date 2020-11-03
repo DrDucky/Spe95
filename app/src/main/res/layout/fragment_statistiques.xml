@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <variable
+            name="specialtyId"
+            type="Integer" />
+
+        <variable
+            name="handler"
+            type="com.loic.spe95.speoperations.ui.SpeOperationHandlerClick" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <include layout="@layout/view_template_background" />
+
+            <TextView
+                android:id="@+id/tv_stats_motifs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/gl_bottom"
+                app:layout_constraintEnd_toEndOf="@id/gl_side_right"
+                app:layout_constraintStart_toStartOf="@id/gl_side_left"
+                app:layout_constraintTop_toBottomOf="@id/gl_header_top"
+                tools:text="lalalalala"
+                android:textColor="@color/quantum_googred" />
+
+            <ProgressBar
+                android:id="@+id/progressbar_operation_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

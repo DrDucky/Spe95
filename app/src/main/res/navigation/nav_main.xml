@@ -89,7 +89,7 @@
 
     <fragment
         android:id="@+id/statistiquesFragment"
-        android:name="com.loic.spe95.speoperations.ui.StatistiquesFragment"
+        android:name="com.loic.spe95.statistiques.ui.StatistiquesFragment"
         android:label="@string/screen_title_statistiques">
 
         <argument

@@ -1,0 +1,40 @@
+package com.loic.spe95.statistiques.ui
+
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.loic.spe95.data.Result
+import com.loic.spe95.statistiques.data.Statistique
+import com.loic.spe95.statistiques.data.StatistiqueRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
+
+
+class StatistiquesViewModel(private val repository: StatistiqueRepository) : ViewModel(), CoroutineScope {
+
+    // set coroutine context
+    private val compositeJob = Job()
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + compositeJob
+
+    // -- Coroutine jobs
+    private var getStatsJob: Job? = null
+
+    var statsMotifsLd: MutableLiveData<Statistique> = MutableLiveData()
+
+    //fetch all statistiques in a specific specialty
+    fun fetchMotifsStats(specialty: String, year: String) {
+        if (getStatsJob?.isActive == true) getStatsJob?.cancel()
+        getStatsJob = launch {
+            when (val result = repository.getMotifsStatsPerSpecialtyAndYear(specialty, year)) {
+                is Result.Success -> {
+                    statsMotifsLd.value = result.data
+                }
+                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
+                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+            }
+        }
+    }
+}
