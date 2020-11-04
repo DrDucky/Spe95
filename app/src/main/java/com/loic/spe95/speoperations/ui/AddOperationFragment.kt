@@ -334,13 +334,15 @@ class AddOperationFragment : Fragment() {
                 null //Clear the value if error already displayed
         }
 
+        /*
+        //TODO See if we keep the address mandatory or not because of the offline problem
         if (vmSpeOperationViewModel._address.value == null) {
             vmSpeOperationViewModel._addressError.value = mandatoryFieldError
             isValid = false
         } else {
             vmSpeOperationViewModel._addressError.value =
                 null //Clear the value if error already displayed
-        }
+        }*/
 
         if (binding.chipGroupTeam.childCount == 0) {
             vmSpeOperationViewModel._teamError.value = mandatoryFieldError

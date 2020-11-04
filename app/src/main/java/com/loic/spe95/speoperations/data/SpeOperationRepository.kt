@@ -3,6 +3,7 @@ package com.loic.spe95.speoperations.data
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.loic.spe95.data.Result
+import com.loic.spe95.data.SingleLiveEvent
 import com.loic.spe95.data.await
 
 class SpeOperationRepository {
@@ -54,9 +55,11 @@ class SpeOperationRepository {
      */
     suspend fun addSpeOperationIntoRemoteDB(
         specialtyDocument: String,
-        speOperation: SpeOperation
+        speOperation: SpeOperation,
+        operationAdded: SingleLiveEvent<Any>
     ): Result<String> {
         try {
+            operationAdded.call()
             return when (val resultDocumentSnapshot =
                 specialtiesCollection.document(specialtyDocument).collection("activities")
                     .add(speOperation)

@@ -38,8 +38,14 @@ fun geopointToString(
 ): String {
     if (value != null) {
         val geocoder = Geocoder(context)
-        val adressList = geocoder.getFromLocation(value.latitude, value.longitude, 1)
-        return adressList[0].getAddressLine(0) //Display correct address
+        //TODO Check what we do with geocoder offlinen not possible
+        try {
+            val adressList = geocoder.getFromLocation(value.latitude, value.longitude, 1)
+            return adressList[0].getAddressLine(0) //Display correct address
+        } catch (e: Exception) {
+            return ""
+        }
+
     } else {
         return ""
     }
