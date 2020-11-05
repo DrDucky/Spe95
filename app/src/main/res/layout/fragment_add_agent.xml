@@ -73,6 +73,28 @@
                             android:layout_height="wrap_content"
                             android:text="@={vmAgents._lastname}" />
 
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/cb_agent_cyno"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_specialite_cyno_title"
+                            android:checked="@={vmAgents._agentCyno}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/et_lastname" />
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/cb_agent_sd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_specialite_sd_title"
+                            android:checked="@={vmAgents._agentSd}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/cb_agent_cyno" />
+
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_add_agent"
                             android:layout_width="wrap_content"
@@ -81,7 +103,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/et_lastname" />
+                            app:layout_constraintTop_toBottomOf="@id/cb_agent_sd" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>

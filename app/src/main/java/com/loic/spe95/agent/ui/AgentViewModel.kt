@@ -46,6 +46,12 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
     val _lastname: MutableLiveData<String> = MutableLiveData()
     val lastname: LiveData<String> = _lastname
 
+    val _agentCyno: MutableLiveData<Boolean> = MutableLiveData()
+    val agentCyno: LiveData<Boolean> = _agentCyno
+
+    val _agentSd: MutableLiveData<Boolean> = MutableLiveData()
+    val agentSd: LiveData<Boolean> = _agentSd
+
     //fetch all agents in a specific specialty
     fun fetchAllAgents() {
         if (getUserJob?.isActive == true) getUserJob?.cancel()
@@ -121,6 +127,14 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
         newAgent.id = "0"
         newAgent.firstname = firstname.value!!
         newAgent.lastname = lastname.value!!
+        val mapSpecialties = mutableMapOf<String, Boolean>()
+        if (_agentCyno.value == true) {
+            mapSpecialties[Constants.FIRESTORE_CYNO_DOCUMENT] = true
+        }
+        if (_agentSd.value == true) {
+            mapSpecialties[Constants.FIRESTORE_SD_DOCUMENT] = true
+        }
+        newAgent.specialtiesMember = mapSpecialties
 
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {

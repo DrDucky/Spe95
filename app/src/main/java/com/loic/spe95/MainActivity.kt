@@ -69,7 +69,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             navController.setGraph(graph, args)
 
-            appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+            appBarConfiguration = AppBarConfiguration(
+                setOf(
+                    R.id.speOperationFragment,
+                    R.id.agentFragment
+                ), drawerLayout
+            )
             setupActionBarWithNavController(navController, appBarConfiguration)
             // Set up navigation menu
             binding.navigationView.setupWithNavController(navController)
