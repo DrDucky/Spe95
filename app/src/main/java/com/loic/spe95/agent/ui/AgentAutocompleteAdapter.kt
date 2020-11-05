@@ -27,10 +27,6 @@ class AgentAutocompleteAdapter(
         return agents.get(p0)
     }
 
-    override fun getItemId(p0: Int): Long {
-        return agents.get(p0).id.toLong()
-    }
-
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view: TextView = convertView as TextView? ?: LayoutInflater.from(context).inflate(
             layoutResource,
