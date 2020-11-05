@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/agentFragment"
-        android:name="com.loic.spe95.team.ui.AgentFragment"
+        android:name="com.loic.spe95.agent.ui.AgentFragment"
         android:label="@string/screen_title_agents_list"
         tools:layout="@layout/fragment_agents">
         <action
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/agentDetailsFragment"
-        android:name="com.loic.spe95.team.ui.AgentDetailsFragment"
+        android:name="com.loic.spe95.agent.ui.AgentDetailsFragment"
         android:label="@string/screen_title_agent_detail">
 
         <argument

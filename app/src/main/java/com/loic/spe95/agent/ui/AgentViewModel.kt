@@ -1,10 +1,10 @@
-package com.loic.spe95.team.ui
+package com.loic.spe95.agent.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.loic.spe95.agent.data.Agent
+import com.loic.spe95.agent.data.AgentRepository
 import com.loic.spe95.data.Result
-import com.loic.spe95.team.data.Agent
-import com.loic.spe95.team.data.AgentRepository
 import com.loic.spe95.utils.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

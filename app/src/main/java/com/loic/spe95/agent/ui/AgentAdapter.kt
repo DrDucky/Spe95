@@ -1,4 +1,4 @@
-package com.loic.spe95.team.ui
+package com.loic.spe95.agent.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,9 +10,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.loic.spe95.agent.data.Agent
 import com.loic.spe95.databinding.ListItemAgentBinding
 import com.loic.spe95.speoperations.ui.SpeOperationHandlerClick
-import com.loic.spe95.team.data.Agent
 import com.loic.spe95.utils.AvatarGenerator
 
 

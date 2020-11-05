@@ -1,4 +1,4 @@
-package com.loic.spe95.team.ui
+package com.loic.spe95.agent.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +11,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.loic.spe95.agent.data.Agent
 import com.loic.spe95.databinding.FragmentAgentDetailsBinding
-import com.loic.spe95.team.data.Agent
 import com.loic.spe95.utils.AvatarGenerator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

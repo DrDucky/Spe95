@@ -1,4 +1,4 @@
-package com.loic.spe95.team.data
+package com.loic.spe95.agent.data
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.loic.spe95.data.Result

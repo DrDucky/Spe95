@@ -11,9 +11,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.loic.spe95.R
+import com.loic.spe95.agent.data.Agent
+import com.loic.spe95.agent.ui.AgentFragmentDirections
 import com.loic.spe95.speoperations.data.SpeOperation
-import com.loic.spe95.team.data.Agent
-import com.loic.spe95.team.ui.AgentFragmentDirections
 
 class SpeOperationHandlerClick {
 

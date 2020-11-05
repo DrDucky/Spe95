@@ -7,7 +7,7 @@
 
         <variable
             name="agent"
-            type="com.loic.spe95.team.data.Agent" />
+            type="com.loic.spe95.agent.data.Agent" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

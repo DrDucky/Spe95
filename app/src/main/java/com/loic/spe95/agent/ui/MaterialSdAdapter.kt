@@ -1,4 +1,4 @@
-package com.loic.spe95.team.ui
+package com.loic.spe95.agent.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -17,7 +17,7 @@
 
         <variable
             name="vmAgents"
-            type="com.loic.spe95.team.ui.AgentViewModel" />
+            type="com.loic.spe95.agent.ui.AgentViewModel" />
 
         <variable
             name="vmSpeOperation"

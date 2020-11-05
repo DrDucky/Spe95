@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/agentDetailsFragment"
-        android:name="com.loic.spe95.team.ui.AgentDetailsFragment"
+        android:name="com.loic.spe95.agent.ui.AgentDetailsFragment"
         android:label="@string/screen_title_agent_detail">
 
         <argument

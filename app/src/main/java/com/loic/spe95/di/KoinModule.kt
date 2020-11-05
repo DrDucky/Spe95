@@ -1,14 +1,14 @@
 package com.loic.spe95.di
 
+import com.loic.spe95.agent.data.AgentRepository
+import com.loic.spe95.agent.ui.AgentDetailsViewModel
+import com.loic.spe95.agent.ui.AgentViewModel
 import com.loic.spe95.signin.data.LoginRepository
 import com.loic.spe95.signin.ui.LoginViewModel
 import com.loic.spe95.speoperations.data.SpeOperationRepository
 import com.loic.spe95.speoperations.ui.SpeOperationViewModel
 import com.loic.spe95.statistiques.data.StatistiqueRepository
 import com.loic.spe95.statistiques.ui.StatistiquesViewModel
-import com.loic.spe95.team.data.AgentRepository
-import com.loic.spe95.team.ui.AgentDetailsViewModel
-import com.loic.spe95.team.ui.AgentViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

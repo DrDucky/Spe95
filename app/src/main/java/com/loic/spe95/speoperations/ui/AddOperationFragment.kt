@@ -26,12 +26,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 import com.loic.spe95.R
+import com.loic.spe95.agent.data.Agent
+import com.loic.spe95.agent.ui.AgentViewModel
 import com.loic.spe95.databinding.FragmentAddOperationBinding
 import com.loic.spe95.databinding.ListItemAddOperationEquipmentCynoBinding
 import com.loic.spe95.databinding.ListItemAddOperationEquipmentSdBinding
 import com.loic.spe95.speoperations.data.AgentOnOperation
-import com.loic.spe95.team.data.Agent
-import com.loic.spe95.team.ui.AgentViewModel
 import com.loic.spe95.utils.Constants
 import com.loic.spe95.utils.hasConnectivity
 import org.koin.androidx.viewmodel.ext.android.viewModel

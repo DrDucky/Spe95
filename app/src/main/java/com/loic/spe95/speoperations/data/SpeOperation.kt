@@ -7,8 +7,8 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.PropertyName
 import com.google.gson.annotations.SerializedName
-import com.loic.spe95.team.data.Agent
-import com.loic.spe95.team.ui.AgentAutocompleteAdapter
+import com.loic.spe95.agent.data.Agent
+import com.loic.spe95.agent.ui.AgentAutocompleteAdapter
 
 
 data class SpeOperation(

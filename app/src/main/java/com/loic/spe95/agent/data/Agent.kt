@@ -1,4 +1,4 @@
-package com.loic.spe95.team.data
+package com.loic.spe95.agent.data
 
 import com.google.firebase.firestore.PropertyName
 import com.google.gson.annotations.SerializedName

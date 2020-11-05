@@ -1,4 +1,4 @@
-package com.loic.spe95.team.ui
+package com.loic.spe95.agent.ui
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.annotation.LayoutRes
-import com.loic.spe95.team.data.Agent
+import com.loic.spe95.agent.data.Agent
 
 
 class AgentAutocompleteAdapter(
