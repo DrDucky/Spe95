@@ -39,7 +39,7 @@ class AgentDetailsFragment : Fragment() {
 
     private fun subscribeUi(
         binding: FragmentAgentDetailsBinding,
-        agentId: Int
+        agentId: String
     ) {
         agentViewModel.fetchAgentInformation(agentId)
         agentViewModel.agentLd.observe(viewLifecycleOwner, Observer<Agent> { it ->

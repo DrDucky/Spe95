@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class Agent(
 
     @field:SerializedName("id")
-    val id: Int = 0,
+    var id: String = "",
 
     @get:PropertyName("specialties_member")
     @set:PropertyName("specialties_member")
@@ -16,10 +16,10 @@ data class Agent(
     val avatar: String = "",
 
     @field:SerializedName("firstname")
-    val firstname: String = "",
+    var firstname: String = "",
 
     @field:SerializedName("lastname")
-    val lastname: String = "",
+    var lastname: String = "",
 
     @field:SerializedName("caserne_id")
     val caserneId: Int? = null

@@ -14,7 +14,22 @@
             android:id="@+id/action_agentFragment_to_agentDetailsFragment"
             app:destination="@id/agentDetailsFragment" />
 
+        <action
+            android:id="@+id/action_agentFragment_to_addOperationFragment"
+            app:destination="@id/addAgentFragment"
+            app:enterAnim="@android:anim/fade_in" />
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/addAgentFragment"
+        android:name="com.loic.spe95.agent.ui.AddAgentFragment"
+        android:label="@string/screen_title_add_agent">
+
+        <action
+            android:id="@+id/action_addAgentFragment_to_agentFragment"
+            app:destination="@id/agentFragment"
+            app:enterAnim="@android:anim/fade_out" />
     </fragment>
 
     <fragment
@@ -24,8 +39,8 @@
 
         <argument
             android:name="agentId"
-            android:defaultValue="-1"
-            app:argType="integer" />
+            android:defaultValue=""
+            app:argType="string" />
 
     </fragment>
     <fragment

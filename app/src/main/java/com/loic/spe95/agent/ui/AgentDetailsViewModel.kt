@@ -23,7 +23,7 @@ class AgentDetailsViewModel(private val repository: AgentRepository) : ViewModel
     var agentLd: MutableLiveData<Agent> = MutableLiveData()
 
     // get a user infromation with its id
-    fun fetchAgentInformation(agentId: Int) {
+    fun fetchAgentInformation(agentId: String) {
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {
             when (val result = repository.getAgentFromRemoteDB(agentId)) {

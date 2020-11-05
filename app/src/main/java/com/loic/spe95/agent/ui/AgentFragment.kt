@@ -24,6 +24,8 @@ class AgentFragment : Fragment() {
 
         val adapter = AgentAdapter()
         binding.recyclerView.adapter = adapter
+        val agentHandler = AgentHandlerClick()
+        binding.handler = agentHandler
 
         binding.chipSd.setOnCheckedChangeListener { buttonView, isChecked ->
             agentsViewModel.teamSdSelected.value = isChecked

@@ -11,8 +11,8 @@
 
         <argument
             android:name="agentId"
-            android:defaultValue="-1"
-            app:argType="integer" />
+            android:defaultValue=""
+            app:argType="string" />
 
     </fragment>
     

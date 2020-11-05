@@ -1,10 +1,12 @@
 package com.loic.spe95.agent.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.loic.spe95.agent.data.Agent
 import com.loic.spe95.agent.data.AgentRepository
 import com.loic.spe95.data.Result
+import com.loic.spe95.data.SingleLiveEvent
 import com.loic.spe95.utils.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,13 +24,27 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
 
     // -- Coroutine jobs
     private var getUserJob: Job? = null
+    private val _agentAdded = SingleLiveEvent<Any>()
+    val agentAdded = _agentAdded
+
+    var _agentIdAdded: MutableLiveData<String> = MutableLiveData()
+    val agentIdAdded = _agentIdAdded
+
+    var _genericException: MutableLiveData<String> = MutableLiveData()
 
     private var agentsAllLd: MutableLiveData<List<Agent>> = MutableLiveData()
     var agentsLd: MutableLiveData<List<Agent>> = MutableLiveData()
 
+    private val newAgent = Agent()
+
     var teamSdSelected: MutableLiveData<Boolean> = MutableLiveData(false)
     var teamCynoSelected: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    val _firstname: MutableLiveData<String> = MutableLiveData()
+    val firstname: LiveData<String> = _firstname
+
+    val _lastname: MutableLiveData<String> = MutableLiveData()
+    val lastname: LiveData<String> = _lastname
 
     //fetch all agents in a specific specialty
     fun fetchAllAgents() {
@@ -58,7 +74,7 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
     }
 
     // get all agents within agentsId list
-    fun fetchAgentsInformationFrom(agentsId: List<Int>) {
+    fun fetchAgentsInformationFrom(agentsId: List<String>) {
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {
             when (val result = repository.getAgentsFromRemoteDB(agentsId)) {
@@ -98,5 +114,34 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
         agentsLd.value = currentAgentsList
     }
 
+    /**
+     * Add an agent into Firestore
+     */
+    fun addAgentIntoFirestore() {
+        newAgent.id = "0"
+        newAgent.firstname = firstname.value!!
+        newAgent.lastname = lastname.value!!
+
+        if (getUserJob?.isActive == true) getUserJob?.cancel()
+        getUserJob = launch {
+            when (val result =
+                repository.addAgentIntoRemoteDB(newAgent, agentAdded)) {
+                is Result.Success -> {
+                    _agentIdAdded.value = result.data
+                    agentAdded.call()
+                }
+                is Result.Error -> _genericException.value = result.exception.message
+                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+            }
+        }
+    }
+
+    // update id with firestore uid
+    fun updateAgentId(agentId: String) {
+        if (getUserJob?.isActive == true) getUserJob?.cancel()
+        getUserJob = launch {
+            repository.updateAgentIntoRemoteDB(agentId)
+        }
+    }
 
 }

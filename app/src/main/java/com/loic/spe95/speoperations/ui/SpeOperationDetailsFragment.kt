@@ -71,7 +71,7 @@ class SpeOperationDetailsFragment : Fragment() {
                 bindView(binding, it, materialCynoAdapter, materialSdAdapter)
                 binding.cardsGroup.visibility = View.VISIBLE
 
-                val agentsId = ArrayList<Int>()
+                val agentsId = ArrayList<String>()
                 for (agents in it.agentOnOperation!!) {
                     agentsId.add(agents.id!!)
                 }
