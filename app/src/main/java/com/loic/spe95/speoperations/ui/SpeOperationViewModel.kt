@@ -9,7 +9,6 @@ import com.loic.spe95.data.SingleLiveEvent
 import com.loic.spe95.speoperations.data.*
 import com.loic.spe95.utils.Constants
 import com.loic.spe95.utils.getTimestamp
-import com.loic.spe95.utils.getType
 import com.loic.spe95.utils.toTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -141,7 +140,7 @@ class SpeOperationViewModel(
             ) else //If there is no id (for "Entrainements" for example), we generate a random ID between 100k & 500k
             newSpeOperation.id = Integer.valueOf(id.value!!)
         newSpeOperation.motif = motif.value!!
-        newSpeOperation.type = type.value!!.getType()
+        newSpeOperation.type = type.value!!
 
         newSpeOperation.agentOnOperation = _teamAgent.value!!
 

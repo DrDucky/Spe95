@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:lines="1"
                     android:paddingLeft="@dimen/dimen_8dp"
-                    android:text="@{ConverterKt.getTypeToString(speOperation.type).concat(@string/space)}"
+                    android:text="@{speOperation.type.concat(@string/space)}"
                     android:textAppearance="?attr/textAppearanceHeadline5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

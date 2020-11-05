@@ -5,6 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.loic.spe95.data.Result
 import com.loic.spe95.data.SingleLiveEvent
 import com.loic.spe95.data.await
+import com.loic.spe95.utils.Constants
 
 class SpeOperationRepository {
 
@@ -38,7 +39,7 @@ class SpeOperationRepository {
                 .limit(1)
                 .get().await()) {
             is Result.Success -> {
-                var speOperation = SpeOperation("cyno", 0, 1, "lala")
+                var speOperation = SpeOperation(Constants.FIRESTORE_CYNO_DOCUMENT, 0, Constants.TYPE_OPERATION_INTERVENTION, "lala")
                 if (documentSnapshot.data.documents.size > 0) {
                     speOperation =
                         documentSnapshot.data.documents[0].toObject(SpeOperation::class.java)!!

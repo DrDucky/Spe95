@@ -21,7 +21,7 @@ data class SpeOperation(
     var id: Int = 0,
 
     @field:SerializedName("type")
-    var type: Int = 0,
+    var type: String = "",
 
     @field:SerializedName("motif")
     var motif: String = "",

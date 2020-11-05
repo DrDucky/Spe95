@@ -78,9 +78,9 @@
             app:argType="string" />
 
         <argument
-            android:name="typeId"
-            android:defaultValue="-1"
-            app:argType="integer" />
+            android:name="type"
+            android:defaultValue="Intervention"
+            app:argType="string" />
         <action
             android:id="@+id/action_addOperationFragment_to_speOperationFragment"
             app:destination="@id/speOperationFragment"

@@ -96,7 +96,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_8dp"
                             android:hint="@string/add_operation_intervention_nb_hint"
-                            android:visibility="@{ConverterKt.getStringToType(vmSpeOperation.type) == Constants.TYPE_OPERATION_INTERVENTION ? View.VISIBLE : View.GONE, default = gone}"
+                            android:visibility="@{vmSpeOperation.type == Constants.TYPE_OPERATION_INTERVENTION ? View.VISIBLE : View.GONE, default = gone}"
                             app:error="@{vmSpeOperation._idError}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

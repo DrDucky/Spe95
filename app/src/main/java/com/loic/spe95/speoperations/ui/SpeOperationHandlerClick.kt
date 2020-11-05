@@ -46,10 +46,10 @@ class SpeOperationHandlerClick {
         it.findNavController().navigate(direction)
     }
 
-    fun onAddOperationClick(it: View, specialty: String, typeId: Int) {
+    fun onAddOperationClick(it: View, specialty: String, type: String) {
         val direction =
             SpeOperationFragmentDirections.actionSpeOperationFragmentToAddOperationFragment()
-                .setSpecialty(specialty).setTypeId(typeId)
+                .setSpecialty(specialty).setType(type)
         it.findNavController().navigate(direction)
     }
 

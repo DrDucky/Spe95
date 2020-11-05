@@ -5,14 +5,10 @@ class Constants {
         const val FIRESTORE_CYNO_DOCUMENT = "cyno"
         const val FIRESTORE_SD_DOCUMENT = "sd"
 
-        const val TYPE_OPERATION_INTERVENTION = 1
-        const val TYPE_OPERATION_INTERVENTION_TITLE = "Intervention"
-        const val TYPE_OPERATION_TRAINING = 2
-        const val TYPE_OPERATION_TRAINING_TITLE = "Entrainement"
-        const val TYPE_OPERATION_FORMATION = 3
-        const val TYPE_OPERATION_FORMATION_TITLE = "Formation"
-        const val TYPE_OPERATION_INFORMATION = 4
-        const val TYPE_OPERATION_INFORMATION_TITLE = "Information"
+        const val TYPE_OPERATION_INTERVENTION = "Intervention"
+        const val TYPE_OPERATION_TRAINING = "Entrainement"
+        const val TYPE_OPERATION_FORMATION = "Formation"
+        const val TYPE_OPERATION_INFORMATION = "Information"
 
         const val SHARED_PREF_FRAGMENT_KEY = "SHARED_PREF_FRAGMENT_KEY"
 

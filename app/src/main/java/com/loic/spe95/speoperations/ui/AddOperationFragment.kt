@@ -33,8 +33,6 @@ import com.loic.spe95.speoperations.data.AgentOnOperation
 import com.loic.spe95.team.data.Agent
 import com.loic.spe95.team.ui.AgentViewModel
 import com.loic.spe95.utils.Constants
-import com.loic.spe95.utils.getStringToType
-import com.loic.spe95.utils.getTypeToString
 import com.loic.spe95.utils.hasConnectivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -84,7 +82,7 @@ class AddOperationFragment : Fragment() {
         val connected = hasConnectivity(context)
 
         specialtyDocument = args.specialty
-        speOperationViewModel._type.value = getTypeToString(args.typeId)
+        speOperationViewModel._type.value = args.type
 
         setCustomMaterialView(
             speOperationViewModel,
@@ -322,9 +320,9 @@ class AddOperationFragment : Fragment() {
         val mandatoryFieldError: String = getString(R.string.add_operation_error_mandatory_field)
         var isValid = true
 
-        if (vmSpeOperationViewModel.id.value.isNullOrEmpty() && getStringToType(
-                vmSpeOperationViewModel.type.value!!
-            ) == Constants.TYPE_OPERATION_INTERVENTION
+        if (vmSpeOperationViewModel.id.value.isNullOrEmpty() &&
+            vmSpeOperationViewModel.type.value!!
+            == Constants.TYPE_OPERATION_INTERVENTION
         ) {
             vmSpeOperationViewModel._idError.value = mandatoryFieldError
             isValid = false

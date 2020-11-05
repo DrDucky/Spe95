@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="com.loic.spe95.utils.Constants" />
+
         <variable
             name="specialty"
             type="String" />
@@ -74,7 +76,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dimen_16dp"
-                        android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, 1)}"
+                        android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_INTERVENTION)}"
                         app:backgroundTint="@color/colorSecondary"
                         app:fabSize="mini"
                         app:rippleColor="@color/white"
@@ -104,7 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dimen_16dp"
-                        android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, 2)}"
+                        android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_TRAINING)}"
                         app:backgroundTint="@color/colorSecondary"
                         app:fabSize="mini"
                         app:rippleColor="@color/white"
@@ -134,7 +136,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dimen_16dp"
-                        android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, 3)}"
+                        android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_FORMATION)}"
                         app:backgroundTint="@color/colorSecondary"
                         app:fabSize="mini"
                         app:rippleColor="@color/white"
@@ -164,7 +166,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dimen_16dp"
-                        android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, 4)}"
+                        android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_INFORMATION)}"
                         app:backgroundTint="@color/colorSecondary"
                         app:fabSize="mini"
                         app:rippleColor="@color/white"

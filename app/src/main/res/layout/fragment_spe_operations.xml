@@ -5,6 +5,7 @@
 
 
     <data>
+        <import type="com.loic.spe95.utils.Constants" />
 
         <variable
             name="handler"
@@ -63,7 +64,7 @@
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     style="@style/Widget.MaterialComponents.FloatingActionButton"
-                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, 1)}"
+                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_INTERVENTION)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dimen_16dp"
@@ -93,7 +94,7 @@
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     style="@style/Widget.MaterialComponents.FloatingActionButton"
-                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, 2)}"
+                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_TRAINING)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dimen_16dp"
@@ -123,7 +124,7 @@
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     style="@style/Widget.MaterialComponents.FloatingActionButton"
-                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, 3)}"
+                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_INFORMATION)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dimen_16dp"
@@ -153,7 +154,7 @@
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     style="@style/Widget.MaterialComponents.FloatingActionButton"
-                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, 4)}"
+                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_FORMATION)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dimen_16dp"
