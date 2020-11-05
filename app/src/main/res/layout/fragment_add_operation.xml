@@ -12,6 +12,10 @@
         <import type="com.loic.spe95.utils.Constants" />
 
         <variable
+            name="connected"
+            type="Boolean" />
+
+        <variable
             name="vmAgents"
             type="com.loic.spe95.team.ui.AgentViewModel" />
 
@@ -92,11 +96,11 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_8dp"
                             android:hint="@string/add_operation_intervention_nb_hint"
+                            android:visibility="@{ConverterKt.getStringToType(vmSpeOperation.type) == Constants.TYPE_OPERATION_INTERVENTION ? View.VISIBLE : View.GONE, default = gone}"
                             app:error="@{vmSpeOperation._idError}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:visibility="@{ConverterKt.getStringToType(vmSpeOperation.type) == Constants.TYPE_OPERATION_INTERVENTION ? View.VISIBLE : View.GONE, default = gone}">
+                            app:layout_constraintTop_toTopOf="parent">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/et_id"
@@ -135,16 +139,37 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_8dp"
+                            android:visibility="@{connected ? View.VISIBLE : View.GONE, default = gone}"
                             app:error="@{vmSpeOperation._addressError}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/sp_motif">
 
-                            <fragment
+                            <androidx.fragment.app.FragmentContainerView
                                 android:id="@+id/autocomplete_fragment"
                                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/sp_address_offline"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimen_8dp"
+                            android:hint="@string/add_operation_address_hint"
+                            android:visibility="@{connected ? View.GONE : View.VISIBLE, default = gone}"
+                            app:error="@{vmSpeOperation._addressOfflineError}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/sp_motif">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_address_offline"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@={vmSpeOperation._addressOffline}" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -250,9 +275,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintTop_toBottomOf="@id/tv_equipment_category_title"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_equipment_category_title" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_add_operation"

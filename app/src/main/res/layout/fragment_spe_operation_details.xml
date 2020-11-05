@@ -121,6 +121,7 @@
                     android:drawablePadding="@dimen/dimen_8dp"
                     android:padding="@dimen/dimen_8dp"
                     android:text="@{ConverterKt.geopointToString(context, speOperation.address)}"
+                    android:visibility="@{speOperation.address == null ? View.GONE : View.VISIBLE }"
                     android:textAppearance="?attr/textAppearanceBody1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_operation_motif"
@@ -129,12 +130,36 @@
                     android:onClick="@{(view) -> handler.onAddressClick(view, speOperation)}"
                     tools:text="18 rue Youri Gargarine, 95100 Argenteuil, France" />
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_operation_address_offline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_location"
+                    android:drawablePadding="@dimen/dimen_8dp"
+                    android:padding="@dimen/dimen_8dp"
+                    android:text="@{speOperation.addressOffline}"
+                    android:visibility="@{speOperation.addressOffline.empty ? View.GONE : View.VISIBLE }"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_operation_motif"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{(view) -> handler.onAddressClick(view, speOperation)}"
+                    tools:text="18 rue Youri Gargarine, 95100 Argenteuil, France" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrier_address"
+                    app:barrierDirection="bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="tv_operation_address,tv_operation_address_offline" />
+
                 <View
                     android:id="@+id/tile_divider"
                     android:layout_width="250dp"
                     android:layout_height="1dp"
                     android:background="?android:attr/dividerVertical"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_operation_address"
+                    app:layout_constraintBottom_toBottomOf="@id/barrier_address"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 

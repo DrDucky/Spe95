@@ -55,6 +55,10 @@ class SpeOperationViewModel(
     val _address: MutableLiveData<GeoPoint> = MutableLiveData()
     val address: LiveData<GeoPoint> = _address
 
+    var _addressOfflineError: MutableLiveData<String> = MutableLiveData()
+    val _addressOffline: MutableLiveData<String> = MutableLiveData()
+    val addressOffline: LiveData<String> = _addressOffline
+
     val _startDateTime: MutableLiveData<String> = MutableLiveData()
     val startDateTime: LiveData<String> = _startDateTime
 
@@ -143,7 +147,8 @@ class SpeOperationViewModel(
 
         //newSpeOperation.agents = _team.value!!
         newSpeOperation.startDate = _startDateTime.value!!.getTimestamp()
-        newSpeOperation.address = _address.value!!
+        newSpeOperation.address = _address.value
+        newSpeOperation.addressOffline = _addressOffline.value
         newSpeOperation.unitChief = _teamUnitChief.value
         newSpeOperation.specialty = specialtyDocument
 
@@ -190,9 +195,9 @@ class SpeOperationViewModel(
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {
             when (val result =
-                repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation)) {
+                repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation, operationAdded)) {
                 is Result.Success -> _operationAdded.call()
-                is Result.Error   -> _genericException.value = result.exception.message
+                is Result.Error -> _genericException.value = result.exception.message
                 //is Result2.Canceled -> _snackbarText.value = R.string.canceled
             }
         }

@@ -54,11 +54,18 @@ class SpeOperationHandlerClick {
     }
 
     fun onAddressClick(it: View, speOperation: SpeOperation) {
+
+        val gmmIntentUri = if (speOperation.address != null) {
+            Uri.parse("geo:0,0?q=${speOperation.address?.latitude},${speOperation.address?.longitude}")
+        } else {
+            //Use offline address
+            Uri.parse("geo:0,0?q=${speOperation.addressOffline}")
+        }
+
         MaterialAlertDialogBuilder(it.context)
             .setTitle(it.context.resources.getString(R.string.screen_title_exit_app))
             .setMessage(it.context.resources.getString(R.string.screen_title_go_gmaps))
             .setPositiveButton(it.context.resources.getString(R.string.ok)) { dialog, which ->
-                val gmmIntentUri = Uri.parse("geo:0,0?q=${speOperation.address?.latitude},${speOperation.address?.longitude}")
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                 mapIntent.setPackage("com.google.android.apps.maps")
                 it.context.startActivity(mapIntent)

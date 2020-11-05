@@ -35,6 +35,7 @@ import com.loic.spe95.team.ui.AgentViewModel
 import com.loic.spe95.utils.Constants
 import com.loic.spe95.utils.getStringToType
 import com.loic.spe95.utils.getTypeToString
+import com.loic.spe95.utils.hasConnectivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.text.SimpleDateFormat
@@ -80,6 +81,8 @@ class AddOperationFragment : Fragment() {
         binding.lifecycleOwner = this
         context ?: return binding.root
 
+        val connected = hasConnectivity(context)
+
         specialtyDocument = args.specialty
         speOperationViewModel._type.value = getTypeToString(args.typeId)
 
@@ -88,7 +91,8 @@ class AddOperationFragment : Fragment() {
             args.specialty,
             binding,
             bindingListEquipmentCyno,
-            bindingListEquipmentSd
+            bindingListEquipmentSd,
+            connected
         )
         binding.vmSpeOperation = speOperationViewModel
         binding.vmAgents = agentViewModel
@@ -257,7 +261,8 @@ class AddOperationFragment : Fragment() {
         specialtyId: String,
         binding: FragmentAddOperationBinding,
         bindingListEquipmentCyno: ListItemAddOperationEquipmentCynoBinding,
-        bindingListEquipmentSd: ListItemAddOperationEquipmentSdBinding
+        bindingListEquipmentSd: ListItemAddOperationEquipmentSdBinding,
+        connected: Boolean
     ) {
 
         bindingListEquipmentCyno.vmSpeOperation = vmSpeOperationViewModel
@@ -303,6 +308,8 @@ class AddOperationFragment : Fragment() {
                 resources.getStringArray(arrayForMotifs).asList()
             )
         binding.actvMotif.setAdapter(adapter)
+
+        binding.connected = connected
     }
 
     /**
@@ -334,15 +341,22 @@ class AddOperationFragment : Fragment() {
                 null //Clear the value if error already displayed
         }
 
-        /*
-        //TODO See if we keep the address mandatory or not because of the offline problem
-        if (vmSpeOperationViewModel._address.value == null) {
+
+        if (binding.spAddress.visibility == View.VISIBLE && vmSpeOperationViewModel._address.value == null) {
             vmSpeOperationViewModel._addressError.value = mandatoryFieldError
             isValid = false
         } else {
             vmSpeOperationViewModel._addressError.value =
                 null //Clear the value if error already displayed
-        }*/
+        }
+
+        if (binding.spAddressOffline.visibility == View.VISIBLE && vmSpeOperationViewModel._addressOffline.value.isNullOrEmpty()) {
+            vmSpeOperationViewModel._addressOfflineError.value = mandatoryFieldError
+            isValid = false
+        } else {
+            vmSpeOperationViewModel._addressOfflineError.value =
+                null //Clear the value if error already displayed
+        }
 
         if (binding.chipGroupTeam.childCount == 0) {
             vmSpeOperationViewModel._teamError.value = mandatoryFieldError

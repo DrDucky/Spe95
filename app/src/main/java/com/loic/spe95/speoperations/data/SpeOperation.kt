@@ -29,6 +29,9 @@ data class SpeOperation(
     @field:SerializedName("address")
     var address: GeoPoint? = null,
 
+    @field:SerializedName("address_offline")
+    var addressOffline: String? = "",
+
     @get:PropertyName("caserne_id")
     @set:PropertyName("caserne_id")
     var caserneId: Int? = null,
