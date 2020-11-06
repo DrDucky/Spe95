@@ -23,6 +23,8 @@ class StatistiquesViewModel(private val repository: StatistiqueRepository) : Vie
     private var getStatsJob: Job? = null
 
     var statsMotifsLd: MutableLiveData<Statistique> = MutableLiveData()
+    var statsAgentLd: MutableLiveData<Statistique> = MutableLiveData()
+
 
     //fetch all statistiques in a specific specialty
     fun fetchMotifsStats(specialty: String, year: String) {
@@ -31,6 +33,20 @@ class StatistiquesViewModel(private val repository: StatistiqueRepository) : Vie
             when (val result = repository.getMotifsStatsPerSpecialtyAndYear(specialty, year)) {
                 is Result.Success -> {
                     statsMotifsLd.value = result.data
+                }
+                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
+                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+            }
+        }
+    }
+
+    //fetch all statistiques for a given agent
+    fun fetchAgentStats(agentId: String, specialty: String, year: String) {
+        if (getStatsJob?.isActive == true) getStatsJob?.cancel()
+        getStatsJob = launch {
+            when (val result = repository.getStatsPerAgentAndSpecialtyAndYear(agentId, specialty, year)) {
+                is Result.Success -> {
+                    statsAgentLd.value = result.data
                 }
                 //is Result2.Error -> _snackbarText.value = R.string.error_fetching
                 //is Result2.Canceled -> _snackbarText.value = R.string.canceled
