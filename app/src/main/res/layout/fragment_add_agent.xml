@@ -50,6 +50,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_firstname"
+                            android:singleLine="true"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@={vmAgents._firstname}" />
@@ -69,6 +70,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_lastname"
+                            android:singleLine="true"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@={vmAgents._lastname}" />
