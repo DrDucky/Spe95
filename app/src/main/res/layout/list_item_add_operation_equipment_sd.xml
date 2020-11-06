@@ -12,161 +12,177 @@
 
     </data>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_add_equipment_cyno"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_4dp"
-        app:cardCornerRadius="@dimen/dimen_4dp"
-        app:cardElevation="@dimen/dimen_2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_equipment_category_title"
+            style="@style/CategoryTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_8dp">
+            android:paddingStart="@dimen/dimen_4dp"
+            android:paddingTop="@dimen/dimen_8dp"
+            android:paddingBottom="@dimen/dimen_8dp"
+            android:text="@string/equipment_title" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_sauvetage_category_title"
-                style="@style/CategoryTitle"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_add_equipment_cyno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_4dp"
+            app:cardCornerRadius="@dimen/dimen_4dp"
+            app:cardElevation="@dimen/dimen_2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/dimen_4dp"
-                android:paddingTop="@dimen/dimen_8dp"
-                android:paddingBottom="@dimen/dimen_8dp"
-                android:text="@string/equipment_sauvetage_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_margin="@dimen/dimen_8dp">
 
-            <CheckBox
-                android:id="@+id/lspcc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/equipment_sauvetage_lspcc"
-                app:layout_constraintStart_toStartOf="parent"
-                android:checked="@={vmSpeOperation._equipementSdLspcc}"
-                app:layout_constraintTop_toBottomOf="@id/tv_sauvetage_category_title" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_sauvetage_category_title"
+                    style="@style/CategoryTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dimen_4dp"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:paddingBottom="@dimen/dimen_8dp"
+                    android:text="@string/equipment_sauvetage_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <CheckBox
-                android:id="@+id/ech_coulisse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/equipment_sauvetage_echelle_coulisse"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lspcc" />
+                <CheckBox
+                    android:id="@+id/lspcc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={vmSpeOperation._equipementSdLspcc}"
+                    android:text="@string/equipment_sauvetage_lspcc"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sauvetage_category_title" />
 
-            <CheckBox
-                android:id="@+id/telestep"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/equipment_sauvetage_telestep"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ech_coulisse" />
+                <CheckBox
+                    android:id="@+id/ech_coulisse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/equipment_sauvetage_echelle_coulisse"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lspcc" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_eclairage_category_title"
-                style="@style/CategoryTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/dimen_4dp"
-                android:paddingTop="@dimen/dimen_8dp"
-                android:paddingBottom="@dimen/dimen_8dp"
-                android:text="@string/equipment_eclairage_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/telestep" />
+                <CheckBox
+                    android:id="@+id/telestep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/equipment_sauvetage_telestep"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ech_coulisse" />
 
-            <CheckBox
-                android:id="@+id/tv_eclairage_category_groupe_electro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/equipment_eclairage_groupe_electro"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_eclairage_category_title" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_eclairage_category_title"
+                    style="@style/CategoryTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dimen_4dp"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:paddingBottom="@dimen/dimen_8dp"
+                    android:text="@string/equipment_eclairage_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/telestep" />
 
-            <CheckBox
-                android:id="@+id/tv_eclairage_category_eclairage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/equipment_eclairage_eclairage"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_eclairage_category_groupe_electro" />
+                <CheckBox
+                    android:id="@+id/tv_eclairage_category_groupe_electro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/equipment_eclairage_groupe_electro"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_eclairage_category_title" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_percement_category_title"
-                style="@style/CategoryTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/dimen_4dp"
-                android:paddingTop="@dimen/dimen_8dp"
-                android:paddingBottom="@dimen/dimen_8dp"
-                android:text="@string/equipment_percement_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_eclairage_category_eclairage" />
+                <CheckBox
+                    android:id="@+id/tv_eclairage_category_eclairage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/equipment_eclairage_eclairage"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_eclairage_category_groupe_electro" />
 
-            <CheckBox
-                android:id="@+id/tv_percement_category_groupe_hydraulique"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/equipment_percement_groupe_hydraulique"
-                android:checked="@={vmSpeOperation._equipementSdPercGrHydrau}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_title" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_percement_category_title"
+                    style="@style/CategoryTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dimen_4dp"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:paddingBottom="@dimen/dimen_8dp"
+                    android:text="@string/equipment_percement_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_eclairage_category_eclairage" />
 
-            <CheckBox
-                android:id="@+id/tv_percement_category_tronconneuse_disque"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/equipment_percement_tronconneuse_disque"
-                android:checked="@={vmSpeOperation._equipementSdPercTroncDisque}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_groupe_hydraulique" />
+                <CheckBox
+                    android:id="@+id/tv_percement_category_groupe_hydraulique"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={vmSpeOperation._equipementSdPercGrHydrau}"
+                    android:text="@string/equipment_percement_groupe_hydraulique"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_title" />
 
-            <CheckBox
-                android:id="@+id/tv_percement_category_tronconneuse_chaine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/equipment_percement_tronconneuse_chaine"
-                android:checked="@={vmSpeOperation._equipementSdPercTroncChaine}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_tronconneuse_disque" />
+                <CheckBox
+                    android:id="@+id/tv_percement_category_tronconneuse_disque"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={vmSpeOperation._equipementSdPercTroncDisque}"
+                    android:text="@string/equipment_percement_tronconneuse_disque"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_groupe_hydraulique" />
 
-            <CheckBox
-                android:id="@+id/tv_percement_category_chaine_diamant"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/equipment_percement_chaine_diamant"
-                android:checked="@={vmSpeOperation._equipementSdPercChaineDiamant}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_tronconneuse_chaine" />
+                <CheckBox
+                    android:id="@+id/tv_percement_category_tronconneuse_chaine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={vmSpeOperation._equipementSdPercTroncChaine}"
+                    android:text="@string/equipment_percement_tronconneuse_chaine"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_tronconneuse_disque" />
 
-            <CheckBox
-                android:id="@+id/tv_percement_category_chaine_carbure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/equipment_percement_chaine_carbure"
-                android:checked="@={vmSpeOperation._equipementSdPercChaineCarbure}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_chaine_diamant" />
+                <CheckBox
+                    android:id="@+id/tv_percement_category_chaine_diamant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={vmSpeOperation._equipementSdPercChaineDiamant}"
+                    android:text="@string/equipment_percement_chaine_diamant"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_tronconneuse_chaine" />
 
-            <CheckBox
-                android:id="@+id/tv_percement_category_perforateur"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/equipment_percement_perforateur"
-                android:checked="@={vmSpeOperation._equipementSdPercPerforateur}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_chaine_carbure" />
+                <CheckBox
+                    android:id="@+id/tv_percement_category_chaine_carbure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={vmSpeOperation._equipementSdPercChaineCarbure}"
+                    android:text="@string/equipment_percement_chaine_carbure"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_chaine_diamant" />
 
-            <CheckBox
-                android:id="@+id/tv_percement_category_oxydecoupeur"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/equipment_percement_oxydecoupeur"
-                android:checked="@={vmSpeOperation._equipementSdPercOxyDecoupeur}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_perforateur" />
+                <CheckBox
+                    android:id="@+id/tv_percement_category_perforateur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={vmSpeOperation._equipementSdPercPerforateur}"
+                    android:text="@string/equipment_percement_perforateur"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_chaine_carbure" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <CheckBox
+                    android:id="@+id/tv_percement_category_oxydecoupeur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={vmSpeOperation._equipementSdPercOxyDecoupeur}"
+                    android:text="@string/equipment_percement_oxydecoupeur"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_perforateur" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 </layout>

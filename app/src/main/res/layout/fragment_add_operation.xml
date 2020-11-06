@@ -262,18 +262,6 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_equipment_category_title"
-                    style="@style/CategoryTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/dimen_4dp"
-                    android:paddingTop="@dimen/dimen_8dp"
-                    android:paddingBottom="@dimen/dimen_8dp"
-                    android:text="@string/equipment_title"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cv_add_team" />
-
                 <LinearLayout
                     android:id="@+id/equipment"
                     android:layout_width="match_parent"
@@ -281,7 +269,7 @@
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_equipment_category_title" />
+                    app:layout_constraintTop_toBottomOf="@id/cv_add_team" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_add_operation"

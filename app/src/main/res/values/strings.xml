@@ -5,6 +5,7 @@
     <string name="add_operation_address_hint">Adresse</string>
     <string name="personnel_title">Personnel</string>
     <string name="equipment_title">Matériel</string>
+    <string name="chiens_title">Chiens</string>
     <string name="add_operation_nb_helper">Nom des agents présents</string>
     <string name="add_operation_label_with">Avec</string>
     <string name="add_operation_chip_team_text">%01$s %02$s</string>

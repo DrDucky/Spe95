@@ -28,161 +28,177 @@
             type="java.lang.Boolean" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_add_equipment_cyno"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_4dp"
-        app:cardCornerRadius="@dimen/dimen_4dp"
-        app:cardElevation="@dimen/dimen_2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_equipment_category_title"
+            style="@style/CategoryTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_8dp">
+            android:paddingStart="@dimen/dimen_4dp"
+            android:paddingTop="@dimen/dimen_8dp"
+            android:paddingBottom="@dimen/dimen_8dp"
+            android:text="@string/chiens_title" />
 
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_add_equipment_cyno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_4dp"
+            app:cardCornerRadius="@dimen/dimen_4dp"
+            app:cardElevation="@dimen/dimen_2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:barrierDirection="end"
-                app:constraint_referenced_ids="ipso,nano, nerone, priaxe" />
+                android:layout_margin="@dimen/dimen_8dp">
 
-            <CheckBox
-                android:id="@+id/ipso"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="@={isIpsoChecked}"
-                android:layout_marginTop="20dp"
-                android:text="Ipso"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ipso_time"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_8dp"
-                android:hint="Durée"
-                app:helperText="@string/add_operation_time_helper"
-                app:helperTextEnabled="true"
-                android:visibility="@{isIpsoChecked ? View.VISIBLE : View.GONE, default = gone}"
-                app:layout_constraintBottom_toBottomOf="@+id/ipso"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="@+id/ipso"
-                tools:visibility="visible">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ed_ipso_time"
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/guideline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:inputType="time"
-                    android:text="@={vmSpeOperation._equipementCynoIpso}" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    app:barrierDirection="end"
+                    app:constraint_referenced_ids="ipso,nano, nerone, priaxe" />
 
-            <CheckBox
-                android:id="@+id/nano"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:checked="@={isNanoChecked}"
-                android:text="Nano"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ipso" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nano_time"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_8dp"
-                android:hint="Durée"
-                app:helperText="@string/add_operation_time_helper"
-                android:visibility="@{isNanoChecked ? View.VISIBLE : View.GONE, default = gone}"
-                app:layout_constraintBottom_toBottomOf="@+id/nano"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="@+id/nano"
-                tools:visibility="visible">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_nano_time"
+                <CheckBox
+                    android:id="@+id/ipso"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:inputType="time"
-                    android:text="@={vmSpeOperation._equipementCynoNano}" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="20dp"
+                    android:checked="@={isIpsoChecked}"
+                    android:text="Ipso"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <CheckBox
-                android:id="@+id/nerone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:checked="@={isNeroneChecked}"
-                android:text="Nerone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nano" />
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nerone_time"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_8dp"
-                android:hint="Durée"
-                app:helperText="@string/add_operation_time_helper"
-                android:visibility="@{isNeroneChecked ? View.VISIBLE : View.GONE, default = gone}"
-                app:layout_constraintBottom_toBottomOf="@+id/nerone"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="@+id/nerone"
-                tools:visibility="visible">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_nerone_time"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ipso_time"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:inputType="time"
-                    android:text="@={vmSpeOperation._equipementCynoNerone}" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:hint="Durée"
+                    android:visibility="@{isIpsoChecked ? View.VISIBLE : View.GONE, default = gone}"
+                    app:helperText="@string/add_operation_time_helper"
+                    app:helperTextEnabled="true"
+                    app:layout_constraintBottom_toBottomOf="@+id/ipso"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toTopOf="@+id/ipso"
+                    tools:visibility="visible">
 
-            <CheckBox
-                android:id="@+id/priaxe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:checked="@={isPriaxeChecked}"
-                android:text="Pri-Axe"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nerone" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ed_ipso_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="5"
+                        android:inputType="time"
+                        android:text="@={vmSpeOperation._equipementCynoIpso}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/priaxe_time"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_8dp"
-                android:hint="Durée"
-                app:helperText="@string/add_operation_time_helper"
-                android:visibility="@{isPriaxeChecked ? View.VISIBLE : View.GONE, default = gone}"
-                app:layout_constraintBottom_toBottomOf="@+id/priaxe"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="@+id/priaxe"
-                tools:visibility="visible">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_priaxe_time"
+                <CheckBox
+                    android:id="@+id/nano"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:inputType="time"
-                    android:text="@={vmSpeOperation._equipementCynoPriaxe}" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+                    android:layout_marginTop="20dp"
+                    android:checked="@={isNanoChecked}"
+                    android:text="Nano"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ipso" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nano_time"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:hint="Durée"
+                    android:visibility="@{isNanoChecked ? View.VISIBLE : View.GONE, default = gone}"
+                    app:helperText="@string/add_operation_time_helper"
+                    app:layout_constraintBottom_toBottomOf="@+id/nano"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toTopOf="@+id/nano"
+                    tools:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_nano_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="5"
+                        android:inputType="time"
+                        android:text="@={vmSpeOperation._equipementCynoNano}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <CheckBox
+                    android:id="@+id/nerone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={isNeroneChecked}"
+                    android:text="Nerone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/nano" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nerone_time"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:hint="Durée"
+                    android:visibility="@{isNeroneChecked ? View.VISIBLE : View.GONE, default = gone}"
+                    app:helperText="@string/add_operation_time_helper"
+                    app:layout_constraintBottom_toBottomOf="@+id/nerone"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toTopOf="@+id/nerone"
+                    tools:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_nerone_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="5"
+                        android:inputType="time"
+                        android:text="@={vmSpeOperation._equipementCynoNerone}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <CheckBox
+                    android:id="@+id/priaxe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={isPriaxeChecked}"
+                    android:text="Pri-Axe"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/nerone" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/priaxe_time"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:hint="Durée"
+                    android:visibility="@{isPriaxeChecked ? View.VISIBLE : View.GONE, default = gone}"
+                    app:helperText="@string/add_operation_time_helper"
+                    app:layout_constraintBottom_toBottomOf="@+id/priaxe"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toTopOf="@+id/priaxe"
+                    tools:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_priaxe_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="5"
+                        android:inputType="time"
+                        android:text="@={vmSpeOperation._equipementCynoPriaxe}" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 </layout>

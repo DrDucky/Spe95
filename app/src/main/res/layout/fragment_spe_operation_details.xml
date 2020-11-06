@@ -248,7 +248,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dimen_8dp"
-                    android:text="@string/equipment_title"
+                    android:text="@{speOperation.specialty.equals(Constants.FIRESTORE_CYNO_DOCUMENT) ? @string/chiens_title : @string/equipment_title}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cv_team" />
 
