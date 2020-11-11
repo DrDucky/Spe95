@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -17,6 +16,8 @@ import com.loic.spe95.databinding.FragmentAgentDetailsBinding
 import com.loic.spe95.statistiques.data.Statistique
 import com.loic.spe95.statistiques.ui.StatistiquesViewModel
 import com.loic.spe95.utils.AvatarGenerator
+import com.loic.spe95.utils.configureChart
+import com.loic.spe95.utils.setDataToChart
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AgentDetailsFragment : Fragment() {
@@ -86,7 +87,10 @@ class AgentDetailsFragment : Fragment() {
     }
 
     private fun bindStats(binding: FragmentAgentDetailsBinding, stats: Statistique) {
-        //TODO
-        Toast.makeText(context, "lala ${stats.agentTimes?.keys.toString()}", Toast.LENGTH_LONG).show()
+        //Update UI
+        configureChart(binding.timesChart, context!!)
+        configureChart(binding.typeChart, context!!)
+        setDataToChart(stats.agentTimes, binding.timesChart, "Temps en opération")
+        setDataToChart(stats.agentTypes, binding.typeChart, "Types d'opération")
     }
 }

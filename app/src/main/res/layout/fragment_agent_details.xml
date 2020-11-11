@@ -23,8 +23,8 @@
 
         <ImageView
             android:id="@+id/iv_agent_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/guideline"
@@ -35,35 +35,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/TextAppearance.MaterialComponents.Headline4"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_agent_avatar"
             android:text="@{agent.firstname.concat(@string/space).concat(agent.lastname)}"
             tools:text="Bruno Charpentier" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_agent_specialties"
-            android:layout_width="wrap_content"
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/type_chart"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-            android:text="Specialtiés - TODO"
+            android:minHeight="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_agent_details"
-            tools:text="Cyno" />
+            app:layout_constraintEnd_toStartOf="@id/times_chart"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_agent_stats"
-            android:layout_width="wrap_content"
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/times_chart"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:minHeight="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_agent_specialties"
-            tools:text="Cyno" />
+            app:layout_constraintStart_toEndOf="@id/type_chart" />
 
         <ProgressBar
             android:id="@+id/progressBar"
