@@ -7,7 +7,7 @@
 
         <variable
             name="handler"
-            type="com.loic.spe95.agent.ui.AgentHandlerClick" />
+            type="com.pomplarg.spe95.agent.ui.AgentHandlerClick" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +48,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chip_group_specialties"
-            tools:context="com.loic.spe95.MainActivity"
+            tools:context="com.pomplarg.spe95.MainActivity"
             tools:listitem="@layout/list_item_agent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

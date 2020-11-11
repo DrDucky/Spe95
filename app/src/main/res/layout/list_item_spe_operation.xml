@@ -5,15 +5,15 @@
 
     <data>
 
-        <import type="com.loic.spe95.utils.ConverterKt" />
+        <import type="com.pomplarg.spe95.utils.ConverterKt" />
 
         <variable
             name="handler"
-            type="com.loic.spe95.speoperations.ui.SpeOperationHandlerClick" />
+            type="com.pomplarg.spe95.speoperations.ui.SpeOperationHandlerClick" />
 
         <variable
             name="speOperation"
-            type="com.loic.spe95.speoperations.data.SpeOperation" />
+            type="com.pomplarg.spe95.speoperations.data.SpeOperation" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

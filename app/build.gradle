@@ -33,7 +33,7 @@ android {
         enabled = true
     }
     defaultConfig {
-        applicationId "com.loic.spe95"
+        applicationId "com.plomparg.spe95"
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
@@ -47,7 +47,7 @@ android {
             debuggable true
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }

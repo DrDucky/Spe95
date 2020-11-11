@@ -9,7 +9,7 @@
 
         <variable
             name="material"
-            type="com.loic.spe95.speoperations.data.MaterialSd" />
+            type="com.pomplarg.spe95.speoperations.data.MaterialSd" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

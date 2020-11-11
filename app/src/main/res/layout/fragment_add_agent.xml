@@ -6,7 +6,7 @@
 
         <variable
             name="vmAgents"
-            type="com.loic.spe95.agent.ui.AgentViewModel" />
+            type="com.pomplarg.spe95.agent.ui.AgentViewModel" />
 
     </data>
 

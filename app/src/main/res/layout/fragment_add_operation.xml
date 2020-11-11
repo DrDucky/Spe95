@@ -7,9 +7,9 @@
 
         <import type="android.view.View" />
 
-        <import type="com.loic.spe95.utils.ConverterKt" />
+        <import type="com.pomplarg.spe95.utils.ConverterKt" />
 
-        <import type="com.loic.spe95.utils.Constants" />
+        <import type="com.pomplarg.spe95.utils.Constants" />
 
         <variable
             name="connected"
@@ -17,11 +17,11 @@
 
         <variable
             name="vmAgents"
-            type="com.loic.spe95.agent.ui.AgentViewModel" />
+            type="com.pomplarg.spe95.agent.ui.AgentViewModel" />
 
         <variable
             name="vmSpeOperation"
-            type="com.loic.spe95.speoperations.ui.SpeOperationViewModel" />
+            type="com.pomplarg.spe95.speoperations.ui.SpeOperationViewModel" />
     </data>
 
     <ScrollView

@@ -5,11 +5,11 @@
 
     <data>
 
-        <import type="com.loic.spe95.utils.ConverterKt" />
+        <import type="com.pomplarg.spe95.utils.ConverterKt" />
 
         <variable
             name="material"
-            type="com.loic.spe95.speoperations.data.MaterialCyno" />
+            type="com.pomplarg.spe95.speoperations.data.MaterialCyno" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

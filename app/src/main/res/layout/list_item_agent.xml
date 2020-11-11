@@ -7,11 +7,11 @@
 
         <variable
             name="handler"
-            type="com.loic.spe95.speoperations.ui.SpeOperationHandlerClick" />
+            type="com.pomplarg.spe95.speoperations.ui.SpeOperationHandlerClick" />
 
         <variable
             name="agent"
-            type="com.loic.spe95.agent.data.Agent" />
+            type="com.pomplarg.spe95.agent.data.Agent" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

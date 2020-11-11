@@ -6,7 +6,7 @@
 
     <data>
 
-        <import type="com.loic.spe95.utils.Constants" />
+        <import type="com.pomplarg.spe95.utils.Constants" />
 
         <variable
             name="specialty"
@@ -14,7 +14,7 @@
 
         <variable
             name="handler"
-            type="com.loic.spe95.speoperations.ui.SpeOperationHandlerClick" />
+            type="com.pomplarg.spe95.speoperations.ui.SpeOperationHandlerClick" />
 
     </data>
 
@@ -37,7 +37,7 @@
                 android:clipToPadding="false"
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:context="com.loic.spe95.MainActivity"
+                tools:context="com.pomplarg.spe95.MainActivity"
                 tools:listitem="@layout/list_item_spe_operation" />
 
             <ProgressBar

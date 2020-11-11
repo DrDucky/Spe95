@@ -10,7 +10,7 @@
 
         <variable
             name="vmLoginForm"
-            type="com.loic.spe95.signin.ui.LoginViewModel" />
+            type="com.pomplarg.spe95.signin.ui.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

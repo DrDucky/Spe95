@@ -7,17 +7,17 @@
 
         <variable
             name="handler"
-            type="com.loic.spe95.speoperations.ui.SpeOperationHandlerClick" />
+            type="com.pomplarg.spe95.speoperations.ui.SpeOperationHandlerClick" />
 
         <import type="android.view.View" />
 
-        <import type="com.loic.spe95.utils.ConverterKt" />
+        <import type="com.pomplarg.spe95.utils.ConverterKt" />
 
-        <import type="com.loic.spe95.utils.Constants" />
+        <import type="com.pomplarg.spe95.utils.Constants" />
 
         <variable
             name="speOperation"
-            type="com.loic.spe95.speoperations.data.SpeOperation" />
+            type="com.pomplarg.spe95.speoperations.data.SpeOperation" />
     </data>
 
     <ScrollView
@@ -236,7 +236,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_team_category_subtitle"
-                            tools:context="com.loic.spe95.MainActivity"
+                            tools:context="com.pomplarg.spe95.MainActivity"
                             tools:listitem="@layout/list_item_agent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -272,7 +272,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:context="com.loic.spe95.MainActivity"
+                        tools:context="com.pomplarg.spe95.MainActivity"
                         tools:listitem="@layout/list_item_material_cyno" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -285,7 +285,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:context="com.loic.spe95.MainActivity"
+                        tools:context="com.pomplarg.spe95.MainActivity"
                         tools:listitem="@layout/list_item_material_sd" />
 
                 </com.google.android.material.card.MaterialCardView>

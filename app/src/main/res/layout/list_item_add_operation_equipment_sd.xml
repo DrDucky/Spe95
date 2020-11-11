@@ -8,7 +8,7 @@
 
         <variable
             name="vmSpeOperation"
-            type="com.loic.spe95.speoperations.ui.SpeOperationViewModel" />
+            type="com.pomplarg.spe95.speoperations.ui.SpeOperationViewModel" />
 
     </data>
 
