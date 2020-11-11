@@ -21,16 +21,17 @@ class StatistiquesViewModel(private val repository: StatistiqueRepository) : Vie
 
     // -- Coroutine jobs
     private var getStatsJob: Job? = null
+    private var getAgentJob: Job? = null
 
     var statsMotifsLd: MutableLiveData<Statistique> = MutableLiveData()
     var statsAgentLd: MutableLiveData<Statistique> = MutableLiveData()
 
 
     //fetch all statistiques in a specific specialty
-    fun fetchMotifsStats(specialty: String, year: String) {
+    fun fetchStats(specialty: String, year: String) {
         if (getStatsJob?.isActive == true) getStatsJob?.cancel()
         getStatsJob = launch {
-            when (val result = repository.getMotifsStatsPerSpecialtyAndYear(specialty, year)) {
+            when (val result = repository.getStatsPerSpecialtyAndYear(specialty, year)) {
                 is Result.Success -> {
                     statsMotifsLd.value = result.data
                 }
@@ -42,8 +43,8 @@ class StatistiquesViewModel(private val repository: StatistiqueRepository) : Vie
 
     //fetch all statistiques for a given agent
     fun fetchAgentStats(agentId: String, specialty: String, year: String) {
-        if (getStatsJob?.isActive == true) getStatsJob?.cancel()
-        getStatsJob = launch {
+        if (getAgentJob?.isActive == true) getAgentJob?.cancel()
+        getAgentJob = launch {
             when (val result = repository.getStatsPerAgentAndSpecialtyAndYear(agentId, specialty, year)) {
                 is Result.Success -> {
                     statsAgentLd.value = result.data

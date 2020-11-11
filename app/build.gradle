@@ -110,4 +110,7 @@ dependencies {
 
     implementation "com.google.android.libraries.places:places:$places_version"
 
+    implementation "com.github.PhilJay:MPAndroidChart:v$mpandroidchart_version"
+
+
 }

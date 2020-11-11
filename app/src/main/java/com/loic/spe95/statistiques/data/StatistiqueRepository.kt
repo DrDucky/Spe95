@@ -3,6 +3,7 @@ package com.loic.spe95.statistiques.data
 import com.google.firebase.firestore.FirebaseFirestore
 import com.loic.spe95.data.Result
 import com.loic.spe95.data.await
+import com.loic.spe95.utils.Constants
 
 class StatistiqueRepository {
 
@@ -13,7 +14,7 @@ class StatistiqueRepository {
      * Retrieve all stats
      * @return list of stats for a given specialty
      */
-    suspend fun getMotifsStatsPerSpecialtyAndYear(
+    suspend fun getStatsPerSpecialtyAndYear(
         specialty: String,
         year: String
     ): Result<Statistique> {
@@ -23,6 +24,16 @@ class StatistiqueRepository {
             is Result.Success -> {
                 val stats = Statistique(null, null)
                 stats.motifs = documentSnapshot.data[specialty] as HashMap<String?, Long?>?
+                val ipsoTime = documentSnapshot.data[Constants.CYNO_DOG_IPSO] as HashMap<String?, HashMap<String?, Long?>?>?
+                val nanoTime = documentSnapshot.data[Constants.CYNO_DOG_NANO] as HashMap<String?, HashMap<String?, Long?>?>?
+                val neroneTime = documentSnapshot.data[Constants.CYNO_DOG_NERONE] as HashMap<String?, HashMap<String?, Long?>?>?
+                val priaxeTime = documentSnapshot.data[Constants.CYNO_DOG_PRIAXE] as HashMap<String?, HashMap<String?, Long?>?>?
+
+                stats.ipso = ipsoTime?.get("time")
+                stats.nano = nanoTime?.get("time")
+                stats.nerone = neroneTime?.get("time")
+                stats.priaxe = priaxeTime?.get("time")
+
                 Result.Success(stats)
             }
             is Result.Error -> Result.Error(documentSnapshot.exception)
