@@ -21,6 +21,14 @@
     <string name="add_agent_lastname">Nom</string>
     <string name="add_agent_agent_added">L\'agent a été sauvegardé</string>
 
+    <!-- Authentication -->
+    <string name="authentication_email">Email</string>
+    <string name="authentication_password">Mot de passe</string>
+    <string name="authentication_login">Se connecter</string>
+    <string name="authentication_subtitle">La gestion des spécialités pompiers dans le 95</string>
+    <string name="authentication_title">Bienvenue sur Spé 95</string>
+    <string name="authentication_version">v.</string>
+
     <!-- Equipment category Sauvetage -->
     <string name="equipment_sauvetage_title">Sauvetage</string>
     <string name="equipment_sauvetage_lspcc">LSPCC / Main courante</string>
@@ -94,5 +102,6 @@
     <string name="operation_empty_state">Pas d\'opération présente ou sélectionnée pour le moment</string>
     <string name="screen_title_exit_app">Sortir de l\'application</string>
     <string name="screen_title_go_gmaps">Etes-vous sûr de vouloir sortir de l\'application pour aller sur Google Maps ?</string>
+
 
 </resources>

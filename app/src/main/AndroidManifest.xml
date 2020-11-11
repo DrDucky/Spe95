@@ -18,7 +18,7 @@
         <activity
             android:name="com.loic.spe95.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +30,8 @@
             android:name=".signin.ui.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:noHistory="true"
-            android:excludeFromRecents="true" />
+            android:excludeFromRecents="true"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
 
     </application>
 </manifest>

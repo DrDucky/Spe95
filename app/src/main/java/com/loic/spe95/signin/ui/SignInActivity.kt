@@ -3,14 +3,16 @@ package com.loic.spe95.signin.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
+import com.loic.spe95.BuildConfig
 import com.loic.spe95.MainActivity
 import com.loic.spe95.databinding.ActivitySigninBinding
-import com.loic.spe95.ui.base.BaseActivity
+import com.loic.spe95.utils.hideKeyboard
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SignInActivity : BaseActivity() {
+class SignInActivity : AppCompatActivity() {
     private val loginViewModel: LoginViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,10 +20,12 @@ class SignInActivity : BaseActivity() {
 
         val binding = ActivitySigninBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        hideKeyboard(binding.root)
 
+        binding.appVersion = BuildConfig.VERSION_NAME
         binding.vmLoginForm = loginViewModel
         binding.btnSignin.setOnClickListener(View.OnClickListener {
-            showKeyboard(false)
+            hideKeyboard()
             loginViewModel.login()
         })
 

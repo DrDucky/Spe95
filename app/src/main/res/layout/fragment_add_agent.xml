@@ -53,7 +53,8 @@
                             android:singleLine="true"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@={vmAgents._firstname}" />
+                            android:text="@={vmAgents._firstname}"
+                            android:inputType="textPersonName|textCapWords" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,7 +74,8 @@
                             android:singleLine="true"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@={vmAgents._lastname}" />
+                            android:text="@={vmAgents._lastname}"
+                            android:inputType="textPersonName|textCapWords" />
 
                         <com.google.android.material.checkbox.MaterialCheckBox
                             android:id="@+id/cb_agent_cyno"
