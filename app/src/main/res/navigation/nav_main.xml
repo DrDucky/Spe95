@@ -84,8 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/addOperationFragment"
-        android:name="com.pomplarg.spe95.speoperations.ui.AddOperationFragment"
-        android:label="@string/screen_title_add_operation">
+        android:name="com.pomplarg.spe95.speoperations.ui.AddOperationFragment">
 
         <argument
             android:name="specialty"

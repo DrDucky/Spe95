@@ -18,11 +18,12 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.pomplarg.spe95.databinding.ActivityMainBinding
 import com.pomplarg.spe95.signin.ui.SignInActivity
+import com.pomplarg.spe95.utils.Constants
 import com.pomplarg.spe95.utils.Constants.Companion.SHARED_PREF_FRAGMENT_KEY
 import kotlinx.android.synthetic.main.nav_header.view.*
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ToolbarTitleListener {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -107,13 +108,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.cyno_fragment -> {
-                args.putString("specialty", "cyno")
+                args.putString("specialty", Constants.FIRESTORE_CYNO_DOCUMENT)
                 navController.navigate(R.id.speOperationFragment, args)
                 drawerLayout.closeDrawers()
                 return true
             }
             R.id.sd_fragment -> {
-                args.putString("specialty", "sd")
+                args.putString("specialty", Constants.FIRESTORE_SD_DOCUMENT)
                 navController.navigate(R.id.speOperationFragment, args)
                 drawerLayout.closeDrawers()
                 return true
@@ -141,4 +142,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             else                -> super.onOptionsItemSelected(item)
         }
     }
+
+    override fun updateTitle(titleToolbar: String) {
+        binding.toolbar.title = titleToolbar
+    }
+}
+
+interface ToolbarTitleListener {
+    fun updateTitle(titleToolbar: String)
 }

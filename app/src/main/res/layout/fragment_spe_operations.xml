@@ -48,6 +48,7 @@
 
             <LinearLayout
                 android:id="@+id/fab_add_intervention"
+                android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_INTERVENTION)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -64,7 +65,6 @@
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     style="@style/Widget.MaterialComponents.FloatingActionButton"
-                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_INTERVENTION)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dimen_16dp"
@@ -72,11 +72,14 @@
                     app:fabSize="mini"
                     app:rippleColor="@color/white"
                     app:srcCompat="@drawable/ic_type_intervention"
-                    app:tint="@color/white" />
+                    app:tint="@color/white"
+                    android:clickable="false"
+                    android:focusable="false" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/fab_add_training"
+                android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_TRAINING)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -94,7 +97,6 @@
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     style="@style/Widget.MaterialComponents.FloatingActionButton"
-                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_TRAINING)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dimen_16dp"
@@ -102,11 +104,14 @@
                     app:fabSize="mini"
                     app:rippleColor="@color/white"
                     app:srcCompat="@drawable/ic_type_training"
-                    app:tint="@color/white" />
+                    app:tint="@color/white"
+                    android:clickable="false"
+                    android:focusable="false" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/fab_add_formation"
+                android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_INFORMATION)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -124,7 +129,6 @@
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     style="@style/Widget.MaterialComponents.FloatingActionButton"
-                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_INFORMATION)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dimen_16dp"
@@ -132,11 +136,14 @@
                     app:fabSize="mini"
                     app:rippleColor="@color/white"
                     app:srcCompat="@drawable/ic_type_formation"
-                    app:tint="@color/white" />
+                    app:tint="@color/white"
+                    android:clickable="false"
+                    android:focusable="false" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/fab_add_information"
+                android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_FORMATION)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -154,7 +161,6 @@
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     style="@style/Widget.MaterialComponents.FloatingActionButton"
-                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_FORMATION)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dimen_16dp"
@@ -162,7 +168,9 @@
                     app:fabSize="mini"
                     app:rippleColor="@color/white"
                     app:srcCompat="@drawable/ic_type_information"
-                    app:tint="@color/white" />
+                    app:tint="@color/white"
+                    android:clickable="false"
+                    android:focusable="false" />
             </LinearLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton

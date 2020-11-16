@@ -26,6 +26,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 import com.pomplarg.spe95.R
+import com.pomplarg.spe95.ToolbarTitleListener
 import com.pomplarg.spe95.agent.data.Agent
 import com.pomplarg.spe95.agent.ui.AgentViewModel
 import com.pomplarg.spe95.databinding.FragmentAddOperationBinding
@@ -79,10 +80,14 @@ class AddOperationFragment : Fragment() {
         binding.lifecycleOwner = this
         context ?: return binding.root
 
+
         val connected = hasConnectivity(context)
 
         specialtyDocument = args.specialty
         speOperationViewModel._type.value = args.type
+
+        val title = getString((R.string.screen_title_add_operation), speOperationViewModel._type.value)
+        (activity as ToolbarTitleListener).updateTitle(title)
 
         setCustomMaterialView(
             speOperationViewModel,
@@ -149,7 +154,7 @@ class AddOperationFragment : Fragment() {
         speOperationViewModel.operationAdded.observe(viewLifecycleOwner, Observer {
             displayMainBloc(binding, true)
             Snackbar.make(
-                view!!,
+                requireView(),
                 getString(R.string.add_operation_operation_added),
                 Snackbar.LENGTH_LONG
             ).show()
@@ -162,7 +167,7 @@ class AddOperationFragment : Fragment() {
         speOperationViewModel._genericException.observe(viewLifecycleOwner, Observer {
             displayMainBloc(binding, true)
             Snackbar.make(
-                view!!,
+                requireView(),
                 getString(R.string.add_operation_exception, it),
                 Snackbar.LENGTH_LONG
             ).show()
@@ -301,7 +306,7 @@ class AddOperationFragment : Fragment() {
         }
         val adapter =
             ArrayAdapter(
-                this.context!!,
+                this.requireContext(),
                 android.R.layout.simple_list_item_1,
                 resources.getStringArray(arrayForMotifs).asList()
             )
