@@ -44,20 +44,22 @@
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/type_chart"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:minHeight="200dp"
+            android:minWidth="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/times_chart"
+            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/times_chart"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:minHeight="200dp"
+            android:minWidth="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/type_chart" />
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <ProgressBar
             android:id="@+id/progressBar"

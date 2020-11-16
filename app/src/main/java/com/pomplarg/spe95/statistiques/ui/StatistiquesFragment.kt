@@ -50,10 +50,10 @@ class StatistiquesFragment : Fragment() {
                 configureChart(binding.chartsCynoStats.priaxe_chart, context!!)
 
                 setDataToChart(it.motifs, binding.chartsCynoStats.type_chart, "Motifs d'intervention")
-                setDataToChart(it.ipso, binding.chartsCynoStats.ipso_chart, "Heures Ipso")
-                setDataToChart(it.nano, binding.chartsCynoStats.nano_chart, "Heures Nano")
-                setDataToChart(it.nerone, binding.chartsCynoStats.nerone_chart, "Heures Nerone")
-                setDataToChart(it.priaxe, binding.chartsCynoStats.priaxe_chart, "Heures Priaxe")
+                setDataToChart(it.ipso, binding.chartsCynoStats.ipso_chart, "Minutes Ipso")
+                setDataToChart(it.nano, binding.chartsCynoStats.nano_chart, "Minutes Nano")
+                setDataToChart(it.nerone, binding.chartsCynoStats.nerone_chart, "Minutes Nerone")
+                setDataToChart(it.priaxe, binding.chartsCynoStats.priaxe_chart, "Minutes Priaxe")
             }
             if (Constants.FIRESTORE_SD_DOCUMENT == specialtyDocument) {
                 //Update UI
