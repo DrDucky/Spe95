@@ -31,9 +31,6 @@ android {
     buildToolsVersion "29.0.3"
     buildFeatures {
         dataBinding true
-
-        // for view binding:
-        // viewBinding true
     }
     defaultConfig {
         applicationId "com.plomparg.spe95"
@@ -50,6 +47,7 @@ android {
             debuggable true
         }
         release {
+            shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release

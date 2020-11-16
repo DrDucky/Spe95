@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Spe95</string>
+    <string name="app_name">Spécialités Argenteuil</string>
     <string name="add_operation_intervention_nb_hint">Numéro d\'intervention</string>
     <string name="add_operation_motif_hint">Motif</string>
     <string name="add_operation_address_hint">Adresse</string>
@@ -28,8 +28,8 @@
     <string name="authentication_email">Email</string>
     <string name="authentication_password">Mot de passe</string>
     <string name="authentication_login">Se connecter</string>
-    <string name="authentication_subtitle">La gestion des spécialités pompiers dans le 95</string>
-    <string name="authentication_title">Bienvenue sur Spé 95</string>
+    <string name="authentication_subtitle">La gestion des spécialités des sapeurs-pompiers de la caserne d\'Argenteuil (95)</string>
+    <string name="authentication_title">Bienvenue sur Spécialités Argenteuil</string>
     <string name="authentication_version">v.</string>
 
     <!-- Equipment category Sauvetage -->
