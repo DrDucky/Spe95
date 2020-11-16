@@ -65,7 +65,7 @@ class SpeOperationHandlerClick {
         MaterialAlertDialogBuilder(it.context)
             .setTitle(it.context.resources.getString(R.string.screen_title_exit_app))
             .setMessage(it.context.resources.getString(R.string.screen_title_go_gmaps))
-            .setPositiveButton(it.context.resources.getString(R.string.ok)) { dialog, which ->
+            .setPositiveButton(it.context.resources.getString(android.R.string.ok)) { dialog, which ->
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                 mapIntent.setPackage("com.google.android.apps.maps")
                 it.context.startActivity(mapIntent)

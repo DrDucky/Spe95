@@ -13,9 +13,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
-fun configureChart(chart: PieChart, context: Context) {
+fun configureChart(chart: PieChart, context: Context?) {
     chart.description.isEnabled = false
-    chart.setNoDataText(context.getString(R.string.statistiques_no_data))
+    chart.setNoDataText(context?.getString(R.string.statistiques_no_data))
     chart.setExtraOffsets(20f, 0f, 20f, 0f)
     chart.dragDecelerationFrictionCoef = 0.95f
     chart.setEntryLabelColor(Color.BLACK)

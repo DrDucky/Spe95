@@ -88,8 +88,8 @@ class AgentDetailsFragment : Fragment() {
 
     private fun bindStats(binding: FragmentAgentDetailsBinding, stats: Statistique) {
         //Update UI
-        configureChart(binding.timesChart, context!!)
-        configureChart(binding.typeChart, context!!)
+        configureChart(binding.timesChart, context)
+        configureChart(binding.typeChart, context)
         setDataToChart(stats.agentTimes, binding.timesChart, "Temps en opération")
         setDataToChart(stats.agentTypes, binding.typeChart, "Types d'opération")
     }

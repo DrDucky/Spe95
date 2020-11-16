@@ -60,7 +60,7 @@
                     android:background="@color/colorSecondary"
                     android:elevation="2dp"
                     android:padding="@dimen/dimen_8dp"
-                    android:text="Intervention"
+                    android:text="@{Constants.TYPE_OPERATION_INTERVENTION}"
                     android:textColor="@color/white" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -91,7 +91,7 @@
                     android:background="@color/colorSecondary"
                     android:elevation="2dp"
                     android:padding="@dimen/dimen_8dp"
-                    android:text="Entrainement"
+                    android:text="@{Constants.TYPE_OPERATION_TRAINING}"
                     android:textColor="@color/white" />
 
 
@@ -111,7 +111,7 @@
 
             <LinearLayout
                 android:id="@+id/fab_add_formation"
-                android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_INFORMATION)}"
+                android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_FORMATION)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -123,7 +123,7 @@
                     android:background="@color/colorSecondary"
                     android:elevation="2dp"
                     android:padding="@dimen/dimen_8dp"
-                    android:text="Formation"
+                    android:text="@{Constants.TYPE_OPERATION_FORMATION}"
                     android:textColor="@color/white" />
 
 
@@ -143,7 +143,7 @@
 
             <LinearLayout
                 android:id="@+id/fab_add_information"
-                android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_FORMATION)}"
+                android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_INFORMATION)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -155,7 +155,7 @@
                     android:background="@color/colorSecondary"
                     android:elevation="2dp"
                     android:padding="@dimen/dimen_8dp"
-                    android:text="Information"
+                    android:text="@{Constants.TYPE_OPERATION_INFORMATION}"
                     android:textColor="@color/white" />
 
 

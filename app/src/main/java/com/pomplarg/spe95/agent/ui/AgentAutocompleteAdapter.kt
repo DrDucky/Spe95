@@ -10,6 +10,7 @@ import android.widget.Filterable
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import com.pomplarg.spe95.agent.data.Agent
+import java.util.*
 
 
 class AgentAutocompleteAdapter(
@@ -48,15 +49,15 @@ class AgentAutocompleteAdapter(
             }
 
             override fun performFiltering(charSequence: CharSequence?): Filter.FilterResults {
-                val queryString = charSequence?.toString()?.toLowerCase()
+                val queryString = charSequence?.toString()?.toLowerCase(Locale.getDefault())
 
                 val filterResults = Filter.FilterResults()
                 filterResults.values = if (queryString == null || queryString.isEmpty())
                     allAgents
                 else
                     allAgents.filter {
-                        it.firstname.toLowerCase().contains(queryString) ||
-                                it.lastname.toLowerCase().contains(queryString)
+                        it.firstname.toLowerCase(Locale.getDefault()).contains(queryString) ||
+                                it.lastname.toLowerCase(Locale.getDefault()).contains(queryString)
                     }
                 return filterResults
             }

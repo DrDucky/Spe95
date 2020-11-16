@@ -7,4 +7,6 @@
     <dimen name="square_iv">40dp</dimen>
     <dimen name="list_one_item_height">56dp</dimen>
     <dimen name="list_two_item_height">72dp</dimen>
+    <dimen name="chartpie_min_width">300dp</dimen>
+    <dimen name="chartpie_min_height">300dp</dimen>
 </resources>

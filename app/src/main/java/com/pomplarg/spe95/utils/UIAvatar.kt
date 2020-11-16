@@ -6,6 +6,7 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.text.TextPaint
 import com.pomplarg.spe95.R
+import java.util.*
 
 /**
  * Generator for avatar; display the firstletter of the user into a Circle with material color background picked randomly
@@ -53,7 +54,7 @@ class AvatarGenerator {
         }
 
         private fun firstCharacter(name: String): String {
-            return name.first().toString().toUpperCase()
+            return name.first().toString().toUpperCase(Locale.getDefault())
         }
 
         private fun textPainter(): TextPaint {

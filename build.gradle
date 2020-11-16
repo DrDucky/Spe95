@@ -8,7 +8,7 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath 'com.android.tools.build:gradle:4.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.3.4'  // Google Services plugin
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.1"
@@ -37,6 +37,7 @@ ext {
     places_version = '2.4.0'
     mpandroidchart_version = '3.1.0'
     material_version = '1.2.1'
+    flexbox_version = '2.0.1'
 }
 
 allprojects {

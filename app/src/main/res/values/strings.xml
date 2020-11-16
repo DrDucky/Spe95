@@ -6,6 +6,9 @@
     <string name="personnel_title">Personnel</string>
     <string name="equipment_title">Matériel</string>
     <string name="chiens_title">Chiens</string>
+    <string name="cyno_priaxe_display">Pri-Axe</string>
+
+    <!-- Add Operations -->
     <string name="add_operation_nb_helper">Nom des agents présents</string>
     <string name="add_operation_label_with">Avec</string>
     <string name="add_operation_chip_team_text">%01$s %02$s</string>
@@ -95,15 +98,17 @@
     <string name="screen_title_agents_list">Liste des agents</string>
     <string name="screen_title_agent_detail">Détail de l\'agent</string>
     <string name="screen_title_add_agent">Ajouter un agent</string>
+    <string name="screen_title_add_training">Ajouter un %01$s</string><!-- because of male -->
     <string name="screen_title_add_operation">Ajouter une %01$s</string>
     <string name="screen_title_statistiques">Statistiques</string>
     <string name="cancel">Annuler</string>
-    <string name="ok">Ok</string>
+    <string name="main_screen_logout">Déconnexion</string>
     <string name="operation_empty_state">Pas d\'opération présente ou sélectionnée pour le moment</string>
     <string name="screen_title_exit_app">Sortir de l\'application</string>
     <string name="screen_title_go_gmaps">Etes-vous sûr de vouloir sortir de l\'application pour aller sur Google Maps ?</string>
 
     <!-- Statistiques -->
     <string name="statistiques_no_data">Aucune donnée actuellement</string>
+    <string name="time">Durée</string>
 
 </resources>

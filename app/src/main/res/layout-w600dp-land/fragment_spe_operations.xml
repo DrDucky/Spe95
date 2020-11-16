@@ -57,6 +57,7 @@
 
                 <LinearLayout
                     android:id="@+id/fab_add_intervention"
+                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_INTERVENTION)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -68,7 +69,7 @@
                         android:background="@color/colorSecondary"
                         android:elevation="2dp"
                         android:padding="@dimen/dimen_8dp"
-                        android:text="Intervention"
+                        android:text="@{Constants.TYPE_OPERATION_INTERVENTION}"
                         android:textColor="@color/white" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -76,16 +77,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dimen_16dp"
-                        android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_INTERVENTION)}"
                         app:backgroundTint="@color/colorSecondary"
                         app:fabSize="mini"
                         app:rippleColor="@color/white"
                         app:srcCompat="@drawable/ic_type_intervention"
-                        app:tint="@color/white" />
+                        app:tint="@color/white"
+                        android:clickable="false"
+                        android:focusable="false" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/fab_add_training"
+                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_TRAINING)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -97,7 +100,7 @@
                         android:background="@color/colorSecondary"
                         android:elevation="2dp"
                         android:padding="@dimen/dimen_8dp"
-                        android:text="Entrainement"
+                        android:text="@{Constants.TYPE_OPERATION_TRAINING}"
                         android:textColor="@color/white" />
 
 
@@ -106,16 +109,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dimen_16dp"
-                        android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_TRAINING)}"
                         app:backgroundTint="@color/colorSecondary"
                         app:fabSize="mini"
                         app:rippleColor="@color/white"
                         app:srcCompat="@drawable/ic_type_training"
-                        app:tint="@color/white" />
+                        app:tint="@color/white"
+                        android:clickable="false"
+                        android:focusable="false" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/fab_add_formation"
+                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_FORMATION)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -127,7 +132,7 @@
                         android:background="@color/colorSecondary"
                         android:elevation="2dp"
                         android:padding="@dimen/dimen_8dp"
-                        android:text="Formation"
+                        android:text="@{Constants.TYPE_OPERATION_FORMATION}"
                         android:textColor="@color/white" />
 
 
@@ -136,16 +141,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dimen_16dp"
-                        android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_FORMATION)}"
                         app:backgroundTint="@color/colorSecondary"
                         app:fabSize="mini"
                         app:rippleColor="@color/white"
                         app:srcCompat="@drawable/ic_type_formation"
-                        app:tint="@color/white" />
+                        app:tint="@color/white"
+                        android:clickable="false"
+                        android:focusable="false" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/fab_add_information"
+                    android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_INFORMATION)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -157,7 +164,7 @@
                         android:background="@color/colorSecondary"
                         android:elevation="2dp"
                         android:padding="@dimen/dimen_8dp"
-                        android:text="Information"
+                        android:text="@{Constants.TYPE_OPERATION_INFORMATION}"
                         android:textColor="@color/white" />
 
 
@@ -166,12 +173,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dimen_16dp"
-                        android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_INFORMATION)}"
                         app:backgroundTint="@color/colorSecondary"
                         app:fabSize="mini"
                         app:rippleColor="@color/white"
                         app:srcCompat="@drawable/ic_type_information"
-                        app:tint="@color/white" />
+                        app:tint="@color/white"
+                        android:clickable="false"
+                        android:focusable="false" />
                 </LinearLayout>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -195,7 +203,7 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.3" />
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_spe_operation_details_container"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"

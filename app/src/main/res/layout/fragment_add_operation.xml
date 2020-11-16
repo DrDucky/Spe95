@@ -146,7 +146,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/sp_motif">
 
-                            <androidx.fragment.app.FragmentContainerView
+                            <fragment
                                 android:id="@+id/autocomplete_fragment"
                                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                                 android:layout_width="match_parent"

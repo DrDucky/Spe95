@@ -86,7 +86,10 @@ class AddOperationFragment : Fragment() {
         specialtyDocument = args.specialty
         speOperationViewModel._type.value = args.type
 
-        val title = getString((R.string.screen_title_add_operation), speOperationViewModel._type.value)
+        val title = when (speOperationViewModel._type.value) {
+            Constants.TYPE_OPERATION_TRAINING -> getString((R.string.screen_title_add_training), speOperationViewModel._type.value)
+            else                              -> getString((R.string.screen_title_add_operation), speOperationViewModel._type.value)
+        }
         (activity as ToolbarTitleListener).updateTitle(title)
 
         setCustomMaterialView(
@@ -408,7 +411,7 @@ private fun setEquipmentPopupCheckboxes(
         R.id.tv_eclairage_category_groupe_electro -> {
             MaterialAlertDialogBuilder(context)
                 .setTitle(context.resources.getString(R.string.equipment_eclairage_groupe_electro))
-                .setPositiveButton(context.resources.getString(R.string.ok)) { dialog, which ->
+                .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
                     //Nothing to do, closes automatically with multiChoiceItems
                     //Except set the checkbox check if at least one of the item has been selected
                     checkbox.isChecked = (vmSpeOperationViewModel._equipementSdGrElecFixe.value!!
@@ -431,7 +434,7 @@ private fun setEquipmentPopupCheckboxes(
         R.id.tv_eclairage_category_eclairage -> {
             MaterialAlertDialogBuilder(context)
                 .setTitle(context.resources.getString(R.string.equipment_eclairage_eclairage))
-                .setPositiveButton(context.resources.getString(R.string.ok)) { dialog, which ->
+                .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
                     //Nothing to do, closes automatically with multiChoiceItems
                     //Except set the checkbox check if at least one of the item has been selected
                     checkbox.isChecked = (vmSpeOperationViewModel._equipementSdEclSolaris.value!!

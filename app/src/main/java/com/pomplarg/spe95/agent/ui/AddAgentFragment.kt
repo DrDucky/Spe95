@@ -34,7 +34,7 @@ class AddAgentFragment : Fragment() {
         //Observables
         agentViewModel.agentAdded.observe(viewLifecycleOwner, Observer {
             Snackbar.make(
-                view!!,
+                requireView(),
                 getString(R.string.add_agent_agent_added),
                 Snackbar.LENGTH_LONG
             ).show()

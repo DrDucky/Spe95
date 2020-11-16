@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.pomplarg.spe95.utils.Constants" />
 
         <import type="android.view.View" />
 
@@ -71,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:checked="@={isIpsoChecked}"
-                    android:text="Ipso"
+                    android:text="@{Constants.CYNO_DOG_IPSO}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_8dp"
-                    android:hint="Durée"
+                    android:hint="@string/time"
                     android:visibility="@{isIpsoChecked ? View.VISIBLE : View.GONE, default = gone}"
                     app:helperText="@string/add_operation_time_helper"
                     app:helperTextEnabled="true"
@@ -105,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:checked="@={isNanoChecked}"
-                    android:text="Nano"
+                    android:text="@{Constants.CYNO_DOG_NANO}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ipso" />
 
@@ -115,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_8dp"
-                    android:hint="Durée"
+                    android:hint="@string/time"
                     android:visibility="@{isNanoChecked ? View.VISIBLE : View.GONE, default = gone}"
                     app:helperText="@string/add_operation_time_helper"
                     app:layout_constraintBottom_toBottomOf="@+id/nano"
@@ -138,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:checked="@={isNeroneChecked}"
-                    android:text="Nerone"
+                    android:text="@{Constants.CYNO_DOG_NERONE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/nano" />
 
@@ -149,7 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_8dp"
-                    android:hint="Durée"
+                    android:hint="@string/time"
                     android:visibility="@{isNeroneChecked ? View.VISIBLE : View.GONE, default = gone}"
                     app:helperText="@string/add_operation_time_helper"
                     app:layout_constraintBottom_toBottomOf="@+id/nerone"
@@ -172,7 +173,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:checked="@={isPriaxeChecked}"
-                    android:text="Pri-Axe"
+                    android:text="@string/cyno_priaxe_display"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/nerone" />
 
@@ -182,7 +183,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_8dp"
-                    android:hint="Durée"
+                    android:hint="@string/time"
                     android:visibility="@{isPriaxeChecked ? View.VISIBLE : View.GONE, default = gone}"
                     app:helperText="@string/add_operation_time_helper"
                     app:layout_constraintBottom_toBottomOf="@+id/priaxe"

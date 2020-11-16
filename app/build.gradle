@@ -27,15 +27,18 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
+
+        // for view binding:
+        // viewBinding true
     }
     defaultConfig {
         applicationId "com.plomparg.spe95"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -81,6 +84,7 @@ dependencies {
     // Koin AndroidX ViewModel features
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     implementation "com.google.android.material:material:$material_version"
+    implementation "com.google.android:flexbox:$flexbox_version"
     implementation "com.google.code.gson:gson:$gson_version"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -89,14 +93,13 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-
     implementation "com.google.firebase:firebase-firestore-ktx:$firebase_firestore_database_version"
 
     implementation "com.google.firebase:firebase-auth:$firebase_auth_version"
 
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
     implementation "com.google.firebase:firebase-storage:$firebase_storage_version"
     implementation "com.firebaseui:firebase-ui-storage:$firestore_ui_version"
     implementation "com.google.firebase:firebase-crashlytics:$firebase_crashlytics_version"

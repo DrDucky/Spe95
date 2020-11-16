@@ -43,11 +43,11 @@ class StatistiquesFragment : Fragment() {
         statistiquesViewModel.statsMotifsLd.observe(viewLifecycleOwner, Observer {
             if (Constants.FIRESTORE_CYNO_DOCUMENT == specialtyDocument) {
                 //Update UI
-                configureChart(binding.chartsCynoStats.type_chart, context!!)
-                configureChart(binding.chartsCynoStats.ipso_chart, context!!)
-                configureChart(binding.chartsCynoStats.nano_chart, context!!)
-                configureChart(binding.chartsCynoStats.nerone_chart, context!!)
-                configureChart(binding.chartsCynoStats.priaxe_chart, context!!)
+                configureChart(binding.chartsCynoStats.type_chart, context)
+                configureChart(binding.chartsCynoStats.ipso_chart, context)
+                configureChart(binding.chartsCynoStats.nano_chart, context)
+                configureChart(binding.chartsCynoStats.nerone_chart, context)
+                configureChart(binding.chartsCynoStats.priaxe_chart, context)
 
                 setDataToChart(it.motifs, binding.chartsCynoStats.type_chart, "Motifs d'intervention")
                 setDataToChart(it.ipso, binding.chartsCynoStats.ipso_chart, "Minutes Ipso")
@@ -57,7 +57,7 @@ class StatistiquesFragment : Fragment() {
             }
             if (Constants.FIRESTORE_SD_DOCUMENT == specialtyDocument) {
                 //Update UI
-                configureChart(binding.chartsSdStats.type_chart, context!!)
+                configureChart(binding.chartsSdStats.type_chart, context)
                 setDataToChart(it.motifs, binding.chartsSdStats.type_chart, "Motifs d'intervention")
             }
         })
