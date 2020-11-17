@@ -1,20 +1,19 @@
 package com.pomplarg.spe95.speoperations.data
 
 import android.widget.AutoCompleteTextView
+import androidx.annotation.Keep
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
-import com.google.firebase.firestore.PropertyName
 import com.google.gson.annotations.SerializedName
 import com.pomplarg.spe95.agent.data.Agent
 import com.pomplarg.spe95.agent.ui.AgentAutocompleteAdapter
 
-
+@Keep
 data class SpeOperation(
 
-    @get:PropertyName("specialty")
-    @set:PropertyName("specialty")
+    @field:SerializedName("specialty")
     var specialty: String = "",
 
     @field:SerializedName("id")
@@ -29,31 +28,25 @@ data class SpeOperation(
     @field:SerializedName("address")
     var address: GeoPoint? = null,
 
-    @field:SerializedName("address_offline")
+    @field:SerializedName("addressOffline")
     var addressOffline: String? = "",
 
-    @get:PropertyName("caserne_id")
-    @set:PropertyName("caserne_id")
+    @field:SerializedName("caserneId")
     var caserneId: Int? = null,
 
-    @get:PropertyName("start_date")
-    @set:PropertyName("start_date")
+    @field:SerializedName("startDate")
     var startDate: Timestamp? = null,
 
-    @get:PropertyName("unit_chief")
-    @set:PropertyName("unit_chief")
+    @field:SerializedName("unitChief")
     var unitChief: String? = "",
 
-    @get:PropertyName("agentsOperation")
-    @set:PropertyName("agentsOperation")
+    @field:SerializedName("agentOnOperation")
     var agentOnOperation: List<AgentOnOperation>? = ArrayList(),
 
-    @get:PropertyName("materialsCyno")
-    @set:PropertyName("materialsCyno")
+    @field:SerializedName("materialsCyno")
     var materialsCyno: List<MaterialCyno>? = ArrayList(),
 
-    @get:PropertyName("materialsSd")
-    @set:PropertyName("materialsSd")
+    @field:SerializedName("materialsSd")
     var materialsSd: List<MaterialSd>? = ArrayList()
 )
 

@@ -1,15 +1,15 @@
 package com.pomplarg.spe95.agent.data
 
-import com.google.firebase.firestore.PropertyName
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class Agent(
 
     @field:SerializedName("id")
     var id: String = "",
 
-    @get:PropertyName("specialties_member")
-    @set:PropertyName("specialties_member")
+    @field:SerializedName("specialtiesMember")
     var specialtiesMember: Map<String, Boolean>? = HashMap(),
 
     @field:SerializedName("avatar")

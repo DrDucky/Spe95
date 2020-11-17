@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.pomplarg.spe95.R
 import com.pomplarg.spe95.databinding.FragmentAddAgentBinding
+import com.pomplarg.spe95.utils.hideKeyboard
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddAgentFragment : Fragment() {
@@ -33,9 +34,22 @@ class AddAgentFragment : Fragment() {
 
         //Observables
         agentViewModel.agentAdded.observe(viewLifecycleOwner, Observer {
+            hideKeyboard()
             Snackbar.make(
                 requireView(),
                 getString(R.string.add_agent_agent_added),
+                Snackbar.LENGTH_LONG
+            ).show()
+            val direction =
+                AddAgentFragmentDirections.actionAddAgentFragmentToAgentFragment()
+            findNavController().navigate(direction)
+        })
+
+        agentViewModel._genericException.observe(viewLifecycleOwner, Observer {
+            hideKeyboard()
+            Snackbar.make(
+                requireView(),
+                getString(R.string.add_agent_error, it),
                 Snackbar.LENGTH_LONG
             ).show()
             val direction =
