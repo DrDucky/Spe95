@@ -8,38 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:114088093866:android:67dfd00823b6f8832088d3",
+        "mobilesdk_app_id": "1:114088093866:android:7964d9548ed2ac182088d3",
         "android_client_info": {
-          "package_name": "com.loic.spe95"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "114088093866-a012ovgccpbp5r2imhnjih6s7ch8h440.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyACrkSH4lMHL-HD8sNDGZsF8a5iKIz0oxY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "114088093866-a012ovgccpbp5r2imhnjih6s7ch8h440.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:114088093866:android:dd7adddab82a2bc22088d3",
-        "android_client_info": {
-          "package_name": "com.loic.spe95.debug"
+          "package_name": "com.plomparg.spe95.debug"
         }
       },
       "oauth_client": [
