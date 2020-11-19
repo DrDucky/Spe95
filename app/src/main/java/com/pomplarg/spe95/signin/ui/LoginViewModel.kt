@@ -39,6 +39,9 @@ class LoginViewModel(
 
     var loginError: MutableLiveData<String> = MutableLiveData()
 
+    val btnSigninState = SingleLiveEvent<Any>()
+
+
     /**
      * Login into Firebase
      */
@@ -65,12 +68,16 @@ class LoginViewModel(
         } else {
             _emailError.value = null
         }
+
+        btnSigninState.call()
     }
 
     fun onPasswordTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        if (s.isEmpty())
+        if (s.isEmpty()) {
             _passwordError.value = "Champ obligatoire"
-        else
+        } else {
             _passwordError.value = null
+        }
+        btnSigninState.call()
     }
 }
