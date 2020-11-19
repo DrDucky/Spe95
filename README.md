@@ -4,11 +4,11 @@ Projet Android pour tablettes permettant à un centre de secours de gérer les i
 
 
 # Screens
-<img src="screens/screen1.png" width="360" height="576" />
-<img src="screens/screen2.png" width="360" height="576" />
-<img src="screens/screen3.png" width="360" height="576" />
-<img src="screens/screen4.png" width="360" height="576" />
-<img src="screens/screen5.png" width="360" height="576" />
+<img src="screens/screen1.jpg" width="360" height="576" />
+<img src="screens/screen2.jpg" width="360" height="576" />
+<img src="screens/screen3.jpg" width="360" height="576" />
+<img src="screens/screen4.jpg" width="360" height="576" />
+<img src="screens/screen5.jpg" width="360" height="576" />
 
 ## Fonctionnalités
 
