@@ -59,12 +59,12 @@ class LoginViewModel(
 
     fun onEmailTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         if (s.isEmpty())
-            _emailError.value = "Champ obligatoire"
+            _emailError.value = "Ce champ est obligatoire"
         else
             _emailError.value = null
 
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
-            _emailError.value = "Email KO"
+            _emailError.value = "Entrez une adresse email valide"
         } else {
             _emailError.value = null
         }
@@ -74,7 +74,7 @@ class LoginViewModel(
 
     fun onPasswordTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         if (s.isEmpty()) {
-            _passwordError.value = "Champ obligatoire"
+            _passwordError.value = "Ce champ est obligatoire"
         } else {
             _passwordError.value = null
         }
