@@ -40,7 +40,7 @@ class AgentRepository {
         specialty: String
     ): Result<List<Agent>> {
         return when (val documentSnapshot =
-            agentsCollection.whereEqualTo("specialties_member.$specialty", true)
+            agentsCollection.whereEqualTo("specialtiesMember.$specialty", true)
                 .get().await()) {
             is Result.Success -> {
                 val listAgents =

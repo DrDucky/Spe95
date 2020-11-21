@@ -22,6 +22,7 @@ class SignInActivity : AppCompatActivity() {
         setContentView(binding.root)
         hideKeyboard(binding.root)
 
+        binding.lifecycleOwner = this
         binding.appVersion = BuildConfig.VERSION_NAME
         binding.vmLoginForm = loginViewModel
         binding.btnSignin.setOnClickListener(View.OnClickListener {
@@ -50,5 +51,14 @@ class SignInActivity : AppCompatActivity() {
                 Snackbar.LENGTH_LONG
             ).show()
         })
+
+        loginViewModel.btnSigninState.observe(this, Observer {
+            updateBtnState(binding)
+        })
+    }
+
+    private fun updateBtnState(binding: ActivitySigninBinding) {
+        binding.btnSignin.isEnabled = !binding.etEmail.text.isNullOrEmpty()
+                && !binding.etPassword.text.isNullOrEmpty()
     }
 }

@@ -29,7 +29,9 @@ class AddAgentFragment : Fragment() {
         binding.vmAgents = agentViewModel
 
         binding.btnAddAgent.setOnClickListener(View.OnClickListener {
-            agentViewModel.addAgentIntoFirestore()
+            if (validate(agentViewModel, binding)) {
+                agentViewModel.addAgentIntoFirestore()
+            }
         })
 
         //Observables
@@ -64,5 +66,42 @@ class AddAgentFragment : Fragment() {
 
         setHasOptionsMenu(false)
         return binding.root
+    }
+
+    private fun validate(
+        agentViewModel: AgentViewModel,
+        binding: FragmentAddAgentBinding,
+    ): Boolean {
+        val mandatoryFieldError: String = getString(R.string.add_operation_error_mandatory_field)
+        var isValid = true
+
+        if (agentViewModel.firstname.value.isNullOrEmpty()) {
+            agentViewModel._firstnameError.value = mandatoryFieldError
+            isValid = false
+        } else {
+            agentViewModel._firstnameError.value =
+                null //Clear the value if error already displayed
+        }
+
+        if (agentViewModel.lastname.value.isNullOrEmpty()) {
+            agentViewModel._lastnameError.value = mandatoryFieldError
+            isValid = false
+        } else {
+            agentViewModel._lastnameError.value =
+                null //Clear the value if error already displayed
+        }
+
+        if (!binding.cbAgentCyno.isChecked && !binding.cbAgentSd.isChecked) {
+            Snackbar.make(
+                requireView(),
+                getString(R.string.add_agent_specialty_error),
+                Snackbar.LENGTH_LONG
+            ).show()
+            //Display snackbar because error on checkbox is not well supported
+            isValid = false
+        } else {
+            //nothing to do
+        }
+        return isValid
     }
 }

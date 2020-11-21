@@ -13,3 +13,4 @@
 .externalNativeBuild
 .cxx
 apikey.properties
+keystore.properties
