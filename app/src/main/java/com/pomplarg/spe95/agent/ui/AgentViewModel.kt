@@ -42,9 +42,11 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
 
     val _firstname: MutableLiveData<String> = MutableLiveData()
     val firstname: LiveData<String> = _firstname
+    var _firstnameError: MutableLiveData<String> = MutableLiveData()
 
     val _lastname: MutableLiveData<String> = MutableLiveData()
     val lastname: LiveData<String> = _lastname
+    var _lastnameError: MutableLiveData<String> = MutableLiveData()
 
     val _agentCyno: MutableLiveData<Boolean> = MutableLiveData()
     val agentCyno: LiveData<Boolean> = _agentCyno
