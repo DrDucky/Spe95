@@ -83,6 +83,11 @@ class AgentDetailsFragment : Fragment() {
                 .apply(RequestOptions.circleCropTransform())
                 .override(500, 500)
                 .into(binding.ivAgentAvatar)
+            val shortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
+
+            binding.ivAgentAvatar.setOnClickListener {
+                activity?.let { activity -> AvatarGenerator.zoomImageFromThumb(activity, it, binding.ivAgentAvatar.drawable, shortAnimationDuration, binding.ivAgentAvatarExpended) }
+            }
         }
     }
 
