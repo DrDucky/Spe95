@@ -248,28 +248,15 @@
 
                         </com.google.android.material.chip.ChipGroup>
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/actv_team_agents"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:hint="@string/add_operation_label_with"
-                            app:endIconMode="none"
-                            app:error="@{vmSpeOperation._teamError}"
-                            app:helperText="@string/add_operation_nb_helper"
-                            app:helperTextEnabled="true"
+                            android:gravity="center"
+                            android:text="Ajouter un Agent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/chipGroupTeam">
-
-                            <AutoCompleteTextView
-                                android:id="@+id/actv_team_agents"
-                                android:singleLine="true"
-                                entries="@{vmAgents.agentsLd}"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:imeOptions="actionDone" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
+                            app:layout_constraintTop_toBottomOf="@+id/chipGroupTeam" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

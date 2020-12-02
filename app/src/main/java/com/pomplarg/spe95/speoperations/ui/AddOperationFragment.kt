@@ -25,10 +25,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
+import com.michelin.qrttag.common.dialog.ListDialog
+import com.michelin.qrttag.common.dialog.model.ListDialogModelUI
 import com.pomplarg.spe95.R
 import com.pomplarg.spe95.ToolbarTitleListener
 import com.pomplarg.spe95.agent.data.Agent
 import com.pomplarg.spe95.agent.ui.AgentViewModel
+import com.pomplarg.spe95.agent.ui.toListDialogModelUIList
 import com.pomplarg.spe95.databinding.FragmentAddOperationBinding
 import com.pomplarg.spe95.databinding.ListItemAddOperationEquipmentCynoBinding
 import com.pomplarg.spe95.databinding.ListItemAddOperationEquipmentSdBinding
@@ -131,11 +134,37 @@ class AddOperationFragment : Fragment() {
             }
         })
 
-        binding.actvTeamAgents.setOnItemClickListener { parent, arg1, position, arg3 ->
+        binding.actvTeamAgents.setOnClickListener {
+            agentViewModel.agentsLd.value?.let {
+                val typeDialog = ListDialog(
+                    "title",
+                    it.toListDialogModelUIList(), 0
+                )
+                typeDialog.onItemSelectedListener =
+                    object : ListDialog.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            item: ListDialogModelUI,
+                            position: Int
+                        ) {
+                            binding.actvTeamAgents.text = null
+                            val selected = it[position]
+                            addChipToGroup(selected, binding.chipGroupTeam)
+                        }
+                    }
+                typeDialog.show(
+                    parentFragmentManager,
+                    TYPE_LIST_DIALOG_TAG
+                )
+            }
+        }
+
+
+        /*binding.actvTeamAgents.setOnItemClickListener { parent, arg1, position, arg3 ->
             binding.actvTeamAgents.text = null
             val selected = parent.getItemAtPosition(position) as Agent
             addChipToGroup(selected, binding.chipGroupTeam)
-        }
+        }*/
+
 
         binding.btnAddOperation.setOnClickListener(View.OnClickListener {
             if (validate(speOperationViewModel, binding)) {
@@ -386,72 +415,76 @@ class AddOperationFragment : Fragment() {
 
         return isValid
     }
-}
 
-private fun setEquipmentPopupCheckboxes(
-    context: Context,
-    checkboxView: View,
-    vmSpeOperationViewModel: SpeOperationViewModel
-) {
-    val checkedItemsGrElec = booleanArrayOf(
-        vmSpeOperationViewModel._equipementSdGrElecFixe.value!!,
-        vmSpeOperationViewModel._equipementSdGrElec22001.value!!,
-        vmSpeOperationViewModel._equipementSdGrElec22002.value!!,
-        vmSpeOperationViewModel._equipementSdGrElec30001.value!!,
-        vmSpeOperationViewModel._equipementSdGrElec30002.value!!
-    )
-    val checkedItemsGrEClairage = booleanArrayOf(
-        vmSpeOperationViewModel._equipementSdEclSolaris.value!!,
-        vmSpeOperationViewModel._equipementSdEclNeon.value!!,
-        vmSpeOperationViewModel._equipementSdEclSolaris.value!!,
-        vmSpeOperationViewModel._equipementSdEclBaby.value!!
-    )
-    val checkbox = checkboxView as CompoundButton
-    when (checkbox.id) {
-        R.id.tv_eclairage_category_groupe_electro -> {
-            MaterialAlertDialogBuilder(context)
-                .setTitle(context.resources.getString(R.string.equipment_eclairage_groupe_electro))
-                .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
-                    //Nothing to do, closes automatically with multiChoiceItems
-                    //Except set the checkbox check if at least one of the item has been selected
-                    checkbox.isChecked = (vmSpeOperationViewModel._equipementSdGrElecFixe.value!!
-                            || vmSpeOperationViewModel._equipementSdGrElec22001.value!!
-                            || vmSpeOperationViewModel._equipementSdGrElec22002.value!!
-                            || vmSpeOperationViewModel._equipementSdGrElec30001.value!!
-                            || vmSpeOperationViewModel._equipementSdGrElec30002.value!!)
-                }
-                .setMultiChoiceItems(R.array.sd_gr_elec, checkedItemsGrElec) { dialog, which, checked ->
-                    when (which) {
-                        0 -> vmSpeOperationViewModel._equipementSdGrElecFixe.value = checked
-                        1 -> vmSpeOperationViewModel._equipementSdGrElec22001.value = checked
-                        2 -> vmSpeOperationViewModel._equipementSdGrElec22002.value = checked
-                        3 -> vmSpeOperationViewModel._equipementSdGrElec30001.value = checked
-                        4 -> vmSpeOperationViewModel._equipementSdGrElec30002.value = checked
+    private fun setEquipmentPopupCheckboxes(
+        context: Context,
+        checkboxView: View,
+        vmSpeOperationViewModel: SpeOperationViewModel
+    ) {
+        val checkedItemsGrElec = booleanArrayOf(
+            vmSpeOperationViewModel._equipementSdGrElecFixe.value!!,
+            vmSpeOperationViewModel._equipementSdGrElec22001.value!!,
+            vmSpeOperationViewModel._equipementSdGrElec22002.value!!,
+            vmSpeOperationViewModel._equipementSdGrElec30001.value!!,
+            vmSpeOperationViewModel._equipementSdGrElec30002.value!!
+        )
+        val checkedItemsGrEClairage = booleanArrayOf(
+            vmSpeOperationViewModel._equipementSdEclSolaris.value!!,
+            vmSpeOperationViewModel._equipementSdEclNeon.value!!,
+            vmSpeOperationViewModel._equipementSdEclSolaris.value!!,
+            vmSpeOperationViewModel._equipementSdEclBaby.value!!
+        )
+        val checkbox = checkboxView as CompoundButton
+        when (checkbox.id) {
+            R.id.tv_eclairage_category_groupe_electro -> {
+                MaterialAlertDialogBuilder(context)
+                    .setTitle(context.resources.getString(R.string.equipment_eclairage_groupe_electro))
+                    .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
+                        //Nothing to do, closes automatically with multiChoiceItems
+                        //Except set the checkbox check if at least one of the item has been selected
+                        checkbox.isChecked = (vmSpeOperationViewModel._equipementSdGrElecFixe.value!!
+                                || vmSpeOperationViewModel._equipementSdGrElec22001.value!!
+                                || vmSpeOperationViewModel._equipementSdGrElec22002.value!!
+                                || vmSpeOperationViewModel._equipementSdGrElec30001.value!!
+                                || vmSpeOperationViewModel._equipementSdGrElec30002.value!!)
                     }
-                }
-                .show()
-        }
-        R.id.tv_eclairage_category_eclairage -> {
-            MaterialAlertDialogBuilder(context)
-                .setTitle(context.resources.getString(R.string.equipment_eclairage_eclairage))
-                .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
-                    //Nothing to do, closes automatically with multiChoiceItems
-                    //Except set the checkbox check if at least one of the item has been selected
-                    checkbox.isChecked = (vmSpeOperationViewModel._equipementSdEclSolaris.value!!
-                            || vmSpeOperationViewModel._equipementSdEclNeon.value!!
-                            || vmSpeOperationViewModel._equipementSdEclLumaphore.value!!
-                            || vmSpeOperationViewModel._equipementSdEclBaby.value!!)
-                }
-                .setMultiChoiceItems(R.array.sd_eclairage, checkedItemsGrEClairage) { dialog, which, checked ->
-                    when (which) {
-                        0 -> vmSpeOperationViewModel._equipementSdEclSolaris.value = checked
-                        1 -> vmSpeOperationViewModel._equipementSdEclNeon.value = checked
-                        2 -> vmSpeOperationViewModel._equipementSdEclLumaphore.value = checked
-                        3 -> vmSpeOperationViewModel._equipementSdEclBaby.value = checked
+                    .setMultiChoiceItems(R.array.sd_gr_elec, checkedItemsGrElec) { dialog, which, checked ->
+                        when (which) {
+                            0 -> vmSpeOperationViewModel._equipementSdGrElecFixe.value = checked
+                            1 -> vmSpeOperationViewModel._equipementSdGrElec22001.value = checked
+                            2 -> vmSpeOperationViewModel._equipementSdGrElec22002.value = checked
+                            3 -> vmSpeOperationViewModel._equipementSdGrElec30001.value = checked
+                            4 -> vmSpeOperationViewModel._equipementSdGrElec30002.value = checked
+                        }
                     }
-                }
-                .show()
+                    .show()
+            }
+            R.id.tv_eclairage_category_eclairage -> {
+                MaterialAlertDialogBuilder(context)
+                    .setTitle(context.resources.getString(R.string.equipment_eclairage_eclairage))
+                    .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
+                        //Nothing to do, closes automatically with multiChoiceItems
+                        //Except set the checkbox check if at least one of the item has been selected
+                        checkbox.isChecked = (vmSpeOperationViewModel._equipementSdEclSolaris.value!!
+                                || vmSpeOperationViewModel._equipementSdEclNeon.value!!
+                                || vmSpeOperationViewModel._equipementSdEclLumaphore.value!!
+                                || vmSpeOperationViewModel._equipementSdEclBaby.value!!)
+                    }
+                    .setMultiChoiceItems(R.array.sd_eclairage, checkedItemsGrEClairage) { dialog, which, checked ->
+                        when (which) {
+                            0 -> vmSpeOperationViewModel._equipementSdEclSolaris.value = checked
+                            1 -> vmSpeOperationViewModel._equipementSdEclNeon.value = checked
+                            2 -> vmSpeOperationViewModel._equipementSdEclLumaphore.value = checked
+                            3 -> vmSpeOperationViewModel._equipementSdEclBaby.value = checked
+                        }
+                    }
+                    .show()
+            }
         }
     }
 
+    companion object {
+        const val TYPE_LIST_DIALOG_TAG = "TYPE_LIST_DIALOG_TAG"
+    }
 }
+

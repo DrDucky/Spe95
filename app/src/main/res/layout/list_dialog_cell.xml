@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/dimen_16dp"
+    android:paddingEnd="@dimen/dimen_16dp">
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/listDialogCellLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layoutDirection="rtl"
+        android:textColor="@color/colorPrimary"
+        app:buttonTint="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="value" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/listDialogCellSubLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingBottom="@dimen/dimen_8dp"
+        app:layout_constraintTop_toBottomOf="@+id/listDialogCellLabel"
+        tools:text="sub value" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:alpha="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listDialogCellSubLabel"
+        android:background="@color/colorPrimary" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

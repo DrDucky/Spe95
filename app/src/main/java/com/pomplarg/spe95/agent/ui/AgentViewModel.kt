@@ -3,6 +3,7 @@ package com.pomplarg.spe95.agent.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.michelin.qrttag.common.dialog.model.ListDialogModelUI
 import com.pomplarg.spe95.agent.data.Agent
 import com.pomplarg.spe95.agent.data.AgentRepository
 import com.pomplarg.spe95.data.Result
@@ -12,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 
@@ -161,3 +163,15 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
     }
 
 }
+
+
+fun List<Agent>.toListDialogModelUIList(): List<ListDialogModelUI> {
+    val listDialogModelUIList: ArrayList<ListDialogModelUI> = arrayListOf()
+    forEach { vehicleType ->
+        vehicleType.toListDialogModelUI()?.let { listDialogModelUIList.add(it) }
+    }
+    return listDialogModelUIList
+}
+
+fun Agent.toListDialogModelUI(): ListDialogModelUI? =
+    id?.let { ListDialogModelUI(id!!, firstname + " " + lastname) }
