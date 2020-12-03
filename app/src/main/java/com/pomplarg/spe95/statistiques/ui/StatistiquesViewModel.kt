@@ -3,6 +3,7 @@ package com.pomplarg.spe95.statistiques.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pomplarg.spe95.data.Result
+import com.pomplarg.spe95.speoperations.data.MaterialSd
 import com.pomplarg.spe95.statistiques.data.Statistique
 import com.pomplarg.spe95.statistiques.data.StatistiqueRepository
 import kotlinx.coroutines.CoroutineScope
@@ -21,10 +22,12 @@ class StatistiquesViewModel(private val repository: StatistiqueRepository) : Vie
 
     // -- Coroutine jobs
     private var getStatsJob: Job? = null
+    private var getStockJob: Job? = null
     private var getAgentJob: Job? = null
 
     var statsMotifsLd: MutableLiveData<Statistique> = MutableLiveData()
     var statsAgentLd: MutableLiveData<Statistique> = MutableLiveData()
+    var statsStocksLd: MutableLiveData<List<MaterialSd>> = MutableLiveData()
 
 
     //fetch all statistiques in a specific specialty
@@ -34,6 +37,20 @@ class StatistiquesViewModel(private val repository: StatistiqueRepository) : Vie
             when (val result = repository.getStatsPerSpecialtyAndYear(specialty, year)) {
                 is Result.Success -> {
                     statsMotifsLd.value = result.data
+                }
+                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
+                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+            }
+        }
+    }
+
+    //fetch all the stock for SD Specialty
+    fun fetchSdStock() {
+        if (getStockJob?.isActive == true) getStockJob?.cancel()
+        getStockJob = launch {
+            when (val result = repository.getSdStock()) {
+                is Result.Success -> {
+                    statsStocksLd.value = result.data
                 }
                 //is Result2.Error -> _snackbarText.value = R.string.error_fetching
                 //is Result2.Canceled -> _snackbarText.value = R.string.canceled

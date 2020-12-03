@@ -99,7 +99,7 @@ class SpeOperationDetailsFragment : Fragment() {
 
                 val materialSd = ArrayList<MaterialSd>()
                 for (material in speOperation.materialsSd!!) {
-                    if (material.checked!!) materialSd.add(material) //We take here only materials that has not been checked when added
+                    materialSd.add(material)
                 }
                 materialSdAdapter.submitList(materialSd)
             }

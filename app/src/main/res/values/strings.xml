@@ -92,6 +92,7 @@
     <string name="menu_settings_title">Paramètres</string>
     <string name="menu_csp_name_title">CSP Argenteuil</string>
     <string name="menu_stats_title">Statistiques</string>
+    <string name="stock_title">Gestion du stock</string>
 
 
     <!-- Screen titles -->
