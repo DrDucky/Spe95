@@ -292,6 +292,33 @@ class AddOperationFragment : Fragment() {
                 )
             }
         }
+        bindingListEquipmentSd.tvEtaiementCategoryEtaiMetallique.setOnClickListener { buttonView ->
+            context?.let {
+                setEquipmentPopupCheckboxes(
+                    it,
+                    buttonView,
+                    speOperationViewModel
+                )
+            }
+        }
+        bindingListEquipmentSd.tvEtaiementCategoryBois.setOnClickListener { buttonView ->
+            context?.let {
+                setEquipmentPopupCheckboxes(
+                    it,
+                    buttonView,
+                    speOperationViewModel
+                )
+            }
+        }
+        bindingListEquipmentSd.tvPetitMaterielCategoryCarburant.setOnClickListener { buttonView ->
+            context?.let {
+                setEquipmentPopupCheckboxes(
+                    it,
+                    buttonView,
+                    speOperationViewModel
+                )
+            }
+        }
 
         var layoutToAdd: View? = null
         when (specialtyId) {
@@ -406,6 +433,23 @@ private fun setEquipmentPopupCheckboxes(
         vmSpeOperationViewModel._equipementSdEclSolaris.value!!,
         vmSpeOperationViewModel._equipementSdEclBaby.value!!
     )
+    val checkedItemsEtaiMetal = booleanArrayOf(
+        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value!!,
+        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value!!,
+        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value!!,
+    )
+    val checkedItemsBois = booleanArrayOf(
+        vmSpeOperationViewModel._equipementSdEtaiementBoisGousset.value!!,
+        vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value!!,
+        vmSpeOperationViewModel._equipementSdEtaiementBoischevron.value!!,
+        vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value!!,
+    )
+    val checkedItemsCarburant = booleanArrayOf(
+        vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95.value!!,
+        vmSpeOperationViewModel._equipementSdPetitMatCarburantMarline.value!!,
+        vmSpeOperationViewModel._equipementSdPetitMatCarburantMelange.value!!,
+        vmSpeOperationViewModel._equipementSdPetitMatCarburantHuileChaine.value!!,
+    )
     val checkbox = checkboxView as CompoundButton
     when (checkbox.id) {
         R.id.tv_eclairage_category_groupe_electro -> {
@@ -448,6 +492,67 @@ private fun setEquipmentPopupCheckboxes(
                         1 -> vmSpeOperationViewModel._equipementSdEclNeon.value = checked
                         2 -> vmSpeOperationViewModel._equipementSdEclLumaphore.value = checked
                         3 -> vmSpeOperationViewModel._equipementSdEclBaby.value = checked
+                    }
+                }
+                .show()
+        }
+        R.id.tv_etaiement_category_etai_metallique -> {
+            MaterialAlertDialogBuilder(context)
+                .setTitle(context.resources.getString(R.string.equipment_etaiement_etai_metallique))
+                .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
+                    //Nothing to do, closes automatically with multiChoiceItems
+                    //Except set the checkbox check if at least one of the item has been selected
+                    checkbox.isChecked = (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value!!
+                            || vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value!!
+                            || vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value!!)
+                }
+                .setMultiChoiceItems(R.array.sd_etai_metal, checkedItemsEtaiMetal) { dialog, which, checked ->
+                    when (which) {
+                        0 -> vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value = checked
+                        1 -> vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value = checked
+                        2 -> vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value = checked
+                    }
+                }
+                .show()
+        }
+        R.id.tv_etaiement_category_bois -> {
+            MaterialAlertDialogBuilder(context)
+                .setTitle(context.resources.getString(R.string.equipment_etaiement_bois))
+                .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
+                    //Nothing to do, closes automatically with multiChoiceItems
+                    //Except set the checkbox check if at least one of the item has been selected
+                    checkbox.isChecked = (vmSpeOperationViewModel._equipementSdEtaiementBoisGousset.value!!
+                            || vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value!!
+                            || vmSpeOperationViewModel._equipementSdEtaiementBoischevron.value!!
+                            || vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value!!)
+                }
+                .setMultiChoiceItems(R.array.sd_bois, checkedItemsBois) { dialog, which, checked ->
+                    when (which) {
+                        0 -> vmSpeOperationViewModel._equipementSdEtaiementBoisGousset.value = checked
+                        1 -> vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value = checked
+                        2 -> vmSpeOperationViewModel._equipementSdEtaiementBoischevron.value = checked
+                        3 -> vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value = checked
+                    }
+                }
+                .show()
+        }
+        R.id.tv_petit_materiel_category_carburant -> {
+            MaterialAlertDialogBuilder(context)
+                .setTitle(context.resources.getString(R.string.equipment_petit_materiel_carburant))
+                .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
+                    //Nothing to do, closes automatically with multiChoiceItems
+                    //Except set the checkbox check if at least one of the item has been selected
+                    checkbox.isChecked = (vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95.value!!
+                            || vmSpeOperationViewModel._equipementSdPetitMatCarburantMarline.value!!
+                            || vmSpeOperationViewModel._equipementSdPetitMatCarburantMelange.value!!
+                            || vmSpeOperationViewModel._equipementSdPetitMatCarburantHuileChaine.value!!)
+                }
+                .setMultiChoiceItems(R.array.sd_carburant, checkedItemsCarburant) { dialog, which, checked ->
+                    when (which) {
+                        0 -> vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95.value = checked
+                        1 -> vmSpeOperationViewModel._equipementSdPetitMatCarburantMarline.value = checked
+                        2 -> vmSpeOperationViewModel._equipementSdPetitMatCarburantMelange.value = checked
+                        3 -> vmSpeOperationViewModel._equipementSdPetitMatCarburantHuileChaine.value = checked
                     }
                 }
                 .show()
