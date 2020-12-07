@@ -48,13 +48,7 @@ class StatistiquesViewModel(private val repository: StatistiqueRepository) : Vie
     fun fetchSdStock() {
         if (getStockJob?.isActive == true) getStockJob?.cancel()
         getStockJob = launch {
-            when (val result = repository.getSdStock()) {
-                is Result.Success -> {
-                    statsStocksLd.value = result.data
-                }
-                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
-            }
+            repository.getSdStock(statsStocksLd)
         }
     }
 
@@ -69,6 +63,14 @@ class StatistiquesViewModel(private val repository: StatistiqueRepository) : Vie
                 //is Result2.Error -> _snackbarText.value = R.string.error_fetching
                 //is Result2.Canceled -> _snackbarText.value = R.string.canceled
             }
+        }
+    }
+
+    //update SD Stock
+    fun updateStock(materialName: String, quantity: String) {
+        if (getStockJob?.isActive == true) getStockJob?.cancel()
+        getStockJob = launch {
+            repository.updateSdStock(materialName, quantity.toInt())
         }
     }
 }

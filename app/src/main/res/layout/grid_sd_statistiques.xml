@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/flx_type_chart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:flexWrap="wrap"
-        app:alignItems="flex_start"
         app:alignContent="center"
+        app:alignItems="flex_start"
+        app:flexWrap="wrap"
         app:justifyContent="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,22 +21,77 @@
             android:id="@+id/type_chart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/chartpie_min_height"
-            android:minWidth="@dimen/chartpie_min_width" />
+            android:minWidth="@dimen/chartpie_min_width"
+            android:minHeight="@dimen/chartpie_min_height" />
 
     </com.google.android.flexbox.FlexboxLayout>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/stock_title"
+        style="@style/CategoryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/stock_title"
         android:padding="@dimen/dimen_16dp"
-        style="@style/CategoryTitle"
+        android:text="@string/stock_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/flx_type_chart" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_stock_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/rv_material_sd_list_stock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stock_title">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:id="@+id/sp_stock_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tip_stock_update"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintBottom_toTopOf="@id/btn_stock_update" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tip_stock_update"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="@dimen/default_margin_form_fields"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_operation_quantity"
+                app:layout_constraintBottom_toTopOf="@id/btn_stock_update"
+                app:layout_constraintStart_toEndOf="@id/sp_stock_update"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_stock_update"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_stock_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_16dp"
+                android:text="@string/stock_update_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sp_stock_update"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_material_sd_list_stock"
@@ -47,7 +102,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/stock_title"
+        app:layout_constraintTop_toBottomOf="@id/cv_stock_update"
         tools:context="com.pomplarg.spe95.MainActivity"
         tools:listitem="@layout/list_item_material_sd" />
 </androidx.constraintlayout.widget.ConstraintLayout>

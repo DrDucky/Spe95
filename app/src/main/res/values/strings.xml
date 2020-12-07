@@ -97,6 +97,9 @@
     <string name="menu_csp_name_title">CSP Argenteuil</string>
     <string name="menu_stats_title">Statistiques</string>
     <string name="stock_title">Gestion du stock</string>
+    <string name="stock_update_popup_title">Mise à jour du stock</string>
+    <string name="stock_update_popup_message">Etes-vous sûr de vouloir mettre à jour le stock ? </string>
+    <string name="stock_update_btn">Mettre à jour</string>
 
 
     <!-- Screen titles -->

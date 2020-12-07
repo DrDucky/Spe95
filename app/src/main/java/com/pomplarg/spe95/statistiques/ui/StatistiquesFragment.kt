@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -74,23 +75,45 @@ class StatistiquesFragment : Fragment() {
 
         //SD "functionnality" only
         if (Constants.FIRESTORE_SD_DOCUMENT == specialtyDocument) {
-            val alert1 = AlertStock(Constants.SD_LSPCC, 4)
+            val alert1 = AlertStock(Constants.SD_ETAIEMENT_BOIS_GOUSSET, 5)
             statistiquesViewModel.fetchSdStock()
 
             statistiquesViewModel.statsStocksLd.observe(viewLifecycleOwner, {
                 materialSdAdapter.submitList(it)
-                it.forEach {
-                    if (it.name == alert1.name && it.quantity <= alert1.threshold) {
-                        context?.let { context ->
-                            MaterialAlertDialogBuilder(context)
-                                .setTitle(context.resources.getString(R.string.equipment_eclairage_groupe_electro))
-                                .setMessage("Attention, Alerte ! Stock de " + it.name + " insuffisant")
-                                .show()
+                val spinnerList = arrayListOf<String>()
+                it.forEach { material ->
+                    material.quantity?.let { quantity ->
+                        if (material.name == alert1.name && quantity <= alert1.threshold) {
+                            context?.let { context ->
+                                MaterialAlertDialogBuilder(context)
+                                    .setTitle(context.resources.getString(R.string.equipment_eclairage_groupe_electro))
+                                    .setMessage("Attention, Alerte ! Stock de " + material.name + " insuffisant")
+                                    .show()
+                            }
                         }
+                        material.name?.let { name -> spinnerList.add(name) }
                     }
+                }
+                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, spinnerList)
+                binding.chartsSdStats.sp_stock_update.adapter = adapter
+                binding.chartsSdStats.btn_stock_update.setOnClickListener {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(context?.resources?.getString(R.string.stock_update_popup_title))
+                        .setMessage(context?.resources?.getString(R.string.stock_update_popup_message))
+                        .setPositiveButton(android.R.string.ok) { _, _ ->
+                            updateStock(
+                                binding.chartsSdStats.sp_stock_update.selectedItem.toString(),
+                                binding.chartsSdStats.et_stock_update.text.toString()
+                            )
+                        }
+                        .show()
                 }
             })
         }
+    }
+
+    private fun updateStock(materialName: String, quantity: String) {
+        statistiquesViewModel.updateStock(materialName, quantity)
     }
 
 

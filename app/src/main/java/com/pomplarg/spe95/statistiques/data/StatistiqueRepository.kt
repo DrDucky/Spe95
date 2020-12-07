@@ -1,6 +1,9 @@
 package com.pomplarg.spe95.statistiques.data
 
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.pomplarg.spe95.data.Result
 import com.pomplarg.spe95.data.await
 import com.pomplarg.spe95.speoperations.data.MaterialSd
@@ -11,6 +14,7 @@ class StatistiqueRepository {
     private val firestoreInstance = FirebaseFirestore.getInstance()
     private val specialtiesCollection = firestoreInstance.collection("specialties")
     private val statistiqueCollection = firestoreInstance.collection("statistiques")
+    private val sdDocument = specialtiesCollection.document("sd")
 
     /**
      * Retrieve all stats
@@ -69,26 +73,53 @@ class StatistiqueRepository {
     }
 
     /**
-     * Retrieve all stats by agent and year
-     * @return list of stats for a given agent
+     * Retrieve all the stock for SD specialty
+     * @return list of SD material
      */
-    suspend fun getSdStock(
-    ): Result<List<MaterialSd>> {
-        return when (val documentSnapshot =
-            specialtiesCollection.document("sd")
-                .get().await()) {
-            is Result.Success -> {
+    fun getSdStock(statsStocksLd: MutableLiveData<List<MaterialSd>>) {
+        sdDocument
+            .addSnapshotListener { documentSnapshot, e ->
+                if (e != null) {
+                    Log.e(TAG, "Error when getting SD Stock", e)
+                    return@addSnapshotListener
+                }
                 val materials = arrayListOf<MaterialSd>()
-                val materialsFirestore = documentSnapshot.data["stock"] as HashMap<String?, Long?>?
+                val materialsFirestore = documentSnapshot?.data?.get("stock") as HashMap<String?, Long?>?
                 materialsFirestore?.forEach { (key, value) ->
                     value?.toInt()?.let { valueInt ->
                         materials.add(MaterialSd(key, valueInt))
                     }
                 }
-                Result.Success(materials)
+                statsStocksLd.value = materials
             }
-            is Result.Error -> Result.Error(documentSnapshot.exception)
-            is Result.Canceled -> Result.Canceled(documentSnapshot.exception)
-        }
+    }
+
+
+    /**
+     * Update Material SD Stock
+     * @return list of stats for a given agent
+     */
+    fun updateSdStock(
+        materialName: String, quantity: Int
+    ) {
+        val nestedData = hashMapOf(
+            materialName to quantity
+        )
+
+        val stock = hashMapOf(
+            FIRESTORE_MAP_STOCK_KEY to nestedData
+        )
+
+        sdDocument
+            .set(stock, SetOptions.merge())
+            .addOnSuccessListener { Log.v(TAG, "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error when setting stock", e)
+            }
+    }
+
+    companion object {
+        const val TAG = "StatistiqueRepository"
+        const val FIRESTORE_MAP_STOCK_KEY = "stock"
     }
 }
