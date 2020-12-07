@@ -19,6 +19,7 @@
     <string name="add_operation_error_time_required">Une durée de travail est nécessaire pour l\'un des agents. Veuiller en spécifier une en cliquant sur le nom de l\'agent</string>
     <string name="add_operation_operation_added">L\'opération a été sauvegardée</string>
     <string name="add_operation_exception">L\'opération a échouée : %01$s</string>
+    <string name="add_operation_quantity">Quantité</string>
 
     <string name="add_agent_firstname">Prénom</string>
     <string name="add_agent_lastname">Nom</string>
@@ -65,7 +66,10 @@
     <string name="equipment_etaiement_title">Etaiement</string>
     <string name="equipment_etaiement_etai_pneumatique">Etai pneumatique</string>
     <string name="equipment_etaiement_etai_metallique">Etai métallique</string>
-    <string name="equipment_etaiement_bois">Bois</string>
+    <string name="equipment_etaiement_gousset">Gousset</string>
+    <string name="equipment_etaiement_volige">Volige</string>
+    <string name="equipment_etaiement_chevron">Chevron</string>
+    <string name="equipment_etaiement_bastaing">Bastaing</string>
 
     <!-- Equipment category Exploration -->
     <string name="equipment_exploration_title">Exploration</string>

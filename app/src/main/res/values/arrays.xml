@@ -55,12 +55,6 @@
         <item>Moyen</item>
         <item>Grand</item>
     </string-array>
-    <string-array name="sd_bois">
-        <item>Gousset</item>
-        <item>Volige</item>
-        <item>Chevron</item>
-        <item>Bastaing</item>
-    </string-array>
     <string-array name="sd_carburant">
         <item>SP95</item>
         <item>Marline</item>

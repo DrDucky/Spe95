@@ -35,6 +35,7 @@ import com.pomplarg.spe95.databinding.ListItemAddOperationEquipmentSdBinding
 import com.pomplarg.spe95.speoperations.data.AgentOnOperation
 import com.pomplarg.spe95.utils.Constants
 import com.pomplarg.spe95.utils.hasConnectivity
+import kotlinx.android.synthetic.main.list_item_add_operation_equipment_sd.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.text.SimpleDateFormat
@@ -101,6 +102,7 @@ class AddOperationFragment : Fragment() {
             connected
         )
         binding.vmSpeOperation = speOperationViewModel
+        bindingListEquipmentSd.vmSpeOperation = speOperationViewModel
         binding.vmAgents = agentViewModel
 
         val autocompleteFragment =
@@ -301,15 +303,7 @@ class AddOperationFragment : Fragment() {
                 )
             }
         }
-        bindingListEquipmentSd.tvEtaiementCategoryBois.setOnClickListener { buttonView ->
-            context?.let {
-                setEquipmentPopupCheckboxes(
-                    it,
-                    buttonView,
-                    speOperationViewModel
-                )
-            }
-        }
+
         bindingListEquipmentSd.tvPetitMaterielCategoryCarburant.setOnClickListener { buttonView ->
             context?.let {
                 setEquipmentPopupCheckboxes(
@@ -411,6 +405,56 @@ class AddOperationFragment : Fragment() {
                     null //Clear the value if error already displayed
         }
 
+        if ((vmSpeOperationViewModel._equipementSdEtaiementBoisGousset.value == true &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value!! <= 0)
+            || (vmSpeOperationViewModel._equipementSdEtaiementBoisGousset.value == false &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value!! != 0)
+        ) {
+            isValid = false
+            binding.equipment.sp_etaiement_category_gousset.error = mandatoryFieldError//app:error does not work...
+        } else
+            binding.equipment.sp_etaiement_category_gousset.error = null
+
+        if ((vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value == true &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value!! <= 0) ||
+            (vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value == false &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value!! != 0)
+        ) {
+            isValid = false
+            binding.equipment.sp_etaiement_category_volige.error = mandatoryFieldError
+        } else
+            binding.equipment.sp_etaiement_category_volige.error = null
+
+        if ((vmSpeOperationViewModel._equipementSdEtaiementBoisChevron.value == true &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value!! <= 0)
+            || (vmSpeOperationViewModel._equipementSdEtaiementBoisChevron.value == false &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value!! != 0
+                    )
+        ) {
+            isValid = false
+            binding.equipment.sp_etaiement_category_chevron.error = mandatoryFieldError
+        } else
+            binding.equipment.sp_etaiement_category_chevron.error = null
+
+        if ((vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value == true &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value!! <= 0) ||
+            (vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value == false &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value!! != 0
+                    )
+        ) {
+            isValid = false
+            binding.equipment.sp_etaiement_category_bastaing.error = mandatoryFieldError
+        } else
+            binding.equipment.sp_etaiement_category_bastaing.error = null
+
         return isValid
     }
 }
@@ -418,7 +462,7 @@ class AddOperationFragment : Fragment() {
 private fun setEquipmentPopupCheckboxes(
     context: Context,
     checkboxView: View,
-    vmSpeOperationViewModel: SpeOperationViewModel
+    vmSpeOperationViewModel: SpeOperationViewModel,
 ) {
     val checkedItemsGrElec = booleanArrayOf(
         vmSpeOperationViewModel._equipementSdGrElecFixe.value!!,
@@ -437,12 +481,6 @@ private fun setEquipmentPopupCheckboxes(
         vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value!!,
         vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value!!,
         vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value!!,
-    )
-    val checkedItemsBois = booleanArrayOf(
-        vmSpeOperationViewModel._equipementSdEtaiementBoisGousset.value!!,
-        vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value!!,
-        vmSpeOperationViewModel._equipementSdEtaiementBoischevron.value!!,
-        vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value!!,
     )
     val checkedItemsCarburant = booleanArrayOf(
         vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95.value!!,
@@ -511,27 +549,6 @@ private fun setEquipmentPopupCheckboxes(
                         0 -> vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value = checked
                         1 -> vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value = checked
                         2 -> vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value = checked
-                    }
-                }
-                .show()
-        }
-        R.id.tv_etaiement_category_bois -> {
-            MaterialAlertDialogBuilder(context)
-                .setTitle(context.resources.getString(R.string.equipment_etaiement_bois))
-                .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
-                    //Nothing to do, closes automatically with multiChoiceItems
-                    //Except set the checkbox check if at least one of the item has been selected
-                    checkbox.isChecked = (vmSpeOperationViewModel._equipementSdEtaiementBoisGousset.value!!
-                            || vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value!!
-                            || vmSpeOperationViewModel._equipementSdEtaiementBoischevron.value!!
-                            || vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value!!)
-                }
-                .setMultiChoiceItems(R.array.sd_bois, checkedItemsBois) { dialog, which, checked ->
-                    when (which) {
-                        0 -> vmSpeOperationViewModel._equipementSdEtaiementBoisGousset.value = checked
-                        1 -> vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value = checked
-                        2 -> vmSpeOperationViewModel._equipementSdEtaiementBoischevron.value = checked
-                        3 -> vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value = checked
                     }
                 }
                 .show()
