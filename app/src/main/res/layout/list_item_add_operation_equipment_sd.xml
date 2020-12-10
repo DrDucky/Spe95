@@ -70,6 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/equipment_sauvetage_echelle_coulisse"
+                android:checked="@={vmSpeOperation._equipementSdEchCoulisse}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lspcc" />
 
@@ -78,6 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/equipment_sauvetage_telestep"
+                android:checked="@={vmSpeOperation._equipementSdTelestep}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ech_coulisse" />
 
@@ -245,12 +247,94 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_title" />
 
             <CheckBox
-                android:id="@+id/tv_etaiement_category_etai_metallique"
+                android:id="@+id/tv_etaiement_category_etai_metallique_petit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/equipment_etaiement_etai_metallique"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:text="@string/equipment_etaiement_etai_metallique_petit"
+                android:checked="@={vmSpeOperation._equipementSdEtaiementEtaiMetalPetit}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_etai_pneumatique" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tip_etaiement_category_etai_metallique_petit"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="@dimen/default_margin_form_fields"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_operation_number"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                app:layout_constraintStart_toStartOf="@id/field_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_etai_pneumatique">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_etaiement_category_etai_metallique_petit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:text="@={`` + vmSpeOperation._equipementSdEtaiementEtaiMetalPetitQuantity}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/tv_etaiement_category_etai_metallique_moyen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:text="@string/equipment_etaiement_etai_metallique_moyen"
+                android:checked="@={vmSpeOperation._equipementSdEtaiementEtaiMetalMoyen}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_etai_metallique_petit" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tip_etaiement_category_etai_metallique_moyen"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="@dimen/default_margin_form_fields"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_operation_number"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                app:layout_constraintStart_toStartOf="@id/field_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_etai_metallique_petit">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_etaiement_category_etai_metallique_moyen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:text="@={`` + vmSpeOperation._equipementSdEtaiementEtaiMetalMoyenQuantity}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/tv_etaiement_category_etai_metallique_grand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:text="@string/equipment_etaiement_etai_metallique_grand"
+                android:checked="@={vmSpeOperation._equipementSdEtaiementEtaiMetalGrand}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_etai_metallique_moyen" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tip_etaiement_category_etai_metallique_grand"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="@dimen/default_margin_form_fields"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_operation_number"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                app:layout_constraintStart_toStartOf="@id/field_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_etai_metallique_moyen">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_etaiement_category_etai_metallique_grand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:text="@={`` + vmSpeOperation._equipementSdEtaiementEtaiMetalGrandQuantity}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <CheckBox
                 android:id="@+id/tv_etaiement_category_gousset"
@@ -260,7 +344,7 @@
                 android:checked="@={vmSpeOperation._equipementSdEtaiementBoisGousset}"
                 android:text="@string/equipment_etaiement_gousset"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_etai_metallique" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_etai_metallique_grand" />
 
 
             <androidx.constraintlayout.widget.Guideline
@@ -268,18 +352,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="150dp" />
+                app:layout_constraintGuide_begin="200dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/sp_etaiement_category_gousset"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="@dimen/default_margin_form_fields"
                 android:layout_height="wrap_content"
-                android:hint="@string/add_operation_quantity"
+                android:hint="@string/add_operation_number"
                 android:layout_marginTop="@dimen/dimen_8dp"
-                app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="@id/field_guideline"
-                app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_etai_metallique">
+                app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_etai_metallique_grand">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_etaiement_category_gousset"
@@ -306,7 +389,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="@dimen/default_margin_form_fields"
                 android:layout_height="wrap_content"
-                android:hint="@string/add_operation_quantity"
+                android:hint="@string/add_operation_number"
                 android:layout_marginTop="@dimen/dimen_8dp"
                 app:layout_constraintStart_toStartOf="@id/field_guideline"
                 app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_gousset">
@@ -336,7 +419,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="@dimen/default_margin_form_fields"
                 android:layout_height="wrap_content"
-                android:hint="@string/add_operation_quantity"
+                android:hint="@string/add_operation_number"
                 android:layout_marginTop="@dimen/dimen_8dp"
                 app:layout_constraintStart_toStartOf="@id/field_guideline"
                 app:layout_constraintBottom_toTopOf="@id/tv_etaiement_category_bastaing"
@@ -367,7 +450,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="@dimen/default_margin_form_fields"
                 android:layout_height="wrap_content"
-                android:hint="@string/add_operation_quantity"
+                android:hint="@string/add_operation_number"
                 android:layout_marginTop="@dimen/dimen_8dp"
                 app:layout_constraintStart_toStartOf="@id/field_guideline"
                 app:layout_constraintBottom_toTopOf="@id/tv_exploration_category_title"
@@ -431,8 +514,30 @@
                 android:layout_height="wrap_content"
                 android:checked="@={vmSpeOperation._equipementSdPetitMatVisseuse}"
                 android:text="@string/equipment_petit_materiel_visseuse"
+                android:layout_marginTop="@dimen/dimen_8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_petit_materiel_category_title" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tip_petit_materiel_category_visseuse"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="@dimen/default_margin_form_fields"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_operation_boites"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                app:layout_constraintStart_toStartOf="@id/field_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tv_petit_materiel_category_title">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_petit_materiel_category_visseuse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:text="@={`` + vmSpeOperation._equipementSdPetitMatVisseuseQuantity}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <CheckBox
                 android:id="@+id/tv_petit_materiel_category_cordage"
@@ -453,12 +558,104 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_petit_materiel_category_cordage" />
 
             <CheckBox
-                android:id="@+id/tv_petit_materiel_category_carburant"
+                android:id="@+id/tv_petit_materiel_category_carburant_sp95"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/equipment_petit_materiel_carburant"
+                android:text="@string/equipment_petit_materiel_carburant_sp95"
+                android:checked="@={vmSpeOperation._equipementSdPetitMatCarburantSP95}"
+                android:layout_marginTop="@dimen/dimen_8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_petit_materiel_category_servante" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tip_petit_materiel_category_carburant_sp95"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="@dimen/default_margin_form_fields"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_operation_liter"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                app:layout_constraintStart_toStartOf="@id/field_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tv_petit_materiel_category_servante">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_petit_materiel_category_carburant_sp95"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:text="@={`` + vmSpeOperation._equipementSdPetitMatCarburantSP95Quantity}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/tv_petit_materiel_category_carburant_marline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/equipment_petit_materiel_carburant_marline"
+                android:checked="@={vmSpeOperation._equipementSdPetitMatCarburantMarline}"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_petit_materiel_category_carburant_sp95" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tip_petit_materiel_category_carburant_marline"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="@dimen/default_margin_form_fields"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_operation_liter"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                app:layout_constraintStart_toStartOf="@id/field_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tv_petit_materiel_category_carburant_sp95">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_petit_materiel_category_carburant_marline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:text="@={`` + vmSpeOperation._equipementSdPetitMatCarburantMarlineQuantity}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <CheckBox
+                android:id="@+id/tv_petit_materiel_category_carburant_melange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/equipment_petit_materiel_carburant_melange"
+                android:checked="@={vmSpeOperation._equipementSdPetitMatCarburantMelange}"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_petit_materiel_category_carburant_marline" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tip_petit_materiel_category_carburant_melange"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="@dimen/default_margin_form_fields"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_operation_liter"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                app:layout_constraintStart_toStartOf="@id/field_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tv_petit_materiel_category_carburant_marline">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_petit_materiel_category_carburant_melange"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:text="@={`` + vmSpeOperation._equipementSdPetitMatCarburantMelangeQuantity}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/tv_petit_materiel_category_carburant_huile_chaine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/equipment_petit_materiel_carburant_huile_chaine"
+                android:checked="@={vmSpeOperation._equipementSdPetitMatCarburantHuileChaine}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_petit_materiel_category_carburant_melange" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

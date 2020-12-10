@@ -22,12 +22,11 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="wrap_content">
 
             <include layout="@layout/view_template_background" />
 
@@ -35,7 +34,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/main_layout_operation_detail"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:background="@color/white"
                 android:elevation="5dp"
                 android:padding="@dimen/dimen_16dp"

@@ -20,6 +20,8 @@ class Constants {
         const val CYNO_DOG_PRIAXE = "Priaxe"
 
         const val SD_LSPCC = "LSPCC / Main courante"
+        const val SD_ECH_COULISSE = "Echelle à coulisse"
+        const val SD_TELESTEP = "Telestep"
         const val SD_GR_ELEC_FIXE = "Fixe"
         const val SD_GR_ELEC_22001 = "22001"
         const val SD_GR_ELEC_22002 = "22002"

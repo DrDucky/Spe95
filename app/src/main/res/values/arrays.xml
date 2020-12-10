@@ -50,15 +50,4 @@
         <item>Lumaphore</item>
         <item>Valise BABY</item>
     </string-array>
-    <string-array name="sd_etai_metal">
-        <item>Petit</item>
-        <item>Moyen</item>
-        <item>Grand</item>
-    </string-array>
-    <string-array name="sd_carburant">
-        <item>SP95</item>
-        <item>Marline</item>
-        <item>Mélange 4%</item>
-        <item>Huile de chaine</item>
-    </string-array>
 </resources>

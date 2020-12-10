@@ -80,7 +80,7 @@ class StatistiquesFragment : Fragment() {
 
             statistiquesViewModel.statsStocksLd.observe(viewLifecycleOwner, {
                 materialSdAdapter.submitList(it)
-                val spinnerList = arrayListOf<String>()
+                val spinnerList = mutableListOf<String>()
                 it.forEach { material ->
                     material.quantity?.let { quantity ->
                         if (material.name == alert1.name && quantity <= alert1.threshold) {
@@ -94,6 +94,7 @@ class StatistiquesFragment : Fragment() {
                         material.name?.let { name -> spinnerList.add(name) }
                     }
                 }
+                spinnerList.sort()
                 val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, spinnerList)
                 binding.chartsSdStats.sp_stock_update.adapter = adapter
                 binding.chartsSdStats.btn_stock_update.setOnClickListener {

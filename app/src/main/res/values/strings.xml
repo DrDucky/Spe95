@@ -19,7 +19,9 @@
     <string name="add_operation_error_time_required">Une durée de travail est nécessaire pour l\'un des agents. Veuiller en spécifier une en cliquant sur le nom de l\'agent</string>
     <string name="add_operation_operation_added">L\'opération a été sauvegardée</string>
     <string name="add_operation_exception">L\'opération a échouée : %01$s</string>
-    <string name="add_operation_quantity">Quantité</string>
+    <string name="add_operation_number">Nombre</string>
+    <string name="add_operation_boites">Boites</string>
+    <string name="add_operation_liter">Litres</string>
 
     <string name="add_agent_firstname">Prénom</string>
     <string name="add_agent_lastname">Nom</string>
@@ -65,7 +67,9 @@
     <!-- Equipment category Etaiement -->
     <string name="equipment_etaiement_title">Etaiement</string>
     <string name="equipment_etaiement_etai_pneumatique">Etai pneumatique</string>
-    <string name="equipment_etaiement_etai_metallique">Etai métallique</string>
+    <string name="equipment_etaiement_etai_metallique_petit">Etai métallique Petit</string>
+    <string name="equipment_etaiement_etai_metallique_moyen">Etai métallique Moyen</string>
+    <string name="equipment_etaiement_etai_metallique_grand">Etai métallique Grand</string>
     <string name="equipment_etaiement_gousset">Gousset</string>
     <string name="equipment_etaiement_volige">Volige</string>
     <string name="equipment_etaiement_chevron">Chevron</string>
@@ -81,7 +85,10 @@
     <string name="equipment_petit_materiel_visseuse">Visseuse</string>
     <string name="equipment_petit_materiel_cordage">Cordage</string>
     <string name="equipment_petit_materiel_servante">Servante</string>
-    <string name="equipment_petit_materiel_carburant">Carburant</string>
+    <string name="equipment_petit_materiel_carburant_sp95">Carburant SP95</string>
+    <string name="equipment_petit_materiel_carburant_marline">Carburant Marline</string>
+    <string name="equipment_petit_materiel_carburant_melange">Carburant Mélange 4%</string>
+    <string name="equipment_petit_materiel_carburant_huile_chaine">Huile de chaine</string>
 
     <string name="space">&#160;</string>
     <string name="agents_chip_filter_cyno">Cyno</string>

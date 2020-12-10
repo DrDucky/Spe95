@@ -294,25 +294,6 @@ class AddOperationFragment : Fragment() {
                 )
             }
         }
-        bindingListEquipmentSd.tvEtaiementCategoryEtaiMetallique.setOnClickListener { buttonView ->
-            context?.let {
-                setEquipmentPopupCheckboxes(
-                    it,
-                    buttonView,
-                    speOperationViewModel
-                )
-            }
-        }
-
-        bindingListEquipmentSd.tvPetitMaterielCategoryCarburant.setOnClickListener { buttonView ->
-            context?.let {
-                setEquipmentPopupCheckboxes(
-                    it,
-                    buttonView,
-                    speOperationViewModel
-                )
-            }
-        }
 
         var layoutToAdd: View? = null
         when (specialtyId) {
@@ -455,6 +436,98 @@ class AddOperationFragment : Fragment() {
         } else
             binding.equipment.sp_etaiement_category_bastaing.error = null
 
+
+        if ((vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value == true &&
+                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value!! <= 0) ||
+            (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value == false &&
+                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value!! != 0
+                    )
+        ) {
+            isValid = false
+            binding.equipment.tip_etaiement_category_etai_metallique_petit.error = mandatoryFieldError
+        } else
+            binding.equipment.tip_etaiement_category_etai_metallique_petit.error = null
+
+        if ((vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value == true &&
+                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value!! <= 0) ||
+            (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value == false &&
+                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value!! != 0
+                    )
+        ) {
+            isValid = false
+            binding.equipment.tip_etaiement_category_etai_metallique_moyen.error = mandatoryFieldError
+        } else
+            binding.equipment.tip_etaiement_category_etai_metallique_moyen.error = null
+
+        if ((vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value == true &&
+                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value!! <= 0) ||
+            (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value == false &&
+                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value!! != 0
+                    )
+        ) {
+            isValid = false
+            binding.equipment.tip_etaiement_category_etai_metallique_grand.error = mandatoryFieldError
+        } else
+            binding.equipment.tip_etaiement_category_etai_metallique_grand.error = null
+
+        if ((vmSpeOperationViewModel._equipementSdPetitMatVisseuse.value == true &&
+                    vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value!! <= 0) ||
+            (vmSpeOperationViewModel._equipementSdPetitMatVisseuse.value == false &&
+                    vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value!! != 0
+                    )
+        ) {
+            isValid = false
+            binding.equipment.tip_petit_materiel_category_visseuse.error = mandatoryFieldError
+        } else
+            binding.equipment.tip_petit_materiel_category_visseuse.error = null
+
+        if ((vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95.value == true &&
+                    vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95Quantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95Quantity.value!! <= 0) ||
+            (vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95.value == false &&
+                    vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95Quantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95Quantity.value!! != 0
+                    )
+        ) {
+            isValid = false
+            binding.equipment.tip_petit_materiel_category_carburant_sp95.error = mandatoryFieldError
+        } else
+            binding.equipment.tip_petit_materiel_category_carburant_sp95.error = null
+
+        if ((vmSpeOperationViewModel._equipementSdPetitMatCarburantMarline.value == true &&
+                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMarlineQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMarlineQuantity.value!! <= 0) ||
+            (vmSpeOperationViewModel._equipementSdPetitMatCarburantMarline.value == false &&
+                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMarlineQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMarlineQuantity.value!! != 0
+                    )
+        ) {
+            isValid = false
+            binding.equipment.tip_petit_materiel_category_carburant_marline.error = mandatoryFieldError
+        } else
+            binding.equipment.tip_petit_materiel_category_carburant_marline.error = null
+
+        if ((vmSpeOperationViewModel._equipementSdPetitMatCarburantMelange.value == true &&
+                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMelangeQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMelangeQuantity.value!! <= 0) ||
+            (vmSpeOperationViewModel._equipementSdPetitMatCarburantMelange.value == false &&
+                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMelangeQuantity.value != null &&
+                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMelangeQuantity.value!! != 0
+                    )
+        ) {
+            isValid = false
+            binding.equipment.tip_petit_materiel_category_carburant_melange.error = mandatoryFieldError
+        } else
+            binding.equipment.tip_petit_materiel_category_carburant_melange.error = null
+
         return isValid
     }
 }
@@ -476,17 +549,6 @@ private fun setEquipmentPopupCheckboxes(
         vmSpeOperationViewModel._equipementSdEclNeon.value!!,
         vmSpeOperationViewModel._equipementSdEclSolaris.value!!,
         vmSpeOperationViewModel._equipementSdEclBaby.value!!
-    )
-    val checkedItemsEtaiMetal = booleanArrayOf(
-        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value!!,
-        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value!!,
-        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value!!,
-    )
-    val checkedItemsCarburant = booleanArrayOf(
-        vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95.value!!,
-        vmSpeOperationViewModel._equipementSdPetitMatCarburantMarline.value!!,
-        vmSpeOperationViewModel._equipementSdPetitMatCarburantMelange.value!!,
-        vmSpeOperationViewModel._equipementSdPetitMatCarburantHuileChaine.value!!,
     )
     val checkbox = checkboxView as CompoundButton
     when (checkbox.id) {
@@ -530,46 +592,6 @@ private fun setEquipmentPopupCheckboxes(
                         1 -> vmSpeOperationViewModel._equipementSdEclNeon.value = checked
                         2 -> vmSpeOperationViewModel._equipementSdEclLumaphore.value = checked
                         3 -> vmSpeOperationViewModel._equipementSdEclBaby.value = checked
-                    }
-                }
-                .show()
-        }
-        R.id.tv_etaiement_category_etai_metallique -> {
-            MaterialAlertDialogBuilder(context)
-                .setTitle(context.resources.getString(R.string.equipment_etaiement_etai_metallique))
-                .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
-                    //Nothing to do, closes automatically with multiChoiceItems
-                    //Except set the checkbox check if at least one of the item has been selected
-                    checkbox.isChecked = (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value!!
-                            || vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value!!
-                            || vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value!!)
-                }
-                .setMultiChoiceItems(R.array.sd_etai_metal, checkedItemsEtaiMetal) { dialog, which, checked ->
-                    when (which) {
-                        0 -> vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value = checked
-                        1 -> vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value = checked
-                        2 -> vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value = checked
-                    }
-                }
-                .show()
-        }
-        R.id.tv_petit_materiel_category_carburant -> {
-            MaterialAlertDialogBuilder(context)
-                .setTitle(context.resources.getString(R.string.equipment_petit_materiel_carburant))
-                .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
-                    //Nothing to do, closes automatically with multiChoiceItems
-                    //Except set the checkbox check if at least one of the item has been selected
-                    checkbox.isChecked = (vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95.value!!
-                            || vmSpeOperationViewModel._equipementSdPetitMatCarburantMarline.value!!
-                            || vmSpeOperationViewModel._equipementSdPetitMatCarburantMelange.value!!
-                            || vmSpeOperationViewModel._equipementSdPetitMatCarburantHuileChaine.value!!)
-                }
-                .setMultiChoiceItems(R.array.sd_carburant, checkedItemsCarburant) { dialog, which, checked ->
-                    when (which) {
-                        0 -> vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95.value = checked
-                        1 -> vmSpeOperationViewModel._equipementSdPetitMatCarburantMarline.value = checked
-                        2 -> vmSpeOperationViewModel._equipementSdPetitMatCarburantMelange.value = checked
-                        3 -> vmSpeOperationViewModel._equipementSdPetitMatCarburantHuileChaine.value = checked
                     }
                 }
                 .show()
