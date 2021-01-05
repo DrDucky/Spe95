@@ -17,6 +17,21 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@{Integer.toString(material.quantity)}"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:paddingStart="@dimen/dimen_16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="@{material.quantity > 0 ? View.VISIBLE : View.GONE}"
+            tools:text="2" />
+
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,7 +39,7 @@
             android:text="@{material.name}"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:paddingStart="@dimen/dimen_16dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/quantity"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="LSPCC / Main Courante" />

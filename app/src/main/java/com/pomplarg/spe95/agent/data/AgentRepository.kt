@@ -5,7 +5,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.SetOptions
 import com.pomplarg.spe95.data.Result
-import com.pomplarg.spe95.data.SingleLiveEvent
 import com.pomplarg.spe95.data.await
 
 class AgentRepository {
@@ -102,10 +101,9 @@ class AgentRepository {
      */
     suspend fun addAgentIntoRemoteDB(
         agent: Agent,
-        agentAdded: SingleLiveEvent<Any>
     ): Result<String> {
-        try {
-            return when (val resultDocumentSnapshot =
+        return try {
+            when (val resultDocumentSnapshot =
                 agentsCollection
                     .add(agent)
                     .await()) {
@@ -117,7 +115,7 @@ class AgentRepository {
                 is Result.Canceled -> Result.Canceled(resultDocumentSnapshot.exception)
             }
         } catch (exception: FirebaseFirestoreException) {
-            return Result.Error(exception)
+            Result.Error(exception)
         }
     }
 

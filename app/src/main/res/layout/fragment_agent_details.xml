@@ -15,76 +15,148 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="100dp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="100dp" />
+
+                <ImageView
+                    android:id="@+id/iv_agent_avatar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/guideline"
+                    tools:src="@drawable/ic_menu_agents" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_agent_details"
+                    style="@style/TextAppearance.MaterialComponents.Headline4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{agent.firstname.concat(@string/space).concat(agent.lastname)}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_agent_avatar"
+                    tools:text="Bruno Charpentier" />
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/btn_year_selection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true"
+                    app:selectionRequired="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_agent_details">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_year_2020"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/year_2020" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_year_2021"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/year_2021" />
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/btn_specialty_selection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:selectionRequired="true"
+                    app:singleSelection="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_year_selection">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_specialty_cyno"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/agents_chip_filter_cyno" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_specialty_sd"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/agents_chip_filter_sd" />
+
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:flexDirection="row"
+                    app:flexWrap="wrap"
+                    app:justifyContent="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_specialty_selection">
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/type_chart"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:minWidth="@dimen/chartpie_min_width"
+                        android:minHeight="@dimen/chartpie_min_height" />
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/times_chart"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:minWidth="@dimen/chartpie_min_width"
+                        android:minHeight="@dimen/chartpie_min_height" />
+
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="gone" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
-                android:id="@+id/iv_agent_avatar"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/guideline"
-                tools:src="@drawable/ic_menu_agents" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_agent_details"
-                style="@style/TextAppearance.MaterialComponents.Headline4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{agent.firstname.concat(@string/space).concat(agent.lastname)}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_agent_avatar"
-                tools:text="Bruno Charpentier" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                app:flexWrap="wrap"
-                app:justifyContent="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_agent_details">
-
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/type_chart"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:minWidth="@dimen/chartpie_min_width"
-                    android:minHeight="@dimen/chartpie_min_height" />
-
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/times_chart"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:minWidth="@dimen/chartpie_min_width"
-                    android:minHeight="@dimen/chartpie_min_height" />
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:id="@+id/iv_agent_avatar_expended"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="gone" />
+                app:layout_constraintTop_toTopOf="parent" />
+        </FrameLayout>
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 </layout>

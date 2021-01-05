@@ -1,6 +1,7 @@
 package com.pomplarg.spe95.agent.ui
 
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,9 @@ class AddAgentFragment : Fragment() {
                 agentViewModel.addAgentIntoFirestore()
             }
         })
+
+        binding.etLastname.filters = binding.etLastname.filters + InputFilter.AllCaps()
+
 
         //Observables
         agentViewModel.agentAdded.observe(viewLifecycleOwner, Observer {
@@ -99,9 +103,8 @@ class AddAgentFragment : Fragment() {
             ).show()
             //Display snackbar because error on checkbox is not well supported
             isValid = false
-        } else {
-            //nothing to do
         }
+
         return isValid
     }
 }

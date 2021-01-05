@@ -7,14 +7,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
+        app:layout_constraintGuide_begin="@dimen/header_top" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_header_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_begin="@dimen/header_bottom" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_bottom"
@@ -41,7 +41,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@id/gl_header_bottom"
         app:layout_constraintEnd_toEndOf="parent"

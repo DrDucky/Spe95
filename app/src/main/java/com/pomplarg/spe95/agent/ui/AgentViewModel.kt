@@ -141,7 +141,7 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {
             when (val result =
-                repository.addAgentIntoRemoteDB(newAgent, agentAdded)) {
+                repository.addAgentIntoRemoteDB(newAgent)) {
                 is Result.Success -> {
                     _agentIdAdded.value = result.data
                     agentAdded.call()

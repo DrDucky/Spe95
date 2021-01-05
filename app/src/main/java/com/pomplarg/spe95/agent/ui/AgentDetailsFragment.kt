@@ -11,11 +11,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.pomplarg.spe95.R
 import com.pomplarg.spe95.agent.data.Agent
 import com.pomplarg.spe95.databinding.FragmentAgentDetailsBinding
 import com.pomplarg.spe95.statistiques.data.Statistique
 import com.pomplarg.spe95.statistiques.ui.StatistiquesViewModel
 import com.pomplarg.spe95.utils.AvatarGenerator
+import com.pomplarg.spe95.utils.Constants
 import com.pomplarg.spe95.utils.configureChart
 import com.pomplarg.spe95.utils.setDataToChart
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -47,7 +49,6 @@ class AgentDetailsFragment : Fragment() {
         agentId: String
     ) {
         agentViewModel.fetchAgentInformation(agentId)
-        statistiquesViewModel.fetchAgentStats(agentId, "cyno", "2020")
 
         agentViewModel.agentLd.observe(viewLifecycleOwner, Observer<Agent> { it ->
             bindView(binding, it)
@@ -57,6 +58,41 @@ class AgentDetailsFragment : Fragment() {
         statistiquesViewModel.statsAgentLd.observe(viewLifecycleOwner, Observer<Statistique> { it ->
             bindStats(binding, it)
         })
+
+        //By default
+        configureChart(binding.timesChart, context)
+        configureChart(binding.typeChart, context)
+        binding.btnYearSelection.check(R.id.btn_year_2021)
+        binding.btnSpecialtySelection.check(R.id.btn_specialty_cyno)
+        statistiquesViewModel.fetchAgentStats(agentId, Constants.FIRESTORE_CYNO_DOCUMENT, Constants.YEAR_2021)
+
+        binding.btnYearSelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            val yearChecked = when (checkedId) {
+                R.id.btn_year_2020 -> Constants.YEAR_2020
+                R.id.btn_year_2021 -> Constants.YEAR_2021
+                else               -> Constants.YEAR_2021
+            }
+            val specialtyChecked = when (binding.btnSpecialtySelection.checkedButtonId) {
+                R.id.btn_specialty_cyno -> Constants.FIRESTORE_CYNO_DOCUMENT
+                R.id.btn_specialty_sd -> Constants.FIRESTORE_SD_DOCUMENT
+                else                    -> Constants.FIRESTORE_CYNO_DOCUMENT
+            }
+            statistiquesViewModel.fetchAgentStats(agentId, specialtyChecked, yearChecked)
+        }
+
+        binding.btnSpecialtySelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            val yearChecked = when (binding.btnYearSelection.checkedButtonId) {
+                R.id.btn_year_2020 -> Constants.YEAR_2020
+                R.id.btn_year_2021 -> Constants.YEAR_2021
+                else               -> Constants.YEAR_2021
+            }
+            val specialtyChecked = when (checkedId) {
+                R.id.btn_specialty_cyno -> Constants.FIRESTORE_CYNO_DOCUMENT
+                R.id.btn_specialty_sd -> Constants.FIRESTORE_SD_DOCUMENT
+                else                    -> Constants.FIRESTORE_CYNO_DOCUMENT
+            }
+            statistiquesViewModel.fetchAgentStats(agentId, specialtyChecked, yearChecked)
+        }
     }
 
     private fun bindView(binding: FragmentAgentDetailsBinding, agent: Agent) {
@@ -83,6 +119,11 @@ class AgentDetailsFragment : Fragment() {
                 .apply(RequestOptions.circleCropTransform())
                 .override(500, 500)
                 .into(binding.ivAgentAvatar)
+            val shortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
+
+            binding.ivAgentAvatar.setOnClickListener {
+                activity?.let { activity -> AvatarGenerator.zoomImageFromThumb(activity, it, binding.ivAgentAvatar.drawable, shortAnimationDuration, binding.ivAgentAvatarExpended) }
+            }
         }
     }
 
