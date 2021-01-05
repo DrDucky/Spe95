@@ -127,5 +127,7 @@
     <!-- Statistiques -->
     <string name="statistiques_no_data">Aucune donnée actuellement</string>
     <string name="time">Durée</string>
+    <string name="year_2020">2020</string>
+    <string name="year_2021">2021</string>
 
 </resources>

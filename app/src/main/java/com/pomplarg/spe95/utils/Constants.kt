@@ -59,5 +59,8 @@ class Constants {
         const val SD_PETIT_MAT_CARBURANT_MELANGE = "Carburant mélange 4%"
         const val SD_PETIT_MAT_CARBURANT_HUILE_CHAINE = "Carburant huile de chaine"
 
+        const val YEAR_2020 = "2020"
+        const val YEAR_2021 = "2021"
+
     }
 }
