@@ -25,7 +25,7 @@ class AgentAutocompleteAdapter(
     }
 
     override fun getItem(p0: Int): Agent? {
-        return agents.get(p0)
+        return agents[p0]
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

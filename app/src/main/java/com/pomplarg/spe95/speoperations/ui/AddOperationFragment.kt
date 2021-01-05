@@ -140,7 +140,7 @@ class AddOperationFragment : Fragment() {
         }
 
         binding.btnAddOperation.setOnClickListener(View.OnClickListener {
-            if (validate(speOperationViewModel, binding)) {
+            if (validate(speOperationViewModel, binding, args.specialty)) {
                 speOperationViewModel._teamAgent.value = teamList
                 //speOperationViewModel._team.value = teamList
                 displayMainBloc(binding, false)
@@ -325,7 +325,8 @@ class AddOperationFragment : Fragment() {
      */
     private fun validate(
         vmSpeOperationViewModel: SpeOperationViewModel,
-        binding: FragmentAddOperationBinding
+        binding: FragmentAddOperationBinding,
+        specialty: String
     ): Boolean {
         val mandatoryFieldError: String = getString(R.string.add_operation_error_mandatory_field)
         var isValid = true
@@ -386,147 +387,153 @@ class AddOperationFragment : Fragment() {
                     null //Clear the value if error already displayed
         }
 
-        if ((vmSpeOperationViewModel._equipementSdEtaiementBoisGousset.value == true &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value!! <= 0)
-            || (vmSpeOperationViewModel._equipementSdEtaiementBoisGousset.value == false &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value!! != 0)
-        ) {
-            isValid = false
-            binding.equipment.sp_etaiement_category_gousset.error = mandatoryFieldError//app:error does not work...
-        } else
-            binding.equipment.sp_etaiement_category_gousset.error = null
+        /*
+        SD Specialty Form Validation specificity
+         */
+        if (Constants.FIRESTORE_SD_DOCUMENT.equals(specialty)) {
+            if ((vmSpeOperationViewModel._equipementSdEtaiementBoisGousset.value == true &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value!! <= 0)
+                || (vmSpeOperationViewModel._equipementSdEtaiementBoisGousset.value == false &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value!! != 0)
+            ) {
+                isValid = false
+                binding.equipment.sp_etaiement_category_gousset.error = mandatoryFieldError//app:error does not work...
+            } else
+                binding.equipment.sp_etaiement_category_gousset.error = null
 
-        if ((vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value == true &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value!! <= 0) ||
-            (vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value == false &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value!! != 0)
-        ) {
-            isValid = false
-            binding.equipment.sp_etaiement_category_volige.error = mandatoryFieldError
-        } else
-            binding.equipment.sp_etaiement_category_volige.error = null
+            if ((vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value == true &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value!! <= 0) ||
+                (vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value == false &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value!! != 0)
+            ) {
+                isValid = false
+                binding.equipment.sp_etaiement_category_volige.error = mandatoryFieldError
+            } else
+                binding.equipment.sp_etaiement_category_volige.error = null
 
-        if ((vmSpeOperationViewModel._equipementSdEtaiementBoisChevron.value == true &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value!! <= 0)
-            || (vmSpeOperationViewModel._equipementSdEtaiementBoisChevron.value == false &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value!! != 0
-                    )
-        ) {
-            isValid = false
-            binding.equipment.sp_etaiement_category_chevron.error = mandatoryFieldError
-        } else
-            binding.equipment.sp_etaiement_category_chevron.error = null
+            if ((vmSpeOperationViewModel._equipementSdEtaiementBoisChevron.value == true &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value!! <= 0)
+                || (vmSpeOperationViewModel._equipementSdEtaiementBoisChevron.value == false &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value!! != 0
+                        )
+            ) {
+                isValid = false
+                binding.equipment.sp_etaiement_category_chevron.error = mandatoryFieldError
+            } else
+                binding.equipment.sp_etaiement_category_chevron.error = null
 
-        if ((vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value == true &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value!! <= 0) ||
-            (vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value == false &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value!! != 0
-                    )
-        ) {
-            isValid = false
-            binding.equipment.sp_etaiement_category_bastaing.error = mandatoryFieldError
-        } else
-            binding.equipment.sp_etaiement_category_bastaing.error = null
+            if ((vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value == true &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value!! <= 0) ||
+                (vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value == false &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value!! != 0
+                        )
+            ) {
+                isValid = false
+                binding.equipment.sp_etaiement_category_bastaing.error = mandatoryFieldError
+            } else
+                binding.equipment.sp_etaiement_category_bastaing.error = null
 
 
-        if ((vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value == true &&
-                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value!! <= 0) ||
-            (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value == false &&
-                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value!! != 0
-                    )
-        ) {
-            isValid = false
-            binding.equipment.tip_etaiement_category_etai_metallique_petit.error = mandatoryFieldError
-        } else
-            binding.equipment.tip_etaiement_category_etai_metallique_petit.error = null
+            if ((vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value == true &&
+                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value!! <= 0) ||
+                (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value == false &&
+                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value!! != 0
+                        )
+            ) {
+                isValid = false
+                binding.equipment.tip_etaiement_category_etai_metallique_petit.error = mandatoryFieldError
+            } else
+                binding.equipment.tip_etaiement_category_etai_metallique_petit.error = null
 
-        if ((vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value == true &&
-                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value!! <= 0) ||
-            (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value == false &&
-                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value!! != 0
-                    )
-        ) {
-            isValid = false
-            binding.equipment.tip_etaiement_category_etai_metallique_moyen.error = mandatoryFieldError
-        } else
-            binding.equipment.tip_etaiement_category_etai_metallique_moyen.error = null
+            if ((vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value == true &&
+                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value!! <= 0) ||
+                (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value == false &&
+                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value!! != 0
+                        )
+            ) {
+                isValid = false
+                binding.equipment.tip_etaiement_category_etai_metallique_moyen.error = mandatoryFieldError
+            } else
+                binding.equipment.tip_etaiement_category_etai_metallique_moyen.error = null
 
-        if ((vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value == true &&
-                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value!! <= 0) ||
-            (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value == false &&
-                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value!! != 0
-                    )
-        ) {
-            isValid = false
-            binding.equipment.tip_etaiement_category_etai_metallique_grand.error = mandatoryFieldError
-        } else
-            binding.equipment.tip_etaiement_category_etai_metallique_grand.error = null
+            if ((vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value == true &&
+                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value!! <= 0) ||
+                (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value == false &&
+                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value!! != 0
+                        )
+            ) {
+                isValid = false
+                binding.equipment.tip_etaiement_category_etai_metallique_grand.error = mandatoryFieldError
+            } else
+                binding.equipment.tip_etaiement_category_etai_metallique_grand.error = null
 
-        if ((vmSpeOperationViewModel._equipementSdPetitMatVisseuse.value == true &&
-                    vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value!! <= 0) ||
-            (vmSpeOperationViewModel._equipementSdPetitMatVisseuse.value == false &&
-                    vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value!! != 0
-                    )
-        ) {
-            isValid = false
-            binding.equipment.tip_petit_materiel_category_visseuse.error = mandatoryFieldError
-        } else
-            binding.equipment.tip_petit_materiel_category_visseuse.error = null
+            if ((vmSpeOperationViewModel._equipementSdPetitMatVisseuse.value == true &&
+                        vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value!! <= 0) ||
+                (vmSpeOperationViewModel._equipementSdPetitMatVisseuse.value == false &&
+                        vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value!! != 0
+                        )
+            ) {
+                isValid = false
+                binding.equipment.tip_petit_materiel_category_visseuse.error = mandatoryFieldError
+            } else
+                binding.equipment.tip_petit_materiel_category_visseuse.error = null
 
-        if ((vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95.value == true &&
-                    vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95Quantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95Quantity.value!! <= 0) ||
-            (vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95.value == false &&
-                    vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95Quantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95Quantity.value!! != 0
-                    )
-        ) {
-            isValid = false
-            binding.equipment.tip_petit_materiel_category_carburant_sp95.error = mandatoryFieldError
-        } else
-            binding.equipment.tip_petit_materiel_category_carburant_sp95.error = null
+            if ((vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95.value == true &&
+                        vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95Quantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95Quantity.value!! <= 0) ||
+                (vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95.value == false &&
+                        vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95Quantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95Quantity.value!! != 0
+                        )
+            ) {
+                isValid = false
+                binding.equipment.tip_petit_materiel_category_carburant_sp95.error = mandatoryFieldError
+            } else
+                binding.equipment.tip_petit_materiel_category_carburant_sp95.error = null
 
-        if ((vmSpeOperationViewModel._equipementSdPetitMatCarburantMarline.value == true &&
-                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMarlineQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMarlineQuantity.value!! <= 0) ||
-            (vmSpeOperationViewModel._equipementSdPetitMatCarburantMarline.value == false &&
-                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMarlineQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMarlineQuantity.value!! != 0
-                    )
-        ) {
-            isValid = false
-            binding.equipment.tip_petit_materiel_category_carburant_marline.error = mandatoryFieldError
-        } else
-            binding.equipment.tip_petit_materiel_category_carburant_marline.error = null
+            if ((vmSpeOperationViewModel._equipementSdPetitMatCarburantMarline.value == true &&
+                        vmSpeOperationViewModel._equipementSdPetitMatCarburantMarlineQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdPetitMatCarburantMarlineQuantity.value!! <= 0) ||
+                (vmSpeOperationViewModel._equipementSdPetitMatCarburantMarline.value == false &&
+                        vmSpeOperationViewModel._equipementSdPetitMatCarburantMarlineQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdPetitMatCarburantMarlineQuantity.value!! != 0
+                        )
+            ) {
+                isValid = false
+                binding.equipment.tip_petit_materiel_category_carburant_marline.error = mandatoryFieldError
+            } else
+                binding.equipment.tip_petit_materiel_category_carburant_marline.error = null
 
-        if ((vmSpeOperationViewModel._equipementSdPetitMatCarburantMelange.value == true &&
-                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMelangeQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMelangeQuantity.value!! <= 0) ||
-            (vmSpeOperationViewModel._equipementSdPetitMatCarburantMelange.value == false &&
-                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMelangeQuantity.value != null &&
-                    vmSpeOperationViewModel._equipementSdPetitMatCarburantMelangeQuantity.value!! != 0
-                    )
-        ) {
-            isValid = false
-            binding.equipment.tip_petit_materiel_category_carburant_melange.error = mandatoryFieldError
-        } else
-            binding.equipment.tip_petit_materiel_category_carburant_melange.error = null
+            if ((vmSpeOperationViewModel._equipementSdPetitMatCarburantMelange.value == true &&
+                        vmSpeOperationViewModel._equipementSdPetitMatCarburantMelangeQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdPetitMatCarburantMelangeQuantity.value!! <= 0) ||
+                (vmSpeOperationViewModel._equipementSdPetitMatCarburantMelange.value == false &&
+                        vmSpeOperationViewModel._equipementSdPetitMatCarburantMelangeQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdPetitMatCarburantMelangeQuantity.value!! != 0
+                        )
+            ) {
+                isValid = false
+                binding.equipment.tip_petit_materiel_category_carburant_melange.error = mandatoryFieldError
+            } else
+                binding.equipment.tip_petit_materiel_category_carburant_melange.error = null
+
+        }
 
         return isValid
     }

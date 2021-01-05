@@ -103,9 +103,8 @@ class AddAgentFragment : Fragment() {
             ).show()
             //Display snackbar because error on checkbox is not well supported
             isValid = false
-        } else {
-            //nothing to do
         }
+
         return isValid
     }
 }

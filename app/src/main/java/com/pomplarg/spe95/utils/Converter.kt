@@ -11,24 +11,24 @@ import java.util.*
 fun dateToString(
     value: Timestamp?
 ): String {
-    if (value != null) {
+    return if (value != null) {
         val formatter = SimpleDateFormat(Constants.ADD_OPERATION_DATE_FORMAT_DISPLAY, Locale.FRANCE)
-        return formatter.format(value.toDate())
+        formatter.format(value.toDate())
     } else {
-        return ""
+        ""
     }
 }
 
 fun timeToString(
     value: Int?
 ): String {
-    if (value != null) {
+    return if (value != null) {
         val hours = value / 60
         val minutes = value % 60
 
-        return String.format("%02d h %02d min", hours, minutes);
+        String.format("%02d h %02d min", hours, minutes);
     } else {
-        return ""
+        ""
     }
 }
 
@@ -36,17 +36,17 @@ fun geopointToString(
     context: Context,
     value: GeoPoint?
 ): String {
-    if (value != null) {
+    return if (value != null) {
         val geocoder = Geocoder(context)
         try {
             val adressList = geocoder.getFromLocation(value.latitude, value.longitude, 1)
-            return adressList[0].getAddressLine(0) //Display correct address
+            adressList[0].getAddressLine(0) //Display correct address
         } catch (e: Exception) {
-            return ""
+            ""
         }
 
     } else {
-        return ""
+        ""
     }
 }
 

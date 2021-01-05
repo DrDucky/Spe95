@@ -62,6 +62,9 @@ class AgentDetailsFragment : Fragment() {
         //By default
         configureChart(binding.timesChart, context)
         configureChart(binding.typeChart, context)
+        binding.btnYearSelection.check(R.id.btn_year_2021)
+        binding.btnSpecialtySelection.check(R.id.btn_specialty_cyno)
+        statistiquesViewModel.fetchAgentStats(agentId, Constants.FIRESTORE_CYNO_DOCUMENT, Constants.YEAR_2021)
 
         binding.btnYearSelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
             val yearChecked = when (checkedId) {
