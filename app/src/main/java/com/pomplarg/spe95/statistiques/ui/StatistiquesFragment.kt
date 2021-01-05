@@ -87,7 +87,7 @@ class StatistiquesFragment : Fragment() {
                             context?.let { context ->
                                 MaterialAlertDialogBuilder(context)
                                     .setTitle(context.resources.getString(R.string.equipment_eclairage_groupe_electro))
-                                    .setMessage("Attention, Alerte ! Stock de " + material.name + " insuffisant")
+                                    .setMessage(context.resources.getString(R.string.statistiques_alert_threshold, material.name))
                                     .show()
                             }
                         }
