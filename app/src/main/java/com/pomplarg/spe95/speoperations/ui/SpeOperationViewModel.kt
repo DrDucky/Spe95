@@ -7,6 +7,7 @@ import com.google.firebase.firestore.GeoPoint
 import com.pomplarg.spe95.data.Result
 import com.pomplarg.spe95.data.SingleLiveEvent
 import com.pomplarg.spe95.speoperations.data.*
+import com.pomplarg.spe95.statistiques.data.StatistiqueRepository
 import com.pomplarg.spe95.utils.Constants
 import com.pomplarg.spe95.utils.getTimestamp
 import com.pomplarg.spe95.utils.toTime
@@ -14,13 +15,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
 import java.util.concurrent.ThreadLocalRandom
+import kotlin.collections.ArrayList
 import kotlin.coroutines.CoroutineContext
 
 
 class SpeOperationViewModel(
     private val specialtyDocument: String,
-    private val repository: SpeOperationRepository
+    private val repository: SpeOperationRepository,
+    private val statsRepository: StatistiqueRepository
 ) :
     ViewModel(), CoroutineScope {
     // set coroutine context
@@ -260,8 +264,14 @@ class SpeOperationViewModel(
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {
             when (val result =
-                repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation, operationAdded)) {
-                is Result.Success -> _operationAdded.call()
+                repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation)) {
+                is Result.Success -> {
+                    val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+                    statsRepository.addOperationStats(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.motif, operationAdded)
+                    statsRepository.addMaterialStat(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.materialsCyno, newSpeOperation.materialsSd, operationAdded)
+                    statsRepository.addAgentStats(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.motif, newSpeOperation.agentOnOperation, operationAdded)
+                    _operationAdded.call()
+                }
                 is Result.Error -> _genericException.value = result.exception.message
                 //is Result2.Canceled -> _snackbarText.value = R.string.canceled
             }

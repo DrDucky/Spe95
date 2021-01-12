@@ -45,10 +45,10 @@ class StatistiquesViewModel(private val repository: StatistiqueRepository) : Vie
     }
 
     //fetch all the stock for SD Specialty
-    fun fetchSdStock() {
+    fun fetchSdStock(year: String) {
         if (getStockJob?.isActive == true) getStockJob?.cancel()
         getStockJob = launch {
-            repository.getSdStock(statsStocksLd)
+            repository.getSdStock(statsStocksLd, year)
         }
     }
 
@@ -67,10 +67,10 @@ class StatistiquesViewModel(private val repository: StatistiqueRepository) : Vie
     }
 
     //update SD Stock
-    fun updateStock(materialName: String, quantity: String) {
+    fun updateStock(materialName: String, quantity: String, year: String) {
         if (getStockJob?.isActive == true) getStockJob?.cancel()
         getStockJob = launch {
-            repository.updateSdStock(materialName, quantity.toInt())
+            repository.updateSdStock(materialName, quantity.toInt(), year)
         }
     }
 }
