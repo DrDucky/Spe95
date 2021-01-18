@@ -1,7 +1,7 @@
 package com.pomplarg.spe95.speoperations.data
 
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
 import com.pomplarg.spe95.data.Result
 import com.pomplarg.spe95.data.await
 import com.pomplarg.spe95.utils.Constants
@@ -53,24 +53,13 @@ class SpeOperationRepository {
     /**
      * get a list operations for a given specialty
      */
-    suspend fun addSpeOperationIntoRemoteDB(
+    fun addSpeOperationIntoRemoteDB(
         specialtyDocument: String,
         speOperation: SpeOperation,
-    ): Result<String> {
-        return try {
-            when (val resultDocumentSnapshot =
-                specialtiesCollection.document(specialtyDocument).collection("activities")
-                    .add(speOperation)
-                    .await()) {
-                is Result.Success -> {
-                    val speOperationId = resultDocumentSnapshot.data.id
-                    Result.Success(speOperationId)
-                }
-                is Result.Error -> Result.Error(resultDocumentSnapshot.exception)
-                is Result.Canceled -> Result.Canceled(resultDocumentSnapshot.exception)
-            }
-        } catch (exception: FirebaseFirestoreException) {
-            Result.Error(exception)
-        }
+        ldOperationAdded: MutableLiveData<Boolean>
+    ) {
+        specialtiesCollection.document(specialtyDocument).collection("activities")
+            .add(speOperation)
+        ldOperationAdded.value = true
     }
 }

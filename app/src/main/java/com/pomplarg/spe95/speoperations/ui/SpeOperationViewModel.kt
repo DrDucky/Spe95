@@ -42,6 +42,9 @@ class SpeOperationViewModel(
     private val _operationAdded = SingleLiveEvent<Any>()
     val operationAdded = _operationAdded
 
+    val _ldOperationAdded: MutableLiveData<Boolean> = MutableLiveData()
+    val ldOperationAdded: LiveData<Boolean> = _ldOperationAdded
+
     // VM attributes
     val _id: MutableLiveData<String> = MutableLiveData()
     val id: LiveData<String> = _id
@@ -263,18 +266,15 @@ class SpeOperationViewModel(
 
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {
-            when (val result =
-                repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation)) {
-                is Result.Success -> {
-                    val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-                    statsRepository.addOperationStats(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.motif, operationAdded)
-                    statsRepository.addMaterialStat(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.materialsCyno, newSpeOperation.materialsSd, operationAdded)
-                    statsRepository.addAgentStats(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.motif, newSpeOperation.agentOnOperation, operationAdded)
-                    _operationAdded.call()
-                }
-                is Result.Error -> _genericException.value = result.exception.message
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
-            }
+            repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation, _ldOperationAdded)
         }
+    }
+
+    fun addPostOperation() {
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+        statsRepository.addOperationStats(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.motif)
+        statsRepository.addMaterialStat(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.materialsCyno, newSpeOperation.materialsSd)
+        statsRepository.addAgentStats(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.agentOnOperation)
+        _operationAdded.call()
     }
 }

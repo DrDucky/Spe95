@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.pomplarg.spe95.data.Result
-import com.pomplarg.spe95.data.SingleLiveEvent
 import com.pomplarg.spe95.data.await
 import com.pomplarg.spe95.speoperations.data.AgentOnOperation
 import com.pomplarg.spe95.speoperations.data.MaterialCyno
@@ -120,7 +119,7 @@ class StatistiqueRepository {
             }
     }
 
-    fun addOperationStats(specialtyDocument: String, year: String, typeOperation: String, motif: String, operationAdded: SingleLiveEvent<Any>) {
+    fun addOperationStats(specialtyDocument: String, year: String, typeOperation: String, motif: String) {
         var count = 0
         val docData: HashMap<Any, Any> = hashMapOf()
 
@@ -154,7 +153,7 @@ class StatistiqueRepository {
         }
     }
 
-    fun addMaterialStat(specialtyDocument: String, year: String, type: String, materialCyno: List<MaterialCyno>?, materialSd: List<MaterialSd>?, operationAdded: SingleLiveEvent<Any>) {
+    fun addMaterialStat(specialtyDocument: String, year: String, type: String, materialCyno: List<MaterialCyno>?, materialSd: List<MaterialSd>?) {
 
         when (specialtyDocument) {
             Constants.FIRESTORE_CYNO_DOCUMENT -> {
@@ -258,7 +257,7 @@ class StatistiqueRepository {
         }
     }
 
-    fun addAgentStats(specialtyDocument: String, year: String, typeOperation: String, motifOperation: String, agents: List<AgentOnOperation>?, operationAdded: SingleLiveEvent<Any>) {
+    fun addAgentStats(specialtyDocument: String, year: String, typeOperation: String, agents: List<AgentOnOperation>?) {
         agents?.forEach {
             it.id?.let { agentId ->
                 statistiqueCollection.document(year).collection(agentId).document(specialtyDocument)
@@ -273,7 +272,7 @@ class StatistiqueRepository {
                             val statType: HashMap<String, Int>? = document.data?.get("type") as? HashMap<String, Int>
                             statType?.let { typeMap ->
                                 for (statTypeIt in typeMap) {
-                                    if (statTypeIt.key == motifOperation) {
+                                    if (statTypeIt.key == typeOperation) {
                                         countType = statTypeIt.value
                                     }
                                 }
@@ -281,7 +280,7 @@ class StatistiqueRepository {
                             val statTime: HashMap<String, Int>? = document.data?.get("time") as? HashMap<String, Int>
                             statTime?.let { timeMap ->
                                 for (statTimeIt in timeMap) {
-                                    if (statTimeIt.key == motifOperation) {
+                                    if (statTimeIt.key == typeOperation) {
                                         countTime = statTimeIt.value
                                     }
                                 }
