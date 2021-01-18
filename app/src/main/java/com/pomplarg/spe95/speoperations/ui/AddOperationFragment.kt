@@ -169,6 +169,19 @@ class AddOperationFragment : Fragment() {
             findNavController().navigate(direction)
         })
 
+        speOperationViewModel.ldOperationAdded.observe(viewLifecycleOwner, Observer {
+            if (it)
+                speOperationViewModel.addPostOperation()
+            else {
+                displayMainBloc(binding, true)
+                Snackbar.make(
+                    requireView(),
+                    getString(R.string.add_operation_exception, it),
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+        })
+
         speOperationViewModel._genericException.observe(viewLifecycleOwner, Observer {
             displayMainBloc(binding, true)
             Snackbar.make(

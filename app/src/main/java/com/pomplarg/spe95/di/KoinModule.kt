@@ -18,7 +18,7 @@ val viewModelModule = module {
     viewModel { AgentDetailsViewModel(get()) }
     single { AgentRepository() }
 
-    viewModel { (specialty: String) -> SpeOperationViewModel(specialty, get()) }
+    viewModel { (specialty: String) -> SpeOperationViewModel(specialty, get(), get()) }
     viewModel { LoginViewModel(get()) }
 
     single { SpeOperationRepository() }
