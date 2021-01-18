@@ -76,7 +76,7 @@ class StatistiquesFragment : Fragment() {
         //SD "functionnality" only
         if (Constants.FIRESTORE_SD_DOCUMENT == specialtyDocument) {
             val alert1 = AlertStock(Constants.SD_ETAIEMENT_BOIS_GOUSSET, 5)
-            statistiquesViewModel.fetchSdStock()
+            statistiquesViewModel.fetchSdStock(currentYear.toString())
 
             statistiquesViewModel.statsStocksLd.observe(viewLifecycleOwner, {
                 materialSdAdapter.submitList(it)
@@ -104,7 +104,8 @@ class StatistiquesFragment : Fragment() {
                         .setPositiveButton(android.R.string.ok) { _, _ ->
                             updateStock(
                                 binding.chartsSdStats.sp_stock_update.selectedItem.toString(),
-                                binding.chartsSdStats.et_stock_update.text.toString()
+                                binding.chartsSdStats.et_stock_update.text.toString(),
+                                currentYear.toString()
                             )
                         }
                         .show()
@@ -113,8 +114,8 @@ class StatistiquesFragment : Fragment() {
         }
     }
 
-    private fun updateStock(materialName: String, quantity: String) {
-        statistiquesViewModel.updateStock(materialName, quantity)
+    private fun updateStock(materialName: String, quantity: String, year: String) {
+        statistiquesViewModel.updateStock(materialName, quantity, year)
     }
 
 
