@@ -56,13 +56,7 @@ class StatistiquesViewModel(private val repository: StatistiqueRepository) : Vie
     fun fetchAgentStats(agentId: String, specialty: String, year: String) {
         if (getAgentJob?.isActive == true) getAgentJob?.cancel()
         getAgentJob = launch {
-            when (val result = repository.getStatsPerAgentAndSpecialtyAndYear(agentId, specialty, year)) {
-                is Result.Success -> {
-                    statsAgentLd.value = result.data
-                }
-                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
-            }
+            repository.getStatsPerAgentAndSpecialtyAndYear(agentId, specialty, year, statsAgentLd)
         }
     }
 
