@@ -252,9 +252,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dimen_8dp"
-                    android:text="@{speOperation.specialty.equals(Constants.FIRESTORE_CYNO_DOCUMENT) ? @string/chiens_title : @string/equipment_title}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cv_team" />
+                    app:layout_constraintTop_toBottomOf="@id/cv_team"
+                    tools:text="@string/equipment_title" />
 
 
                 <com.google.android.material.card.MaterialCardView
@@ -291,6 +291,19 @@
                         app:layout_constraintStart_toStartOf="parent"
                         tools:context="com.pomplarg.spe95.MainActivity"
                         tools:listitem="@layout/list_item_material_sd" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_material_ra_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:paddingStart="@dimen/dimen_16dp"
+                        android:scrollbars="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:context="com.pomplarg.spe95.MainActivity"
+                        tools:listitem="@layout/list_item_material_ra" />
 
                 </com.google.android.material.card.MaterialCardView>
 

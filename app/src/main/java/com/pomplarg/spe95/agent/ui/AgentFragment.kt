@@ -33,6 +33,9 @@ class AgentFragment : Fragment() {
         binding.chipCyno.setOnCheckedChangeListener { buttonView, isChecked ->
             agentsViewModel.teamCynoSelected.value = isChecked
         }
+        binding.chipRa.setOnCheckedChangeListener { buttonView, isChecked ->
+            agentsViewModel.teamRaSelected.value = isChecked
+        }
 
         subscribeUi(binding, adapter)
 
@@ -47,6 +50,9 @@ class AgentFragment : Fragment() {
             agentsViewModel.filterTeamRv()
         })
         agentsViewModel.teamCynoSelected.observe(viewLifecycleOwner, Observer {
+            agentsViewModel.filterTeamRv()
+        })
+        agentsViewModel.teamRaSelected.observe(viewLifecycleOwner, Observer {
             agentsViewModel.filterTeamRv()
         })
         agentsViewModel.agentsLd.observe(viewLifecycleOwner, Observer { it ->

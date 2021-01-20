@@ -142,6 +142,15 @@ class SpeOperationViewModel(
     val _equipementSdPetitMatCarburantMelangeQuantity: MutableLiveData<Int> = MutableLiveData(0)
     val _equipementSdPetitMatCarburantHuileChaine: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    val _actionApproche: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _actionIdentification: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _actionNeutralisation: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _actionCapture: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _actionRelevage: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _actionAssistance: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _actionConditionnement: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _actionTransport: MutableLiveData<Boolean> = MutableLiveData(false)
+
     /**
      * Get an operation with its id
      */
@@ -262,6 +271,35 @@ class SpeOperationViewModel(
             if (_equipementSdPetitMatCarburantHuileChaine.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_PETIT_MAT_CARBURANT_HUILE_CHAINE))
 
             newSpeOperation.materialsSd = listOfMaterialsSd
+        }
+
+        /**
+         * RA Operation
+         */
+        if (specialtyDocument == Constants.FIRESTORE_RA_DOCUMENT) {
+            val listOfMaterials = ArrayList<MaterialRa>()
+            _actionApproche.value?.let {
+                listOfMaterials.add(MaterialRa(Constants.RA_ACTION_APPROCHE))
+            }
+            _actionIdentification.value?.let {
+                listOfMaterials.add(MaterialRa(Constants.RA_ACTION_IDENTIFICATION))
+            }
+            _actionNeutralisation.value?.let {
+                listOfMaterials.add(MaterialRa(Constants.RA_ACTION_NEUTRALISATION))
+            }
+            _actionCapture.value?.let {
+                listOfMaterials.add(MaterialRa(Constants.RA_ACTION_CAPTURE))
+            }
+            _actionRelevage.value?.let {
+                listOfMaterials.add(MaterialRa(Constants.RA_ACTION_RELEVAGE))
+            }
+            _actionAssistance.value?.let {
+                listOfMaterials.add(MaterialRa(Constants.RA_ACTION_ASSISTANCE))
+            }
+            _actionTransport.value?.let {
+                listOfMaterials.add(MaterialRa(Constants.RA_ACTION_TRANSPORT))
+            }
+            newSpeOperation.materialsRa = listOfMaterials
         }
 
         if (getUserJob?.isActive == true) getUserJob?.cancel()

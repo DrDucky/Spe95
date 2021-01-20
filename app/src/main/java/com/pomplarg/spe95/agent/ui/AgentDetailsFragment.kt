@@ -75,6 +75,7 @@ class AgentDetailsFragment : Fragment() {
             val specialtyChecked = when (binding.btnSpecialtySelection.checkedButtonId) {
                 R.id.btn_specialty_cyno -> Constants.FIRESTORE_CYNO_DOCUMENT
                 R.id.btn_specialty_sd -> Constants.FIRESTORE_SD_DOCUMENT
+                R.id.btn_specialty_ra -> Constants.FIRESTORE_RA_DOCUMENT
                 else                    -> Constants.FIRESTORE_CYNO_DOCUMENT
             }
             statistiquesViewModel.fetchAgentStats(agentId, specialtyChecked, yearChecked)
@@ -89,6 +90,7 @@ class AgentDetailsFragment : Fragment() {
             val specialtyChecked = when (checkedId) {
                 R.id.btn_specialty_cyno -> Constants.FIRESTORE_CYNO_DOCUMENT
                 R.id.btn_specialty_sd -> Constants.FIRESTORE_SD_DOCUMENT
+                R.id.btn_specialty_ra -> Constants.FIRESTORE_RA_DOCUMENT
                 else                    -> Constants.FIRESTORE_CYNO_DOCUMENT
             }
             statistiquesViewModel.fetchAgentStats(agentId, specialtyChecked, yearChecked)

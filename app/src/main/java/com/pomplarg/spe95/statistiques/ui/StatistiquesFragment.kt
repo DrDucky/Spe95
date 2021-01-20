@@ -71,6 +71,11 @@ class StatistiquesFragment : Fragment() {
                 configureChart(binding.chartsSdStats.type_chart, context)
                 setDataToChart(it.motifs, binding.chartsSdStats.type_chart, "Motifs d'intervention")
             }
+            if (Constants.FIRESTORE_RA_DOCUMENT == specialtyDocument) {
+                //Update UI
+                configureChart(binding.chartsRaStats.type_chart, context)
+                setDataToChart(it.motifs, binding.chartsRaStats.type_chart, "Motifs d'intervention")
+            }
         })
 
         //SD "functionnality" only

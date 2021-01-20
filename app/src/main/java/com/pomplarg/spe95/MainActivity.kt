@@ -119,6 +119,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 drawerLayout.closeDrawers()
                 return true
             }
+            R.id.ra_fragment -> {
+                args.putString("specialty", Constants.FIRESTORE_RA_DOCUMENT)
+                navController.navigate(R.id.speOperationFragment, args)
+                drawerLayout.closeDrawers()
+                return true
+            }
             else               -> {
                 drawerLayout.closeDrawers()
                 return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(

@@ -41,6 +41,11 @@
                 layout="@layout/grid_sd_statistiques"
                 android:visibility="@{specialty == Constants.FIRESTORE_SD_DOCUMENT ? View.VISIBLE : View.GONE, default = gone}" />
 
+            <include
+                android:id="@+id/charts_ra_stats"
+                layout="@layout/grid_ra_statistiques"
+                android:visibility="@{specialty == Constants.FIRESTORE_RA_DOCUMENT ? View.VISIBLE : View.GONE, default = gone}" />
+
             <ProgressBar
                 android:id="@+id/progressbar_operation_detail"
                 android:layout_width="wrap_content"
