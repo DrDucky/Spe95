@@ -278,27 +278,14 @@ class SpeOperationViewModel(
          */
         if (specialtyDocument == Constants.FIRESTORE_RA_DOCUMENT) {
             val listOfMaterials = ArrayList<MaterialRa>()
-            _actionApproche.value?.let {
-                listOfMaterials.add(MaterialRa(Constants.RA_ACTION_APPROCHE))
-            }
-            _actionIdentification.value?.let {
-                listOfMaterials.add(MaterialRa(Constants.RA_ACTION_IDENTIFICATION))
-            }
-            _actionNeutralisation.value?.let {
-                listOfMaterials.add(MaterialRa(Constants.RA_ACTION_NEUTRALISATION))
-            }
-            _actionCapture.value?.let {
-                listOfMaterials.add(MaterialRa(Constants.RA_ACTION_CAPTURE))
-            }
-            _actionRelevage.value?.let {
-                listOfMaterials.add(MaterialRa(Constants.RA_ACTION_RELEVAGE))
-            }
-            _actionAssistance.value?.let {
-                listOfMaterials.add(MaterialRa(Constants.RA_ACTION_ASSISTANCE))
-            }
-            _actionTransport.value?.let {
-                listOfMaterials.add(MaterialRa(Constants.RA_ACTION_TRANSPORT))
-            }
+            if (_actionApproche.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_APPROCHE))
+            if (_actionIdentification.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_IDENTIFICATION))
+            if (_actionNeutralisation.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_NEUTRALISATION))
+            if (_actionCapture.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_CAPTURE))
+            if (_actionRelevage.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_RELEVAGE))
+            if (_actionAssistance.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_ASSISTANCE))
+            if (_actionTransport.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_TRANSPORT))
+
             newSpeOperation.materialsRa = listOfMaterials
         }
 
