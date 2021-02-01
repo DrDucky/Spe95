@@ -37,6 +37,13 @@
         <item>Percement</item>
         <item>Sécurisation</item>
     </string-array>
+    <string-array name="motifs_ra">
+        <item>Sauvetage</item>
+        <item>Capture</item>
+        <item>Relevage</item>
+        <item>Divagation sur voie publique</item>
+        <item>Réquisition par les forces de l\'ordre</item>
+    </string-array>
     <string-array name="sd_gr_elec">
         <item>Fixe</item>
         <item>2200 n°1</item>

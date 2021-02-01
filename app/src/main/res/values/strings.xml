@@ -6,6 +6,7 @@
     <string name="personnel_title">Personnel</string>
     <string name="equipment_title">Matériel</string>
     <string name="chiens_title">Chiens</string>
+    <string name="action_title">Actions</string>
     <string name="cyno_priaxe_display">Pri-Axe</string>
 
     <!-- Add Operations -->
@@ -18,6 +19,7 @@
     <string name="add_operation_error_mandatory_field">Ce champ est obligatoire</string>
     <string name="add_operation_error_time_required">Une durée de travail est nécessaire pour l\'un des agents. Veuiller en spécifier une en cliquant sur le nom de l\'agent</string>
     <string name="add_operation_operation_added">L\'opération a été sauvegardée</string>
+    <string name="add_operation_exception_generic">L\'opération a échouée</string>
     <string name="add_operation_exception">L\'opération a échouée : %01$s</string>
     <string name="add_operation_number">Nombre</string>
     <string name="add_operation_boites">Boites</string>
@@ -90,15 +92,27 @@
     <string name="equipment_petit_materiel_carburant_melange">Carburant Mélange 4%</string>
     <string name="equipment_petit_materiel_carburant_huile_chaine">Huile de chaine</string>
 
+    <!-- Actions RA -->
+    <string name="action_approche_title">Approche</string>
+    <string name="action_identification_title">Identification</string>
+    <string name="action_neutralisation_title">Neutralisation</string>
+    <string name="action_capture_title">Capture</string>
+    <string name="action_relevage_title">Relevage</string>
+    <string name="action_assistance_title">Assistance</string>
+    <string name="action_condition_title">Conditionnement d\'un animal</string>
+    <string name="action_transport_title">Transport</string>
+
     <string name="space">&#160;</string>
     <string name="agents_chip_filter_cyno">Cyno</string>
     <string name="agents_chip_filter_sd">SD</string>
+    <string name="agents_chip_filter_ra">RA</string>
     <string name="spe_operation_personnel_title">Personnel</string>
     <string name="spe_operation_personnel_unit_chief_title">Chef d\'unité</string>
     <string name="spe_operation_personnel_subtitle">Personnel engagé</string>
     <string name="menu_specialite_title">Spécialités</string>
     <string name="menu_specialite_cyno_title">Cynotechnique</string>
     <string name="menu_specialite_sd_title">Sauvetage-déblaiement</string>
+    <string name="menu_specialite_ra_title">Risque animalier</string>
     <string name="menu_agents_title">Agents</string>
     <string name="menu_settings_title">Paramètres</string>
     <string name="menu_csp_name_title">CSP Argenteuil</string>

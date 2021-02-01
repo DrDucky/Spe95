@@ -10,6 +10,7 @@ import android.widget.Filterable
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import com.pomplarg.spe95.agent.data.Agent
+import com.pomplarg.spe95.utils.unaccent
 import java.util.*
 
 
@@ -56,8 +57,8 @@ class AgentAutocompleteAdapter(
                     allAgents
                 else
                     allAgents.filter {
-                        it.firstname.toLowerCase(Locale.getDefault()).contains(queryString) ||
-                                it.lastname.toLowerCase(Locale.getDefault()).contains(queryString)
+                        it.firstname.unaccent().toLowerCase(Locale.getDefault()).contains(queryString) ||
+                                it.lastname.unaccent().toLowerCase(Locale.getDefault()).contains(queryString)
                     }
                 return filterResults
             }

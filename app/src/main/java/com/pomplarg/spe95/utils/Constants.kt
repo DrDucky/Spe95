@@ -4,6 +4,7 @@ class Constants {
     companion object {
         const val FIRESTORE_CYNO_DOCUMENT = "cyno"
         const val FIRESTORE_SD_DOCUMENT = "sd"
+        const val FIRESTORE_RA_DOCUMENT = "ra"
 
         const val TYPE_OPERATION_INTERVENTION = "Intervention"
         const val TYPE_OPERATION_TRAINING = "Entrainement"
@@ -58,6 +59,15 @@ class Constants {
         const val SD_PETIT_MAT_CARBURANT_MARLINE = "Carburant marline"
         const val SD_PETIT_MAT_CARBURANT_MELANGE = "Carburant mélange 4%"
         const val SD_PETIT_MAT_CARBURANT_HUILE_CHAINE = "Carburant huile de chaine"
+
+        const val RA_ACTION_APPROCHE = "Approche"
+        const val RA_ACTION_IDENTIFICATION = "Identification"
+        const val RA_ACTION_NEUTRALISATION = "Neutralisation"
+        const val RA_ACTION_CAPTURE = "Capture"
+        const val RA_ACTION_RELEVAGE = "Relevage"
+        const val RA_ACTION_ASSISTANCE = "Assistance"
+        const val RA_ACTION_CONDITIONNEMENT = "Conditionnement"
+        const val RA_ACTION_TRANSPORT = "Transport"
 
         const val YEAR_2020 = "2020"
         const val YEAR_2021 = "2021"

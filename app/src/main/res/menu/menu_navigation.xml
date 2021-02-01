@@ -13,6 +13,11 @@
                         android:id="@+id/sd_fragment"
                         android:icon="@drawable/ic_menu_sd"
                         android:title="@string/menu_specialite_sd_title" />
+
+                    <item
+                        android:id="@+id/ra_fragment"
+                        android:icon="@drawable/ic_menu_ra"
+                        android:title="@string/menu_specialite_ra_title" />
                 </group>
             </menu>
         </item>

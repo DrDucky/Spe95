@@ -39,6 +39,7 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
 
     var teamSdSelected: MutableLiveData<Boolean> = MutableLiveData(false)
     var teamCynoSelected: MutableLiveData<Boolean> = MutableLiveData(false)
+    var teamRaSelected: MutableLiveData<Boolean> = MutableLiveData(false)
 
     val _firstname: MutableLiveData<String> = MutableLiveData()
     val firstname: LiveData<String> = _firstname
@@ -53,6 +54,9 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
 
     val _agentSd: MutableLiveData<Boolean> = MutableLiveData()
     val agentSd: LiveData<Boolean> = _agentSd
+
+    val _agentRa: MutableLiveData<Boolean> = MutableLiveData()
+    val agentRa: LiveData<Boolean> = _agentRa
 
     //fetch all agents in a specific specialty
     fun fetchAllAgents() {
@@ -114,8 +118,15 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
                 }
         }
 
+        if (teamRaSelected.value!!) {
+            currentAgentsList =
+                currentAgentsList?.filter {
+                    it.specialtiesMember!!.containsKey(Constants.FIRESTORE_RA_DOCUMENT)
+                }
+        }
+
         //Default value : display all list if no selection
-        if (!teamCynoSelected.value!! && !teamSdSelected.value!!) {
+        if (!teamCynoSelected.value!! && !teamSdSelected.value!! && !teamRaSelected.value!!) {
             currentAgentsList = agentsAllLd.value
         }
 
@@ -135,6 +146,9 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
         }
         if (_agentSd.value == true) {
             mapSpecialties[Constants.FIRESTORE_SD_DOCUMENT] = true
+        }
+        if (_agentRa.value == true) {
+            mapSpecialties[Constants.FIRESTORE_RA_DOCUMENT] = true
         }
         newAgent.specialtiesMember = mapSpecialties
 

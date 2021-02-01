@@ -31,6 +31,7 @@ import com.pomplarg.spe95.agent.data.Agent
 import com.pomplarg.spe95.agent.ui.AgentViewModel
 import com.pomplarg.spe95.databinding.FragmentAddOperationBinding
 import com.pomplarg.spe95.databinding.ListItemAddOperationEquipmentCynoBinding
+import com.pomplarg.spe95.databinding.ListItemAddOperationEquipmentRaBinding
 import com.pomplarg.spe95.databinding.ListItemAddOperationEquipmentSdBinding
 import com.pomplarg.spe95.speoperations.data.AgentOnOperation
 import com.pomplarg.spe95.utils.Constants
@@ -77,6 +78,8 @@ class AddOperationFragment : Fragment() {
             ListItemAddOperationEquipmentCynoBinding.inflate(inflater, container, false)
         val bindingListEquipmentSd =
             ListItemAddOperationEquipmentSdBinding.inflate(inflater, container, false)
+        val bindingListEquipmentRa =
+            ListItemAddOperationEquipmentRaBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = this
         context ?: return binding.root
@@ -99,6 +102,7 @@ class AddOperationFragment : Fragment() {
             binding,
             bindingListEquipmentCyno,
             bindingListEquipmentSd,
+            bindingListEquipmentRa,
             connected
         )
         binding.vmSpeOperation = speOperationViewModel
@@ -176,7 +180,7 @@ class AddOperationFragment : Fragment() {
                 displayMainBloc(binding, true)
                 Snackbar.make(
                     requireView(),
-                    getString(R.string.add_operation_exception, it),
+                    getString(R.string.add_operation_exception_generic),
                     Snackbar.LENGTH_LONG
                 ).show()
             }
@@ -283,11 +287,14 @@ class AddOperationFragment : Fragment() {
         binding: FragmentAddOperationBinding,
         bindingListEquipmentCyno: ListItemAddOperationEquipmentCynoBinding,
         bindingListEquipmentSd: ListItemAddOperationEquipmentSdBinding,
+        bindingListEquipmentRa: ListItemAddOperationEquipmentRaBinding,
         connected: Boolean
     ) {
 
         bindingListEquipmentCyno.vmSpeOperation = vmSpeOperationViewModel
         bindingListEquipmentSd.vmSpeOperation = vmSpeOperationViewModel
+        bindingListEquipmentRa.vmSpeOperation = vmSpeOperationViewModel
+
         //Checkboxes cliquables (ouverture de popup)
         bindingListEquipmentSd.tvEclairageCategoryGroupeElectro.setOnClickListener { buttonView ->
             context?.let {
@@ -312,6 +319,7 @@ class AddOperationFragment : Fragment() {
         when (specialtyId) {
             Constants.FIRESTORE_CYNO_DOCUMENT -> layoutToAdd = bindingListEquipmentCyno.root
             Constants.FIRESTORE_SD_DOCUMENT -> layoutToAdd = bindingListEquipmentSd.root
+            Constants.FIRESTORE_RA_DOCUMENT -> layoutToAdd = bindingListEquipmentRa.root
         }
 
         binding.equipment.addView(layoutToAdd)
@@ -321,6 +329,7 @@ class AddOperationFragment : Fragment() {
         when (specialtyId) {
             Constants.FIRESTORE_CYNO_DOCUMENT -> arrayForMotifs = R.array.motifs_cyno
             Constants.FIRESTORE_SD_DOCUMENT -> arrayForMotifs = R.array.motifs_sd
+            Constants.FIRESTORE_RA_DOCUMENT -> arrayForMotifs = R.array.motifs_ra
         }
         val adapter =
             ArrayAdapter(
