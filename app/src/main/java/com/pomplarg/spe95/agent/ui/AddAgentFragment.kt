@@ -95,7 +95,7 @@ class AddAgentFragment : Fragment() {
                 null //Clear the value if error already displayed
         }
 
-        if (!binding.cbAgentCyno.isChecked && !binding.cbAgentSd.isChecked) {
+        if (!binding.cbAgentCyno.isChecked && !binding.cbAgentSd.isChecked && !binding.cbAgentRa.isChecked) {
             Snackbar.make(
                 requireView(),
                 getString(R.string.add_agent_specialty_error),
