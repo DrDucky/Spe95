@@ -21,9 +21,13 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.Timestamp
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.google.firebase.firestore.GeoPoint
 import com.pomplarg.spe95.R
 import com.pomplarg.spe95.ToolbarTitleListener
@@ -39,7 +43,6 @@ import com.pomplarg.spe95.utils.hasConnectivity
 import kotlinx.android.synthetic.main.list_item_add_operation_equipment_sd.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -152,9 +155,9 @@ class AddOperationFragment : Fragment() {
             }
         })
 
-        val formatter = SimpleDateFormat(Constants.ADD_OPERATION_DATE_FORMAT_DISPLAY, Locale.FRANCE)
-        val displayDate = formatter.format(Timestamp.now().toDate())
-        speOperationViewModel._startDateTime.value = displayDate
+        val currentTimeInMillis = Calendar.getInstance().timeInMillis
+        speOperationViewModel._startDate.value = currentTimeInMillis
+        speOperationViewModel._startTime.value = currentTimeInMillis
 
         //Treatments
         agentViewModel.fetchAllAgentsPerSpecialty(specialtyDocument)
@@ -340,6 +343,35 @@ class AddOperationFragment : Fragment() {
         binding.actvMotif.setAdapter(adapter)
 
         binding.connected = connected
+
+        binding.btnDate.setOnClickListener {
+            val maxDate = Calendar.getInstance().timeInMillis
+            val constraintsBuilder = CalendarConstraints.Builder()
+            constraintsBuilder.setValidator(DateValidatorPointBackward.before(maxDate))
+            val dateBuilder = MaterialDatePicker.Builder.datePicker()
+            dateBuilder.setSelection(speOperationViewModel._startDate.value)
+            dateBuilder.setCalendarConstraints(constraintsBuilder.build()) //user cannot select future date
+            val datePicker = dateBuilder.build()
+            datePicker.show(parentFragmentManager, datePicker.toString())
+            datePicker.addOnPositiveButtonClickListener {
+                speOperationViewModel._startDate.value = it
+            }
+        }
+
+        binding.btnTime.setOnClickListener {
+            val currentTime = Calendar.getInstance()
+            val timePicker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(currentTime.get(Calendar.HOUR_OF_DAY))
+                .setMinute(currentTime.get(Calendar.MINUTE))
+                .build()
+            timePicker.show(parentFragmentManager, timePicker.toString())
+            timePicker.addOnPositiveButtonClickListener {
+                val calendar = Calendar.getInstance()
+                calendar.set(Calendar.HOUR_OF_DAY, timePicker.hour)
+                calendar.set(Calendar.MINUTE, timePicker.minute)
+                speOperationViewModel._startTime.value = calendar.timeInMillis
+            }
+        }
     }
 
     /**

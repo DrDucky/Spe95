@@ -112,7 +112,7 @@
                     android:paddingTop="@dimen/dimen_8dp"
                     android:paddingEnd="@dimen/dimen_4dp"
                     android:paddingBottom="@dimen/dimen_8dp"
-                    android:text="@{ConverterKt.dateToString(speOperation.startDate)}"
+                    android:text="@{ConverterKt.dateTimestampToString(speOperation.startDate)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iv_type"
                     tools:text="14 janvier 2020 - 14:32" />

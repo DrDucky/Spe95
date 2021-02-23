@@ -71,19 +71,29 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Intervention" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_date"
-                    style="@style/CategorySubtitle"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_date"
+                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/dimen_8dp"
-                    android:paddingEnd="@dimen/dimen_4dp"
-                    android:paddingBottom="@dimen/dimen_8dp"
-                    android:text="@{vmSpeOperation._startDateTime}"
-                    app:layout_constraintBottom_toTopOf="@+id/cv_add_header"
+                    android:text="@{ConverterKt.dateLongToString(vmSpeOperation._startDate)}"
+                    app:icon="@drawable/ic_date"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_time"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="14 janvier 2020 - 14:32" />
+                    tools:text="14 janvier 2020" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_time"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{ConverterKt.timeLongToString(vmSpeOperation._startTime)}"
+                    app:icon="@drawable/ic_time"
+                    app:layout_constraintBottom_toTopOf="@+id/cv_add_header"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_date"
+                    tools:text="14:32" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cv_add_header"
@@ -94,7 +104,7 @@
                     app:cardElevation="@dimen/dimen_2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_header_title">
+                    app:layout_constraintTop_toBottomOf="@+id/btn_time">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
