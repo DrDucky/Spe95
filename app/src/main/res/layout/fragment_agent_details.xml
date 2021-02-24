@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="handler"
+            type="com.pomplarg.spe95.agent.ui.AgentHandlerClick" />
+
+        <variable
             name="agent"
             type="com.pomplarg.spe95.agent.data.Agent" />
     </data>
@@ -162,6 +166,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/fab_edit_agent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:onClick="@{(view) -> handler.onEditAgentClick(view, agent)}"
+                android:textColor="@android:color/white"
+                android:text="@string/screen_title_edit_agent"
+                app:icon="@drawable/ic_edit"
+                app:iconTint="@android:color/white"
+                app:backgroundTint="@color/colorSecondary"
+                android:layout_gravity="bottom|end" />
         </FrameLayout>
 
     </ScrollView>

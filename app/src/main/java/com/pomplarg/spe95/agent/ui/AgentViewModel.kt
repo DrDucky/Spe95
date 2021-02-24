@@ -58,6 +58,9 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
     val _agentRa: MutableLiveData<Boolean> = MutableLiveData()
     val agentRa: LiveData<Boolean> = _agentRa
 
+    val _agentEdited: MutableLiveData<Boolean> = MutableLiveData()
+    val agentEdited: LiveData<Boolean> = _agentEdited
+
     //fetch all agents in a specific specialty
     fun fetchAllAgents() {
         if (getUserJob?.isActive == true) getUserJob?.cancel()
@@ -136,8 +139,14 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
     /**
      * Add an agent into Firestore
      */
-    fun addAgentIntoFirestore() {
-        newAgent.id = "0"
+    fun addAgentIntoFirestore(agent: Agent?) {
+        //if agent is not null, we are in edit mode
+        if (agent != null) {
+            newAgent.id = agent.id
+            newAgent.avatar = agent.avatar
+        } else {
+            newAgent.id = "0"
+        }
         newAgent.firstname = firstname.value!!
         newAgent.lastname = lastname.value!!
         val mapSpecialties = mutableMapOf<String, Boolean>()
@@ -155,10 +164,18 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {
             when (val result =
-                repository.addAgentIntoRemoteDB(newAgent)) {
+                if (agent != null) {
+                    repository.updateAgentIntoRemoteDB(newAgent)
+                } else {
+                    repository.addAgentIntoRemoteDB(newAgent)
+                }) {
                 is Result.Success -> {
-                    _agentIdAdded.value = result.data
-                    agentAdded.call()
+                    if (agent != null) {
+                        _agentEdited.value = true
+                    } else {
+                        _agentIdAdded.value = result.data
+                        agentAdded.call()
+                    }
                 }
                 is Result.Error -> _genericException.value = result.exception.message
                 //is Result2.Canceled -> _snackbarText.value = R.string.canceled
@@ -170,7 +187,7 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
     fun updateAgentId(agentId: String) {
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {
-            repository.updateAgentIntoRemoteDB(agentId)
+            repository.updateAgentIdIntoRemoteDB(agentId)
         }
     }
 

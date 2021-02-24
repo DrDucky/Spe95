@@ -15,7 +15,6 @@
     <string name="add_operation_chip_team_text">%01$s %02$s</string>
     <string name="add_operation_chip_team_text_with_time">%01$s - %02$d:%03$d</string>
     <string name="add_operation_time_helper">hh:mm</string>
-    <string name="add_btn_title">Ajouter</string>
     <string name="add_operation_error_mandatory_field">Ce champ est obligatoire</string>
     <string name="add_operation_error_time_required">Une durée de travail est nécessaire pour l\'un des agents. Veuiller en spécifier une en cliquant sur le nom de l\'agent</string>
     <string name="add_operation_operation_added">L\'opération a été sauvegardée</string>
@@ -28,6 +27,7 @@
     <string name="add_agent_firstname">Prénom</string>
     <string name="add_agent_lastname">Nom</string>
     <string name="add_agent_agent_added">L\'agent a été sauvegardé</string>
+    <string name="add_agent_agent_edited">L\'agent a été modifié</string>
     <string name="add_agent_error">Impossible d\'ajouter l\'agent : %01$s</string>
     <string name="add_agent_specialty_error">Veuillez sélectionner au moins une spécialité</string>
 
@@ -129,9 +129,12 @@
     <string name="screen_title_agents_list">Liste des agents</string>
     <string name="screen_title_agent_detail">Détail de l\'agent</string>
     <string name="screen_title_add_agent">Ajouter un agent</string>
+    <string name="screen_title_edit_agent">Modifier l\'agent</string>
     <string name="screen_title_add_training">Ajouter un %01$s</string><!-- because of male -->
     <string name="screen_title_add_operation">Ajouter une %01$s</string>
     <string name="screen_title_statistiques">Statistiques</string>
+    <string name="add">Ajouter</string>
+    <string name="edit">Modifier</string>
     <string name="cancel">Annuler</string>
     <string name="main_screen_logout">Déconnexion</string>
     <string name="operation_empty_state">Pas d\'opération présente ou sélectionnée pour le moment</string>

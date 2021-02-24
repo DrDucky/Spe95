@@ -127,6 +127,10 @@ class AgentDetailsFragment : Fragment() {
                 activity?.let { activity -> AvatarGenerator.zoomImageFromThumb(activity, it, binding.ivAgentAvatar.drawable, shortAnimationDuration, binding.ivAgentAvatarExpended) }
             }
         }
+
+        val agentHandler = AgentHandlerClick()
+        binding.handler = agentHandler
+
     }
 
     private fun bindStats(binding: FragmentAgentDetailsBinding, stats: Statistique) {

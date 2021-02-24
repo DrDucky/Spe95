@@ -120,11 +120,29 @@ class AgentRepository {
     }
 
     /**
+     * Update agent
+     */
+    suspend fun updateAgentIntoRemoteDB(
+        agent: Agent
+    ): Result<String> {
+        return try {
+            agentsCollection
+                .document(agent.id)
+                .set(agent)
+                .await()
+            Result.Success(agent.id)
+        } catch (exception: FirebaseFirestoreException) {
+            Log.e("TAG", "Firebase exception when updating agent ID : $exception.message")
+            Result.Error(exception)
+        }
+    }
+
+    /**
      * Update agent with its own id (based on the guid document)
      * By default, id is "0"
      * It will be replace by something like "74wRU4xHrcV9oWAXEkKeRNp41c53"
      */
-    suspend fun updateAgentIntoRemoteDB(
+    suspend fun updateAgentIdIntoRemoteDB(
         agentId: String
     ) {
         try {
