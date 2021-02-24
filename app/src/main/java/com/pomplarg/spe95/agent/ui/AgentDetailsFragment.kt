@@ -137,7 +137,7 @@ class AgentDetailsFragment : Fragment() {
         //Update UI
         configureChart(binding.timesChart, context)
         configureChart(binding.typeChart, context)
-        setDataToChart(stats.agentTimes, binding.timesChart, "Temps en opération")
-        setDataToChart(stats.agentTypes, binding.typeChart, "Types d'opération")
+        setDataToChart(stats.agentTimes, binding.timesChart, "Temps en opération", true)
+        setDataToChart(stats.agentTypes, binding.typeChart, "Types d'opération", false)
     }
 }

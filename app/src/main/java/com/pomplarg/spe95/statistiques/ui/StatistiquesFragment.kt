@@ -60,21 +60,21 @@ class StatistiquesFragment : Fragment() {
                 configureChart(binding.chartsCynoStats.nerone_chart, context)
                 configureChart(binding.chartsCynoStats.priaxe_chart, context)
 
-                setDataToChart(it.motifs, binding.chartsCynoStats.type_chart, "Motifs d'intervention")
-                setDataToChart(it.ipso, binding.chartsCynoStats.ipso_chart, "Minutes Ipso")
-                setDataToChart(it.nano, binding.chartsCynoStats.nano_chart, "Minutes Nano")
-                setDataToChart(it.nerone, binding.chartsCynoStats.nerone_chart, "Minutes Nerone")
-                setDataToChart(it.priaxe, binding.chartsCynoStats.priaxe_chart, "Minutes Priaxe")
+                setDataToChart(it.motifs, binding.chartsCynoStats.type_chart, "Motifs d'intervention", false)
+                setDataToChart(it.ipso, binding.chartsCynoStats.ipso_chart, "Ipso", true)
+                setDataToChart(it.nano, binding.chartsCynoStats.nano_chart, "Nano", true)
+                setDataToChart(it.nerone, binding.chartsCynoStats.nerone_chart, "Nerone", true)
+                setDataToChart(it.priaxe, binding.chartsCynoStats.priaxe_chart, "Priaxe", true)
             }
             if (Constants.FIRESTORE_SD_DOCUMENT == specialtyDocument) {
                 //Update UI
                 configureChart(binding.chartsSdStats.type_chart, context)
-                setDataToChart(it.motifs, binding.chartsSdStats.type_chart, "Motifs d'intervention")
+                setDataToChart(it.motifs, binding.chartsSdStats.type_chart, "Motifs d'intervention", false)
             }
             if (Constants.FIRESTORE_RA_DOCUMENT == specialtyDocument) {
                 //Update UI
                 configureChart(binding.chartsRaStats.type_chart, context)
-                setDataToChart(it.motifs, binding.chartsRaStats.type_chart, "Motifs d'intervention")
+                setDataToChart(it.motifs, binding.chartsRaStats.type_chart, "Motifs d'intervention", false)
             }
         })
 
