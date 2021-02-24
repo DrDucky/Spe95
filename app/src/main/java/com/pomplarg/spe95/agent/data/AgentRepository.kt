@@ -161,4 +161,22 @@ class AgentRepository {
             Log.e("TAG", "Firebase exception when updating agent ID : $exception.message")
         }
     }
+
+    /**
+     * Delete specified agent
+     */
+    suspend fun deleteAgentIntoRemoteDB(
+        agentId: String
+    ): Result<String> {
+        return try {
+            agentsCollection
+                .document(agentId)
+                .delete()
+                .await()
+            Result.Success(agentId)
+        } catch (exception: FirebaseFirestoreException) {
+            Log.e("TAG", "Firebase exception when deleting agent : $exception.message")
+            Result.Error(exception)
+        }
+    }
 }

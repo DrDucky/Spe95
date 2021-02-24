@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.pomplarg.spe95.R
 import com.pomplarg.spe95.agent.data.Agent
@@ -53,6 +54,19 @@ class AddAgentFragment : Fragment() {
                 if (validate(agentViewModel, binding)) {
                     agentViewModel.addAgentIntoFirestore(agent)
                 }
+            })
+            binding.btnDeleteAgent.visibility = View.VISIBLE
+            binding.btnDeleteAgent.setOnClickListener(View.OnClickListener {
+                MaterialAlertDialogBuilder(it.context)
+                    .setTitle(it.resources.getString(R.string.delete_agent_title))
+                    .setMessage(it.resources.getString(R.string.delete_agent_description, agent.firstname + " " + agent.lastname))
+                    .setPositiveButton(it.context.resources.getString(android.R.string.ok)) { dialog, which ->
+                        agentViewModel.deleteAgent(agent.id)
+                    }
+                    .setNegativeButton(it.context.resources.getString(android.R.string.cancel)) { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .show()
             })
         })
 
@@ -103,6 +117,18 @@ class AddAgentFragment : Fragment() {
             Snackbar.make(
                 requireView(),
                 getString(R.string.add_agent_agent_edited),
+                Snackbar.LENGTH_LONG
+            ).show()
+            val direction =
+                AddAgentFragmentDirections.actionAddAgentFragmentToAgentFragment()
+            findNavController().navigate(direction)
+        })
+
+        agentViewModel.agentDeleted.observe(viewLifecycleOwner, Observer {
+            hideKeyboard()
+            Snackbar.make(
+                requireView(),
+                getString(R.string.add_agent_agent_deleted),
                 Snackbar.LENGTH_LONG
             ).show()
             val direction =

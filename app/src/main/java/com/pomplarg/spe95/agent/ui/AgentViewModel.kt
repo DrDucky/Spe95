@@ -61,6 +61,9 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
     val _agentEdited: MutableLiveData<Boolean> = MutableLiveData()
     val agentEdited: LiveData<Boolean> = _agentEdited
 
+    val _agentDeleted: MutableLiveData<Boolean> = MutableLiveData()
+    val agentDeleted: LiveData<Boolean> = _agentDeleted
+
     //fetch all agents in a specific specialty
     fun fetchAllAgents() {
         if (getUserJob?.isActive == true) getUserJob?.cancel()
@@ -191,4 +194,15 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
         }
     }
 
+    // delete agent
+    fun deleteAgent(agentId: String) {
+        if (getUserJob?.isActive == true) getUserJob?.cancel()
+        getUserJob = launch {
+            when (val result =
+                repository.deleteAgentIntoRemoteDB(agentId)) {
+                is Result.Success -> _agentDeleted.value = true
+                is Result.Error -> _genericException.value = result.exception.message
+            }
+        }
+    }
 }

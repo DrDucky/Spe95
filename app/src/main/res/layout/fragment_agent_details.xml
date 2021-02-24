@@ -14,173 +14,181 @@
             type="com.pomplarg.spe95.agent.data.Agent" />
     </data>
 
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/container"
+        <ScrollView
+            android:id="@+id/scrollview_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <FrameLayout
+                android:id="@+id/container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="100dp" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_begin="100dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_agent_avatar"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/guideline"
+                        tools:src="@drawable/ic_menu_agents" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_agent_details"
+                        style="@style/TextAppearance.MaterialComponents.Headline4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{agent.firstname.concat(@string/space).concat(agent.lastname)}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_agent_avatar"
+                        tools:text="Bruno Charpentier" />
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/btn_year_selection"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:singleSelection="true"
+                        app:selectionRequired="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_agent_details">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_year_2020"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/year_2020" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_year_2021"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/year_2021" />
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/btn_specialty_selection"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:selectionRequired="true"
+                        app:singleSelection="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/btn_year_selection">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_specialty_cyno"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/agents_chip_filter_cyno" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_specialty_sd"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/agents_chip_filter_sd" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_specialty_ra"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/agents_chip_filter_ra" />
+
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:flexDirection="row"
+                        app:flexWrap="wrap"
+                        app:justifyContent="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/btn_specialty_selection">
+
+                        <com.github.mikephil.charting.charts.PieChart
+                            android:id="@+id/type_chart"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:minWidth="@dimen/chartpie_min_width"
+                            android:minHeight="@dimen/chartpie_min_height" />
+
+                        <com.github.mikephil.charting.charts.PieChart
+                            android:id="@+id/times_chart"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:minWidth="@dimen/chartpie_min_width"
+                            android:minHeight="@dimen/chartpie_min_height" />
+
+                    </com.google.android.flexbox.FlexboxLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="gone" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageView
-                    android:id="@+id/iv_agent_avatar"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/guideline"
-                    tools:src="@drawable/ic_menu_agents" />
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_agent_details"
-                    style="@style/TextAppearance.MaterialComponents.Headline4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{agent.firstname.concat(@string/space).concat(agent.lastname)}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_agent_avatar"
-                    tools:text="Bruno Charpentier" />
-
-                <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/btn_year_selection"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:singleSelection="true"
-                    app:selectionRequired="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_agent_details">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_year_2020"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/year_2020" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_year_2021"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/year_2021" />
-                </com.google.android.material.button.MaterialButtonToggleGroup>
-
-                <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/btn_specialty_selection"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:selectionRequired="true"
-                    app:singleSelection="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btn_year_selection">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_specialty_cyno"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/agents_chip_filter_cyno" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_specialty_sd"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/agents_chip_filter_sd" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_specialty_ra"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/agents_chip_filter_ra" />
-
-                </com.google.android.material.button.MaterialButtonToggleGroup>
-
-                <com.google.android.flexbox.FlexboxLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:flexDirection="row"
-                    app:flexWrap="wrap"
-                    app:justifyContent="center"
+                    android:id="@+id/iv_agent_avatar_expended"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btn_specialty_selection">
+                    app:layout_constraintTop_toTopOf="parent" />
+            </FrameLayout>
 
-                    <com.github.mikephil.charting.charts.PieChart
-                        android:id="@+id/type_chart"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:minWidth="@dimen/chartpie_min_width"
-                        android:minHeight="@dimen/chartpie_min_height" />
-
-                    <com.github.mikephil.charting.charts.PieChart
-                        android:id="@+id/times_chart"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:minWidth="@dimen/chartpie_min_width"
-                        android:minHeight="@dimen/chartpie_min_height" />
-
-                </com.google.android.flexbox.FlexboxLayout>
-
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="gone" />
+        </ScrollView>
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ImageView
-                android:id="@+id/iv_agent_avatar_expended"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/fab_edit_agent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:onClick="@{(view) -> handler.onEditAgentClick(view, agent)}"
-                android:textColor="@android:color/white"
-                android:text="@string/screen_title_edit_agent"
-                app:icon="@drawable/ic_edit"
-                app:iconTint="@android:color/white"
-                app:backgroundTint="@color/colorSecondary"
-                android:layout_gravity="bottom|end" />
-        </FrameLayout>
-
-    </ScrollView>
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fab_edit_agent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:onClick="@{(view) -> handler.onEditAgentClick(view, agent)}"
+            android:textColor="@android:color/white"
+            android:text="@string/screen_title_edit_agent"
+            app:icon="@drawable/ic_edit"
+            app:iconTint="@android:color/white"
+            app:backgroundTint="@color/colorSecondary"
+            app:layout_anchor="@id/scrollview_container"
+            app:layout_anchorGravity="bottom|right|end" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

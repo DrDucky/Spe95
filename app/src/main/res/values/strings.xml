@@ -28,8 +28,11 @@
     <string name="add_agent_lastname">Nom</string>
     <string name="add_agent_agent_added">L\'agent a été sauvegardé</string>
     <string name="add_agent_agent_edited">L\'agent a été modifié</string>
+    <string name="add_agent_agent_deleted">L\'agent a été supprimé</string>
     <string name="add_agent_error">Impossible d\'ajouter l\'agent : %01$s</string>
     <string name="add_agent_specialty_error">Veuillez sélectionner au moins une spécialité</string>
+    <string name="delete_agent_title">Supprimer un agent</string>
+    <string name="delete_agent_description">Etes-vous sûr de vouloir supprimer %01$s ?</string>
 
     <!-- Authentication -->
     <string name="authentication_email">Email</string>
@@ -136,6 +139,7 @@
     <string name="add">Ajouter</string>
     <string name="edit">Modifier</string>
     <string name="cancel">Annuler</string>
+    <string name="delete">Supprimer</string>
     <string name="main_screen_logout">Déconnexion</string>
     <string name="operation_empty_state">Pas d\'opération présente ou sélectionnée pour le moment</string>
     <string name="screen_title_exit_app">Sortir de l\'application</string>
