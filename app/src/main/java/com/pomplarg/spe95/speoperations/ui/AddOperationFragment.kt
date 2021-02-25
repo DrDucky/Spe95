@@ -146,6 +146,12 @@ class AddOperationFragment : Fragment() {
             addChipToGroup(selected, binding.chipGroupTeam)
         }
 
+        binding.actvUnitChief.setOnItemClickListener { parent, arg1, position, arg3 ->
+            val selected = parent.getItemAtPosition(position) as Agent
+            binding.actvUnitChief.setText(getString(R.string.add_operation_chip_team_text, selected.firstname, selected.lastname))
+            speOperationViewModel._teamUnitChief.value = selected.id
+        }
+
         binding.btnAddOperation.setOnClickListener(View.OnClickListener {
             if (validate(speOperationViewModel, binding, args.specialty)) {
                 speOperationViewModel._teamAgent.value = teamList
@@ -419,6 +425,20 @@ class AddOperationFragment : Fragment() {
         } else {
             vmSpeOperationViewModel._addressOfflineError.value =
                 null //Clear the value if error already displayed
+        }
+
+        val agentsId = ArrayList<String>()
+        agentViewModel.agentsLd.value?.let {
+            for (agents in it) {
+                agentsId.add(agents.id)
+            }
+        }
+
+        if (binding.tilUnitChief.visibility == View.VISIBLE && !agentsId.contains(vmSpeOperationViewModel.teamUnitChief.value)) {
+            vmSpeOperationViewModel._unitChiefError.value = mandatoryFieldError
+            isValid = false
+        } else {
+            vmSpeOperationViewModel._unitChiefError.value = null
         }
 
         if (binding.chipGroupTeam.childCount == 0) {

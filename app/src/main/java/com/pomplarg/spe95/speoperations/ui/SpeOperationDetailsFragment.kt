@@ -26,6 +26,7 @@ class SpeOperationDetailsFragment : Fragment() {
         )
     }
     private val agentsViewModel: AgentViewModel by viewModel()
+    private val agentDetailsViewModel: AgentDetailsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -84,10 +85,16 @@ class SpeOperationDetailsFragment : Fragment() {
                     agentsId.add(agents.id!!)
                 }
                 agentsViewModel.fetchAgentsInformationFrom(agentsId.toList())
+                it.unitChief?.let { unitChiefId -> agentDetailsViewModel.fetchAgentInformation(unitChiefId) }
+
             })
 
         agentsViewModel.agentsLd.observe(viewLifecycleOwner, Observer { it ->
             adapter.submitList(it)
+        })
+
+        agentDetailsViewModel.agentLd.observe(viewLifecycleOwner, Observer { it ->
+            binding.tvTeamChiefUnit.text = getString(R.string.add_operation_chip_team_text, it.firstname, it.lastname)
         })
     }
 

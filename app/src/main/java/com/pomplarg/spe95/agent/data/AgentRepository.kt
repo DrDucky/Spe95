@@ -87,8 +87,12 @@ class AgentRepository {
                 .limit(1)
                 .get().await()) {
             is Result.Success -> {
-                val agent = documentSnapshot.data.documents[0].toObject(Agent::class.java)!!
-                Result.Success(agent)
+                if (documentSnapshot.data.isEmpty) {
+                    Result.Error(Exception("No agent present"))
+                } else {
+                    val agent = documentSnapshot.data.documents[0].toObject(Agent::class.java)!!
+                    Result.Success(agent)
+                }
             }
             is Result.Error -> Result.Error(documentSnapshot.exception)
             is Result.Canceled -> Result.Canceled(documentSnapshot.exception)

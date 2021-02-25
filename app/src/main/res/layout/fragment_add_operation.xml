@@ -230,21 +230,24 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_unit_chief"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_8dp"
                             android:hint="@string/spe_operation_personnel_unit_chief_title"
+                            app:endIconMode="none"
+                            app:error="@{vmSpeOperation._unitChiefError}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/et_unit_chief"
+                            <AutoCompleteTextView
+                                android:id="@+id/actv_unit_chief"
                                 android:singleLine="true"
+                                entries="@{vmAgents.agentsLd}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@={vmSpeOperation._teamUnitChief}" />
+                                android:imeOptions="actionDone" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 

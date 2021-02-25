@@ -80,6 +80,7 @@ class SpeOperationViewModel(
     val _team: MutableLiveData<List<Int>> = MutableLiveData()
     val team: LiveData<List<Int>> = _team
     var _teamError: MutableLiveData<String> = MutableLiveData()
+    var _unitChiefError: MutableLiveData<String> = MutableLiveData()
 
     var _genericException: MutableLiveData<String> = MutableLiveData()
 
