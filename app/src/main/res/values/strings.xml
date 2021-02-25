@@ -147,6 +147,7 @@
 
     <!-- Statistiques -->
     <string name="statistiques_no_data">Aucune donnée actuellement</string>
+    <string name="statistiques_alert_title">Stock insuffisant</string>
     <string name="statistiques_alert_threshold">Attention, Alerte ! Stock de %01$s insuffisant</string>
     <string name="time">Durée</string>
     <string name="year_2020">2020</string>

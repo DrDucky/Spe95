@@ -1,5 +1,6 @@
 package com.pomplarg.spe95.statistiques.ui
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -80,7 +81,18 @@ class StatistiquesFragment : Fragment() {
 
         //SD "functionnality" only
         if (Constants.FIRESTORE_SD_DOCUMENT == specialtyDocument) {
-            val alert1 = AlertStock(Constants.SD_ETAIEMENT_BOIS_GOUSSET, 5)
+            val alerts = arrayListOf<AlertStock>()
+            alerts.add(AlertStock(Constants.SD_ETAIEMENT_BOIS_GOUSSET, 20))
+            alerts.add(AlertStock(Constants.SD_ETAIEMENT_BOIS_CHEVRON, 10))
+            alerts.add(AlertStock(Constants.SD_ETAIEMENT_BOIS_VOLIGE, 10))
+            alerts.add(AlertStock(Constants.SD_PETIT_MAT_CARBURANT_MARLINE, 2))
+            alerts.add(AlertStock(Constants.SD_PETIT_MAT_CARBURANT_SP95, 2))
+            alerts.add(AlertStock(Constants.SD_PETIT_MAT_CARBURANT_MELANGE, 2))
+            alerts.add(AlertStock(Constants.SD_PETIT_MAT_VISSEUSE, 4))
+            alerts.add(AlertStock(Constants.SD_ETAIEMENT_METAL_PETIT, 6))
+            alerts.add(AlertStock(Constants.SD_ETAIEMENT_METAL_MOYEN, 6))
+            alerts.add(AlertStock(Constants.SD_ETAIEMENT_METAL_GRAND, 6))
+
             statistiquesViewModel.fetchSdStock(currentYear.toString())
 
             statistiquesViewModel.statsStocksLd.observe(viewLifecycleOwner, {
@@ -88,12 +100,17 @@ class StatistiquesFragment : Fragment() {
                 val spinnerList = mutableListOf<String>()
                 it.forEach { material ->
                     material.quantity?.let { quantity ->
-                        if (material.name == alert1.name && quantity <= alert1.threshold) {
-                            context?.let { context ->
-                                MaterialAlertDialogBuilder(context)
-                                    .setTitle(context.resources.getString(R.string.equipment_eclairage_groupe_electro))
-                                    .setMessage(context.resources.getString(R.string.statistiques_alert_threshold, material.name))
-                                    .show()
+                        alerts.forEach { alertStock ->
+                            if (material.name == alertStock.name && quantity <= alertStock.threshold) {
+                                context?.let { context ->
+                                    MaterialAlertDialogBuilder(context)
+                                        .setTitle(context.resources.getString(R.string.statistiques_alert_title))
+                                        .setMessage(context.resources.getString(R.string.statistiques_alert_threshold, material.name))
+                                        .setPositiveButton(context.resources.getString(android.R.string.ok), DialogInterface.OnClickListener { dialog, which ->
+                                            dialog.dismiss()
+                                        })
+                                        .show()
+                                }
                             }
                         }
                         material.name?.let { name -> spinnerList.add(name) }
