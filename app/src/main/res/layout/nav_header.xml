@@ -40,10 +40,22 @@
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:paddingBottom="@dimen/dimen_8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_header_version"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_header_csp_name"
         tools:text="speequipe@gmail.com" />
+
+    <TextView
+        android:id="@+id/tv_header_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_header_username"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="v1.0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

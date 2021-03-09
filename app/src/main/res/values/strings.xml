@@ -41,6 +41,7 @@
     <string name="authentication_subtitle">La gestion des spécialités des sapeurs-pompiers de la caserne d\'Argenteuil (95)</string>
     <string name="authentication_title">Bienvenue sur Spécialités Argenteuil</string>
     <string name="authentication_version">v.</string>
+    <string name="menu_version">v.%01$s</string>
 
     <!-- Equipment category Sauvetage -->
     <string name="equipment_sauvetage_title">Sauvetage</string>

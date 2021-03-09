@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             binding.navigationView.setCheckedItem(R.id.cyno_fragment)
             binding.logout.setOnClickListener(::logout)
             binding.navigationView.getHeaderView(0).tv_header_username.text = currentUser.email
-
+            binding.navigationView.getHeaderView(0).tv_header_version.text = getString(R.string.menu_version, BuildConfig.VERSION_NAME)
         }
     }
 
