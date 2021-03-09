@@ -120,6 +120,7 @@
     <string name="menu_settings_title">Paramètres</string>
     <string name="menu_csp_name_title">CSP Argenteuil</string>
     <string name="menu_stats_title">Statistiques</string>
+    <string name="menu_map_title">Carte</string>
     <string name="stock_title">Gestion du stock</string>
     <string name="stock_update_popup_title">Mise à jour du stock</string>
     <string name="stock_update_popup_message">Etes-vous sûr de vouloir mettre à jour le stock ? </string>
@@ -136,6 +137,7 @@
     <string name="screen_title_add_training">Ajouter un %01$s</string><!-- because of male -->
     <string name="screen_title_add_operation">Ajouter une %01$s</string>
     <string name="screen_title_statistiques">Statistiques</string>
+    <string name="screen_title_map">Carte</string>
     <string name="add">Ajouter</string>
     <string name="edit">Modifier</string>
     <string name="cancel">Annuler</string>
@@ -152,5 +154,8 @@
     <string name="time">Durée</string>
     <string name="year_2020">2020</string>
     <string name="year_2021">2021</string>
+
+    <!-- Map -->
+    <string name="intervention_number">Intervention n°%01$s</string>
 
 </resources>

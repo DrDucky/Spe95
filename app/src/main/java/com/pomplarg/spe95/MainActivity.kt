@@ -141,6 +141,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.map_fragment -> {
+                navController.navigate(R.id.mapFragment, args)
+                true
+            }
             R.id.stats_fragment -> {
                 navController.navigate(R.id.statistiquesFragment, args)
                 true

@@ -124,6 +124,23 @@
     </fragment>
 
     <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.pomplarg.spe95.map.ui.MapFragment"
+        android:label="@string/screen_title_map">
+
+
+        <action
+            android:id="@+id/action_mapFragment_to_SpeOperationtDetailsFragment"
+            app:destination="@id/speOperationDetailsDetailsFragment" />
+
+        <argument
+            android:name="specialty"
+            android:defaultValue="cyno"
+            app:argType="string" />
+
+    </fragment>
+
+    <fragment
         android:id="@+id/statistiquesFragment"
         android:name="com.pomplarg.spe95.statistiques.ui.StatistiquesFragment"
         android:label="@string/screen_title_statistiques">
