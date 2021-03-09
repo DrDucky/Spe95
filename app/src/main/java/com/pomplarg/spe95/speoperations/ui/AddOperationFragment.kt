@@ -67,8 +67,9 @@ class AddOperationFragment : Fragment() {
     Time on operation : 02:30
     teamList = (<8, Paul - 01:15>, <9, Pierre - 02:30>)
      */
-    private val teamList = arrayListOf<AgentOnOperation>()
+    private val teamListWithTime = arrayListOf<AgentOnOperation>()
 
+    private val teamList = arrayListOf<AgentOnOperation>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -154,8 +155,7 @@ class AddOperationFragment : Fragment() {
 
         binding.btnAddOperation.setOnClickListener(View.OnClickListener {
             if (validate(speOperationViewModel, binding, args.specialty)) {
-                speOperationViewModel._teamAgent.value = teamList
-                //speOperationViewModel._team.value = teamList
+                speOperationViewModel._teamAgent.value = teamListWithTime
                 displayMainBloc(binding, false)
                 speOperationViewModel.addOperationIntoFirestore()
             }
@@ -252,7 +252,7 @@ class AddOperationFragment : Fragment() {
 
                 //Adding agent to list
                 selectedAgent.time = hourOfDay * 60 + minute
-                teamList.add(selectedAgent)
+                teamListWithTime.add(selectedAgent)
             },
             defaultHour,
             defaultMinute,
@@ -266,24 +266,38 @@ class AddOperationFragment : Fragment() {
      */
     private fun addChipToGroup(person: Agent, chipGroup: ChipGroup) {
         val selectedAgent = AgentOnOperation(person.id)
-        val chip = Chip(context)
-        chip.text =
-            getString(R.string.add_operation_chip_team_text, person.firstname, person.lastname)
-        chip.chipIcon = getDrawable(chipGroup.context, R.drawable.ic_account_circle)
-        chip.isCloseIconVisible = true
-        chip.setChipIconTintResource(R.color.colorSecondary)
+        if (teamList.contains(selectedAgent)) {
+            context?.let {
+                MaterialAlertDialogBuilder(it)
+                    .setTitle(it.resources.getString(R.string.add_operation_popup_agent_title))
+                    .setMessage(it.resources.getString(R.string.add_operation_popup_agent_message))
+                    .setPositiveButton(it.resources.getString(android.R.string.ok)) { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .show()
+            }
+        } else {
+            teamList.add(selectedAgent)
+            val chip = Chip(context)
+            chip.text =
+                getString(R.string.add_operation_chip_team_text, person.firstname, person.lastname)
+            chip.chipIcon = getDrawable(chipGroup.context, R.drawable.ic_account_circle)
+            chip.isCloseIconVisible = true
+            chip.setChipIconTintResource(R.color.colorSecondary)
 
-        // necessary to get single selection working
-        chip.isClickable = true
-        chip.isCheckable = false
-        chip.setOnClickListener {
-            setTimePicker(chip, person, selectedAgent)
-        }
-        chipGroup.addView(chip as View)
-        chip.setOnCloseIconClickListener {
-            //Remove agent from list
-            teamList.remove(selectedAgent)
-            chipGroup.removeView(chip as View)
+            // necessary to get single selection working
+            chip.isClickable = true
+            chip.isCheckable = false
+            chip.setOnClickListener {
+                setTimePicker(chip, person, selectedAgent)
+            }
+            chipGroup.addView(chip as View)
+            chip.setOnCloseIconClickListener {
+                //Remove agent from list
+                teamList.remove(selectedAgent)
+                teamListWithTime.remove(selectedAgent)
+                chipGroup.removeView(chip as View)
+            }
         }
     }
 

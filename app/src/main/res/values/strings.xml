@@ -23,6 +23,9 @@
     <string name="add_operation_number">Nombre</string>
     <string name="add_operation_boites">Boites</string>
     <string name="add_operation_liter">Litres</string>
+    <string name="add_operation_popup_agent_title">Agent déjà présent</string>
+    <string name="add_operation_popup_agent_message">L\'agent sélectionné a déjà été ajouté à l\'opération</string>
+
 
     <string name="add_agent_firstname">Prénom</string>
     <string name="add_agent_lastname">Nom</string>
