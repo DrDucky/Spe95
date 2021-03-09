@@ -13,7 +13,8 @@ class Constants {
 
         const val SHARED_PREF_FRAGMENT_KEY = "SHARED_PREF_FRAGMENT_KEY"
 
-        const val ADD_OPERATION_DATE_FORMAT_DISPLAY = "dd/MM/yyyy - HH:mm"
+        const val ADD_OPERATION_DATE_FORMAT_DISPLAY = "dd/MM/yyyy"
+        const val ADD_OPERATION_TIME_FORMAT_DISPLAY = "HH:mm"
 
         const val CYNO_DOG_IPSO = "Ipso"
         const val CYNO_DOG_NANO = "Nano"

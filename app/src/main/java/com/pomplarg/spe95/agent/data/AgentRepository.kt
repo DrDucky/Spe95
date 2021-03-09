@@ -1,11 +1,12 @@
 package com.pomplarg.spe95.agent.data
 
 import android.util.Log
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.SetOptions
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.Tasks
+import com.google.firebase.firestore.*
 import com.pomplarg.spe95.data.Result
 import com.pomplarg.spe95.data.await
+
 
 class AgentRepository {
 
@@ -19,7 +20,7 @@ class AgentRepository {
     suspend fun getAllAgents(
     ): Result<List<Agent>> {
         return when (val documentSnapshot =
-            agentsCollection
+            agentsCollection.orderBy("lastname", Query.Direction.ASCENDING)
                 .get().await()) {
             is Result.Success -> {
                 val speOperation =
@@ -58,21 +59,31 @@ class AgentRepository {
      */
     suspend fun getAgentsFromRemoteDB(
         agentsId: List<String> = listOf("")
-    ): Result<List<Agent>> {
+    ): List<Agent> {
         var agentsIdVar = listOf("")
+        var agents = arrayListOf<Agent>()
         if (agentsId.isNotEmpty()) agentsIdVar = agentsId
-        return when (val documentSnapshot =
-            agentsCollection
-                .whereIn("id", agentsIdVar)
-                .get().await()) {
-            is Result.Success -> {
-                val speOperation =
-                    documentSnapshot.data.toObjects(Agent::class.java)
-                Result.Success(speOperation)
-            }
-            is Result.Error -> Result.Error(documentSnapshot.exception)
-            is Result.Canceled -> Result.Canceled(documentSnapshot.exception)
+        val queries = arrayListOf<Task<QuerySnapshot>>() //Need to do multiple queries because whereIn limitation to 10
+        agentsIdVar.forEach {
+            queries.add(
+                agentsCollection
+                    .whereEqualTo("id", it)
+                    .limit(1)
+                    .get()
+            )
         }
+        val allTask: Task<List<QuerySnapshot>> = Tasks.whenAllSuccess(queries)
+        allTask.addOnSuccessListener {
+            for (querySnapshot in it) {
+                for (documentSnapshot in querySnapshot) {
+                    agents.add(
+                        documentSnapshot.toObject(Agent::class.java)
+                    )
+                }
+            }
+        }.await()
+
+        return agents.sortedWith(compareBy { it.lastname })
     }
 
     /**
@@ -87,8 +98,12 @@ class AgentRepository {
                 .limit(1)
                 .get().await()) {
             is Result.Success -> {
-                val agent = documentSnapshot.data.documents[0].toObject(Agent::class.java)!!
-                Result.Success(agent)
+                if (documentSnapshot.data.isEmpty) {
+                    Result.Error(Exception("No agent present"))
+                } else {
+                    val agent = documentSnapshot.data.documents[0].toObject(Agent::class.java)!!
+                    Result.Success(agent)
+                }
             }
             is Result.Error -> Result.Error(documentSnapshot.exception)
             is Result.Canceled -> Result.Canceled(documentSnapshot.exception)
@@ -120,11 +135,29 @@ class AgentRepository {
     }
 
     /**
+     * Update agent
+     */
+    suspend fun updateAgentIntoRemoteDB(
+        agent: Agent
+    ): Result<String> {
+        return try {
+            agentsCollection
+                .document(agent.id)
+                .set(agent)
+                .await()
+            Result.Success(agent.id)
+        } catch (exception: FirebaseFirestoreException) {
+            Log.e("TAG", "Firebase exception when updating agent ID : $exception.message")
+            Result.Error(exception)
+        }
+    }
+
+    /**
      * Update agent with its own id (based on the guid document)
      * By default, id is "0"
      * It will be replace by something like "74wRU4xHrcV9oWAXEkKeRNp41c53"
      */
-    suspend fun updateAgentIntoRemoteDB(
+    suspend fun updateAgentIdIntoRemoteDB(
         agentId: String
     ) {
         try {
@@ -141,6 +174,24 @@ class AgentRepository {
                 .await()
         } catch (exception: FirebaseFirestoreException) {
             Log.e("TAG", "Firebase exception when updating agent ID : $exception.message")
+        }
+    }
+
+    /**
+     * Delete specified agent
+     */
+    suspend fun deleteAgentIntoRemoteDB(
+        agentId: String
+    ): Result<String> {
+        return try {
+            agentsCollection
+                .document(agentId)
+                .delete()
+                .await()
+            Result.Success(agentId)
+        } catch (exception: FirebaseFirestoreException) {
+            Log.e("TAG", "Firebase exception when deleting agent : $exception.message")
+            Result.Error(exception)
         }
     }
 }

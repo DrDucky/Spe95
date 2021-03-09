@@ -1,12 +1,10 @@
 package com.pomplarg.spe95.utils
 
 import com.google.firebase.Timestamp
-import java.text.SimpleDateFormat
 import java.util.*
 
-fun String.getTimestamp(): Timestamp? {
-    val formatter = SimpleDateFormat(Constants.ADD_OPERATION_DATE_FORMAT_DISPLAY, Locale.FRANCE)
-    val parsedDate: Date? = formatter.parse(this)
+fun Long.getTimestamp(): Timestamp? {
+    val parsedDate: Date? = Date(this)
     return parsedDate?.let { Timestamp(it) }
 }
 

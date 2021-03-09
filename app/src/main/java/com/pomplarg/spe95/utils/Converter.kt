@@ -8,12 +8,34 @@ import com.pomplarg.spe95.R
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun dateToString(
+fun dateTimestampToString(
     value: Timestamp?
 ): String {
     return if (value != null) {
-        val formatter = SimpleDateFormat(Constants.ADD_OPERATION_DATE_FORMAT_DISPLAY, Locale.FRANCE)
+        val formatter = SimpleDateFormat(Constants.ADD_OPERATION_DATE_FORMAT_DISPLAY + " - " + Constants.ADD_OPERATION_TIME_FORMAT_DISPLAY, Locale.FRANCE)
         formatter.format(value.toDate())
+    } else {
+        ""
+    }
+}
+
+fun dateLongToString(
+    value: Long?
+): String {
+    return if (value != null) {
+        val formatter = SimpleDateFormat(Constants.ADD_OPERATION_DATE_FORMAT_DISPLAY, Locale.FRANCE)
+        formatter.format(Date(value))
+    } else {
+        ""
+    }
+}
+
+fun timeLongToString(
+    value: Long?
+): String {
+    return if (value != null) {
+        val formatter = SimpleDateFormat(Constants.ADD_OPERATION_TIME_FORMAT_DISPLAY, Locale.FRANCE)
+        formatter.format(Date(value))
     } else {
         ""
     }

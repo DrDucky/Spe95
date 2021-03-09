@@ -55,6 +55,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chip_group_specialties"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:context="com.pomplarg.spe95.MainActivity"
             tools:listitem="@layout/list_item_agent" />
 

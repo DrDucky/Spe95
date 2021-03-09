@@ -65,8 +65,11 @@ class SpeOperationViewModel(
     val _addressOffline: MutableLiveData<String> = MutableLiveData()
     val addressOffline: LiveData<String> = _addressOffline
 
-    val _startDateTime: MutableLiveData<String> = MutableLiveData()
-    val startDateTime: LiveData<String> = _startDateTime
+    var _startDate: MutableLiveData<Long> = MutableLiveData()
+    val startDate: LiveData<Long> = _startDate
+
+    var _startTime: MutableLiveData<Long> = MutableLiveData()
+    val startTime: LiveData<Long> = _startTime
 
     val _teamUnitChief: MutableLiveData<String> = MutableLiveData()
     val teamUnitChief: LiveData<String> = _teamUnitChief
@@ -77,6 +80,7 @@ class SpeOperationViewModel(
     val _team: MutableLiveData<List<Int>> = MutableLiveData()
     val team: LiveData<List<Int>> = _team
     var _teamError: MutableLiveData<String> = MutableLiveData()
+    var _unitChiefError: MutableLiveData<String> = MutableLiveData()
 
     var _genericException: MutableLiveData<String> = MutableLiveData()
 
@@ -197,7 +201,13 @@ class SpeOperationViewModel(
         newSpeOperation.agentOnOperation = _teamAgent.value!!
 
         //newSpeOperation.agents = _team.value!!
-        newSpeOperation.startDate = _startDateTime.value!!.getTimestamp()
+        val cDate = Calendar.getInstance()
+        cDate.timeInMillis = _startDate.value!!
+        val cTime = Calendar.getInstance()
+        cTime.timeInMillis = _startTime.value!!
+        val cDateAndTime = Calendar.getInstance()
+        cDateAndTime.set(cDate.get(Calendar.YEAR), cDate.get(Calendar.MONTH), cDate.get(Calendar.DAY_OF_MONTH), cTime.get(Calendar.HOUR_OF_DAY), cTime.get(Calendar.MINUTE))
+        newSpeOperation.startDate = cDateAndTime.timeInMillis.getTimestamp()
         newSpeOperation.address = _address.value
         newSpeOperation.addressOffline = _addressOffline.value
         newSpeOperation.unitChief = _teamUnitChief.value

@@ -21,9 +21,13 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.Timestamp
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.google.firebase.firestore.GeoPoint
 import com.pomplarg.spe95.R
 import com.pomplarg.spe95.ToolbarTitleListener
@@ -39,7 +43,6 @@ import com.pomplarg.spe95.utils.hasConnectivity
 import kotlinx.android.synthetic.main.list_item_add_operation_equipment_sd.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -64,8 +67,9 @@ class AddOperationFragment : Fragment() {
     Time on operation : 02:30
     teamList = (<8, Paul - 01:15>, <9, Pierre - 02:30>)
      */
-    private val teamList = arrayListOf<AgentOnOperation>()
+    private val teamListWithTime = arrayListOf<AgentOnOperation>()
 
+    private val teamList = arrayListOf<AgentOnOperation>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -143,18 +147,23 @@ class AddOperationFragment : Fragment() {
             addChipToGroup(selected, binding.chipGroupTeam)
         }
 
+        binding.actvUnitChief.setOnItemClickListener { parent, arg1, position, arg3 ->
+            val selected = parent.getItemAtPosition(position) as Agent
+            binding.actvUnitChief.setText(getString(R.string.add_operation_chip_team_text, selected.firstname, selected.lastname))
+            speOperationViewModel._teamUnitChief.value = selected.id
+        }
+
         binding.btnAddOperation.setOnClickListener(View.OnClickListener {
             if (validate(speOperationViewModel, binding, args.specialty)) {
-                speOperationViewModel._teamAgent.value = teamList
-                //speOperationViewModel._team.value = teamList
+                speOperationViewModel._teamAgent.value = teamListWithTime
                 displayMainBloc(binding, false)
                 speOperationViewModel.addOperationIntoFirestore()
             }
         })
 
-        val formatter = SimpleDateFormat(Constants.ADD_OPERATION_DATE_FORMAT_DISPLAY, Locale.FRANCE)
-        val displayDate = formatter.format(Timestamp.now().toDate())
-        speOperationViewModel._startDateTime.value = displayDate
+        val currentTimeInMillis = Calendar.getInstance().timeInMillis
+        speOperationViewModel._startDate.value = currentTimeInMillis
+        speOperationViewModel._startTime.value = currentTimeInMillis
 
         //Treatments
         agentViewModel.fetchAllAgentsPerSpecialty(specialtyDocument)
@@ -243,7 +252,7 @@ class AddOperationFragment : Fragment() {
 
                 //Adding agent to list
                 selectedAgent.time = hourOfDay * 60 + minute
-                teamList.add(selectedAgent)
+                teamListWithTime.add(selectedAgent)
             },
             defaultHour,
             defaultMinute,
@@ -257,24 +266,38 @@ class AddOperationFragment : Fragment() {
      */
     private fun addChipToGroup(person: Agent, chipGroup: ChipGroup) {
         val selectedAgent = AgentOnOperation(person.id)
-        val chip = Chip(context)
-        chip.text =
-            getString(R.string.add_operation_chip_team_text, person.firstname, person.lastname)
-        chip.chipIcon = getDrawable(chipGroup.context, R.drawable.ic_account_circle)
-        chip.isCloseIconVisible = true
-        chip.setChipIconTintResource(R.color.colorSecondary)
+        if (teamList.contains(selectedAgent)) {
+            context?.let {
+                MaterialAlertDialogBuilder(it)
+                    .setTitle(it.resources.getString(R.string.add_operation_popup_agent_title))
+                    .setMessage(it.resources.getString(R.string.add_operation_popup_agent_message))
+                    .setPositiveButton(it.resources.getString(android.R.string.ok)) { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .show()
+            }
+        } else {
+            teamList.add(selectedAgent)
+            val chip = Chip(context)
+            chip.text =
+                getString(R.string.add_operation_chip_team_text, person.firstname, person.lastname)
+            chip.chipIcon = getDrawable(chipGroup.context, R.drawable.ic_account_circle)
+            chip.isCloseIconVisible = true
+            chip.setChipIconTintResource(R.color.colorSecondary)
 
-        // necessary to get single selection working
-        chip.isClickable = true
-        chip.isCheckable = false
-        chip.setOnClickListener {
-            setTimePicker(chip, person, selectedAgent)
-        }
-        chipGroup.addView(chip as View)
-        chip.setOnCloseIconClickListener {
-            //Remove agent from list
-            teamList.remove(selectedAgent)
-            chipGroup.removeView(chip as View)
+            // necessary to get single selection working
+            chip.isClickable = true
+            chip.isCheckable = false
+            chip.setOnClickListener {
+                setTimePicker(chip, person, selectedAgent)
+            }
+            chipGroup.addView(chip as View)
+            chip.setOnCloseIconClickListener {
+                //Remove agent from list
+                teamList.remove(selectedAgent)
+                teamListWithTime.remove(selectedAgent)
+                chipGroup.removeView(chip as View)
+            }
         }
     }
 
@@ -340,6 +363,35 @@ class AddOperationFragment : Fragment() {
         binding.actvMotif.setAdapter(adapter)
 
         binding.connected = connected
+
+        binding.btnDate.setOnClickListener {
+            val maxDate = Calendar.getInstance().timeInMillis
+            val constraintsBuilder = CalendarConstraints.Builder()
+            constraintsBuilder.setValidator(DateValidatorPointBackward.before(maxDate))
+            val dateBuilder = MaterialDatePicker.Builder.datePicker()
+            dateBuilder.setSelection(speOperationViewModel._startDate.value)
+            dateBuilder.setCalendarConstraints(constraintsBuilder.build()) //user cannot select future date
+            val datePicker = dateBuilder.build()
+            datePicker.show(parentFragmentManager, datePicker.toString())
+            datePicker.addOnPositiveButtonClickListener {
+                speOperationViewModel._startDate.value = it
+            }
+        }
+
+        binding.btnTime.setOnClickListener {
+            val currentTime = Calendar.getInstance()
+            val timePicker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(currentTime.get(Calendar.HOUR_OF_DAY))
+                .setMinute(currentTime.get(Calendar.MINUTE))
+                .build()
+            timePicker.show(parentFragmentManager, timePicker.toString())
+            timePicker.addOnPositiveButtonClickListener {
+                val calendar = Calendar.getInstance()
+                calendar.set(Calendar.HOUR_OF_DAY, timePicker.hour)
+                calendar.set(Calendar.MINUTE, timePicker.minute)
+                speOperationViewModel._startTime.value = calendar.timeInMillis
+            }
+        }
     }
 
     /**
@@ -387,6 +439,20 @@ class AddOperationFragment : Fragment() {
         } else {
             vmSpeOperationViewModel._addressOfflineError.value =
                 null //Clear the value if error already displayed
+        }
+
+        val agentsId = ArrayList<String>()
+        agentViewModel.agentsLd.value?.let {
+            for (agents in it) {
+                agentsId.add(agents.id)
+            }
+        }
+
+        if (binding.tilUnitChief.visibility == View.VISIBLE && !agentsId.contains(vmSpeOperationViewModel.teamUnitChief.value)) {
+            vmSpeOperationViewModel._unitChiefError.value = mandatoryFieldError
+            isValid = false
+        } else {
+            vmSpeOperationViewModel._unitChiefError.value = null
         }
 
         if (binding.chipGroupTeam.childCount == 0) {

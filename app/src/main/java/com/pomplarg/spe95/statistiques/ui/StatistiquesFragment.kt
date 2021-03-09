@@ -1,5 +1,6 @@
 package com.pomplarg.spe95.statistiques.ui
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -60,27 +61,38 @@ class StatistiquesFragment : Fragment() {
                 configureChart(binding.chartsCynoStats.nerone_chart, context)
                 configureChart(binding.chartsCynoStats.priaxe_chart, context)
 
-                setDataToChart(it.motifs, binding.chartsCynoStats.type_chart, "Motifs d'intervention")
-                setDataToChart(it.ipso, binding.chartsCynoStats.ipso_chart, "Minutes Ipso")
-                setDataToChart(it.nano, binding.chartsCynoStats.nano_chart, "Minutes Nano")
-                setDataToChart(it.nerone, binding.chartsCynoStats.nerone_chart, "Minutes Nerone")
-                setDataToChart(it.priaxe, binding.chartsCynoStats.priaxe_chart, "Minutes Priaxe")
+                setDataToChart(it.motifs, binding.chartsCynoStats.type_chart, "Motifs d'intervention", false)
+                setDataToChart(it.ipso, binding.chartsCynoStats.ipso_chart, "Ipso", true)
+                setDataToChart(it.nano, binding.chartsCynoStats.nano_chart, "Nano", true)
+                setDataToChart(it.nerone, binding.chartsCynoStats.nerone_chart, "Nerone", true)
+                setDataToChart(it.priaxe, binding.chartsCynoStats.priaxe_chart, "Priaxe", true)
             }
             if (Constants.FIRESTORE_SD_DOCUMENT == specialtyDocument) {
                 //Update UI
                 configureChart(binding.chartsSdStats.type_chart, context)
-                setDataToChart(it.motifs, binding.chartsSdStats.type_chart, "Motifs d'intervention")
+                setDataToChart(it.motifs, binding.chartsSdStats.type_chart, "Motifs d'intervention", false)
             }
             if (Constants.FIRESTORE_RA_DOCUMENT == specialtyDocument) {
                 //Update UI
                 configureChart(binding.chartsRaStats.type_chart, context)
-                setDataToChart(it.motifs, binding.chartsRaStats.type_chart, "Motifs d'intervention")
+                setDataToChart(it.motifs, binding.chartsRaStats.type_chart, "Motifs d'intervention", false)
             }
         })
 
         //SD "functionnality" only
         if (Constants.FIRESTORE_SD_DOCUMENT == specialtyDocument) {
-            val alert1 = AlertStock(Constants.SD_ETAIEMENT_BOIS_GOUSSET, 5)
+            val alerts = arrayListOf<AlertStock>()
+            alerts.add(AlertStock(Constants.SD_ETAIEMENT_BOIS_GOUSSET, 20))
+            alerts.add(AlertStock(Constants.SD_ETAIEMENT_BOIS_CHEVRON, 10))
+            alerts.add(AlertStock(Constants.SD_ETAIEMENT_BOIS_VOLIGE, 10))
+            alerts.add(AlertStock(Constants.SD_PETIT_MAT_CARBURANT_MARLINE, 2))
+            alerts.add(AlertStock(Constants.SD_PETIT_MAT_CARBURANT_SP95, 2))
+            alerts.add(AlertStock(Constants.SD_PETIT_MAT_CARBURANT_MELANGE, 2))
+            alerts.add(AlertStock(Constants.SD_PETIT_MAT_VISSEUSE, 4))
+            alerts.add(AlertStock(Constants.SD_ETAIEMENT_METAL_PETIT, 6))
+            alerts.add(AlertStock(Constants.SD_ETAIEMENT_METAL_MOYEN, 6))
+            alerts.add(AlertStock(Constants.SD_ETAIEMENT_METAL_GRAND, 6))
+
             statistiquesViewModel.fetchSdStock(currentYear.toString())
 
             statistiquesViewModel.statsStocksLd.observe(viewLifecycleOwner, {
@@ -88,12 +100,17 @@ class StatistiquesFragment : Fragment() {
                 val spinnerList = mutableListOf<String>()
                 it.forEach { material ->
                     material.quantity?.let { quantity ->
-                        if (material.name == alert1.name && quantity <= alert1.threshold) {
-                            context?.let { context ->
-                                MaterialAlertDialogBuilder(context)
-                                    .setTitle(context.resources.getString(R.string.equipment_eclairage_groupe_electro))
-                                    .setMessage(context.resources.getString(R.string.statistiques_alert_threshold, material.name))
-                                    .show()
+                        alerts.forEach { alertStock ->
+                            if (material.name == alertStock.name && quantity <= alertStock.threshold) {
+                                context?.let { context ->
+                                    MaterialAlertDialogBuilder(context)
+                                        .setTitle(context.resources.getString(R.string.statistiques_alert_title))
+                                        .setMessage(context.resources.getString(R.string.statistiques_alert_threshold, material.name))
+                                        .setPositiveButton(context.resources.getString(android.R.string.ok), DialogInterface.OnClickListener { dialog, which ->
+                                            dialog.dismiss()
+                                        })
+                                        .show()
+                                }
                             }
                         }
                         material.name?.let { name -> spinnerList.add(name) }

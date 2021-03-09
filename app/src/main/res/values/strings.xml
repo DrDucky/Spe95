@@ -15,7 +15,6 @@
     <string name="add_operation_chip_team_text">%01$s %02$s</string>
     <string name="add_operation_chip_team_text_with_time">%01$s - %02$d:%03$d</string>
     <string name="add_operation_time_helper">hh:mm</string>
-    <string name="add_btn_title">Ajouter</string>
     <string name="add_operation_error_mandatory_field">Ce champ est obligatoire</string>
     <string name="add_operation_error_time_required">Une durée de travail est nécessaire pour l\'un des agents. Veuiller en spécifier une en cliquant sur le nom de l\'agent</string>
     <string name="add_operation_operation_added">L\'opération a été sauvegardée</string>
@@ -24,12 +23,19 @@
     <string name="add_operation_number">Nombre</string>
     <string name="add_operation_boites">Boites</string>
     <string name="add_operation_liter">Litres</string>
+    <string name="add_operation_popup_agent_title">Agent déjà présent</string>
+    <string name="add_operation_popup_agent_message">L\'agent sélectionné a déjà été ajouté à l\'opération</string>
+
 
     <string name="add_agent_firstname">Prénom</string>
     <string name="add_agent_lastname">Nom</string>
     <string name="add_agent_agent_added">L\'agent a été sauvegardé</string>
+    <string name="add_agent_agent_edited">L\'agent a été modifié</string>
+    <string name="add_agent_agent_deleted">L\'agent a été supprimé</string>
     <string name="add_agent_error">Impossible d\'ajouter l\'agent : %01$s</string>
     <string name="add_agent_specialty_error">Veuillez sélectionner au moins une spécialité</string>
+    <string name="delete_agent_title">Supprimer un agent</string>
+    <string name="delete_agent_description">Etes-vous sûr de vouloir supprimer %01$s ?</string>
 
     <!-- Authentication -->
     <string name="authentication_email">Email</string>
@@ -38,6 +44,7 @@
     <string name="authentication_subtitle">La gestion des spécialités des sapeurs-pompiers de la caserne d\'Argenteuil (95)</string>
     <string name="authentication_title">Bienvenue sur Spécialités Argenteuil</string>
     <string name="authentication_version">v.</string>
+    <string name="menu_version">v.%01$s</string>
 
     <!-- Equipment category Sauvetage -->
     <string name="equipment_sauvetage_title">Sauvetage</string>
@@ -117,6 +124,7 @@
     <string name="menu_settings_title">Paramètres</string>
     <string name="menu_csp_name_title">CSP Argenteuil</string>
     <string name="menu_stats_title">Statistiques</string>
+    <string name="menu_map_title">Carte</string>
     <string name="stock_title">Gestion du stock</string>
     <string name="stock_update_popup_title">Mise à jour du stock</string>
     <string name="stock_update_popup_message">Etes-vous sûr de vouloir mettre à jour le stock ? </string>
@@ -129,10 +137,15 @@
     <string name="screen_title_agents_list">Liste des agents</string>
     <string name="screen_title_agent_detail">Détail de l\'agent</string>
     <string name="screen_title_add_agent">Ajouter un agent</string>
+    <string name="screen_title_edit_agent">Modifier l\'agent</string>
     <string name="screen_title_add_training">Ajouter un %01$s</string><!-- because of male -->
     <string name="screen_title_add_operation">Ajouter une %01$s</string>
     <string name="screen_title_statistiques">Statistiques</string>
+    <string name="screen_title_map">Carte</string>
+    <string name="add">Ajouter</string>
+    <string name="edit">Modifier</string>
     <string name="cancel">Annuler</string>
+    <string name="delete">Supprimer</string>
     <string name="main_screen_logout">Déconnexion</string>
     <string name="operation_empty_state">Pas d\'opération présente ou sélectionnée pour le moment</string>
     <string name="screen_title_exit_app">Sortir de l\'application</string>
@@ -140,9 +153,13 @@
 
     <!-- Statistiques -->
     <string name="statistiques_no_data">Aucune donnée actuellement</string>
+    <string name="statistiques_alert_title">Stock insuffisant</string>
     <string name="statistiques_alert_threshold">Attention, Alerte ! Stock de %01$s insuffisant</string>
     <string name="time">Durée</string>
     <string name="year_2020">2020</string>
     <string name="year_2021">2021</string>
+
+    <!-- Map -->
+    <string name="intervention_number">Intervention n°%01$s</string>
 
 </resources>

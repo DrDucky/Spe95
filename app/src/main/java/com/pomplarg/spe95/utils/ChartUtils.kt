@@ -11,7 +11,6 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.pomplarg.spe95.R
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.roundToInt
 
 fun configureChart(chart: PieChart, context: Context?) {
     chart.description.isEnabled = false
@@ -32,8 +31,9 @@ fun configureChart(chart: PieChart, context: Context?) {
     chart.legend.isEnabled = false
 }
 
-fun setDataToChart(stats: HashMap<String?, Long?>?, chart: PieChart, title: String) {
+fun setDataToChart(stats: HashMap<String?, Long?>?, chart: PieChart, title: String, hourAndTimeFormat: Boolean) {
     var totalCount = 0L
+    val totalCountFormatted: String
     val entries = ArrayList<PieEntry>()
     stats?.forEach {
         entries.add(PieEntry(it.value!!.toFloat(), it.key))
@@ -50,15 +50,29 @@ fun setDataToChart(stats: HashMap<String?, Long?>?, chart: PieChart, title: Stri
     val dataset = PieDataSet(entries, "Motifs")
     dataset.colors = colors
     dataset.valueTextSize = 16f
-    dataset.valueFormatter = vf
+    if (hourAndTimeFormat) {
+        dataset.valueFormatter = vfHourAndTime
+        totalCountFormatted = "${String.format("%02d", totalCount / 60)}h${String.format("%02d", totalCount % 60)}"
+    } else {
+        dataset.valueFormatter = vf
+        totalCountFormatted = totalCount.toString()
+    }
     val pieData = PieData(dataset)
     chart.data = pieData
-    chart.centerText = "$title\nTotal $totalCount"
+    chart.centerText = "$title\nTotal $totalCountFormatted"
     chart.invalidate()
 }
 
 var vf: ValueFormatter = object : ValueFormatter() {
     override fun getFormattedValue(value: Float): String {
-        return "" + value.roundToInt()
+        return "" + String.format("%02d", value.toInt())
+    }
+}
+
+var vfHourAndTime: ValueFormatter = object : ValueFormatter() {
+    override fun getFormattedValue(value: Float): String {
+        val hour = value / 60
+        val minutes = value % 60
+        return "${String.format("%02d", hour.toInt())}h${String.format("%02d", minutes.toInt())}"
     }
 }

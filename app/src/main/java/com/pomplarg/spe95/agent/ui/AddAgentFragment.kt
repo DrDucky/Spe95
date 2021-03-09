@@ -8,15 +8,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.pomplarg.spe95.R
+import com.pomplarg.spe95.agent.data.Agent
 import com.pomplarg.spe95.databinding.FragmentAddAgentBinding
+import com.pomplarg.spe95.utils.Constants
 import com.pomplarg.spe95.utils.hideKeyboard
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddAgentFragment : Fragment() {
 
+    private val args: AddAgentFragmentArgs by navArgs()
     private val agentViewModel: AgentViewModel by viewModel()
+    private val agentDetailsViewModel: AgentDetailsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,13 +33,51 @@ class AddAgentFragment : Fragment() {
         binding.lifecycleOwner = this
         context ?: return binding.root
 
-        binding.vmAgents = agentViewModel
+        //Check if agent exist (case: edit instead of add)
+        if (args.agentId.isNotEmpty())
+            agentDetailsViewModel.fetchAgentInformation(args.agentId)
 
+        agentDetailsViewModel.agentLd.observe(viewLifecycleOwner, Observer<Agent> { agent ->
+            agentViewModel._firstname.value = agent.firstname
+            agentViewModel._lastname.value = agent.lastname
+            agent.specialtiesMember?.forEach {
+                if (it.key == Constants.FIRESTORE_CYNO_DOCUMENT)
+                    agentViewModel._agentCyno.value = true
+                if (it.key == Constants.FIRESTORE_SD_DOCUMENT)
+                    agentViewModel._agentSd.value = true
+                if (it.key == Constants.FIRESTORE_RA_DOCUMENT)
+                    agentViewModel._agentRa.value = true
+            }
+
+            binding.btnAddAgent.text = getString(R.string.edit)
+            binding.btnAddAgent.setOnClickListener(View.OnClickListener {
+                if (validate(agentViewModel, binding)) {
+                    agentViewModel.addAgentIntoFirestore(agent)
+                }
+            })
+            binding.btnDeleteAgent.visibility = View.VISIBLE
+            binding.btnDeleteAgent.setOnClickListener(View.OnClickListener {
+                MaterialAlertDialogBuilder(it.context)
+                    .setTitle(it.resources.getString(R.string.delete_agent_title))
+                    .setMessage(it.resources.getString(R.string.delete_agent_description, agent.firstname + " " + agent.lastname))
+                    .setPositiveButton(it.context.resources.getString(android.R.string.ok)) { dialog, which ->
+                        agentViewModel.deleteAgent(agent.id)
+                    }
+                    .setNegativeButton(it.context.resources.getString(android.R.string.cancel)) { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .show()
+            })
+        })
+
+        binding.btnAddAgent.text = getString(R.string.add)
         binding.btnAddAgent.setOnClickListener(View.OnClickListener {
             if (validate(agentViewModel, binding)) {
-                agentViewModel.addAgentIntoFirestore()
+                agentViewModel.addAgentIntoFirestore(null)
             }
         })
+
+        binding.vmAgents = agentViewModel
 
         binding.etLastname.filters = binding.etLastname.filters + InputFilter.AllCaps()
 
@@ -67,6 +111,31 @@ class AddAgentFragment : Fragment() {
         agentViewModel.agentIdAdded.observe(viewLifecycleOwner, Observer { it ->
             agentViewModel.updateAgentId(it)
         })
+
+        agentViewModel.agentEdited.observe(viewLifecycleOwner, Observer {
+            hideKeyboard()
+            Snackbar.make(
+                requireView(),
+                getString(R.string.add_agent_agent_edited),
+                Snackbar.LENGTH_LONG
+            ).show()
+            val direction =
+                AddAgentFragmentDirections.actionAddAgentFragmentToAgentFragment()
+            findNavController().navigate(direction)
+        })
+
+        agentViewModel.agentDeleted.observe(viewLifecycleOwner, Observer {
+            hideKeyboard()
+            Snackbar.make(
+                requireView(),
+                getString(R.string.add_agent_agent_deleted),
+                Snackbar.LENGTH_LONG
+            ).show()
+            val direction =
+                AddAgentFragmentDirections.actionAddAgentFragmentToAgentFragment()
+            findNavController().navigate(direction)
+        })
+
 
         setHasOptionsMenu(false)
         return binding.root

@@ -13,7 +13,7 @@ data class Agent(
     var specialtiesMember: Map<String, Boolean>? = HashMap(),
 
     @field:SerializedName("avatar")
-    val avatar: String = "",
+    var avatar: String = "",
 
     @field:SerializedName("firstname")
     var firstname: String = "",

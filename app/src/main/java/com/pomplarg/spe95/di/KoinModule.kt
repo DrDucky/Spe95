@@ -3,6 +3,8 @@ package com.pomplarg.spe95.di
 import com.pomplarg.spe95.agent.data.AgentRepository
 import com.pomplarg.spe95.agent.ui.AgentDetailsViewModel
 import com.pomplarg.spe95.agent.ui.AgentViewModel
+import com.pomplarg.spe95.map.data.MapRepository
+import com.pomplarg.spe95.map.ui.MapViewModel
 import com.pomplarg.spe95.signin.data.LoginRepository
 import com.pomplarg.spe95.signin.ui.LoginViewModel
 import com.pomplarg.spe95.speoperations.data.SpeOperationRepository
@@ -27,4 +29,6 @@ val viewModelModule = module {
     viewModel { StatistiquesViewModel(get()) }
     single { StatistiqueRepository() }
 
+    viewModel { MapViewModel(get()) }
+    single { MapRepository() }
 }

@@ -15,7 +15,7 @@
             app:destination="@id/agentDetailsFragment" />
 
         <action
-            android:id="@+id/action_agentFragment_to_addOperationFragment"
+            android:id="@+id/action_agentFragment_to_addAgentFragment"
             app:destination="@id/addAgentFragment"
             app:enterAnim="@android:anim/fade_in" />
 
@@ -32,6 +32,23 @@
             app:enterAnim="@android:anim/fade_out" />
     </fragment>
 
+
+    <fragment
+        android:id="@+id/editAgentFragment"
+        android:name="com.pomplarg.spe95.agent.ui.AddAgentFragment"
+        android:label="@string/screen_title_edit_agent">
+
+        <argument
+            android:name="agentId"
+            android:defaultValue=""
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_addAgentFragment_to_agentFragment"
+            app:destination="@id/agentFragment"
+            app:enterAnim="@android:anim/fade_out" />
+    </fragment>
+
     <fragment
         android:id="@+id/agentDetailsFragment"
         android:name="com.pomplarg.spe95.agent.ui.AgentDetailsFragment"
@@ -41,6 +58,11 @@
             android:name="agentId"
             android:defaultValue=""
             app:argType="string" />
+
+        <action
+            android:id="@+id/action_agentFragment_to_editAgentFragment"
+            app:destination="@id/editAgentFragment"
+            app:enterAnim="@android:anim/fade_in" />
 
     </fragment>
     <fragment
@@ -99,6 +121,23 @@
             android:id="@+id/action_addOperationFragment_to_speOperationFragment"
             app:destination="@id/speOperationFragment"
             app:enterAnim="@android:anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.pomplarg.spe95.map.ui.MapFragment"
+        android:label="@string/screen_title_map">
+
+
+        <action
+            android:id="@+id/action_mapFragment_to_SpeOperationtDetailsFragment"
+            app:destination="@id/speOperationDetailsDetailsFragment" />
+
+        <argument
+            android:name="specialty"
+            android:defaultValue="cyno"
+            app:argType="string" />
+
     </fragment>
 
     <fragment
