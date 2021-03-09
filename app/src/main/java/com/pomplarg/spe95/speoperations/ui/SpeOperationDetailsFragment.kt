@@ -42,7 +42,7 @@ class SpeOperationDetailsFragment : Fragment() {
 
         val speOperationId = args.speOperationId
         specialtyDocument = args.specialtyDetails
-        val adapter = AgentAdapter()
+        val adapter = AgentAdapter(false)
         val materialAdapter = MaterialCynoAdapter()
         val materialSdAdapter = MaterialSdAdapter()
         val materialRaAdapter = MaterialRaAdapter()

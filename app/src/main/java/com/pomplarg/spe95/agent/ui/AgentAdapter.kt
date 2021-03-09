@@ -16,7 +16,7 @@ import com.pomplarg.spe95.speoperations.ui.SpeOperationHandlerClick
 import com.pomplarg.spe95.utils.AvatarGenerator
 
 
-class AgentAdapter : ListAdapter<Agent, AgentAdapter.AgentViewHolder>(DiffCallback()) {
+class AgentAdapter(private val shouldBeClickable: Boolean = true) : ListAdapter<Agent, AgentAdapter.AgentViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AgentViewHolder {
         return AgentViewHolder(
@@ -29,8 +29,10 @@ class AgentAdapter : ListAdapter<Agent, AgentAdapter.AgentViewHolder>(DiffCallba
 
     override fun onBindViewHolder(holder: AgentViewHolder, position: Int) {
         val imageView: ImageView = holder.binding.ivAgent
-        val speOperationHandler = SpeOperationHandlerClick()
-        holder.binding.handler = speOperationHandler
+        if (shouldBeClickable) {
+            val speOperationHandler = SpeOperationHandlerClick()
+            holder.binding.handler = speOperationHandler
+        }
         val agent = getItem(position)
         var storageReference: StorageReference? = null
 

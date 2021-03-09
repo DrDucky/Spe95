@@ -95,11 +95,7 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
     fun fetchAgentsInformationFrom(agentsId: List<String>) {
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {
-            when (val result = repository.getAgentsFromRemoteDB(agentsId)) {
-                is Result.Success -> agentsLd.value = result.data
-                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
-            }
+            agentsLd.value = repository.getAgentsFromRemoteDB(agentsId)
         }
     }
 
