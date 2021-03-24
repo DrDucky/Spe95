@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -84,6 +85,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             binding.logout.setOnClickListener(::logout)
             binding.navigationView.getHeaderView(0).tv_header_username.text = currentUser.email
             binding.navigationView.getHeaderView(0).tv_header_version.text = getString(R.string.menu_version, BuildConfig.VERSION_NAME)
+
+            //Open by default the menu to select the good specialty
+            drawerLayout.openDrawer(GravityCompat.START)
         }
     }
 
