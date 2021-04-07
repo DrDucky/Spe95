@@ -479,95 +479,74 @@ class AddOperationFragment : Fragment() {
         SD Specialty Form Validation specificity
          */
         if (Constants.FIRESTORE_SD_DOCUMENT.equals(specialty)) {
-            if ((vmSpeOperationViewModel._equipementSdEtaiementBoisGousset.value == true &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value!! <= 0)
-                || (vmSpeOperationViewModel._equipementSdEtaiementBoisGousset.value == false &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value!! != 0)
+            if (vmSpeOperationViewModel._equipementSdEtaiementBoisGousset.value == false &&
+                vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value != null &&
+                vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value!! != 0
             ) {
                 isValid = false
-                binding.equipment.sp_etaiement_category_gousset.error = mandatoryFieldError//app:error does not work...
+                binding.equipment.tv_etaiement_category_gousset.error = mandatoryFieldError//app:error does not work...
             } else
-                binding.equipment.sp_etaiement_category_gousset.error = null
+                binding.equipment.tv_etaiement_category_gousset.error = null
 
-            if ((vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value == true &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value!! <= 0) ||
-                (vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value == false &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value!! != 0)
+            if (vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value == false &&
+                vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value != null &&
+                vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value!! != 0
             ) {
                 isValid = false
-                binding.equipment.sp_etaiement_category_volige.error = mandatoryFieldError
+                binding.equipment.tv_etaiement_category_volige.error = mandatoryFieldError
             } else
-                binding.equipment.sp_etaiement_category_volige.error = null
+                binding.equipment.tv_etaiement_category_volige.error = null
 
-            if ((vmSpeOperationViewModel._equipementSdEtaiementBoisChevron.value == true &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value!! <= 0)
-                || (vmSpeOperationViewModel._equipementSdEtaiementBoisChevron.value == false &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value!! != 0
-                        )
+            if (vmSpeOperationViewModel._equipementSdEtaiementBoisChevron.value == false &&
+                vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value != null &&
+                vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value!! != 0
+
             ) {
                 isValid = false
-                binding.equipment.sp_etaiement_category_chevron.error = mandatoryFieldError
+                binding.equipment.tv_etaiement_category_chevron.error = mandatoryFieldError
             } else
-                binding.equipment.sp_etaiement_category_chevron.error = null
+                binding.equipment.tv_etaiement_category_chevron.error = null
 
-            if ((vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value == true &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value!! <= 0) ||
-                (vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value == false &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value!! != 0
-                        )
+            if (vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value == false &&
+                vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value != null &&
+                vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value!! != 0
+
             ) {
                 isValid = false
-                binding.equipment.sp_etaiement_category_bastaing.error = mandatoryFieldError
+                binding.equipment.tv_etaiement_category_bastaing.error = mandatoryFieldError
             } else
-                binding.equipment.sp_etaiement_category_bastaing.error = null
+                binding.equipment.tv_etaiement_category_bastaing.error = null
 
 
-            if ((vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value == true &&
-                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value!! <= 0) ||
-                (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value == false &&
-                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value!! != 0
-                        )
+            if (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value == false &&
+                vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value != null &&
+                vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetitQuantity.value!! != 0
+
             ) {
                 isValid = false
-                binding.equipment.tip_etaiement_category_etai_metallique_petit.error = mandatoryFieldError
+                binding.equipment.tv_etaiement_category_etai_metallique_petit.error = mandatoryFieldError
             } else
-                binding.equipment.tip_etaiement_category_etai_metallique_petit.error = null
+                binding.equipment.tv_etaiement_category_etai_metallique_petit.error = null
 
-            if ((vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value == true &&
-                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value!! <= 0) ||
-                (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value == false &&
-                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value!! != 0
-                        )
+            if (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value == false &&
+                vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value != null &&
+                vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value!! != 0
+
             ) {
                 isValid = false
-                binding.equipment.tip_etaiement_category_etai_metallique_moyen.error = mandatoryFieldError
+                binding.equipment.tv_etaiement_category_etai_metallique_moyen.error = mandatoryFieldError
             } else
-                binding.equipment.tip_etaiement_category_etai_metallique_moyen.error = null
+                binding.equipment.tv_etaiement_category_etai_metallique_moyen.error = null
 
-            if ((vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value == true &&
-                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value!! <= 0) ||
-                (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value == false &&
-                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value!! != 0
-                        )
+            if (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value == false &&
+                vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value != null &&
+                vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value!! != 0
+
             ) {
                 isValid = false
-                binding.equipment.tip_etaiement_category_etai_metallique_grand.error = mandatoryFieldError
+                binding.equipment.tv_etaiement_category_etai_metallique_grand.error = mandatoryFieldError
             } else
-                binding.equipment.tip_etaiement_category_etai_metallique_grand.error = null
+                binding.equipment.tv_etaiement_category_etai_metallique_grand.error = null
 
             if ((vmSpeOperationViewModel._equipementSdPetitMatVisseuse.value == true &&
                         vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value != null &&

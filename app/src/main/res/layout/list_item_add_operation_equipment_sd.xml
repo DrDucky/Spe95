@@ -261,7 +261,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="@dimen/default_margin_form_fields"
                 android:layout_height="wrap_content"
-                android:hint="@string/add_operation_number"
+                android:hint="@string/add_operation_rearmament_hint"
                 android:layout_marginTop="@dimen/dimen_8dp"
                 app:layout_constraintStart_toStartOf="@id/field_guideline"
                 app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_etai_pneumatique">
@@ -291,7 +291,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="@dimen/default_margin_form_fields"
                 android:layout_height="wrap_content"
-                android:hint="@string/add_operation_number"
+                android:hint="@string/add_operation_rearmament_hint"
                 android:layout_marginTop="@dimen/dimen_8dp"
                 app:layout_constraintStart_toStartOf="@id/field_guideline"
                 app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_etai_metallique_petit">
@@ -321,7 +321,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="@dimen/default_margin_form_fields"
                 android:layout_height="wrap_content"
-                android:hint="@string/add_operation_number"
+                android:hint="@string/add_operation_rearmament_hint"
                 android:layout_marginTop="@dimen/dimen_8dp"
                 app:layout_constraintStart_toStartOf="@id/field_guideline"
                 app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_etai_metallique_moyen">
@@ -359,7 +359,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="@dimen/default_margin_form_fields"
                 android:layout_height="wrap_content"
-                android:hint="@string/add_operation_number"
+                android:hint="@string/add_operation_rearmament_hint"
                 android:layout_marginTop="@dimen/dimen_8dp"
                 app:layout_constraintStart_toStartOf="@id/field_guideline"
                 app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_etai_metallique_grand">
@@ -389,7 +389,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="@dimen/default_margin_form_fields"
                 android:layout_height="wrap_content"
-                android:hint="@string/add_operation_number"
+                android:hint="@string/add_operation_rearmament_hint"
                 android:layout_marginTop="@dimen/dimen_8dp"
                 app:layout_constraintStart_toStartOf="@id/field_guideline"
                 app:layout_constraintTop_toBottomOf="@+id/tv_etaiement_category_gousset">
@@ -419,7 +419,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="@dimen/default_margin_form_fields"
                 android:layout_height="wrap_content"
-                android:hint="@string/add_operation_number"
+                android:hint="@string/add_operation_rearmament_hint"
                 android:layout_marginTop="@dimen/dimen_8dp"
                 app:layout_constraintStart_toStartOf="@id/field_guideline"
                 app:layout_constraintBottom_toTopOf="@id/tv_etaiement_category_bastaing"
@@ -450,7 +450,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="@dimen/default_margin_form_fields"
                 android:layout_height="wrap_content"
-                android:hint="@string/add_operation_number"
+                android:hint="@string/add_operation_rearmament_hint"
                 android:layout_marginTop="@dimen/dimen_8dp"
                 app:layout_constraintStart_toStartOf="@id/field_guideline"
                 app:layout_constraintBottom_toTopOf="@id/tv_exploration_category_title"

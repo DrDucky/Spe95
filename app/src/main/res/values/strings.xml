@@ -28,7 +28,7 @@
     <string name="add_operation_operation_added">L\'opération a été sauvegardée</string>
     <string name="add_operation_exception_generic">L\'opération a échouée</string>
     <string name="add_operation_exception">L\'opération a échouée : %01$s</string>
-    <string name="add_operation_number">Nombre</string>
+    <string name="add_operation_rearmament_hint">Réarmement</string>
     <string name="add_operation_boites">Boites</string>
     <string name="add_operation_liter">Litres</string>
     <string name="add_operation_popup_agent_title">Agent déjà présent</string>
