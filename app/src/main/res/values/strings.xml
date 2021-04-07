@@ -7,6 +7,14 @@
     <string name="equipment_title">Matériel</string>
     <string name="chiens_title">Chiens</string>
     <string name="action_title">Actions</string>
+    <string name="animal_title">Animal</string>
+    <string name="espece_subtitle">Espèce</string>
+    <string name="type_subtitle">Type</string>
+    <string name="prise_charge_subtitle">Prise en charge</string>
+    <string name="destination_subtitle">Destination</string>
+    <string name="engins_subtitle">Engins sur les lieux</string>
+    <string name="spe_subtitle">Spécialités sur les lieux</string>
+    <string name="transport_subtitle">Transport</string>
     <string name="cyno_priaxe_display">Pri-Axe</string>
 
     <!-- Add Operations -->
@@ -98,6 +106,40 @@
     <string name="equipment_petit_materiel_carburant_marline">Carburant Marline</string>
     <string name="equipment_petit_materiel_carburant_melange">Carburant Mélange 4%</string>
     <string name="equipment_petit_materiel_carburant_huile_chaine">Huile de chaine</string>
+
+    <!-- Animal RA -->
+    <string name="animal_espece_dog">Chien</string>
+    <string name="animal_espece_cat">Chat</string>
+    <string name="animal_espece_other">Autre</string>
+    <string name="animal_type_domestique">Domestique</string>
+    <string name="animal_type_sauvage">Sauvage</string>
+    <string name="animal_type_elevage">Elevage</string>
+    <string name="animal_type_autochtone">Autochtone</string>
+    <string name="animal_prise_charge_cooperatif">Coopératif</string>
+    <string name="animal_prise_charge_menacant">Menaçant</string>
+    <string name="animal_prise_charge_blesse">Blessé</string>
+    <string name="animal_prise_charge_mordeur">Mordeur</string>
+    <string name="animal_prise_charge_mort">Mort</string>
+    <string name="animal_prise_charge_anesthesie">Anesthesié</string>
+    <string name="animal_destination_centre_regroupement">Centre de regroupement</string>
+    <string name="animal_destination_cedaf">CEDAF</string>
+    <string name="animal_destination_proprietaire">Proprietaire</string>
+    <string name="animal_destination_clinique">Clinique vétérinaire de l\'isle Adam</string>
+    <string name="animal_destination_other">Autre</string>
+    <string name="animal_transport_vira">Vira</string>
+    <string name="animal_transport_vtu">Vtu</string>
+    <string name="animal_engin_fpt">Fpt</string>
+    <string name="animal_engin_vsr">Vsr</string>
+    <string name="animal_engin_moyen_aerien">Moyen aérien</string>
+    <string name="animal_engin_vsav">Vsav</string>
+    <string name="animal_engin_vsso">Vsso</string>
+    <string name="animal_specialite_grimp">Grimp</string>
+    <string name="animal_specialite_sd">Sd</string>
+    <string name="animal_specialite_nautique">Nautique</string>
+    <string name="animal_specialite_gred">Gred</string>
+
+    <string name="animal_transport_other">Autre</string>
+
 
     <!-- Actions RA -->
     <string name="action_approche_title">Approche</string>

@@ -20,6 +20,462 @@
         android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_equipment_animal_title"
+            style="@style/CategoryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dimen_4dp"
+            android:paddingTop="@dimen/dimen_8dp"
+            android:paddingBottom="@dimen/dimen_8dp"
+            android:text="@string/animal_title" />
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_add_equipment_animal_ra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_4dp"
+            app:cardCornerRadius="@dimen/dimen_4dp"
+            app:cardElevation="@dimen/dimen_2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_equipment_animal_espece_title"
+                    style="@style/CategoryTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dimen_4dp"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:paddingBottom="@dimen/dimen_8dp"
+                    android:text="@string/espece_subtitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <CheckBox
+                    android:id="@+id/espece_dog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={vmSpeOperation._especeDog}"
+                    android:text="@string/animal_espece_dog"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_equipment_animal_espece_title" />
+
+                <CheckBox
+                    android:id="@+id/espece_cat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._especeCat}"
+                    android:text="@string/animal_espece_cat"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/espece_dog" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/espece_other"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="@dimen/default_margin_form_fields"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:hint="@string/animal_espece_other"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/espece_cat">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_espece_other"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:text="@={vmSpeOperation._especeOther}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_equipment_animal_type_title"
+                    style="@style/CategoryTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dimen_4dp"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:paddingBottom="@dimen/dimen_8dp"
+                    android:text="@string/type_subtitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/espece_other" />
+
+                <CheckBox
+                    android:id="@+id/type_domestique"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={vmSpeOperation._animalTypeDomestique}"
+                    android:text="@string/animal_type_domestique"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_equipment_animal_type_title" />
+
+                <CheckBox
+                    android:id="@+id/type_sauvage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalTypeSauvage}"
+                    android:text="@string/animal_type_sauvage"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/type_domestique" />
+
+                <CheckBox
+                    android:id="@+id/type_elevage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalTypeElevage}"
+                    android:text="@string/animal_type_elevage"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/type_sauvage" />
+
+                <CheckBox
+                    android:id="@+id/type_autochtone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalTypeAutochtone}"
+                    android:text="@string/animal_type_autochtone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/type_elevage" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_equipment_animal_prise_charge_title"
+                    style="@style/CategoryTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dimen_4dp"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:paddingBottom="@dimen/dimen_8dp"
+                    android:text="@string/prise_charge_subtitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/type_autochtone" />
+
+                <CheckBox
+                    android:id="@+id/prise_charge_cooperatif"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={vmSpeOperation._animalPriseChargeCooperatif}"
+                    android:text="@string/animal_prise_charge_cooperatif"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_equipment_animal_prise_charge_title" />
+
+                <CheckBox
+                    android:id="@+id/prise_charge_menacant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalPriseChargeMenacant}"
+                    android:text="@string/animal_prise_charge_menacant"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/prise_charge_cooperatif" />
+
+                <CheckBox
+                    android:id="@+id/prise_charge_blesse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalPriseChargeBlesse}"
+                    android:text="@string/animal_prise_charge_blesse"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/prise_charge_menacant" />
+
+                <CheckBox
+                    android:id="@+id/prise_charge_mordeur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalPriseChargeMordeur}"
+                    android:text="@string/animal_prise_charge_mordeur"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/prise_charge_blesse" />
+
+                <CheckBox
+                    android:id="@+id/prise_charge_mort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalPriseChargeMort}"
+                    android:text="@string/animal_prise_charge_mort"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/prise_charge_mordeur" />
+
+                <CheckBox
+                    android:id="@+id/prise_charge_anesthesie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalPriseChargeAnesthesie}"
+                    android:text="@string/animal_prise_charge_anesthesie"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/prise_charge_mort" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_equipment_animal_destination_title"
+                    style="@style/CategoryTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dimen_4dp"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:paddingBottom="@dimen/dimen_8dp"
+                    android:text="@string/destination_subtitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/prise_charge_anesthesie" />
+
+                <CheckBox
+                    android:id="@+id/destination_centre_regroupement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={vmSpeOperation._animalDestinationCentreRegroupement}"
+                    android:text="@string/animal_destination_centre_regroupement"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_equipment_animal_destination_title" />
+
+                <CheckBox
+                    android:id="@+id/destination_cedaf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalDestinationCedaf}"
+                    android:text="@string/animal_destination_cedaf"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/destination_centre_regroupement" />
+
+                <CheckBox
+                    android:id="@+id/destination_proprietaire"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalDestinationProprietaire}"
+                    android:text="@string/animal_destination_proprietaire"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/destination_cedaf" />
+
+                <CheckBox
+                    android:id="@+id/destination_clinique"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalDestinationCliniqueVeterinaire}"
+                    android:text="@string/animal_destination_clinique"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/destination_proprietaire" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/destination_other"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="@dimen/default_margin_form_fields"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:hint="@string/animal_destination_other"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/destination_clinique">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_destination_other"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:text="@={vmSpeOperation._animalDestinationOther}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_equipment_animal_transport_title"
+                    style="@style/CategoryTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dimen_4dp"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:paddingBottom="@dimen/dimen_8dp"
+                    android:text="@string/transport_subtitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/destination_other" />
+
+                <CheckBox
+                    android:id="@+id/transport_vira"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalTransportVira}"
+                    android:text="@string/animal_transport_vira"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_equipment_animal_transport_title" />
+
+                <CheckBox
+                    android:id="@+id/transport_vtu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalTransportVtu}"
+                    android:text="@string/animal_transport_vtu"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/transport_vira" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/transport_other"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="@dimen/default_margin_form_fields"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:hint="@string/animal_transport_other"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/transport_vtu">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_transport_other"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:text="@={vmSpeOperation._animalTransportOther}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_equipment_animal_engin_surleslieux_title"
+                    style="@style/CategoryTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dimen_4dp"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:paddingBottom="@dimen/dimen_8dp"
+                    android:text="@string/engins_subtitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/transport_other" />
+
+                <CheckBox
+                    android:id="@+id/engins_vtu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalEnginsSurLieuxVtu}"
+                    android:text="@string/animal_transport_vtu"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_equipment_animal_engin_surleslieux_title" />
+
+                <CheckBox
+                    android:id="@+id/engins_fpt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalEnginsSurLieuxFpt}"
+                    android:text="@string/animal_engin_fpt"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/engins_vtu" />
+
+                <CheckBox
+                    android:id="@+id/engins_vsr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalEnginsSurLieuxVsr}"
+                    android:text="@string/animal_engin_vsr"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/engins_fpt" />
+
+                <CheckBox
+                    android:id="@+id/engins_moyen_aerien"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalEnginsSurLieuxMoyenAerien}"
+                    android:text="@string/animal_engin_moyen_aerien"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/engins_vsr" />
+
+                <CheckBox
+                    android:id="@+id/engins_vsav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalEnginsSurLieuxVsav}"
+                    android:text="@string/animal_engin_vsav"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/engins_moyen_aerien" />
+
+                <CheckBox
+                    android:id="@+id/engins_vsso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalEnginsSurLieuxVsso}"
+                    android:text="@string/animal_engin_vsso"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/engins_vsav" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_equipment_animal_specialites_surleslieux_title"
+                    style="@style/CategoryTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dimen_4dp"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:paddingBottom="@dimen/dimen_8dp"
+                    android:text="@string/spe_subtitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/engins_vsso" />
+
+                <CheckBox
+                    android:id="@+id/spe_lieux_grimp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalSpecialitesSurLieuxGrimp}"
+                    android:text="@string/animal_specialite_grimp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_equipment_animal_specialites_surleslieux_title" />
+
+                <CheckBox
+                    android:id="@+id/spe_lieux_sd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalSpecialitesSurLieuxSd}"
+                    android:text="@string/animal_specialite_sd"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/spe_lieux_grimp" />
+
+                <CheckBox
+                    android:id="@+id/spe_lieux_nautique"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalSpecialitesSurLieuxNautique}"
+                    android:text="@string/animal_specialite_nautique"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/spe_lieux_sd" />
+
+                <CheckBox
+                    android:id="@+id/spe_lieux_gred"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={vmSpeOperation._animalSpecialitesSurLieuxGred}"
+                    android:text="@string/animal_specialite_gred"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/spe_lieux_nautique" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_equipment_category_title"
             style="@style/CategoryTitle"
             android:layout_width="match_parent"
