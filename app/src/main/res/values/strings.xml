@@ -7,6 +7,7 @@
     <string name="equipment_title">Matériel</string>
     <string name="chiens_title">Chiens</string>
     <string name="action_title">Actions</string>
+    <string name="engins_title">Engins</string>
     <string name="animal_title">Animal</string>
     <string name="espece_subtitle">Espèce</string>
     <string name="type_subtitle">Type</string>
@@ -107,6 +108,15 @@
     <string name="equipment_petit_materiel_carburant_marline">Carburant Marline</string>
     <string name="equipment_petit_materiel_carburant_melange">Carburant Mélange 4%</string>
     <string name="equipment_petit_materiel_carburant_huile_chaine">Huile de chaine</string>
+
+    <!-- Engins SD -->
+    <string name="engins_sd_vlrsd">Vlr SD</string>
+    <string name="engins_sd_cesd">Ce SD</string>
+    <string name="engins_sd_vtusd_arg">VTU SD ARG</string>
+    <string name="engins_sd_vtusd_cep">VTU SD CEP</string>
+    <string name="engins_sd_vtusd_bez">VTU SD BEZ</string>
+    <string name="engins_sd_vtusd_gra">VTU SD GRA</string>
+    <string name="engins_sd_vidspe">Vid Spe</string>
 
     <!-- Animal RA -->
     <string name="animal_espece_dog">Chien</string>

@@ -49,6 +49,9 @@ data class SpeOperation(
     @field:SerializedName("materialsSd")
     var materialsSd: List<MaterialSd>? = ArrayList(),
 
+    @field:SerializedName("enginsSd")
+    var enginsSd: List<EnginSd>? = ArrayList(),
+
     @field:SerializedName("materialsRa")
     var materialsRa: List<MaterialRa>? = ArrayList()
 )

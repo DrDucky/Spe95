@@ -147,6 +147,14 @@ class SpeOperationViewModel(
     val _equipementSdPetitMatCarburantMelangeQuantity: MutableLiveData<Int> = MutableLiveData(0)
     val _equipementSdPetitMatCarburantHuileChaine: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    val _enginSdVlrSd: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _enginSdCeSd: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _enginSdVtuSdArg: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _enginSdVtuSdCep: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _enginSdVtuSdBez: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _enginSdVtuSdGra: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _enginSdVidSpe: MutableLiveData<Boolean> = MutableLiveData(false)
+
     val _especeDog: MutableLiveData<Boolean> = MutableLiveData(false)
     val _especeCat: MutableLiveData<Boolean> = MutableLiveData(false)
     val _especeOther: MutableLiveData<String> = MutableLiveData()
@@ -272,6 +280,7 @@ class SpeOperationViewModel(
          */
         if (specialtyDocument == Constants.FIRESTORE_SD_DOCUMENT) {
             val listOfMaterialsSd = ArrayList<MaterialSd>()
+            val listOfEnginsSd = ArrayList<EnginSd>()
 
             if (_equipementSdLspcc.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_LSPCC))
             if (_equipementSdEchCoulisse.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_ECH_COULISSE))
@@ -315,7 +324,16 @@ class SpeOperationViewModel(
             if (_equipementSdPetitMatCarburantMelange.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_PETIT_MAT_CARBURANT_MELANGE, _equipementSdPetitMatCarburantMelangeQuantity.value))
             if (_equipementSdPetitMatCarburantHuileChaine.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_PETIT_MAT_CARBURANT_HUILE_CHAINE))
 
+            if (_enginSdVlrSd.value == true) listOfEnginsSd.add(EnginSd(Constants.SD_ENGINS_VLRSD))
+            if (_enginSdCeSd.value == true) listOfEnginsSd.add(EnginSd(Constants.SD_ENGINS_CESD))
+            if (_enginSdVtuSdArg.value == true) listOfEnginsSd.add(EnginSd(Constants.SD_ENGINS_VTU_ARG))
+            if (_enginSdVtuSdCep.value == true) listOfEnginsSd.add(EnginSd(Constants.SD_ENGINS_VTU_CEP))
+            if (_enginSdVtuSdBez.value == true) listOfEnginsSd.add(EnginSd(Constants.SD_ENGINS_VTU_BEZ))
+            if (_enginSdVtuSdGra.value == true) listOfEnginsSd.add(EnginSd(Constants.SD_ENGINS_VTU_GRA))
+            if (_enginSdVidSpe.value == true) listOfEnginsSd.add(EnginSd(Constants.SD_ENGINS_VID_SPE))
+
             newSpeOperation.materialsSd = listOfMaterialsSd
+            newSpeOperation.enginsSd = listOfEnginsSd
         }
 
         /**

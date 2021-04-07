@@ -265,48 +265,66 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_material_category_title">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_material_cyno_list"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingStart="@dimen/dimen_16dp"
-                        android:scrollbars="vertical"
-                        android:fadeScrollbars="false"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:context="com.pomplarg.spe95.MainActivity"
-                        tools:listitem="@layout/list_item_material_cyno" />
+                        android:layout_height="wrap_content">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_material_sd_list"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingStart="@dimen/dimen_16dp"
-                        android:scrollbars="vertical"
-                        android:fadeScrollbars="false"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:context="com.pomplarg.spe95.MainActivity"
-                        tools:listitem="@layout/list_item_material_sd" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_material_cyno_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:paddingStart="@dimen/dimen_16dp"
+                            android:scrollbars="vertical"
+                            android:fadeScrollbars="false"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:context="com.pomplarg.spe95.MainActivity"
+                            tools:listitem="@layout/list_item_material_cyno" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_material_ra_list"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingStart="@dimen/dimen_16dp"
-                        android:scrollbars="vertical"
-                        android:fadeScrollbars="false"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:context="com.pomplarg.spe95.MainActivity"
-                        tools:listitem="@layout/list_item_material_ra" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_material_sd_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:paddingStart="@dimen/dimen_16dp"
+                            android:scrollbars="vertical"
+                            android:fadeScrollbars="false"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:context="com.pomplarg.spe95.MainActivity"
+                            tools:listitem="@layout/list_item_material_sd" />
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_engins_sd_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:paddingStart="@dimen/dimen_16dp"
+                            android:scrollbars="vertical"
+                            android:fadeScrollbars="false"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintTop_toBottomOf="@id/rv_material_sd_list"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:context="com.pomplarg.spe95.MainActivity"
+                            tools:listitem="@layout/list_item_engins_sd" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_material_ra_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:clipToPadding="false"
+                            android:fadeScrollbars="false"
+                            android:paddingStart="@dimen/dimen_16dp"
+                            android:scrollbars="vertical"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:context="com.pomplarg.spe95.MainActivity"
+                            tools:listitem="@layout/list_item_material_ra" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

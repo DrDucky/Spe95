@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.pomplarg.spe95.R
 import com.pomplarg.spe95.agent.ui.*
 import com.pomplarg.spe95.databinding.FragmentSpeOperationDetailsBinding
+import com.pomplarg.spe95.speoperations.data.EnginSd
 import com.pomplarg.spe95.speoperations.data.MaterialSd
 import com.pomplarg.spe95.speoperations.data.SpeOperation
 import com.pomplarg.spe95.utils.Constants
@@ -46,9 +47,11 @@ class SpeOperationDetailsFragment : Fragment() {
         val materialAdapter = MaterialCynoAdapter()
         val materialSdAdapter = MaterialSdAdapter()
         val materialRaAdapter = MaterialRaAdapter()
+        val enginsSdAdapter = EnginsSdAdapter()
         binding.rvTeamAgentList.adapter = adapter
         binding.rvMaterialCynoList.adapter = materialAdapter
         binding.rvMaterialSdList.adapter = materialSdAdapter
+        binding.rvEnginsSdList.adapter = enginsSdAdapter
         binding.rvMaterialRaList.adapter = materialRaAdapter
 
         binding.tvMaterialCategoryTitle.text = when (specialtyDocument) {
@@ -61,7 +64,7 @@ class SpeOperationDetailsFragment : Fragment() {
         binding.handler = speOperationHandler
 
         speOperationViewModel.fetchSpeOperationInformation(speOperationId)
-        subscribeUi(binding, adapter, materialAdapter, materialSdAdapter, materialRaAdapter)
+        subscribeUi(binding, adapter, materialAdapter, materialSdAdapter, enginsSdAdapter, materialRaAdapter)
         setHasOptionsMenu(true)
 
         return binding.root
@@ -72,12 +75,13 @@ class SpeOperationDetailsFragment : Fragment() {
         adapter: AgentAdapter,
         materialCynoAdapter: MaterialCynoAdapter,
         materialSdAdapter: MaterialSdAdapter,
+        enginsSdAdapter: EnginsSdAdapter,
         materialRaAdapter: MaterialRaAdapter
     ) {
         speOperationViewModel.speOperationLd.observe(
             viewLifecycleOwner,
             Observer<SpeOperation> { it ->
-                bindView(binding, it, materialCynoAdapter, materialSdAdapter, materialRaAdapter)
+                bindView(binding, it, materialCynoAdapter, materialSdAdapter, enginsSdAdapter, materialRaAdapter)
                 binding.cardsGroup.visibility = View.VISIBLE
 
                 val agentsId = ArrayList<String>()
@@ -103,6 +107,7 @@ class SpeOperationDetailsFragment : Fragment() {
         speOperation: SpeOperation,
         materialCynoAdapter: MaterialCynoAdapter,
         materialSdAdapter: MaterialSdAdapter,
+        enginsSdAdapter: EnginsSdAdapter,
         materialRaAdapter: MaterialRaAdapter
     ) {
         if (speOperation.id != 0) {
@@ -118,6 +123,12 @@ class SpeOperationDetailsFragment : Fragment() {
                     materialSd.add(material)
                 }
                 materialSdAdapter.submitList(materialSd)
+
+                val enginsSdList = ArrayList<EnginSd>()
+                for (engin in speOperation.enginsSd!!) {
+                    enginsSdList.add(engin)
+                }
+                enginsSdAdapter.submitList(enginsSdList)
                 materialRaAdapter.submitList(speOperation.materialsRa)
             }
         } else {

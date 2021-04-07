@@ -62,6 +62,14 @@ class Constants {
         const val SD_PETIT_MAT_CARBURANT_MELANGE = "Carburant mélange 4%"
         const val SD_PETIT_MAT_CARBURANT_HUILE_CHAINE = "Carburant huile de chaine"
 
+        const val SD_ENGINS_VLRSD = "Engin VLR SD"
+        const val SD_ENGINS_CESD = "Engin CE SD"
+        const val SD_ENGINS_VTU_ARG = "Engin VTU ARG"
+        const val SD_ENGINS_VTU_CEP = "Engin VTU CEP"
+        const val SD_ENGINS_VTU_BEZ = "Engin VTU BEZ"
+        const val SD_ENGINS_VTU_GRA = "Engin VTU GRA"
+        const val SD_ENGINS_VID_SPE = "Engin VID SPE"
+
         const val RA_ANIMAL_ESPECE_CAT = "Espece Chat"
         const val RA_ANIMAL_ESPECE_DOG = "Espece Chien"
         const val RA_ANIMAL_ESPECE_OTHER = "Espece "
