@@ -54,6 +54,7 @@ class Constants {
         const val SD_EXPLO_ASB8 = "ASB8"
         const val SD_EXPLO_CAMERA = "Caméra"
         const val SD_PETIT_MAT_VISSEUSE = "Visseuse"
+        const val SD_PETIT_MAT_VIS = "Vis"
         const val SD_PETIT_MAT_CORDAGE = "Cordage"
         const val SD_PETIT_MAT_SERVANTE = "Servante"
         const val SD_PETIT_MAT_CARBURANT_SP95 = "Carburant SP95"

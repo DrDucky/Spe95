@@ -518,26 +518,35 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_petit_materiel_category_title" />
 
+            <CheckBox
+                android:id="@+id/tv_petit_materiel_category_vis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@={vmSpeOperation._equipementSdPetitMatVis}"
+                android:text="@string/equipment_petit_materiel_vis"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_petit_materiel_category_visseuse" />
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tip_petit_materiel_category_visseuse"
+                android:id="@+id/tip_petit_materiel_category_vis"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="@dimen/default_margin_form_fields"
                 android:layout_height="wrap_content"
                 android:hint="@string/add_operation_boites"
                 android:layout_marginTop="@dimen/dimen_8dp"
                 app:layout_constraintStart_toStartOf="@id/field_guideline"
-                app:layout_constraintTop_toBottomOf="@+id/tv_petit_materiel_category_title">
+                app:layout_constraintTop_toBottomOf="@+id/tv_petit_materiel_category_visseuse">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_petit_materiel_category_visseuse"
+                    android:id="@+id/et_petit_materiel_category_vis"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:singleLine="true"
-                    android:text="@={`` + vmSpeOperation._equipementSdPetitMatVisseuseQuantity}" />
+                    android:text="@={`` + vmSpeOperation._equipementSdPetitMatVisQuantity}" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
 
             <CheckBox
                 android:id="@+id/tv_petit_materiel_category_cordage"
@@ -546,7 +555,7 @@
                 android:checked="@={vmSpeOperation._equipementSdPetitMatCordage}"
                 android:text="@string/equipment_petit_materiel_cordage"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_petit_materiel_category_visseuse" />
+                app:layout_constraintTop_toBottomOf="@+id/tip_petit_materiel_category_vis" />
 
             <CheckBox
                 android:id="@+id/tv_petit_materiel_category_servante"

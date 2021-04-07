@@ -548,18 +548,18 @@ class AddOperationFragment : Fragment() {
             } else
                 binding.equipment.tv_etaiement_category_etai_metallique_grand.error = null
 
-            if ((vmSpeOperationViewModel._equipementSdPetitMatVisseuse.value == true &&
-                        vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value!! <= 0) ||
-                (vmSpeOperationViewModel._equipementSdPetitMatVisseuse.value == false &&
-                        vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value != null &&
-                        vmSpeOperationViewModel._equipementSdPetitMatVisseuseQuantity.value!! != 0
+            if ((vmSpeOperationViewModel._equipementSdPetitMatVis.value == true &&
+                        vmSpeOperationViewModel._equipementSdPetitMatVisQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdPetitMatVisQuantity.value!! <= 0) ||
+                (vmSpeOperationViewModel._equipementSdPetitMatVis.value == false &&
+                        vmSpeOperationViewModel._equipementSdPetitMatVisQuantity.value != null &&
+                        vmSpeOperationViewModel._equipementSdPetitMatVisQuantity.value!! != 0
                         )
             ) {
                 isValid = false
-                binding.equipment.tip_petit_materiel_category_visseuse.error = mandatoryFieldError
+                binding.equipment.tip_petit_materiel_category_vis.error = mandatoryFieldError
             } else
-                binding.equipment.tip_petit_materiel_category_visseuse.error = null
+                binding.equipment.tip_petit_materiel_category_vis.error = null
 
             if ((vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95.value == true &&
                         vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95Quantity.value != null &&

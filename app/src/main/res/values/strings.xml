@@ -100,6 +100,7 @@
     <!-- Equipment category Petit matériel -->
     <string name="equipment_petit_materiel_title">Petit matériel</string>
     <string name="equipment_petit_materiel_visseuse">Visseuse</string>
+    <string name="equipment_petit_materiel_vis">Vis</string>
     <string name="equipment_petit_materiel_cordage">Cordage</string>
     <string name="equipment_petit_materiel_servante">Servante</string>
     <string name="equipment_petit_materiel_carburant_sp95">Carburant SP95</string>
