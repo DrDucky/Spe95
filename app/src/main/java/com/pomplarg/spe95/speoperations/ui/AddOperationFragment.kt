@@ -612,11 +612,11 @@ private fun setEquipmentPopupCheckboxes(
     vmSpeOperationViewModel: SpeOperationViewModel,
 ) {
     val checkedItemsGrElec = booleanArrayOf(
-        vmSpeOperationViewModel._equipementSdGrElecFixe.value!!,
-        vmSpeOperationViewModel._equipementSdGrElec22001.value!!,
-        vmSpeOperationViewModel._equipementSdGrElec22002.value!!,
-        vmSpeOperationViewModel._equipementSdGrElec30001.value!!,
-        vmSpeOperationViewModel._equipementSdGrElec30002.value!!
+        vmSpeOperationViewModel._equipementSdGrElec21.value!!,
+        vmSpeOperationViewModel._equipementSdGrElec22.value!!,
+        vmSpeOperationViewModel._equipementSdGrElec31.value!!,
+        vmSpeOperationViewModel._equipementSdGrElec32.value!!,
+        vmSpeOperationViewModel._equipementSdGrElec51.value!!
     )
     val checkedItemsGrEClairage = booleanArrayOf(
         vmSpeOperationViewModel._equipementSdEclSolaris.value!!,
@@ -632,19 +632,19 @@ private fun setEquipmentPopupCheckboxes(
                 .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
                     //Nothing to do, closes automatically with multiChoiceItems
                     //Except set the checkbox check if at least one of the item has been selected
-                    checkbox.isChecked = (vmSpeOperationViewModel._equipementSdGrElecFixe.value!!
-                            || vmSpeOperationViewModel._equipementSdGrElec22001.value!!
-                            || vmSpeOperationViewModel._equipementSdGrElec22002.value!!
-                            || vmSpeOperationViewModel._equipementSdGrElec30001.value!!
-                            || vmSpeOperationViewModel._equipementSdGrElec30002.value!!)
+                    checkbox.isChecked = (vmSpeOperationViewModel._equipementSdGrElec21.value!!
+                            || vmSpeOperationViewModel._equipementSdGrElec22.value!!
+                            || vmSpeOperationViewModel._equipementSdGrElec31.value!!
+                            || vmSpeOperationViewModel._equipementSdGrElec32.value!!
+                            || vmSpeOperationViewModel._equipementSdGrElec51.value!!)
                 }
                 .setMultiChoiceItems(R.array.sd_gr_elec, checkedItemsGrElec) { dialog, which, checked ->
                     when (which) {
-                        0 -> vmSpeOperationViewModel._equipementSdGrElecFixe.value = checked
-                        1 -> vmSpeOperationViewModel._equipementSdGrElec22001.value = checked
-                        2 -> vmSpeOperationViewModel._equipementSdGrElec22002.value = checked
-                        3 -> vmSpeOperationViewModel._equipementSdGrElec30001.value = checked
-                        4 -> vmSpeOperationViewModel._equipementSdGrElec30002.value = checked
+                        0 -> vmSpeOperationViewModel._equipementSdGrElec21.value = checked
+                        1 -> vmSpeOperationViewModel._equipementSdGrElec22.value = checked
+                        2 -> vmSpeOperationViewModel._equipementSdGrElec31.value = checked
+                        3 -> vmSpeOperationViewModel._equipementSdGrElec32.value = checked
+                        4 -> vmSpeOperationViewModel._equipementSdGrElec51.value = checked
                     }
                 }
                 .show()
