@@ -1,5 +1,6 @@
 package com.pomplarg.spe95.speoperations.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
+import com.pomplarg.spe95.FullScreenActivity
 import com.pomplarg.spe95.R
 import com.pomplarg.spe95.agent.ui.*
 import com.pomplarg.spe95.databinding.FragmentSpeOperationDetailsBinding
@@ -130,6 +134,23 @@ class SpeOperationDetailsFragment : Fragment() {
                 }
                 enginsSdAdapter.submitList(enginsSdList)
                 materialRaAdapter.submitList(speOperation.materialsRa)
+
+                speOperation.photoRa?.let { photoRa ->
+                    if (photoRa.isNotEmpty()) {
+                        val reference = FirebaseStorage.getInstance().getReference(photoRa)
+                        context?.let { context ->
+                            Glide.with(context)
+                                .load(reference)
+                                .into(binding.ivPhoto)
+
+                            binding.ivPhoto.setOnClickListener {
+                                val i = Intent(context, FullScreenActivity::class.java)
+                                i.putExtra(Constants.PATH_PHOTO_FULLSCREEN_KEY, photoRa)
+                                startActivity(i)
+                            }
+                        }
+                    }
+                }
             }
         } else {
             binding.tvOperationEmpty.visibility = View.VISIBLE

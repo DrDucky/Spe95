@@ -197,6 +197,8 @@ class SpeOperationViewModel(
     val _actionConditionnement: MutableLiveData<Boolean> = MutableLiveData(false)
     val _actionTransport: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    val _ldPhotoRaAbsolutePath: MutableLiveData<String> = MutableLiveData()
+
     /**
      * Get an operation with its id
      */
@@ -388,7 +390,7 @@ class SpeOperationViewModel(
 
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {
-            repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation, _ldOperationAdded)
+            repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation, _ldOperationAdded, _ldPhotoRaAbsolutePath)
         }
     }
 

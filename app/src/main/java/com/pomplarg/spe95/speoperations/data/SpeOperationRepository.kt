@@ -1,10 +1,16 @@
 package com.pomplarg.spe95.speoperations.data
 
+import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.storage.FirebaseStorage
 import com.pomplarg.spe95.data.Result
 import com.pomplarg.spe95.data.await
+import com.pomplarg.spe95.statistiques.data.StatistiqueRepository
 import com.pomplarg.spe95.utils.Constants
+import java.io.File
 
 class SpeOperationRepository {
 
@@ -56,10 +62,53 @@ class SpeOperationRepository {
     fun addSpeOperationIntoRemoteDB(
         specialtyDocument: String,
         speOperation: SpeOperation,
-        ldOperationAdded: MutableLiveData<Boolean>
+        ldOperationAdded: MutableLiveData<Boolean>,
+        ldPhotoRaAbsolutePath: MutableLiveData<String>
     ) {
         specialtiesCollection.document(specialtyDocument).collection("activities")
             .add(speOperation)
+            .addOnSuccessListener {
+                ldPhotoRaAbsolutePath.value?.let { absolutePath -> addPhoto(specialtyDocument, it.id, absolutePath) }
+            }
         ldOperationAdded.value = true
+    }
+
+    /**
+     * get a list operations for a given specialty
+     */
+    fun addPhoto(
+        specialtyDocument: String,
+        speOperationDocId: String,
+        path: String
+    ) {
+        val storageRef = FirebaseStorage.getInstance().reference
+        var file = Uri.fromFile(File(path))
+
+        val photosRef = storageRef.child("images/${file.lastPathSegment}")
+        var uploadTask = photosRef.putFile(file)
+        // Register observers to listen for when the download is done or if it fails
+        uploadTask.addOnFailureListener {
+            // Handle unsuccessful uploads
+        }.addOnSuccessListener { taskSnapshot ->
+            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+            // ...
+
+            val data = hashMapOf(FIRESTORE_MAP_PHOTO_RA_KEY to photosRef.path)
+
+            //We set the photo Path into speOperation object into firestore
+            specialtiesCollection.document(specialtyDocument).collection("activities")
+                .document(speOperationDocId)
+                .set(data, SetOptions.merge())
+                .addOnSuccessListener { Log.v(SpeOperationRepository.TAG, "Photo path successfully written!") }
+                .addOnFailureListener { e ->
+                    Log.e(StatistiqueRepository.TAG, "Error when setting photo path stock", e)
+                }
+        }
+    }
+
+
+    companion object {
+        const val TAG = "SpeOperationRepository"
+        const val FIRESTORE_MAP_PHOTO_RA_KEY = "photoRa"
     }
 }

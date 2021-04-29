@@ -34,6 +34,8 @@
     <string name="add_operation_liter">Litres</string>
     <string name="add_operation_popup_agent_title">Agent déjà présent</string>
     <string name="add_operation_popup_agent_message">L\'agent sélectionné a déjà été ajouté à l\'opération</string>
+    <string name="add_operation_take_picture">Prendre une photo</string>
+    <string name="add_operation_select_picture">Sélectionner une photo</string>
 
 
     <string name="add_agent_firstname">Prénom</string>

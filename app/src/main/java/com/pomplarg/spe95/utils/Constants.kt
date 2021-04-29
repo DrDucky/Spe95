@@ -12,6 +12,7 @@ class Constants {
         const val TYPE_OPERATION_INFORMATION = "Information"
 
         const val SHARED_PREF_FRAGMENT_KEY = "SHARED_PREF_FRAGMENT_KEY"
+        const val PATH_PHOTO_FULLSCREEN_KEY = "PATH_PHOTO_FULLSCREEN_KEY"
 
         const val ADD_OPERATION_DATE_FORMAT_DISPLAY = "dd/MM/yyyy"
         const val ADD_OPERATION_TIME_FORMAT_DISPLAY = "HH:mm"

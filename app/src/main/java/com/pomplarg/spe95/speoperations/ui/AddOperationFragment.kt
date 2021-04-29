@@ -1,14 +1,24 @@
 package com.pomplarg.spe95.speoperations.ui
 
+import android.app.Activity.RESULT_OK
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.CompoundButton
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -40,9 +50,14 @@ import com.pomplarg.spe95.databinding.ListItemAddOperationEquipmentSdBinding
 import com.pomplarg.spe95.speoperations.data.AgentOnOperation
 import com.pomplarg.spe95.utils.Constants
 import com.pomplarg.spe95.utils.hasConnectivity
+import kotlinx.android.synthetic.main.list_item_add_operation_equipment_ra.*
 import kotlinx.android.synthetic.main.list_item_add_operation_equipment_sd.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import java.io.File
+import java.io.IOException
+import java.io.InputStream
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -57,6 +72,8 @@ class AddOperationFragment : Fragment() {
             specialtyDocument
         )
     }
+    lateinit var currentPhotoPath: String
+
 
     /* List of Agent & time. Exemple :
     Paul ID : 8
@@ -161,6 +178,45 @@ class AddOperationFragment : Fragment() {
             }
         })
 
+        context?.let {
+            if (!it.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
+                bindingListEquipmentRa.btnAddPicture.visibility = View.GONE
+            }
+        }
+        bindingListEquipmentRa.btnAddPicture.setOnClickListener(View.OnClickListener {
+            context?.let { context ->
+                Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                    // Ensure that there's a camera activity to handle the intent
+                    takePictureIntent.resolveActivity(context.packageManager)?.also {
+                        // Create the File where the photo should go
+                        val photoFile: File? = try {
+                            createImageFile(context)
+                        } catch (ex: IOException) {
+                            // Error occurred while creating the File
+                            Toast.makeText(context, "Erreur lors de la création de la photo", Toast.LENGTH_LONG).show()
+                            null
+                        }
+                        // Continue only if the File was successfully created
+                        photoFile?.also {
+                            val photoURI: Uri = FileProvider.getUriForFile(
+                                context,
+                                "com.pomplarg.spe95.fileprovider",
+                                it
+                            )
+                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+                        }
+                    }
+                }
+            }
+        })
+        bindingListEquipmentRa.btnSelectPicture.setOnClickListener {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(intent, resources.getString(R.string.add_operation_select_picture)), PICK_IMAGE)
+        }
+
         val currentTimeInMillis = Calendar.getInstance().timeInMillis
         speOperationViewModel._startDate.value = currentTimeInMillis
         speOperationViewModel._startTime.value = currentTimeInMillis
@@ -183,9 +239,9 @@ class AddOperationFragment : Fragment() {
         })
 
         speOperationViewModel.ldOperationAdded.observe(viewLifecycleOwner, Observer {
-            if (it)
+            if (it) {
                 speOperationViewModel.addPostOperation()
-            else {
+            } else {
                 displayMainBloc(binding, true)
                 Snackbar.make(
                     requireView(),
@@ -604,72 +660,111 @@ class AddOperationFragment : Fragment() {
 
         return isValid
     }
-}
 
-private fun setEquipmentPopupCheckboxes(
-    context: Context,
-    checkboxView: View,
-    vmSpeOperationViewModel: SpeOperationViewModel,
-) {
-    val checkedItemsGrElec = booleanArrayOf(
-        vmSpeOperationViewModel._equipementSdGrElec21.value!!,
-        vmSpeOperationViewModel._equipementSdGrElec22.value!!,
-        vmSpeOperationViewModel._equipementSdGrElec31.value!!,
-        vmSpeOperationViewModel._equipementSdGrElec32.value!!,
-        vmSpeOperationViewModel._equipementSdGrElec51.value!!
-    )
-    val checkedItemsGrEClairage = booleanArrayOf(
-        vmSpeOperationViewModel._equipementSdEclSolaris.value!!,
-        vmSpeOperationViewModel._equipementSdEclNeon.value!!,
-        vmSpeOperationViewModel._equipementSdEclSolaris.value!!,
-        vmSpeOperationViewModel._equipementSdEclBaby.value!!
-    )
-    val checkbox = checkboxView as CompoundButton
-    when (checkbox.id) {
-        R.id.tv_eclairage_category_groupe_electro -> {
-            MaterialAlertDialogBuilder(context)
-                .setTitle(context.resources.getString(R.string.equipment_eclairage_groupe_electro))
-                .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
-                    //Nothing to do, closes automatically with multiChoiceItems
-                    //Except set the checkbox check if at least one of the item has been selected
-                    checkbox.isChecked = (vmSpeOperationViewModel._equipementSdGrElec21.value!!
-                            || vmSpeOperationViewModel._equipementSdGrElec22.value!!
-                            || vmSpeOperationViewModel._equipementSdGrElec31.value!!
-                            || vmSpeOperationViewModel._equipementSdGrElec32.value!!
-                            || vmSpeOperationViewModel._equipementSdGrElec51.value!!)
-                }
-                .setMultiChoiceItems(R.array.sd_gr_elec, checkedItemsGrElec) { dialog, which, checked ->
-                    when (which) {
-                        0 -> vmSpeOperationViewModel._equipementSdGrElec21.value = checked
-                        1 -> vmSpeOperationViewModel._equipementSdGrElec22.value = checked
-                        2 -> vmSpeOperationViewModel._equipementSdGrElec31.value = checked
-                        3 -> vmSpeOperationViewModel._equipementSdGrElec32.value = checked
-                        4 -> vmSpeOperationViewModel._equipementSdGrElec51.value = checked
+    private fun setEquipmentPopupCheckboxes(
+        context: Context,
+        checkboxView: View,
+        vmSpeOperationViewModel: SpeOperationViewModel,
+    ) {
+        val checkedItemsGrElec = booleanArrayOf(
+            vmSpeOperationViewModel._equipementSdGrElec21.value!!,
+            vmSpeOperationViewModel._equipementSdGrElec22.value!!,
+            vmSpeOperationViewModel._equipementSdGrElec31.value!!,
+            vmSpeOperationViewModel._equipementSdGrElec32.value!!,
+            vmSpeOperationViewModel._equipementSdGrElec51.value!!
+        )
+        val checkedItemsGrEClairage = booleanArrayOf(
+            vmSpeOperationViewModel._equipementSdEclSolaris.value!!,
+            vmSpeOperationViewModel._equipementSdEclNeon.value!!,
+            vmSpeOperationViewModel._equipementSdEclSolaris.value!!,
+            vmSpeOperationViewModel._equipementSdEclBaby.value!!
+        )
+        val checkbox = checkboxView as CompoundButton
+        when (checkbox.id) {
+            R.id.tv_eclairage_category_groupe_electro -> {
+                MaterialAlertDialogBuilder(context)
+                    .setTitle(context.resources.getString(R.string.equipment_eclairage_groupe_electro))
+                    .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
+                        //Nothing to do, closes automatically with multiChoiceItems
+                        //Except set the checkbox check if at least one of the item has been selected
+                        checkbox.isChecked = (vmSpeOperationViewModel._equipementSdGrElec21.value!!
+                                || vmSpeOperationViewModel._equipementSdGrElec22.value!!
+                                || vmSpeOperationViewModel._equipementSdGrElec31.value!!
+                                || vmSpeOperationViewModel._equipementSdGrElec32.value!!
+                                || vmSpeOperationViewModel._equipementSdGrElec51.value!!)
                     }
-                }
-                .show()
-        }
-        R.id.tv_eclairage_category_eclairage -> {
-            MaterialAlertDialogBuilder(context)
-                .setTitle(context.resources.getString(R.string.equipment_eclairage_eclairage))
-                .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
-                    //Nothing to do, closes automatically with multiChoiceItems
-                    //Except set the checkbox check if at least one of the item has been selected
-                    checkbox.isChecked = (vmSpeOperationViewModel._equipementSdEclSolaris.value!!
-                            || vmSpeOperationViewModel._equipementSdEclNeon.value!!
-                            || vmSpeOperationViewModel._equipementSdEclLumaphore.value!!
-                            || vmSpeOperationViewModel._equipementSdEclBaby.value!!)
-                }
-                .setMultiChoiceItems(R.array.sd_eclairage, checkedItemsGrEClairage) { dialog, which, checked ->
-                    when (which) {
-                        0 -> vmSpeOperationViewModel._equipementSdEclSolaris.value = checked
-                        1 -> vmSpeOperationViewModel._equipementSdEclNeon.value = checked
-                        2 -> vmSpeOperationViewModel._equipementSdEclLumaphore.value = checked
-                        3 -> vmSpeOperationViewModel._equipementSdEclBaby.value = checked
+                    .setMultiChoiceItems(R.array.sd_gr_elec, checkedItemsGrElec) { dialog, which, checked ->
+                        when (which) {
+                            0 -> vmSpeOperationViewModel._equipementSdGrElec21.value = checked
+                            1 -> vmSpeOperationViewModel._equipementSdGrElec22.value = checked
+                            2 -> vmSpeOperationViewModel._equipementSdGrElec31.value = checked
+                            3 -> vmSpeOperationViewModel._equipementSdGrElec32.value = checked
+                            4 -> vmSpeOperationViewModel._equipementSdGrElec51.value = checked
+                        }
                     }
-                }
-                .show()
+                    .show()
+            }
+            R.id.tv_eclairage_category_eclairage -> {
+                MaterialAlertDialogBuilder(context)
+                    .setTitle(context.resources.getString(R.string.equipment_eclairage_eclairage))
+                    .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
+                        //Nothing to do, closes automatically with multiChoiceItems
+                        //Except set the checkbox check if at least one of the item has been selected
+                        checkbox.isChecked = (vmSpeOperationViewModel._equipementSdEclSolaris.value!!
+                                || vmSpeOperationViewModel._equipementSdEclNeon.value!!
+                                || vmSpeOperationViewModel._equipementSdEclLumaphore.value!!
+                                || vmSpeOperationViewModel._equipementSdEclBaby.value!!)
+                    }
+                    .setMultiChoiceItems(R.array.sd_eclairage, checkedItemsGrEClairage) { dialog, which, checked ->
+                        when (which) {
+                            0 -> vmSpeOperationViewModel._equipementSdEclSolaris.value = checked
+                            1 -> vmSpeOperationViewModel._equipementSdEclNeon.value = checked
+                            2 -> vmSpeOperationViewModel._equipementSdEclLumaphore.value = checked
+                            3 -> vmSpeOperationViewModel._equipementSdEclBaby.value = checked
+                        }
+                    }
+                    .show()
+            }
         }
     }
 
+    @Throws(IOException::class)
+    private fun createImageFile(context: Context): File {
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRANCE).format(Date())
+        val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+            "JPEG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
+            speOperationViewModel._ldPhotoRaAbsolutePath.value = currentPhotoPath
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            iv_add_picture.setImageBitmap(imageBitmap)
+        }
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
+            val imageUri = data?.data as Uri
+            val inputStream: InputStream? = context?.contentResolver?.openInputStream(imageUri)
+            if (inputStream != null) {
+                val imageBitmap = BitmapFactory.decodeStream(inputStream)
+                iv_add_picture.setImageBitmap(imageBitmap)
+            }
+        }
+    }
+
+
+    companion object {
+        const val REQUEST_IMAGE_CAPTURE = 1
+        const val PICK_IMAGE = 2
+    }
 }
+
+
+

@@ -53,7 +53,10 @@ data class SpeOperation(
     var enginsSd: List<EnginSd>? = ArrayList(),
 
     @field:SerializedName("materialsRa")
-    var materialsRa: List<MaterialRa>? = ArrayList()
+    var materialsRa: List<MaterialRa>? = ArrayList(),
+
+    @field:SerializedName("photoRa")
+    var photoRa: String? = ""
 )
 
 @BindingAdapter("entries")
