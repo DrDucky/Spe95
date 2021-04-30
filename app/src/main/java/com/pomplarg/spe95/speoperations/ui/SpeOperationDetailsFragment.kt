@@ -137,6 +137,8 @@ class SpeOperationDetailsFragment : Fragment() {
 
                 speOperation.photoRa?.let { photoRa ->
                     if (photoRa.isNotEmpty()) {
+                        binding.cvPhoto.visibility = View.VISIBLE
+                        binding.tvPhotoPicture.visibility = View.VISIBLE
                         val reference = FirebaseStorage.getInstance().getReference(photoRa)
                         context?.let { context ->
                             Glide.with(context)
@@ -149,6 +151,9 @@ class SpeOperationDetailsFragment : Fragment() {
                                 startActivity(i)
                             }
                         }
+                    } else {
+                        binding.cvPhoto.visibility = View.GONE
+                        binding.tvPhotoPicture.visibility = View.GONE
                     }
                 }
             }

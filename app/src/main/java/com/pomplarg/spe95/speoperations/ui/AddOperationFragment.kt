@@ -5,7 +5,6 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -19,6 +18,7 @@ import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -740,14 +740,15 @@ class AddOperationFragment : Fragment() {
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
             currentPhotoPath = absolutePath
-            speOperationViewModel._ldPhotoRaAbsolutePath.value = currentPhotoPath
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            val imageBitmap = data?.extras?.get("data") as Bitmap
-            iv_add_picture.setImageBitmap(imageBitmap)
+            val file = File(currentPhotoPath)
+            val bitmap = BitmapFactory.decodeFile(file.path)
+            iv_add_picture.setImageBitmap(bitmap)
+            speOperationViewModel._ldPhotoRaAbsolutePath.value = file.toUri()
         }
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
             val imageUri = data?.data as Uri
@@ -755,6 +756,8 @@ class AddOperationFragment : Fragment() {
             if (inputStream != null) {
                 val imageBitmap = BitmapFactory.decodeStream(inputStream)
                 iv_add_picture.setImageBitmap(imageBitmap)
+                speOperationViewModel._ldPhotoRaAbsolutePath.value = imageUri
+                inputStream.close()
             }
         }
     }

@@ -10,7 +10,8 @@ import com.pomplarg.spe95.data.Result
 import com.pomplarg.spe95.data.await
 import com.pomplarg.spe95.statistiques.data.StatistiqueRepository
 import com.pomplarg.spe95.utils.Constants
-import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SpeOperationRepository {
 
@@ -63,7 +64,7 @@ class SpeOperationRepository {
         specialtyDocument: String,
         speOperation: SpeOperation,
         ldOperationAdded: MutableLiveData<Boolean>,
-        ldPhotoRaAbsolutePath: MutableLiveData<String>
+        ldPhotoRaAbsolutePath: MutableLiveData<Uri>
     ) {
         specialtiesCollection.document(specialtyDocument).collection("activities")
             .add(speOperation)
@@ -79,13 +80,14 @@ class SpeOperationRepository {
     fun addPhoto(
         specialtyDocument: String,
         speOperationDocId: String,
-        path: String
+        path: Uri
     ) {
-        val storageRef = FirebaseStorage.getInstance().reference
-        var file = Uri.fromFile(File(path))
 
-        val photosRef = storageRef.child("images/${file.lastPathSegment}")
-        var uploadTask = photosRef.putFile(file)
+        val storageRef = FirebaseStorage.getInstance().reference
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRANCE).format(Date())
+        var pathOnServer = "JPEG_${timeStamp}_.jpg"
+        val photosRef = storageRef.child("images/${pathOnServer}")
+        var uploadTask = photosRef.putFile(path)
         // Register observers to listen for when the download is done or if it fails
         uploadTask.addOnFailureListener {
             // Handle unsuccessful uploads

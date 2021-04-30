@@ -1,5 +1,6 @@
 package com.pomplarg.spe95.speoperations.ui
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -197,7 +198,7 @@ class SpeOperationViewModel(
     val _actionConditionnement: MutableLiveData<Boolean> = MutableLiveData(false)
     val _actionTransport: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    val _ldPhotoRaAbsolutePath: MutableLiveData<String> = MutableLiveData()
+    val _ldPhotoRaAbsolutePath: MutableLiveData<Uri> = MutableLiveData()
 
     /**
      * Get an operation with its id

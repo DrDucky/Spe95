@@ -171,6 +171,7 @@
     <string name="spe_operation_personnel_title">Personnel</string>
     <string name="spe_operation_personnel_unit_chief_title">Chef d\'unité</string>
     <string name="spe_operation_personnel_subtitle">Personnel engagé</string>
+    <string name="spe_operation_photo_title">Photo</string>
     <string name="menu_specialite_title">Spécialités</string>
     <string name="menu_specialite_cyno_title">Cynotechnique</string>
     <string name="menu_specialite_sd_title">Sauvetage-déblaiement</string>
