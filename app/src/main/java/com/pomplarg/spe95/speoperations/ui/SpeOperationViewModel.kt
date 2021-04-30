@@ -1,5 +1,6 @@
 package com.pomplarg.spe95.speoperations.ui
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -92,11 +93,11 @@ class SpeOperationViewModel(
     val _equipementSdLspcc: MutableLiveData<Boolean> = MutableLiveData(false)
     val _equipementSdEchCoulisse: MutableLiveData<Boolean> = MutableLiveData(false)
     val _equipementSdTelestep: MutableLiveData<Boolean> = MutableLiveData(false)
-    val _equipementSdGrElecFixe: MutableLiveData<Boolean> = MutableLiveData(false)
-    val _equipementSdGrElec22001: MutableLiveData<Boolean> = MutableLiveData(false)
-    val _equipementSdGrElec22002: MutableLiveData<Boolean> = MutableLiveData(false)
-    val _equipementSdGrElec30001: MutableLiveData<Boolean> = MutableLiveData(false)
-    val _equipementSdGrElec30002: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdGrElec21: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdGrElec22: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdGrElec31: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdGrElec32: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdGrElec51: MutableLiveData<Boolean> = MutableLiveData(false)
 
     val _equipementSdEclSolaris: MutableLiveData<Boolean> = MutableLiveData(false)
     val _equipementSdEclNeon: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -135,7 +136,8 @@ class SpeOperationViewModel(
     val _equipementSdExplorationAsb8: MutableLiveData<Boolean> = MutableLiveData(false)
     val _equipementSdExplorationCamera: MutableLiveData<Boolean> = MutableLiveData(false)
     val _equipementSdPetitMatVisseuse: MutableLiveData<Boolean> = MutableLiveData(false)
-    val _equipementSdPetitMatVisseuseQuantity: MutableLiveData<Int> = MutableLiveData(0)
+    val _equipementSdPetitMatVis: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _equipementSdPetitMatVisQuantity: MutableLiveData<Int> = MutableLiveData(0)
     val _equipementSdPetitMatCordage: MutableLiveData<Boolean> = MutableLiveData(false)
     val _equipementSdPetitMatServante: MutableLiveData<Boolean> = MutableLiveData(false)
     val _equipementSdPetitMatCarburantSP95: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -146,6 +148,47 @@ class SpeOperationViewModel(
     val _equipementSdPetitMatCarburantMelangeQuantity: MutableLiveData<Int> = MutableLiveData(0)
     val _equipementSdPetitMatCarburantHuileChaine: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    val _enginSdVlrSd: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _enginSdCeSd: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _enginSdVtuSdArg: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _enginSdVtuSdCep: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _enginSdVtuSdBez: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _enginSdVtuSdGra: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _enginSdVidSpe: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    val _especeDog: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _especeCat: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _especeOther: MutableLiveData<String> = MutableLiveData()
+
+    val _animalTypeDomestique: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalTypeSauvage: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalTypeElevage: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalTypeAutochtone: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalPriseChargeCooperatif: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalPriseChargeMenacant: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalPriseChargeBlesse: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalPriseChargeMordeur: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalPriseChargeMort: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalPriseChargeAnesthesie: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalDestinationCentreRegroupement: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalDestinationCedaf: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalDestinationProprietaire: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalDestinationCliniqueVeterinaire: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalDestinationOther: MutableLiveData<String> = MutableLiveData()
+    val _animalTransportVira: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalTransportVtu: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalTransportOther: MutableLiveData<String> = MutableLiveData()
+    val _animalEnginsSurLieuxVtu: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalEnginsSurLieuxFpt: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalEnginsSurLieuxVsr: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalEnginsSurLieuxMoyenAerien: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalEnginsSurLieuxVsav: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalEnginsSurLieuxVsso: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalSpecialitesSurLieuxGrimp: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalSpecialitesSurLieuxSd: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalSpecialitesSurLieuxNautique: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalSpecialitesSurLieuxGred: MutableLiveData<Boolean> = MutableLiveData(false)
+
     val _actionApproche: MutableLiveData<Boolean> = MutableLiveData(false)
     val _actionIdentification: MutableLiveData<Boolean> = MutableLiveData(false)
     val _actionNeutralisation: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -154,6 +197,8 @@ class SpeOperationViewModel(
     val _actionAssistance: MutableLiveData<Boolean> = MutableLiveData(false)
     val _actionConditionnement: MutableLiveData<Boolean> = MutableLiveData(false)
     val _actionTransport: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    val _ldPhotoRaAbsolutePath: MutableLiveData<Uri> = MutableLiveData()
 
     /**
      * Get an operation with its id
@@ -238,15 +283,16 @@ class SpeOperationViewModel(
          */
         if (specialtyDocument == Constants.FIRESTORE_SD_DOCUMENT) {
             val listOfMaterialsSd = ArrayList<MaterialSd>()
+            val listOfEnginsSd = ArrayList<EnginSd>()
 
             if (_equipementSdLspcc.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_LSPCC))
             if (_equipementSdEchCoulisse.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_ECH_COULISSE))
             if (_equipementSdTelestep.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_TELESTEP))
-            if (_equipementSdGrElecFixe.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_FIXE))
-            if (_equipementSdGrElec22001.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_22001))
-            if (_equipementSdGrElec22002.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_22002))
-            if (_equipementSdGrElec30001.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_30001))
-            if (_equipementSdGrElec30002.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_30002))
+            if (_equipementSdGrElec21.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_21))
+            if (_equipementSdGrElec22.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_22))
+            if (_equipementSdGrElec31.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_31))
+            if (_equipementSdGrElec32.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_32))
+            if (_equipementSdGrElec51.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_GR_ELEC_51))
             if (_equipementSdEclSolaris.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_ECL_SOLARIS))
             if (_equipementSdEclNeon.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_ECL_NEON))
             if (_equipementSdEclLumaphore.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_ECL_LUMAPHORE))
@@ -272,7 +318,8 @@ class SpeOperationViewModel(
             if (_equipementSdEtaiementBoisBastaing.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_ETAIEMENT_BOIS_BASTAING, _equipementSdEtaiementBoisBastaingQuantity.value))
             if (_equipementSdExplorationAsb8.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_EXPLO_ASB8))
             if (_equipementSdExplorationCamera.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_EXPLO_CAMERA))
-            if (_equipementSdPetitMatVisseuse.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_PETIT_MAT_VISSEUSE, _equipementSdPetitMatVisseuseQuantity.value))
+            if (_equipementSdPetitMatVisseuse.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_PETIT_MAT_VISSEUSE))
+            if (_equipementSdPetitMatVis.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_PETIT_MAT_VIS, _equipementSdPetitMatVisQuantity.value))
             if (_equipementSdPetitMatCordage.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_PETIT_MAT_CORDAGE))
             if (_equipementSdPetitMatServante.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_PETIT_MAT_SERVANTE))
             if (_equipementSdPetitMatCarburantSP95.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_PETIT_MAT_CARBURANT_SP95, _equipementSdPetitMatCarburantSP95Quantity.value))
@@ -280,7 +327,16 @@ class SpeOperationViewModel(
             if (_equipementSdPetitMatCarburantMelange.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_PETIT_MAT_CARBURANT_MELANGE, _equipementSdPetitMatCarburantMelangeQuantity.value))
             if (_equipementSdPetitMatCarburantHuileChaine.value == true) listOfMaterialsSd.add(MaterialSd(Constants.SD_PETIT_MAT_CARBURANT_HUILE_CHAINE))
 
+            if (_enginSdVlrSd.value == true) listOfEnginsSd.add(EnginSd(Constants.SD_ENGINS_VLRSD))
+            if (_enginSdCeSd.value == true) listOfEnginsSd.add(EnginSd(Constants.SD_ENGINS_CESD))
+            if (_enginSdVtuSdArg.value == true) listOfEnginsSd.add(EnginSd(Constants.SD_ENGINS_VTU_ARG))
+            if (_enginSdVtuSdCep.value == true) listOfEnginsSd.add(EnginSd(Constants.SD_ENGINS_VTU_CEP))
+            if (_enginSdVtuSdBez.value == true) listOfEnginsSd.add(EnginSd(Constants.SD_ENGINS_VTU_BEZ))
+            if (_enginSdVtuSdGra.value == true) listOfEnginsSd.add(EnginSd(Constants.SD_ENGINS_VTU_GRA))
+            if (_enginSdVidSpe.value == true) listOfEnginsSd.add(EnginSd(Constants.SD_ENGINS_VID_SPE))
+
             newSpeOperation.materialsSd = listOfMaterialsSd
+            newSpeOperation.enginsSd = listOfEnginsSd
         }
 
         /**
@@ -288,12 +344,46 @@ class SpeOperationViewModel(
          */
         if (specialtyDocument == Constants.FIRESTORE_RA_DOCUMENT) {
             val listOfMaterials = ArrayList<MaterialRa>()
+            if (_especeCat.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_ESPECE_CAT))
+            if (_especeDog.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_ESPECE_DOG))
+            if (!_especeOther.value.isNullOrEmpty()) listOfMaterials.add(MaterialRa((Constants.RA_ANIMAL_ESPECE_OTHER) + _especeOther.value))
+
+            if (_animalTypeDomestique.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_TYPE_DOMESTIQUE))
+            if (_animalTypeSauvage.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_TYPE_SAUVAGE))
+            if (_animalTypeElevage.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_TYPE_ELEVAGE))
+            if (_animalTypeAutochtone.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_TYPE_AUTOCHTONE))
+            if (_animalPriseChargeCooperatif.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_PRISE_CHARGE_COOPERATIF))
+            if (_animalPriseChargeMenacant.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_PRISE_CHARGE_MENACANT))
+            if (_animalPriseChargeBlesse.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_PRISE_CHARGE_BLESSE))
+            if (_animalPriseChargeMordeur.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_PRISE_CHARGE_MORDEUR))
+            if (_animalPriseChargeMort.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_PRISE_CHARGE_MORT))
+            if (_animalPriseChargeAnesthesie.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_PRISE_CHARGE_ANESTHESIE))
+            if (_animalDestinationCentreRegroupement.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_DESTINATION_CENTRE_REGROUPEMENT))
+            if (_animalDestinationCedaf.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_DESTINATION_CEDAF))
+            if (_animalDestinationProprietaire.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_DESTINATION_PROPRIETAIRE))
+            if (_animalDestinationCliniqueVeterinaire.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_DESTINATION_CLINIQUE_VETERINAIRE))
+            if (!_animalDestinationOther.value.isNullOrEmpty()) listOfMaterials.add(MaterialRa((Constants.RA_ANIMAL_DESTINATION_OTHER) + _animalDestinationOther.value))
+            if (_animalTransportVira.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_TRANSPORT_VIRA))
+            if (_animalTransportVtu.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_TRANSPORT_VTU))
+            if (!_animalTransportOther.value.isNullOrEmpty()) listOfMaterials.add(MaterialRa((Constants.RA_ANIMAL_TRANSPORT_OTHER) + _animalTransportOther.value))
+            if (_animalEnginsSurLieuxVtu.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_ENGINS_SUR_LIEUX_VTU))
+            if (_animalEnginsSurLieuxFpt.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_ENGINS_SUR_LIEUX_FPT))
+            if (_animalEnginsSurLieuxVsr.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_ENGINS_SUR_LIEUX_VSR))
+            if (_animalEnginsSurLieuxMoyenAerien.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_ENGINS_SUR_LIEUX_MOYEN_AERIEN))
+            if (_animalEnginsSurLieuxVsav.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_ENGINS_SUR_LIEUX_VSAV))
+            if (_animalEnginsSurLieuxVsso.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_ENGINS_SUR_LIEUX_VSSO))
+            if (_animalSpecialitesSurLieuxGrimp.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_SPECIALITES_SUR_LIEUX_GRIMP))
+            if (_animalSpecialitesSurLieuxSd.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_SPECIALITES_SUR_LIEUX_SD))
+            if (_animalSpecialitesSurLieuxNautique.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_SPECIALITES_SUR_LIEUX_NAUTIQUE))
+            if (_animalSpecialitesSurLieuxGred.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_SPECIALITES_SUR_LIEUX_GRED))
+
             if (_actionApproche.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_APPROCHE))
             if (_actionIdentification.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_IDENTIFICATION))
             if (_actionNeutralisation.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_NEUTRALISATION))
             if (_actionCapture.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_CAPTURE))
             if (_actionRelevage.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_RELEVAGE))
             if (_actionAssistance.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_ASSISTANCE))
+            if (_actionConditionnement.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_CONDITIONNEMENT))
             if (_actionTransport.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_TRANSPORT))
 
             newSpeOperation.materialsRa = listOfMaterials
@@ -301,7 +391,7 @@ class SpeOperationViewModel(
 
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {
-            repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation, _ldOperationAdded)
+            repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation, _ldOperationAdded, _ldPhotoRaAbsolutePath)
         }
     }
 

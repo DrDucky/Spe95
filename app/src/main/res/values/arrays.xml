@@ -45,11 +45,11 @@
         <item>Réquisition par les forces de l\'ordre</item>
     </string-array>
     <string-array name="sd_gr_elec">
-        <item>Fixe</item>
-        <item>2200 n°1</item>
-        <item>2200 n°2</item>
-        <item>3000 n°1</item>
-        <item>3000 n°2</item>
+        <item>Groupe 21</item>
+        <item>Groupe 22</item>
+        <item>Groupe 31</item>
+        <item>Groupe 32</item>
+        <item>Groupe 51</item>
     </string-array>
     <string-array name="sd_eclairage">
         <item>Solaris</item>

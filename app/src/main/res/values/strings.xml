@@ -7,6 +7,15 @@
     <string name="equipment_title">Matériel</string>
     <string name="chiens_title">Chiens</string>
     <string name="action_title">Actions</string>
+    <string name="engins_title">Engins</string>
+    <string name="animal_title">Animal</string>
+    <string name="espece_subtitle">Espèce</string>
+    <string name="type_subtitle">Type</string>
+    <string name="prise_charge_subtitle">Prise en charge</string>
+    <string name="destination_subtitle">Destination</string>
+    <string name="engins_subtitle">Engins sur les lieux</string>
+    <string name="spe_subtitle">Spécialités sur les lieux</string>
+    <string name="transport_subtitle">Transport</string>
     <string name="cyno_priaxe_display">Pri-Axe</string>
 
     <!-- Add Operations -->
@@ -20,11 +29,13 @@
     <string name="add_operation_operation_added">L\'opération a été sauvegardée</string>
     <string name="add_operation_exception_generic">L\'opération a échouée</string>
     <string name="add_operation_exception">L\'opération a échouée : %01$s</string>
-    <string name="add_operation_number">Nombre</string>
+    <string name="add_operation_rearmament_hint">Réarmement</string>
     <string name="add_operation_boites">Boites</string>
     <string name="add_operation_liter">Litres</string>
     <string name="add_operation_popup_agent_title">Agent déjà présent</string>
     <string name="add_operation_popup_agent_message">L\'agent sélectionné a déjà été ajouté à l\'opération</string>
+    <string name="add_operation_take_picture">Prendre une photo</string>
+    <string name="add_operation_select_picture">Sélectionner une photo</string>
 
 
     <string name="add_agent_firstname">Prénom</string>
@@ -92,12 +103,56 @@
     <!-- Equipment category Petit matériel -->
     <string name="equipment_petit_materiel_title">Petit matériel</string>
     <string name="equipment_petit_materiel_visseuse">Visseuse</string>
+    <string name="equipment_petit_materiel_vis">Vis</string>
     <string name="equipment_petit_materiel_cordage">Cordage</string>
     <string name="equipment_petit_materiel_servante">Servante</string>
     <string name="equipment_petit_materiel_carburant_sp95">Carburant SP95</string>
     <string name="equipment_petit_materiel_carburant_marline">Carburant Marline</string>
     <string name="equipment_petit_materiel_carburant_melange">Carburant Mélange 4%</string>
     <string name="equipment_petit_materiel_carburant_huile_chaine">Huile de chaine</string>
+
+    <!-- Engins SD -->
+    <string name="engins_sd_vlrsd">Vlr SD</string>
+    <string name="engins_sd_cesd">Ce SD</string>
+    <string name="engins_sd_vtusd_arg">VTU SD ARG</string>
+    <string name="engins_sd_vtusd_cep">VTU SD CEP</string>
+    <string name="engins_sd_vtusd_bez">VTU SD BEZ</string>
+    <string name="engins_sd_vtusd_gra">VTU SD GRA</string>
+    <string name="engins_sd_vidspe">Vid Spe</string>
+
+    <!-- Animal RA -->
+    <string name="animal_espece_dog">Chien</string>
+    <string name="animal_espece_cat">Chat</string>
+    <string name="animal_espece_other">Autre</string>
+    <string name="animal_type_domestique">Domestique</string>
+    <string name="animal_type_sauvage">Sauvage</string>
+    <string name="animal_type_elevage">Elevage</string>
+    <string name="animal_type_autochtone">Autochtone</string>
+    <string name="animal_prise_charge_cooperatif">Coopératif</string>
+    <string name="animal_prise_charge_menacant">Menaçant</string>
+    <string name="animal_prise_charge_blesse">Blessé</string>
+    <string name="animal_prise_charge_mordeur">Mordeur</string>
+    <string name="animal_prise_charge_mort">Mort</string>
+    <string name="animal_prise_charge_anesthesie">Anesthesié</string>
+    <string name="animal_destination_centre_regroupement">Centre de regroupement</string>
+    <string name="animal_destination_cedaf">CEDAF</string>
+    <string name="animal_destination_proprietaire">Proprietaire</string>
+    <string name="animal_destination_clinique">Clinique vétérinaire de l\'isle Adam</string>
+    <string name="animal_destination_other">Autre</string>
+    <string name="animal_transport_vira">Vira</string>
+    <string name="animal_transport_vtu">Vtu</string>
+    <string name="animal_engin_fpt">Fpt</string>
+    <string name="animal_engin_vsr">Vsr</string>
+    <string name="animal_engin_moyen_aerien">Moyen aérien</string>
+    <string name="animal_engin_vsav">Vsav</string>
+    <string name="animal_engin_vsso">Vsso</string>
+    <string name="animal_specialite_grimp">Grimp</string>
+    <string name="animal_specialite_sd">Sd</string>
+    <string name="animal_specialite_nautique">Nautique</string>
+    <string name="animal_specialite_gred">Gred</string>
+
+    <string name="animal_transport_other">Autre</string>
+
 
     <!-- Actions RA -->
     <string name="action_approche_title">Approche</string>
@@ -116,6 +171,7 @@
     <string name="spe_operation_personnel_title">Personnel</string>
     <string name="spe_operation_personnel_unit_chief_title">Chef d\'unité</string>
     <string name="spe_operation_personnel_subtitle">Personnel engagé</string>
+    <string name="spe_operation_photo_title">Photo</string>
     <string name="menu_specialite_title">Spécialités</string>
     <string name="menu_specialite_cyno_title">Cynotechnique</string>
     <string name="menu_specialite_sd_title">Sauvetage-déblaiement</string>

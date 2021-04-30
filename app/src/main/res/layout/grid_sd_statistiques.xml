@@ -62,7 +62,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="@dimen/default_margin_form_fields"
                 android:layout_height="wrap_content"
-                android:hint="@string/add_operation_number"
+                android:hint="@string/add_operation_rearmament_hint"
                 app:layout_constraintBottom_toTopOf="@id/btn_stock_update"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/sp_stock_update"
