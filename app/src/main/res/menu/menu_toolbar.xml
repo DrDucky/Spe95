@@ -2,16 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/map_fragment"
-        android:icon="@drawable/ic_menu_map"
-        app:showAsAction="ifRoom"
-        android:title="@string/menu_map_title" />
+    <group android:id="@+id/main_menu_group">
+        <item
+            android:id="@+id/map_fragment"
+            android:icon="@drawable/ic_menu_map"
+            android:title="@string/menu_map_title"
+            app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/stats_fragment"
-        android:icon="@drawable/ic_menu_stats"
-        app:showAsAction="ifRoom"
-        android:title="@string/menu_stats_title" />
+        <item
+            android:id="@+id/stats_fragment"
+            android:icon="@drawable/ic_menu_stats"
+            android:title="@string/menu_stats_title"
+            app:showAsAction="ifRoom" />
+    </group>
 
 </menu>

@@ -1,9 +1,7 @@
 package com.pomplarg.spe95.agent.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -140,5 +138,12 @@ class AgentDetailsFragment : Fragment() {
         setDataToChart(stats.agentTypes, binding.typeChart, "Types d'opération", false)
         setBarDataToChart(stats.agentTimesByMonth, binding.timesMonthsChart, true)
         setBarDataToChart(stats.agentTypesByMonth, binding.typesMonthsChart, false)
+    }
+
+    /**
+     * Hide the menu (map and stats button)
+     */
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.setGroupVisible(R.id.main_menu_group, false)
     }
 }
