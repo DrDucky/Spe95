@@ -37,7 +37,7 @@ class SpeOperationRepository {
 
     suspend fun getSpeOperationFromRemoteDB(
         specialtyDocument: String,
-        speOperationId: Int
+        speOperationId: Long
     ): Result<SpeOperation> {
         return when (val documentSnapshot =
             specialtiesCollection.document(specialtyDocument).collection("activities")
@@ -45,7 +45,7 @@ class SpeOperationRepository {
                 .limit(1)
                 .get().await()) {
             is Result.Success -> {
-                var speOperation = SpeOperation(Constants.FIRESTORE_CYNO_DOCUMENT, 0, Constants.TYPE_OPERATION_INTERVENTION, "lala")
+                var speOperation = SpeOperation(Constants.FIRESTORE_CYNO_DOCUMENT, 0, 0, Constants.TYPE_OPERATION_INTERVENTION, "lala")
                 if (documentSnapshot.data.documents.size > 0) {
                     speOperation =
                         documentSnapshot.data.documents[0].toObject(SpeOperation::class.java)!!

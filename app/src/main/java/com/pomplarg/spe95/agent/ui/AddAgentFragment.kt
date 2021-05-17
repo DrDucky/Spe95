@@ -2,9 +2,7 @@ package com.pomplarg.spe95.agent.ui
 
 import android.os.Bundle
 import android.text.InputFilter
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -137,7 +135,7 @@ class AddAgentFragment : Fragment() {
         })
 
 
-        setHasOptionsMenu(false)
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -175,5 +173,12 @@ class AddAgentFragment : Fragment() {
         }
 
         return isValid
+    }
+
+    /**
+     * Hide the menu (map and stats button)
+     */
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.setGroupVisible(R.id.main_menu_group, false)
     }
 }

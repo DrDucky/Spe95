@@ -17,7 +17,10 @@ data class SpeOperation(
     var specialty: String = "",
 
     @field:SerializedName("id")
-    var id: Int = 0,
+    var id: Long = 0,
+
+    @field:SerializedName("idIntervention")
+    var idIntervention: Int? = null,
 
     @field:SerializedName("type")
     var type: String = "",

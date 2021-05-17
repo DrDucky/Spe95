@@ -1,11 +1,10 @@
 package com.pomplarg.spe95.agent.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.pomplarg.spe95.R
 import com.pomplarg.spe95.databinding.FragmentAgentsBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -60,5 +59,12 @@ class AgentFragment : Fragment() {
             binding.progressBar.visibility = View.GONE
         })
 
+    }
+
+    /**
+     * Hide the menu (map and stats button)
+     */
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.setGroupVisible(R.id.main_menu_group, false)
     }
 }

@@ -78,7 +78,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
             val date = popupContent.findViewById<TextView>(R.id.tv_popup_date)
             val address = popupContent.findViewById<TextView>(R.id.tv_popup_address)
 
-            title.text = getString(R.string.intervention_number, operation.id.toString())
+            title.text = getString(R.string.intervention_number, operation.idIntervention.toString())
             date.text = dateTimestampToString(operation.startDate)
             address.text = context?.let { geopointToString(it, operation.address) }
 
