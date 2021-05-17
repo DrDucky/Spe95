@@ -16,10 +16,7 @@ import com.pomplarg.spe95.agent.data.Agent
 import com.pomplarg.spe95.databinding.FragmentAgentDetailsBinding
 import com.pomplarg.spe95.statistiques.data.Statistique
 import com.pomplarg.spe95.statistiques.ui.StatistiquesViewModel
-import com.pomplarg.spe95.utils.AvatarGenerator
-import com.pomplarg.spe95.utils.Constants
-import com.pomplarg.spe95.utils.configureChart
-import com.pomplarg.spe95.utils.setDataToChart
+import com.pomplarg.spe95.utils.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AgentDetailsFragment : Fragment() {
@@ -60,8 +57,8 @@ class AgentDetailsFragment : Fragment() {
         })
 
         //By default
-        configureChart(binding.timesChart, context)
-        configureChart(binding.typeChart, context)
+        configurePieChart(binding.timesChart, context)
+        configurePieChart(binding.typeChart, context)
         binding.btnYearSelection.check(R.id.btn_year_2021)
         binding.btnSpecialtySelection.check(R.id.btn_specialty_cyno)
         statistiquesViewModel.fetchAgentStats(agentId, Constants.FIRESTORE_CYNO_DOCUMENT, Constants.YEAR_2021)
@@ -135,9 +132,13 @@ class AgentDetailsFragment : Fragment() {
 
     private fun bindStats(binding: FragmentAgentDetailsBinding, stats: Statistique) {
         //Update UI
-        configureChart(binding.timesChart, context)
-        configureChart(binding.typeChart, context)
+        configurePieChart(binding.timesChart, context)
+        configurePieChart(binding.typeChart, context)
+        configureBarChart(binding.timesMonthsChart, context, true)
+        configureBarChart(binding.typesMonthsChart, context, false)
         setDataToChart(stats.agentTimes, binding.timesChart, "Temps en opération", true)
         setDataToChart(stats.agentTypes, binding.typeChart, "Types d'opération", false)
+        setBarDataToChart(stats.agentTimesByMonth, binding.timesMonthsChart, true)
+        setBarDataToChart(stats.agentTypesByMonth, binding.typesMonthsChart, false)
     }
 }

@@ -58,6 +58,8 @@ class StatistiqueRepository {
         year: String,
         statsAgentLd: MutableLiveData<Statistique>
     ) {
+        val mapMonthsTimes = HashMap<Int, HashMap<String?, Long?>?>()
+        val mapMonthsTypes = HashMap<Int, HashMap<String?, Long?>?>()
         statistiqueCollection.document(year)
             .collection(agentId)
             .document(specialty)
@@ -66,6 +68,14 @@ class StatistiqueRepository {
                     val stats = Statistique()
                     stats.agentTypes = it.result.data?.get("type") as HashMap<String?, Long?>?
                     stats.agentTimes = it.result.data?.get("time") as HashMap<String?, Long?>?
+                    for (i in 1..12) {
+                        mapMonthsTimes[i] = it.result.data?.get("time-$i") as HashMap<String?, Long?>?
+                    }
+                    for (i in 1..12) {
+                        mapMonthsTypes[i] = it.result.data?.get("type-$i") as HashMap<String?, Long?>?
+                    }
+                    stats.agentTimesByMonth = mapMonthsTimes
+                    stats.agentTypesByMonth = mapMonthsTypes
                     statsAgentLd.value = stats
                 }
             }
@@ -255,7 +265,7 @@ class StatistiqueRepository {
         }
     }
 
-    fun addAgentStats(specialtyDocument: String, year: String, typeOperation: String, agents: List<AgentOnOperation>?) {
+    fun addAgentStats(specialtyDocument: String, year: String, currentMonth: Int, typeOperation: String, agents: List<AgentOnOperation>?) {
         agents?.forEach {
             it.id?.let { agentId ->
                 statistiqueCollection.document(year).collection(agentId).document(specialtyDocument)
@@ -265,6 +275,8 @@ class StatistiqueRepository {
 
                         var countType = 0
                         var countTime = 0
+                        var countTypeByMonth = 0
+                        var countTimeByMonth = 0
 
                         if (document.exists()) {
                             val statType: HashMap<String, Int>? = document.data?.get("type") as? HashMap<String, Int>
@@ -283,6 +295,22 @@ class StatistiqueRepository {
                                     }
                                 }
                             }
+                            val statTypeByMonth: HashMap<String, Int>? = document.data?.get("type-$currentMonth") as? HashMap<String, Int>
+                            statTypeByMonth?.let { typeMap ->
+                                for (statTypeIt in typeMap) {
+                                    if (statTypeIt.key == typeOperation) {
+                                        countTypeByMonth = statTypeIt.value
+                                    }
+                                }
+                            }
+                            val statTimeByMonth: HashMap<String, Int>? = document.data?.get("time-$currentMonth") as? HashMap<String, Int>
+                            statTimeByMonth?.let { timeMap ->
+                                for (statTimeIt in timeMap) {
+                                    if (statTimeIt.key == typeOperation) {
+                                        countTimeByMonth = statTimeIt.value
+                                    }
+                                }
+                            }
                         }
 
                         val nestedDataType = hashMapOf(
@@ -292,8 +320,20 @@ class StatistiqueRepository {
                         val nestedDataTime = hashMapOf(
                             typeOperation to countTime + it.time!!
                         )
+
+                        val nestedDataTypeByMonth = hashMapOf(
+                            typeOperation to countTypeByMonth + 1
+                        )
+
+                        val nestedDataTimeByMonth = hashMapOf(
+                            typeOperation to countTimeByMonth + it.time!!
+                        )
+
                         docData["type"] = nestedDataType
                         docData["time"] = nestedDataTime
+
+                        docData["type-$currentMonth"] = nestedDataTypeByMonth
+                        docData["time-$currentMonth"] = nestedDataTimeByMonth
 
                         statistiqueCollection.document(year).collection(agentId).document(specialtyDocument).set(
                             docData, SetOptions.merge()

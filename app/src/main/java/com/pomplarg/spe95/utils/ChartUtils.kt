@@ -3,16 +3,18 @@ package com.pomplarg.spe95.utils
 import android.content.Context
 import android.graphics.Color
 import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.pomplarg.spe95.R
+import java.text.DateFormatSymbols
 import java.util.*
 import kotlin.collections.ArrayList
 
-fun configureChart(chart: PieChart, context: Context?) {
+fun configurePieChart(chart: PieChart, context: Context?) {
     chart.description.isEnabled = false
     chart.setNoDataText(context?.getString(R.string.statistiques_no_data))
     chart.setExtraOffsets(20f, 0f, 20f, 0f)
@@ -29,6 +31,45 @@ fun configureChart(chart: PieChart, context: Context?) {
     chart.isHighlightPerTapEnabled = true
     chart.animateY(1400, Easing.EaseInOutQuad)
     chart.legend.isEnabled = false
+}
+
+fun configureBarChart(chart: BarChart, context: Context?, hourAndTimeFormat: Boolean) {
+    chart.description.isEnabled = false
+    chart.setNoDataText(context?.getString(R.string.statistiques_no_data))
+    chart.setExtraOffsets(20f, 0f, 20f, 0f)
+    chart.dragDecelerationFrictionCoef = 0.95f
+    chart.isHighlightPerTapEnabled = true
+    chart.animateY(1400, Easing.EaseInOutQuad)
+    chart.setFitBars(true)
+    chart.setDrawBarShadow(false)
+    chart.setDrawGridBackground(false)
+    chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+    chart.xAxis.setCenterAxisLabels(true);
+    chart.xAxis.setAvoidFirstLastClipping(true)
+    chart.xAxis.setLabelCount(13, true)
+    chart.xAxis.axisMinimum = 1f
+    chart.xAxis.axisMaximum = 13f
+    chart.axisLeft.axisMinimum = 0f
+    chart.axisLeft.setDrawGridLines(false)
+    chart.axisLeft.spaceTop = 35f;
+    chart.axisRight.isEnabled = false
+    chart.legend.isEnabled = true
+    chart.legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+    chart.legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+    chart.legend.orientation = Legend.LegendOrientation.VERTICAL
+    chart.legend.setDrawInside(true)
+    chart.legend.yOffset = 0f
+    chart.legend.xOffset = 10f
+    chart.legend.yEntrySpace = 0f
+    chart.legend.textSize = 8f
+    chart.xAxis.valueFormatter = vfMonth
+    if (hourAndTimeFormat)
+        chart.axisLeft.valueFormatter = vfHourAndTime
+    else
+        chart.axisLeft.valueFormatter = vf
+    chart.setDrawValueAboveBar(true)
+    chart.setPinchZoom(false)
+
 }
 
 fun setDataToChart(stats: HashMap<String?, Long?>?, chart: PieChart, title: String, hourAndTimeFormat: Boolean) {
@@ -63,16 +104,101 @@ fun setDataToChart(stats: HashMap<String?, Long?>?, chart: PieChart, title: Stri
     chart.invalidate()
 }
 
+fun setBarDataToChart(stats: HashMap<Int, HashMap<String?, Long?>?>, chart: BarChart, hourAndTimeFormat: Boolean) {
+    val entriesGroupTraining = arrayListOf<BarEntry>()
+    val entriesGroupInterventions = arrayListOf<BarEntry>()
+    val entriesGroupFormations = arrayListOf<BarEntry>()
+    val entriesGroupInformation = arrayListOf<BarEntry>()
+
+    var totalCount = 0f
+    for (i in 1..12) {
+        entriesGroupTraining.add(i - 1, BarEntry(i.toFloat(), 0f))
+        entriesGroupInterventions.add(i - 1, BarEntry(i.toFloat(), 0f))
+        entriesGroupFormations.add(i - 1, BarEntry(i.toFloat(), 0f))
+        entriesGroupInformation.add(i - 1, BarEntry(i.toFloat(), 0f))
+
+        stats[i]?.forEach {
+            when (it.key) {
+                Constants.TYPE_OPERATION_TRAINING -> {
+                    it.value?.let { value ->
+                        entriesGroupTraining[i - 1] = BarEntry(i.toFloat(), value.toFloat())
+                        totalCount += value.toFloat()
+                    }
+                }
+                Constants.TYPE_OPERATION_INTERVENTION -> {
+                    it.value?.let { value ->
+                        entriesGroupInterventions[i - 1] = BarEntry(i.toFloat(), value.toFloat())
+                        totalCount += value.toFloat()
+                    }
+                }
+                Constants.TYPE_OPERATION_FORMATION -> {
+                    it.value?.let { value ->
+                        entriesGroupFormations[i - 1] = BarEntry(i.toFloat(), value.toFloat())
+                        totalCount += value.toFloat()
+                    }
+                }
+                Constants.TYPE_OPERATION_INFORMATION -> {
+                    it.value?.let { value ->
+                        entriesGroupInformation[i - 1] = BarEntry(i.toFloat(), value.toFloat())
+                        totalCount += value.toFloat()
+                    }
+                }
+            }
+        }
+    }
+
+    val setTraining = BarDataSet(entriesGroupTraining, Constants.TYPE_OPERATION_TRAINING)
+    val setIntervention = BarDataSet(entriesGroupInterventions, Constants.TYPE_OPERATION_INTERVENTION)
+    val setFormation = BarDataSet(entriesGroupFormations, Constants.TYPE_OPERATION_FORMATION)
+    val setInformation = BarDataSet(entriesGroupInformation, Constants.TYPE_OPERATION_INFORMATION)
+
+    setTraining.color = Color.rgb(255, 208, 140)
+    setIntervention.color = Color.rgb(140, 234, 255)
+    setFormation.color = Color.rgb(255, 140, 157)
+    setInformation.color = Color.rgb(192, 255, 140)
+
+    val barData = BarData(setTraining, setIntervention, setFormation, setInformation)
+    if (hourAndTimeFormat)
+        barData.setValueFormatter(vfHourAndTime)
+    else
+        barData.setValueFormatter(vf)
+    barData.barWidth = 0.2f
+    chart.data = barData
+    val groupSpace = 0.08f
+    val barSpace = 0.03f
+    chart.groupBars(1f, groupSpace, barSpace)
+
+    chart.invalidate()
+}
+
 var vf: ValueFormatter = object : ValueFormatter() {
     override fun getFormattedValue(value: Float): String {
-        return "" + String.format("%02d", value.toInt())
+        return if (value == 0f)
+            ""
+        else
+            "" + String.format("%02d", value.toInt())
     }
 }
 
 var vfHourAndTime: ValueFormatter = object : ValueFormatter() {
     override fun getFormattedValue(value: Float): String {
-        val hour = value / 60
-        val minutes = value % 60
-        return "${String.format("%02d", hour.toInt())}h${String.format("%02d", minutes.toInt())}"
+        return if (value == 0f)
+            ""
+        else {
+            val hour = value / 60
+            val minutes = value % 60
+            "${String.format("%02d", hour.toInt())}h${String.format("%02d", minutes.toInt())}"
+        }
+    }
+}
+
+var vfMonth: ValueFormatter = object : ValueFormatter() {
+    override fun getFormattedValue(value: Float): String {
+        return if (value != 13f) {
+            val month = DateFormatSymbols.getInstance(Locale.FRANCE).months[value.toInt() - 1]
+            month.substring(0, 3)
+        } else {
+            "" //Hack for the library : mandatory to be on 13 labels to display december...
+        }
     }
 }

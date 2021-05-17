@@ -16,7 +16,7 @@ import com.pomplarg.spe95.databinding.FragmentStatistiquesBinding
 import com.pomplarg.spe95.speoperations.data.AlertStock
 import com.pomplarg.spe95.speoperations.ui.SpeOperationFragmentArgs
 import com.pomplarg.spe95.utils.Constants
-import com.pomplarg.spe95.utils.configureChart
+import com.pomplarg.spe95.utils.configurePieChart
 import com.pomplarg.spe95.utils.setDataToChart
 import kotlinx.android.synthetic.main.grid_cyno_statistiques.view.*
 import kotlinx.android.synthetic.main.grid_cyno_statistiques.view.type_chart
@@ -55,11 +55,11 @@ class StatistiquesFragment : Fragment() {
         statistiquesViewModel.statsMotifsLd.observe(viewLifecycleOwner, Observer {
             if (Constants.FIRESTORE_CYNO_DOCUMENT == specialtyDocument) {
                 //Update UI
-                configureChart(binding.chartsCynoStats.type_chart, context)
-                configureChart(binding.chartsCynoStats.ipso_chart, context)
-                configureChart(binding.chartsCynoStats.nano_chart, context)
-                configureChart(binding.chartsCynoStats.nerone_chart, context)
-                configureChart(binding.chartsCynoStats.priaxe_chart, context)
+                configurePieChart(binding.chartsCynoStats.type_chart, context)
+                configurePieChart(binding.chartsCynoStats.ipso_chart, context)
+                configurePieChart(binding.chartsCynoStats.nano_chart, context)
+                configurePieChart(binding.chartsCynoStats.nerone_chart, context)
+                configurePieChart(binding.chartsCynoStats.priaxe_chart, context)
 
                 setDataToChart(it.motifs, binding.chartsCynoStats.type_chart, "Motifs d'intervention", false)
                 setDataToChart(it.ipso, binding.chartsCynoStats.ipso_chart, "Ipso", true)
@@ -69,12 +69,12 @@ class StatistiquesFragment : Fragment() {
             }
             if (Constants.FIRESTORE_SD_DOCUMENT == specialtyDocument) {
                 //Update UI
-                configureChart(binding.chartsSdStats.type_chart, context)
+                configurePieChart(binding.chartsSdStats.type_chart, context)
                 setDataToChart(it.motifs, binding.chartsSdStats.type_chart, "Motifs d'intervention", false)
             }
             if (Constants.FIRESTORE_RA_DOCUMENT == specialtyDocument) {
                 //Update UI
-                configureChart(binding.chartsRaStats.type_chart, context)
+                configurePieChart(binding.chartsRaStats.type_chart, context)
                 setDataToChart(it.motifs, binding.chartsRaStats.type_chart, "Motifs d'intervention", false)
             }
         })
