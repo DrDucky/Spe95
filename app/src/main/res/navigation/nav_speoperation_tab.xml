@@ -32,8 +32,8 @@
 
         <argument
             android:name="speOperationId"
-            android:defaultValue="-1"
-            app:argType="integer" />
+            android:defaultValue="-1L"
+            app:argType="long" />
 
     </fragment>
 

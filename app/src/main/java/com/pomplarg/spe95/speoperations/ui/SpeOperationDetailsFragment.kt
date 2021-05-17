@@ -114,7 +114,7 @@ class SpeOperationDetailsFragment : Fragment() {
         enginsSdAdapter: EnginsSdAdapter,
         materialRaAdapter: MaterialRaAdapter
     ) {
-        if (speOperation.id != 0) {
+        if (speOperation.id != 0L) {
             speOperation.apply {
                 binding.speOperation = speOperation
                 binding.tvOperationEmpty.visibility = View.GONE

@@ -17,7 +17,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
-import java.util.concurrent.ThreadLocalRandom
 import kotlin.collections.ArrayList
 import kotlin.coroutines.CoroutineContext
 
@@ -203,7 +202,7 @@ class SpeOperationViewModel(
     /**
      * Get an operation with its id
      */
-    fun fetchSpeOperationInformation(speOperationId: Int) {
+    fun fetchSpeOperationInformation(speOperationId: Long) {
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {
             when (val result =
@@ -234,19 +233,17 @@ class SpeOperationViewModel(
      * Add an operation into Firestore
      */
     fun addOperationIntoFirestore() {
-        if (id.value == null) newSpeOperation.id =
-            ThreadLocalRandom.current().nextInt(
-                100000,
-                500000 + 1
-            ) else //If there is no id (for "Entrainements" for example), we generate a random ID between 100k & 500k
-            newSpeOperation.id = Integer.valueOf(id.value!!)
+        val cDate = Calendar.getInstance()
+        newSpeOperation.id = cDate.time.time
+        id.value?.let {
+            newSpeOperation.idIntervention = Integer.valueOf(it)
+        }
         newSpeOperation.motif = motif.value!!
         newSpeOperation.type = type.value!!
 
         newSpeOperation.agentOnOperation = _teamAgent.value!!
 
         //newSpeOperation.agents = _team.value!!
-        val cDate = Calendar.getInstance()
         cDate.timeInMillis = _startDate.value!!
         val cTime = Calendar.getInstance()
         cTime.timeInMillis = _startTime.value!!

@@ -82,7 +82,7 @@
                     android:id="@+id/tv_operation_id"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(speOperation.id)}"
+                    android:text="@{String.valueOf(speOperation.idIntervention)}"
                     android:textAppearance="?attr/textAppearanceHeadline5"
                     android:visibility="@{speOperation.type.equals(Constants.TYPE_OPERATION_INTERVENTION) ? View.VISIBLE : View.GONE}"
                     app:layout_constraintBottom_toTopOf="@id/tv_operation_motif"
