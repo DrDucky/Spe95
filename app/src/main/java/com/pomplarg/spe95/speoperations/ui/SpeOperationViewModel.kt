@@ -65,6 +65,8 @@ class SpeOperationViewModel(
     val _addressOffline: MutableLiveData<String> = MutableLiveData()
     val addressOffline: LiveData<String> = _addressOffline
 
+    val _observations: MutableLiveData<String> = MutableLiveData()
+
     var _startDate: MutableLiveData<Long> = MutableLiveData()
     val startDate: LiveData<Long> = _startDate
 
@@ -252,6 +254,7 @@ class SpeOperationViewModel(
         newSpeOperation.startDate = cDateAndTime.timeInMillis.getTimestamp()
         newSpeOperation.address = _address.value
         newSpeOperation.addressOffline = _addressOffline.value
+        newSpeOperation.observations = _observations.value
         newSpeOperation.unitChief = _teamUnitChief.value
         newSpeOperation.specialty = specialtyDocument
 

@@ -34,6 +34,9 @@ data class SpeOperation(
     @field:SerializedName("addressOffline")
     var addressOffline: String? = "",
 
+    @field:SerializedName("observations")
+    var observations: String? = "",
+
     @field:SerializedName("caserneId")
     var caserneId: Int? = null,
 
