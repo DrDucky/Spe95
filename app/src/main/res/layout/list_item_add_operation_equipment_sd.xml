@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="com.pomplarg.spe95.utils.ConverterKt" />
 
         <import type="android.view.View" />
 
@@ -123,12 +126,26 @@
 
             <CheckBox
                 android:id="@+id/tv_percement_category_groupe_hydraulique"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:checked="@={vmSpeOperation._equipementSdPercGrHydrau}"
                 android:text="@string/equipment_percement_groupe_hydraulique"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_title" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_percement_category_title"
+                app:layout_constraintBottom_toTopOf="@+id/tv_percement_category_tronconneuse_disque" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/til_percement_category_groupe_hydraulique_time"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:text="@{ConverterKt.timeLongToString(vmSpeOperation._equipementSdPercGrHydrauTime)}"
+                app:icon="@drawable/ic_time"
+                app:layout_constraintStart_toEndOf="@id/tv_percement_category_groupe_hydraulique"
+                app:layout_constraintTop_toBottomOf="@id/tv_percement_category_title"
+                app:layout_constraintBottom_toTopOf="@+id/tv_percement_category_tronconneuse_disque"
+                tools:text="14:32" />
 
             <CheckBox
                 android:id="@+id/tv_percement_category_tronconneuse_disque"

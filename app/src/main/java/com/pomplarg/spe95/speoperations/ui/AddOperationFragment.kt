@@ -448,6 +448,22 @@ class AddOperationFragment : Fragment() {
                 speOperationViewModel._startTime.value = calendar.timeInMillis
             }
         }
+
+        //Time cliquables
+        bindingListEquipmentSd.tilPercementCategoryGroupeHydrauliqueTime.setOnClickListener { buttonView ->
+            val timePickerGrHydrau = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H)
+                .setTitleText(R.string.add_operation_title_thermique)
+                .setHour(0)
+                .setMinute(0)
+                .build()
+            timePickerGrHydrau.show(parentFragmentManager, timePickerGrHydrau.toString())
+            timePickerGrHydrau.addOnPositiveButtonClickListener {
+                val calendar = Calendar.getInstance()
+                calendar.set(Calendar.HOUR_OF_DAY, timePickerGrHydrau.hour)
+                calendar.set(Calendar.MINUTE, timePickerGrHydrau.minute)
+                speOperationViewModel._equipementSdPercGrHydrauTime.value = calendar.timeInMillis
+            }
+        }
     }
 
     /**

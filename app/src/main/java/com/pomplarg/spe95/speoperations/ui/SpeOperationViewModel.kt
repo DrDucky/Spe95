@@ -147,6 +147,9 @@ class SpeOperationViewModel(
     val _equipementSdPetitMatCarburantMelangeQuantity: MutableLiveData<Int> = MutableLiveData(0)
     val _equipementSdPetitMatCarburantHuileChaine: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    var _equipementSdPercGrHydrauTime: MutableLiveData<Long> = MutableLiveData()
+    val equipementSdPercGrHydrauTime: LiveData<Long> = _equipementSdPercGrHydrauTime
+
     val _enginSdVlrSd: MutableLiveData<Boolean> = MutableLiveData(false)
     val _enginSdCeSd: MutableLiveData<Boolean> = MutableLiveData(false)
     val _enginSdVtuSdArg: MutableLiveData<Boolean> = MutableLiveData(false)
