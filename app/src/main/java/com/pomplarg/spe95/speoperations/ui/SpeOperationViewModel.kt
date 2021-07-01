@@ -393,11 +393,15 @@ class SpeOperationViewModel(
     }
 
     fun addPostOperation() {
+        val speOperationDate = Date(newSpeOperation.startDate!!.seconds * 1000)
+        val c = Calendar.getInstance()
+        c.time = speOperationDate
+        val monthNumber = c.get(Calendar.MONTH)
+
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-        val currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1 //because it is indexed from 0
         statsRepository.addOperationStats(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.motif)
         statsRepository.addMaterialStat(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.materialsCyno, newSpeOperation.materialsSd)
-        statsRepository.addAgentStats(specialtyDocument, currentYear.toString(), currentMonth, newSpeOperation.type, newSpeOperation.agentOnOperation)
+        statsRepository.addAgentStats(specialtyDocument, currentYear.toString(), monthNumber, newSpeOperation.type, newSpeOperation.agentOnOperation)
         _operationAdded.call()
     }
 }
