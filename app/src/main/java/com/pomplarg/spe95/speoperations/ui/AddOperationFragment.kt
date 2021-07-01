@@ -168,6 +168,7 @@ class AddOperationFragment : Fragment() {
             val selected = parent.getItemAtPosition(position) as Agent
             binding.actvUnitChief.setText(getString(R.string.add_operation_chip_team_text, selected.firstname, selected.lastname))
             speOperationViewModel._teamUnitChief.value = selected.id
+            addChipToGroup(selected, binding.chipGroupTeam)
         }
 
         binding.btnAddOperation.setOnClickListener(View.OnClickListener {
