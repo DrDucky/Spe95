@@ -167,6 +167,38 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_observations_title"
+                    style="@style/CategoryTitle"
+                    android:visibility="@{speOperation.observations.empty ? View.GONE : View.VISIBLE }"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dimen_8dp"
+                    android:text="@string/observations_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tile_divider" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_observations"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_8dp"
+                    android:visibility="@{speOperation.observations.empty ? View.GONE : View.VISIBLE }"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_observations_title">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_observations"
+                        android:textAppearance="?attr/textAppearanceSubtitle1"
+                        android:padding="@dimen/dimen_8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{speOperation.observations}"
+                        tools:text="Ceci est une observation de test" />
+
+                </com.google.android.material.card.MaterialCardView>
+
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_team_category_title"
@@ -176,7 +208,7 @@
                     android:padding="@dimen/dimen_8dp"
                     android:text="@string/spe_operation_personnel_title"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tile_divider" />
+                    app:layout_constraintTop_toBottomOf="@id/cv_observations" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cv_team"

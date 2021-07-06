@@ -65,6 +65,8 @@ class SpeOperationViewModel(
     val _addressOffline: MutableLiveData<String> = MutableLiveData()
     val addressOffline: LiveData<String> = _addressOffline
 
+    val _observations: MutableLiveData<String> = MutableLiveData()
+
     var _startDate: MutableLiveData<Long> = MutableLiveData()
     val startDate: LiveData<Long> = _startDate
 
@@ -252,6 +254,7 @@ class SpeOperationViewModel(
         newSpeOperation.startDate = cDateAndTime.timeInMillis.getTimestamp()
         newSpeOperation.address = _address.value
         newSpeOperation.addressOffline = _addressOffline.value
+        newSpeOperation.observations = _observations.value
         newSpeOperation.unitChief = _teamUnitChief.value
         newSpeOperation.specialty = specialtyDocument
 
@@ -393,11 +396,15 @@ class SpeOperationViewModel(
     }
 
     fun addPostOperation() {
+        val speOperationDate = Date(newSpeOperation.startDate!!.seconds * 1000)
+        val c = Calendar.getInstance()
+        c.time = speOperationDate
+        val monthNumber = c.get(Calendar.MONTH)
+
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-        val currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1 //because it is indexed from 0
         statsRepository.addOperationStats(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.motif)
         statsRepository.addMaterialStat(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.materialsCyno, newSpeOperation.materialsSd)
-        statsRepository.addAgentStats(specialtyDocument, currentYear.toString(), currentMonth, newSpeOperation.type, newSpeOperation.agentOnOperation)
+        statsRepository.addAgentStats(specialtyDocument, currentYear.toString(), monthNumber, newSpeOperation.type, newSpeOperation.agentOnOperation)
         _operationAdded.call()
     }
 }
