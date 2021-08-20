@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.pomplarg.spe95.utils.ConverterKt" />
+
+        <import type="android.view.View" />
+        <variable
+            name="handler"
+            type="com.pomplarg.spe95.speoperations.ui.SpeOperationHandlerClick" />
+
+        <variable
+            name="speOperation"
+            type="com.pomplarg.spe95.speoperations.data.SpeOperation" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_two_item_height"
+        android:onClick="@{(view) -> handler.onSpeOperationClick(view, speOperation)}">
+
+        <ImageView
+            android:id="@+id/iv_spe_type"
+            android:layout_width="@dimen/square_iv"
+            android:layout_height="@dimen/square_iv"
+            android:paddingStart="@dimen/dimen_8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_type_formation"
+            app:tint="@color/colorSecondaryDark" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{speOperation.idIntervention != null ? Integer.toString(speOperation.idIntervention) : ""}'
+            style="@style/ListTitle"
+            android:paddingStart="@dimen/dimen_16dp"
+            app:layout_constraintStart_toEndOf="@id/iv_spe_type"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/motif"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="798765"
+            tools:visibility="visible"
+            android:visibility="@{speOperation.idIntervention != null ? View.VISIBLE : View.GONE, default = gone}" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/start_date"
+            style="@style/ListSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dimen_16dp"
+            android:paddingTop="@dimen/dimen_8dp"
+            android:text="@{ConverterKt.dateTimestampToString(speOperation.startDate)}"
+            app:layout_constraintStart_toEndOf="@id/iv_spe_type"
+            app:layout_constraintTop_toBottomOf="@id/id"
+            app:layout_constraintBottom_toTopOf="@id/motif"
+            tools:text="19/04/2020 - 00:16" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/motif"
+            style="@style/ListSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dimen_16dp"
+            android:paddingTop="@dimen/dimen_8dp"
+            android:text="@{speOperation.motif}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_spe_type"
+            app:layout_constraintStart_toStartOf="@id/id"
+            app:layout_constraintTop_toBottomOf="@id/id"
+            tools:text="Effondrement pavillonaire" />
+
+        <View
+            android:id="@+id/tile_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:paddingTop="@dimen/dimen_8dp"
+            android:background="?android:attr/dividerVertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_spe_type"
+            app:layout_constraintStart_toStartOf="@id/id" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
