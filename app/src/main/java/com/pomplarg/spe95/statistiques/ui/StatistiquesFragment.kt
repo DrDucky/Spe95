@@ -60,12 +60,15 @@ class StatistiquesFragment : Fragment() {
                 configurePieChart(binding.chartsCynoStats.nano_chart, context)
                 configurePieChart(binding.chartsCynoStats.nerone_chart, context)
                 configurePieChart(binding.chartsCynoStats.priaxe_chart, context)
+                configurePieChart(binding.chartsCynoStats.sniper_chart, context)
 
                 setDataToChart(it.motifs, binding.chartsCynoStats.type_chart, "Motifs d'intervention", false)
                 setDataToChart(it.ipso, binding.chartsCynoStats.ipso_chart, "Ipso", true)
                 setDataToChart(it.nano, binding.chartsCynoStats.nano_chart, "Nano", true)
                 setDataToChart(it.nerone, binding.chartsCynoStats.nerone_chart, "Nerone", true)
                 setDataToChart(it.priaxe, binding.chartsCynoStats.priaxe_chart, "Priaxe", true)
+                setDataToChart(it.sniper, binding.chartsCynoStats.sniper_chart, "Sniper", true)
+
             }
             if (Constants.FIRESTORE_SD_DOCUMENT == specialtyDocument) {
                 //Update UI

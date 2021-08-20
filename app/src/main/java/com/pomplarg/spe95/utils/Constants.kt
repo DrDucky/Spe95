@@ -21,6 +21,7 @@ class Constants {
         const val CYNO_DOG_NANO = "Nano"
         const val CYNO_DOG_NERONE = "Nerone"
         const val CYNO_DOG_PRIAXE = "Priaxe"
+        const val CYNO_DOG_SNIPER = "Sniper"
 
         const val SD_LSPCC = "LSPCC / Main courante"
         const val SD_ECH_COULISSE = "Echelle à coulisse"
