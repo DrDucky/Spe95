@@ -32,6 +32,13 @@
             android:icon="@drawable/ic_menu_settings"
             android:title="@string/menu_settings_title"
             android:visible="false" /> <!--Hiding for the moment -->
+
+        <item
+            android:id="@+id/footer_spacer_1"
+            android:checkable="false"
+            android:enabled="false"
+            android:orderInCategory="200"
+            android:title="" />
     </group>
 
 </menu>
