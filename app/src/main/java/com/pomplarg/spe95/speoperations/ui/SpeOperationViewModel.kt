@@ -389,17 +389,15 @@ class SpeOperationViewModel(
             newSpeOperation.materialsRa = listOfMaterials
         }
 
-        if (getUserJob?.isActive == true) getUserJob?.cancel()
-        getUserJob = launch {
-            repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation, _ldOperationAdded, _ldPhotoRaAbsolutePath)
-        }
+        repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation, _ldOperationAdded, _ldPhotoRaAbsolutePath)
+
     }
 
     fun addPostOperation() {
         val speOperationDate = Date(newSpeOperation.startDate!!.seconds * 1000)
         val c = Calendar.getInstance()
         c.time = speOperationDate
-        val monthNumber = c.get(Calendar.MONTH)
+        val monthNumber = c.get(Calendar.MONTH) + 1 //return 1-12
 
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
         statsRepository.addOperationStats(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.motif)
