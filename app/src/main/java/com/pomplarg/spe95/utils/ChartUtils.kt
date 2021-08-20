@@ -82,10 +82,10 @@ fun setDataToChart(stats: HashMap<String?, Long?>?, chart: PieChart, title: Stri
     }
     //ColorTemplate.VORDIPLOM_COLORS
     val colors = arrayListOf<Int>(
-        Color.rgb(255, 208, 140),
-        Color.rgb(140, 234, 255),
-        Color.rgb(255, 140, 157),
-        Color.rgb(192, 255, 140),
+        Color.rgb(255, 208, 140), //Intervention
+        Color.rgb(140, 234, 255), //Entrainement
+        Color.rgb(255, 140, 157), //Information
+        Color.rgb(192, 255, 140), //Formation
         Color.rgb(255, 247, 140)
     )
     val dataset = PieDataSet(entries, "Motifs")
@@ -152,10 +152,10 @@ fun setBarDataToChart(stats: HashMap<Int, HashMap<String?, Long?>?>, chart: BarC
     val setFormation = BarDataSet(entriesGroupFormations, Constants.TYPE_OPERATION_FORMATION)
     val setInformation = BarDataSet(entriesGroupInformation, Constants.TYPE_OPERATION_INFORMATION)
 
-    setTraining.color = Color.rgb(255, 208, 140)
-    setIntervention.color = Color.rgb(140, 234, 255)
-    setFormation.color = Color.rgb(255, 140, 157)
-    setInformation.color = Color.rgb(192, 255, 140)
+    setIntervention.color = Color.rgb(255, 208, 140)
+    setTraining.color = Color.rgb(140, 234, 255)
+    setInformation.color = Color.rgb(255, 140, 157)
+    setFormation.color = Color.rgb(192, 255, 140)
 
     val barData = BarData(setTraining, setIntervention, setFormation, setInformation)
     if (hourAndTimeFormat)

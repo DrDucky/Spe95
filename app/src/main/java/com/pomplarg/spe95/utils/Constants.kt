@@ -21,6 +21,7 @@ class Constants {
         const val CYNO_DOG_NANO = "Nano"
         const val CYNO_DOG_NERONE = "Nerone"
         const val CYNO_DOG_PRIAXE = "Priaxe"
+        const val CYNO_DOG_SNIPER = "Sniper"
 
         const val SD_LSPCC = "LSPCC / Main courante"
         const val SD_ECH_COULISSE = "Echelle à coulisse"
@@ -88,6 +89,7 @@ class Constants {
         const val RA_ANIMAL_DESTINATION_CEDAF = "Destination CEDAF"
         const val RA_ANIMAL_DESTINATION_PROPRIETAIRE = "Destination Propriétaire"
         const val RA_ANIMAL_DESTINATION_CLINIQUE_VETERINAIRE = "Destination Clinique vétérinaire de l'isle Adam"
+        const val RA_ANIMAL_DESTINATION_FUITE = "Destination A pris la fuite"
         const val RA_ANIMAL_DESTINATION_OTHER = "Destination "
         const val RA_ANIMAL_TRANSPORT_VIRA = "Transport VIRA"
         const val RA_ANIMAL_TRANSPORT_VTU = "Transport VTU"

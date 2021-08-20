@@ -90,6 +90,7 @@ class SpeOperationViewModel(
     val _equipementCynoNano: MutableLiveData<String> = MutableLiveData()
     val _equipementCynoNerone: MutableLiveData<String> = MutableLiveData()
     val _equipementCynoPriaxe: MutableLiveData<String> = MutableLiveData()
+    val _equipementCynoSniper: MutableLiveData<String> = MutableLiveData()
 
     val _equipementSdLspcc: MutableLiveData<Boolean> = MutableLiveData(false)
     val _equipementSdEchCoulisse: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -175,6 +176,7 @@ class SpeOperationViewModel(
     val _animalDestinationCedaf: MutableLiveData<Boolean> = MutableLiveData(false)
     val _animalDestinationProprietaire: MutableLiveData<Boolean> = MutableLiveData(false)
     val _animalDestinationCliniqueVeterinaire: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _animalDestinationFuite: MutableLiveData<Boolean> = MutableLiveData(false)
     val _animalDestinationOther: MutableLiveData<String> = MutableLiveData()
     val _animalTransportVira: MutableLiveData<Boolean> = MutableLiveData(false)
     val _animalTransportVtu: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -275,6 +277,9 @@ class SpeOperationViewModel(
             _equipementCynoPriaxe.value?.let {
                 listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_PRIAXE, it.toTime()))
             }
+            _equipementCynoSniper.value?.let {
+                listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_SNIPER, it.toTime()))
+            }
             newSpeOperation.materialsCyno = listOfMaterials
         }
 
@@ -362,6 +367,7 @@ class SpeOperationViewModel(
             if (_animalDestinationCedaf.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_DESTINATION_CEDAF))
             if (_animalDestinationProprietaire.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_DESTINATION_PROPRIETAIRE))
             if (_animalDestinationCliniqueVeterinaire.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_DESTINATION_CLINIQUE_VETERINAIRE))
+            if (_animalDestinationFuite.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_DESTINATION_FUITE))
             if (!_animalDestinationOther.value.isNullOrEmpty()) listOfMaterials.add(MaterialRa((Constants.RA_ANIMAL_DESTINATION_OTHER) + _animalDestinationOther.value))
             if (_animalTransportVira.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_TRANSPORT_VIRA))
             if (_animalTransportVtu.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ANIMAL_TRANSPORT_VTU))
@@ -389,17 +395,15 @@ class SpeOperationViewModel(
             newSpeOperation.materialsRa = listOfMaterials
         }
 
-        if (getUserJob?.isActive == true) getUserJob?.cancel()
-        getUserJob = launch {
-            repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation, _ldOperationAdded, _ldPhotoRaAbsolutePath)
-        }
+        repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation, _ldOperationAdded, _ldPhotoRaAbsolutePath)
+
     }
 
     fun addPostOperation() {
         val speOperationDate = Date(newSpeOperation.startDate!!.seconds * 1000)
         val c = Calendar.getInstance()
         c.time = speOperationDate
-        val monthNumber = c.get(Calendar.MONTH)
+        val monthNumber = c.get(Calendar.MONTH) + 1 //return 1-12
 
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
         statsRepository.addOperationStats(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.motif)

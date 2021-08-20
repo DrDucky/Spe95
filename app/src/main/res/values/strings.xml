@@ -139,6 +139,7 @@
     <string name="animal_destination_cedaf">CEDAF</string>
     <string name="animal_destination_proprietaire">Proprietaire</string>
     <string name="animal_destination_clinique">Clinique vétérinaire de l\'isle Adam</string>
+    <string name="animal_destination_a_pris_la_fuite">A pris la fuite</string>
     <string name="animal_destination_other">Autre</string>
     <string name="animal_transport_vira">Vira</string>
     <string name="animal_transport_vtu">Vtu</string>

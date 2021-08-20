@@ -12,5 +12,6 @@ data class Statistique(
     var ipso: HashMap<String?, Long?>? = HashMap(),
     var nano: HashMap<String?, Long?>? = HashMap(),
     var nerone: HashMap<String?, Long?>? = HashMap(),
-    var priaxe: HashMap<String?, Long?>? = HashMap()
+    var priaxe: HashMap<String?, Long?>? = HashMap(),
+    var sniper: HashMap<String?, Long?>? = HashMap()
 )

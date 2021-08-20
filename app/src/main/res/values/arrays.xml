@@ -36,6 +36,7 @@
         <item>Sauvetage / Evactuation</item>
         <item>Percement</item>
         <item>Sécurisation</item>
+        <item>Affaissement de terrain</item>
     </string-array>
     <string-array name="motifs_ra">
         <item>Sauvetage</item>
