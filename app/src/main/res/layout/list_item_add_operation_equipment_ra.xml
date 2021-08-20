@@ -300,6 +300,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/destination_proprietaire" />
 
+                <CheckBox
+                    android:id="@+id/destination_fuite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={vmSpeOperation._animalDestinationFuite}"
+                    android:text="@string/animal_destination_a_pris_la_fuite"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/destination_clinique" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/destination_other"
@@ -309,7 +317,7 @@
                     android:layout_marginTop="@dimen/dimen_8dp"
                     android:hint="@string/animal_destination_other"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/destination_clinique">
+                    app:layout_constraintTop_toBottomOf="@+id/destination_fuite">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_destination_other"
