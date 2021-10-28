@@ -57,7 +57,7 @@
                     android:layout_width="46dp"
                     android:layout_height="46dp"
                     app:imageResource="@{ConverterKt.getTypeToDrawable(speOperation.type)}"
-                    app:layout_constraintBottom_toTopOf="@id/tv_operation_motif"
+                    app:layout_constraintBottom_toTopOf="@id/tv_date"
                     app:layout_constraintEnd_toStartOf="@id/tv_type"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -72,7 +72,7 @@
                     android:paddingLeft="@dimen/dimen_8dp"
                     android:text="@{speOperation.type.concat(@string/space)}"
                     android:textAppearance="?attr/textAppearanceHeadline5"
-                    app:layout_constraintBottom_toTopOf="@id/tv_operation_motif"
+                    app:layout_constraintBottom_toTopOf="@id/tv_date"
                     app:layout_constraintStart_toEndOf="@id/iv_type"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Intervention " />
@@ -85,11 +85,26 @@
                     android:text="@{String.valueOf(speOperation.idIntervention)}"
                     android:textAppearance="?attr/textAppearanceHeadline5"
                     android:visibility="@{speOperation.type.equals(Constants.TYPE_OPERATION_INTERVENTION) ? View.VISIBLE : View.GONE}"
-                    app:layout_constraintBottom_toTopOf="@id/tv_operation_motif"
+                    app:layout_constraintBottom_toTopOf="@id/tv_date"
                     app:layout_constraintStart_toEndOf="@id/tv_type"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="654567" />
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_date"
+                    style="@style/CategorySubtitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_date"
+                    android:drawablePadding="@dimen/dimen_8dp"
+                    android:padding="@dimen/dimen_8dp"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:paddingEnd="@dimen/dimen_4dp"
+                    android:paddingBottom="@dimen/dimen_8dp"
+                    android:text="@{ConverterKt.dateTimestampToString(speOperation.startDate)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_type"
+                    tools:text="14 janvier 2020 - 14:32" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_operation_motif"
@@ -101,21 +116,9 @@
                     android:text="@{String.valueOf(speOperation.motif)}"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_type"
+                    app:layout_constraintTop_toBottomOf="@id/tv_date"
                     tools:text="Effondrement" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_date"
-                    style="@style/CategorySubtitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/dimen_8dp"
-                    android:paddingEnd="@dimen/dimen_4dp"
-                    android:paddingBottom="@dimen/dimen_8dp"
-                    android:text="@{ConverterKt.dateTimestampToString(speOperation.startDate)}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_type"
-                    tools:text="14 janvier 2020 - 14:32" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_operation_address"
@@ -170,7 +173,7 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_observations_title"
                     style="@style/CategoryTitle"
-                    android:visibility="@{speOperation.observations.empty ? View.GONE : View.VISIBLE }"
+                    android:visibility="@{speOperation.observations.length() == 0 ? View.GONE : View.VISIBLE }"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dimen_8dp"
@@ -183,7 +186,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dimen_8dp"
-                    android:visibility="@{speOperation.observations.empty ? View.GONE : View.VISIBLE }"
+                    android:visibility="@{speOperation.observations.length() == 0 ? View.GONE : View.VISIBLE }"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_observations_title">
