@@ -66,7 +66,6 @@ class SpeOperationViewModel(
     val addressOffline: LiveData<String> = _addressOffline
 
     val _observations: MutableLiveData<String> = MutableLiveData()
-    val _requisitionPolice: MutableLiveData<Boolean> = MutableLiveData(false)
 
     var _startDate: MutableLiveData<Long> = MutableLiveData()
     val startDate: LiveData<Long> = _startDate
@@ -268,7 +267,6 @@ class SpeOperationViewModel(
         newSpeOperation.address = _address.value
         newSpeOperation.addressOffline = _addressOffline.value
         newSpeOperation.observations = _observations.value
-        newSpeOperation.requisitionPolice = _requisitionPolice.value
         newSpeOperation.unitChief = _teamUnitChief.value
         newSpeOperation.specialty = specialtyDocument
 
@@ -429,10 +427,8 @@ class SpeOperationViewModel(
 
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
         statsRepository.addOperationStats(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.motif)
-        statsRepository.addMaterialStat(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.materialsCyno, newSpeOperation.materialsSd, newSpeOperation.requisitionPolice)
+        statsRepository.addMaterialStat(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.materialsCyno, newSpeOperation.materialsSd)
         statsRepository.addAgentStats(specialtyDocument, currentYear.toString(), monthNumber, newSpeOperation.type, newSpeOperation.agentOnOperation)
-        if (newSpeOperation.requisitionPolice == true)
-            statsRepository.addRequisitionPolice(specialtyDocument, currentYear.toString(), newSpeOperation.type)
         _operationAdded.call()
     }
 }

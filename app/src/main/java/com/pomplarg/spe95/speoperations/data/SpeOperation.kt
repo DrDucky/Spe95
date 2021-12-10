@@ -37,9 +37,6 @@ data class SpeOperation(
     @field:SerializedName("observations")
     var observations: String? = "",
 
-    @field:SerializedName("requisitionPolice")
-    var requisitionPolice: Boolean? = false,
-
     @field:SerializedName("caserneId")
     var caserneId: Int? = null,
 
