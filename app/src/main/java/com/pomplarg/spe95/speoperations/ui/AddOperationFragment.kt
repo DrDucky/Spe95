@@ -143,8 +143,8 @@ class AddOperationFragment : Fragment() {
         //Limit results to Ile de France
         autocompleteFragment?.setLocationRestriction(
             RectangularBounds.newInstance(
-                LatLng(48.0103, 0.934),
-                LatLng(49.4136, 3.8827)
+                LatLng(34.6036508, -14.3554670),
+                LatLng(71.1969183,69.1406268)
             )
         )
         autocompleteFragment?.setOnPlaceSelectedListener(object : PlaceSelectionListener {
