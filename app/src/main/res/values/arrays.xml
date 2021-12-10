@@ -33,7 +33,7 @@
         <item>Manoeuvre de force</item>
         <item>Etude batimentaire</item>
         <item>Etaiement</item>
-        <item>Sauvetage / Evactuation</item>
+        <item>Sauvetage / Evacuation</item>
         <item>Percement</item>
         <item>Sécurisation</item>
         <item>Affaissement de terrain</item>
@@ -44,6 +44,14 @@
         <item>Relevage</item>
         <item>Divagation sur voie publique</item>
         <item>Réquisition par les forces de l\'ordre</item>
+    </string-array>
+    <string-array name="sd_lspcc">
+        <item>LSPCC 44</item>
+        <item>LSPCC 45</item>
+        <item>LSPCC 221</item>
+        <item>LSPCC 224</item>
+        <item>LMC 1</item>
+        <item>LMC 2</item>
     </string-array>
     <string-array name="sd_gr_elec">
         <item>Groupe 21</item>
@@ -56,6 +64,7 @@
         <item>Solaris</item>
         <item>Néon</item>
         <item>Lumaphore</item>
-        <item>Valise BABY</item>
+        <item>Valise BABY 1</item>
+        <item>Valise BABY 2</item>
     </string-array>
 </resources>
