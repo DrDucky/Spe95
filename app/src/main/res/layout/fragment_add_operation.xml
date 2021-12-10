@@ -247,6 +247,16 @@
                                 android:text="@={vmSpeOperation._observations}" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <CheckBox
+                            android:id="@+id/cb_requision_police"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/observations_requisition_police_title"
+                            android:checked="@={vmSpeOperation._requisitionPolice}"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/til_observation" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 

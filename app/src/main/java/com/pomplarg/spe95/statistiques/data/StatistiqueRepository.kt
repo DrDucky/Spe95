@@ -163,7 +163,41 @@ class StatistiqueRepository {
         }
     }
 
-    fun addMaterialStat(specialtyDocument: String, year: String, type: String, materialCyno: List<MaterialCyno>?, materialSd: List<MaterialSd>?) {
+    fun addRequisitionPolice(specialtyDocument: String, year: String, typeOperation: String) {
+        var count = 0
+        val docData: HashMap<Any, Any> = hashMapOf()
+
+        if (typeOperation == Constants.TYPE_OPERATION_INTERVENTION) {
+            statistiqueCollection.document(year)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val requisitionPoliceMap: HashMap<String, Int>? = document.data?.get(FIRESTORE_MAP_REQUISITION_POLICE_KEY) as? HashMap<String, Int>
+                        requisitionPoliceMap?.let {
+                            for (requisitionPoliceKey in requisitionPoliceMap.keys) {
+                                if (requisitionPoliceKey == specialtyDocument) {
+                                    count = requisitionPoliceMap.getValue(requisitionPoliceKey)
+                                }
+                            }
+                        }
+                    }
+
+                    val nestedData = hashMapOf(
+                        specialtyDocument to count + 1
+                    )
+                    docData[FIRESTORE_MAP_REQUISITION_POLICE_KEY] = nestedData
+
+                    statistiqueCollection.document(year).set(
+                        docData, SetOptions.merge()
+                    )
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents: ", exception)
+                }
+        }
+    }
+
+    fun addMaterialStat(specialtyDocument: String, year: String, type: String, materialCyno: List<MaterialCyno>?, materialSd: List<MaterialSd>?, requisitionPolice: Boolean?) {
 
         when (specialtyDocument) {
             Constants.FIRESTORE_CYNO_DOCUMENT -> {
@@ -351,5 +385,6 @@ class StatistiqueRepository {
     companion object {
         const val TAG = "StatistiqueRepository"
         const val FIRESTORE_MAP_STOCK_KEY = "SdStock"
+        const val FIRESTORE_MAP_REQUISITION_POLICE_KEY = "RequisitionPolice"
     }
 }

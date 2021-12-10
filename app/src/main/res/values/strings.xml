@@ -5,6 +5,7 @@
     <string name="add_operation_address_hint">Adresse</string>
     <string name="personnel_title">Personnel</string>
     <string name="observations_title">Observations</string>
+    <string name="observations_requisition_police_title">Réquisition police</string>
     <string name="equipment_title">Matériel</string>
     <string name="chiens_title">Chiens</string>
     <string name="action_title">Actions</string>
