@@ -130,6 +130,7 @@ class Constants {
 
         const val YEAR_2020 = "2020"
         const val YEAR_2021 = "2021"
+        const val YEAR_2022 = "2022"
 
     }
 }

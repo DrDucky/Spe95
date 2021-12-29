@@ -220,6 +220,7 @@
     <string name="time">Durée</string>
     <string name="year_2020">2020</string>
     <string name="year_2021">2021</string>
+    <string name="year_2022">2022</string>
 
     <!-- Map -->
     <string name="intervention_number">Intervention n°%01$s</string>
