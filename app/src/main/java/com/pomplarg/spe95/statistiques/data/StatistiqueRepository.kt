@@ -2,8 +2,7 @@ package com.pomplarg.spe95.statistiques.data
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.*
 import com.pomplarg.spe95.data.Result
 import com.pomplarg.spe95.data.await
 import com.pomplarg.spe95.speoperations.data.AgentOnOperation
@@ -347,6 +346,45 @@ class StatistiqueRepository {
             }
         }
     }
+
+    /**
+     * Update postOperation list field of IDs
+     * Used to avoid doublons in postOperation() method
+     */
+    fun updatePostOperation(
+        year: String, idOperation: String
+    ) {
+        val postOperationField = hashMapOf(
+            "postOperation" to FieldValue.arrayUnion(idOperation)
+        )
+
+        statistiqueCollection.document(year)
+            .set(postOperationField, SetOptions.merge())
+            .addOnSuccessListener { Log.v(TAG, "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error when setting stock", e)
+            }
+    }
+
+    /**
+     * Fetch postOperation list field of IDs
+     * Used to avoid doublons in postOperation() method
+     * @return true if operation has already been added to db
+     */
+    suspend fun fetchPostOperation(
+        idOperation: String
+    ): Boolean {
+        return when (val documentSnapshot =
+            statistiqueCollection
+                .whereArrayContains("postOperation", idOperation)
+                .get().await()) {
+            is Result.Success -> {
+                return documentSnapshot.data.documents.size != 0
+            }
+            else              -> false
+        }
+    }
+
 
     companion object {
         const val TAG = "StatistiqueRepository"

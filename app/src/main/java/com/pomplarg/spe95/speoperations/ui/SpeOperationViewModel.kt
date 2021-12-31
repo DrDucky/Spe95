@@ -34,6 +34,7 @@ class SpeOperationViewModel(
 
     // -- Coroutine jobs
     private var getUserJob: Job? = null
+    private var getStatJob: Job? = null
 
     var speOperationsLd: MutableLiveData<List<SpeOperation>> = MutableLiveData()
     var speOperationLd: MutableLiveData<SpeOperation> = MutableLiveData()
@@ -426,9 +427,19 @@ class SpeOperationViewModel(
         val monthNumber = c.get(Calendar.MONTH) + 1 //return 1-12
 
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-        statsRepository.addOperationStats(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.motif)
-        statsRepository.addMaterialStat(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.materialsCyno, newSpeOperation.materialsSd)
-        statsRepository.addAgentStats(specialtyDocument, currentYear.toString(), monthNumber, newSpeOperation.type, newSpeOperation.agentOnOperation)
+
+        if (getStatJob?.isActive == true) getStatJob?.cancel()
+        getStatJob = launch {
+            when (val isOperationAlreadyAdded = statsRepository.fetchPostOperation(newSpeOperation.id.toString())) {
+                else -> if (!isOperationAlreadyAdded) {
+                    statsRepository.addOperationStats(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.motif)
+                    statsRepository.addMaterialStat(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.materialsCyno, newSpeOperation.materialsSd)
+                    statsRepository.addAgentStats(specialtyDocument, currentYear.toString(), monthNumber, newSpeOperation.type, newSpeOperation.agentOnOperation)
+                    statsRepository.updatePostOperation(currentYear.toString(), newSpeOperation.id.toString())
+
+                }
+            }
+        }
         _operationAdded.call()
     }
 }
