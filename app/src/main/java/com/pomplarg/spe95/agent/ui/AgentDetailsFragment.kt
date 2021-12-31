@@ -57,15 +57,16 @@ class AgentDetailsFragment : Fragment() {
         //By default
         configurePieChart(binding.timesChart, context)
         configurePieChart(binding.typeChart, context)
-        binding.btnYearSelection.check(R.id.btn_year_2021)
+        binding.btnYearSelection.check(R.id.btn_year_2022)
         binding.btnSpecialtySelection.check(R.id.btn_specialty_cyno)
-        statistiquesViewModel.fetchAgentStats(agentId, Constants.FIRESTORE_CYNO_DOCUMENT, Constants.YEAR_2021)
+        statistiquesViewModel.fetchAgentStats(agentId, Constants.FIRESTORE_CYNO_DOCUMENT, Constants.YEAR_2022)
 
         binding.btnYearSelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
             val yearChecked = when (checkedId) {
                 R.id.btn_year_2020 -> Constants.YEAR_2020
                 R.id.btn_year_2021 -> Constants.YEAR_2021
-                else               -> Constants.YEAR_2021
+                R.id.btn_year_2022 -> Constants.YEAR_2022
+                else               -> Constants.YEAR_2022
             }
             val specialtyChecked = when (binding.btnSpecialtySelection.checkedButtonId) {
                 R.id.btn_specialty_cyno -> Constants.FIRESTORE_CYNO_DOCUMENT
@@ -80,7 +81,8 @@ class AgentDetailsFragment : Fragment() {
             val yearChecked = when (binding.btnYearSelection.checkedButtonId) {
                 R.id.btn_year_2020 -> Constants.YEAR_2020
                 R.id.btn_year_2021 -> Constants.YEAR_2021
-                else               -> Constants.YEAR_2021
+                R.id.btn_year_2022 -> Constants.YEAR_2022
+                else               -> Constants.YEAR_2022
             }
             val specialtyChecked = when (checkedId) {
                 R.id.btn_specialty_cyno -> Constants.FIRESTORE_CYNO_DOCUMENT

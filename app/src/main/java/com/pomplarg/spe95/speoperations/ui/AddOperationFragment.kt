@@ -143,8 +143,8 @@ class AddOperationFragment : Fragment() {
         //Limit results to Ile de France
         autocompleteFragment?.setLocationRestriction(
             RectangularBounds.newInstance(
-                LatLng(48.0103, 0.934),
-                LatLng(49.4136, 3.8827)
+                LatLng(34.6036508, -14.3554670),
+                LatLng(71.1969183,69.1406268)
             )
         )
         autocompleteFragment?.setOnPlaceSelectedListener(object : PlaceSelectionListener {
@@ -376,6 +376,15 @@ class AddOperationFragment : Fragment() {
         bindingListEquipmentRa.vmSpeOperation = vmSpeOperationViewModel
 
         //Checkboxes cliquables (ouverture de popup)
+        bindingListEquipmentSd.lspcc.setOnClickListener { buttonView ->
+            context?.let {
+                setEquipmentPopupCheckboxes(
+                    it,
+                    buttonView,
+                    speOperationViewModel
+                )
+            }
+        }
         bindingListEquipmentSd.tvEclairageCategoryGroupeElectro.setOnClickListener { buttonView ->
             context?.let {
                 setEquipmentPopupCheckboxes(
@@ -667,6 +676,14 @@ class AddOperationFragment : Fragment() {
         checkboxView: View,
         vmSpeOperationViewModel: SpeOperationViewModel,
     ) {
+        val checkedItemsLspcc = booleanArrayOf(
+            vmSpeOperationViewModel._equipementSdLspcc44.value!!,
+            vmSpeOperationViewModel._equipementSdLspcc46.value!!,
+            vmSpeOperationViewModel._equipementSdLspcc221.value!!,
+            vmSpeOperationViewModel._equipementSdLspcc224.value!!,
+            vmSpeOperationViewModel._equipementSdLspccLmc1.value!!,
+            vmSpeOperationViewModel._equipementSdLspccLmc2.value!!
+        )
         val checkedItemsGrElec = booleanArrayOf(
             vmSpeOperationViewModel._equipementSdGrElec21.value!!,
             vmSpeOperationViewModel._equipementSdGrElec22.value!!,
@@ -678,10 +695,36 @@ class AddOperationFragment : Fragment() {
             vmSpeOperationViewModel._equipementSdEclSolaris.value!!,
             vmSpeOperationViewModel._equipementSdEclNeon.value!!,
             vmSpeOperationViewModel._equipementSdEclSolaris.value!!,
-            vmSpeOperationViewModel._equipementSdEclBaby.value!!
+            vmSpeOperationViewModel._equipementSdEclBaby1.value!!,
+            vmSpeOperationViewModel._equipementSdEclBaby2.value!!
         )
         val checkbox = checkboxView as CompoundButton
         when (checkbox.id) {
+            R.id.lspcc -> {
+                MaterialAlertDialogBuilder(context)
+                    .setTitle(context.resources.getString(R.string.equipment_sauvetage_lspcc))
+                    .setPositiveButton(context.resources.getString(android.R.string.ok)) { dialog, which ->
+                        //Nothing to do, closes automatically with multiChoiceItems
+                        //Except set the checkbox check if at least one of the item has been selected
+                        checkbox.isChecked = (vmSpeOperationViewModel._equipementSdLspcc44.value!!
+                                || vmSpeOperationViewModel._equipementSdLspcc46.value!!
+                                || vmSpeOperationViewModel._equipementSdLspcc221.value!!
+                                || vmSpeOperationViewModel._equipementSdLspcc224.value!!
+                                || vmSpeOperationViewModel._equipementSdLspccLmc1.value!!
+                                || vmSpeOperationViewModel._equipementSdLspccLmc2.value!!)
+                    }
+                    .setMultiChoiceItems(R.array.sd_lspcc, checkedItemsLspcc) { dialog, which, checked ->
+                        when (which) {
+                            0 -> vmSpeOperationViewModel._equipementSdLspcc44.value = checked
+                            1 -> vmSpeOperationViewModel._equipementSdLspcc46.value = checked
+                            2 -> vmSpeOperationViewModel._equipementSdLspcc221.value = checked
+                            3 -> vmSpeOperationViewModel._equipementSdLspcc224.value = checked
+                            4 -> vmSpeOperationViewModel._equipementSdLspccLmc1.value = checked
+                            5 -> vmSpeOperationViewModel._equipementSdLspccLmc2.value = checked
+                        }
+                    }
+                    .show()
+            }
             R.id.tv_eclairage_category_groupe_electro -> {
                 MaterialAlertDialogBuilder(context)
                     .setTitle(context.resources.getString(R.string.equipment_eclairage_groupe_electro))
@@ -714,14 +757,16 @@ class AddOperationFragment : Fragment() {
                         checkbox.isChecked = (vmSpeOperationViewModel._equipementSdEclSolaris.value!!
                                 || vmSpeOperationViewModel._equipementSdEclNeon.value!!
                                 || vmSpeOperationViewModel._equipementSdEclLumaphore.value!!
-                                || vmSpeOperationViewModel._equipementSdEclBaby.value!!)
+                                || vmSpeOperationViewModel._equipementSdEclBaby1.value!!
+                                || vmSpeOperationViewModel._equipementSdEclBaby2.value!!)
                     }
                     .setMultiChoiceItems(R.array.sd_eclairage, checkedItemsGrEClairage) { dialog, which, checked ->
                         when (which) {
                             0 -> vmSpeOperationViewModel._equipementSdEclSolaris.value = checked
                             1 -> vmSpeOperationViewModel._equipementSdEclNeon.value = checked
                             2 -> vmSpeOperationViewModel._equipementSdEclLumaphore.value = checked
-                            3 -> vmSpeOperationViewModel._equipementSdEclBaby.value = checked
+                            3 -> vmSpeOperationViewModel._equipementSdEclBaby1.value = checked
+                            4 -> vmSpeOperationViewModel._equipementSdEclBaby2.value = checked
                         }
                     }
                     .show()

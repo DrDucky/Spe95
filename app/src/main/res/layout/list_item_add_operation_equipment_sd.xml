@@ -58,10 +58,9 @@
                 android:id="@+id/lspcc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@={vmSpeOperation._equipementSdLspcc}"
                 android:text="@string/equipment_sauvetage_lspcc"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_sauvetage_category_title" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_sauvetage_category_title" />
 
             <CheckBox
                 android:id="@+id/ech_coulisse"
@@ -81,6 +80,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ech_coulisse" />
 
+            <CheckBox
+                android:id="@+id/kit_tyrolienne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/equipment_sauvetage_kit_tyrolienne"
+                android:checked="@={vmSpeOperation._equipementSdKitTyrolienne}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/telestep" />
+
+            <CheckBox
+                android:id="@+id/kit_telepherique"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/equipment_sauvetage_kit_telepherique"
+                android:checked="@={vmSpeOperation._equipementSdKitTelepherique}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/kit_tyrolienne" />
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_eclairage_category_title"
                 style="@style/CategoryTitle"
@@ -91,7 +108,7 @@
                 android:paddingBottom="@dimen/dimen_8dp"
                 android:text="@string/equipment_eclairage_title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/telestep" />
+                app:layout_constraintTop_toBottomOf="@id/kit_telepherique" />
 
             <CheckBox
                 android:id="@+id/tv_eclairage_category_groupe_electro"
@@ -477,13 +494,31 @@
                 app:layout_constraintTop_toBottomOf="@id/sp_etaiement_category_bastaing" />
 
             <CheckBox
+                android:id="@+id/tv_exploration_category_asb6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@={vmSpeOperation._equipementSdExplorationAsb6}"
+                android:text="@string/equipment_exploration_asb6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_exploration_category_title" />
+
+            <CheckBox
                 android:id="@+id/tv_exploration_category_asb8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@={vmSpeOperation._equipementSdExplorationAsb8}"
                 android:text="@string/equipment_exploration_asb8"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_exploration_category_title" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_exploration_category_asb6" />
+
+            <CheckBox
+                android:id="@+id/tv_exploration_category_asb9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@={vmSpeOperation._equipementSdExplorationAsb9}"
+                android:text="@string/equipment_exploration_asb9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_exploration_category_asb8" />
 
             <CheckBox
                 android:id="@+id/tv_exploration_category_camera"
@@ -492,7 +527,7 @@
                 android:checked="@={vmSpeOperation._equipementSdExplorationCamera}"
                 android:text="@string/equipment_exploration_camera"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_exploration_category_asb8" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_exploration_category_asb9" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_petit_materiel_category_title"

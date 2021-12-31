@@ -63,6 +63,8 @@
     <string name="equipment_sauvetage_lspcc">LSPCC / Main courante</string>
     <string name="equipment_sauvetage_echelle_coulisse">Echelle à coulisse</string>
     <string name="equipment_sauvetage_telestep">Telestep</string>
+    <string name="equipment_sauvetage_kit_tyrolienne">Kit Tyrolienne</string>
+    <string name="equipment_sauvetage_kit_telepherique">Kit Téléphérique</string>
 
     <!-- Equipment category Eclairage -->
     <string name="equipment_eclairage_title">Eclairage</string>
@@ -98,7 +100,9 @@
 
     <!-- Equipment category Exploration -->
     <string name="equipment_exploration_title">Exploration</string>
+    <string name="equipment_exploration_asb6">ASB6</string>
     <string name="equipment_exploration_asb8">ASB8</string>
+    <string name="equipment_exploration_asb9">ASB9</string>
     <string name="equipment_exploration_camera">Caméra</string>
 
     <!-- Equipment category Petit matériel -->
@@ -216,6 +220,7 @@
     <string name="time">Durée</string>
     <string name="year_2020">2020</string>
     <string name="year_2021">2021</string>
+    <string name="year_2022">2022</string>
 
     <!-- Map -->
     <string name="intervention_number">Intervention n°%01$s</string>
