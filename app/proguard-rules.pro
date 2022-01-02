@@ -48,3 +48,7 @@
 -keep class * implements com.google.gson.TypeAdapterFactory
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer
+
+-keep public class com.github.mikephil.charting.animation.* {
+    public protected *;
+}
