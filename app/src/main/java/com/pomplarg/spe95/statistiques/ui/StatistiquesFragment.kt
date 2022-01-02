@@ -49,9 +49,12 @@ class StatistiquesFragment : Fragment() {
 
     private fun subscribeUi(binding: FragmentStatistiquesBinding) {
 
+        //Defaut buttons
+        binding.btnStatsYearSelection.check(R.id.btn_stats_year_2022)
+        statistiquesViewModel.fetchStats(specialtyDocument, Constants.YEAR_2022)
+
         //Common Stats to all specialties
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-        statistiquesViewModel.fetchStats(specialtyDocument, currentYear.toString())
         statistiquesViewModel.statsMotifsLd.observe(viewLifecycleOwner, Observer {
             if (Constants.FIRESTORE_CYNO_DOCUMENT == specialtyDocument) {
                 //Update UI
@@ -136,6 +139,15 @@ class StatistiquesFragment : Fragment() {
                         .show()
                 }
             })
+        }
+        binding.btnStatsYearSelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            val yearChecked = when (checkedId) {
+                R.id.btn_stats_year_2020 -> Constants.YEAR_2020
+                R.id.btn_stats_year_2021 -> Constants.YEAR_2021
+                R.id.btn_stats_year_2022 -> Constants.YEAR_2022
+                else                     -> Constants.YEAR_2022
+            }
+            statistiquesViewModel.fetchStats(specialtyDocument, yearChecked)
         }
     }
 
