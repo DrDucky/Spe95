@@ -18,16 +18,19 @@ class MapRepository {
      */
     suspend fun getLocationsPerSpecialtyAndYear(
         specialty: String,
-        locationsLd: MutableLiveData<List<SpeOperation>>
+        locationsLd: MutableLiveData<List<SpeOperation>>,
+        year: Int
     ) {
-        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-        val date = "01/01/$currentYear"
+        val date = "01/01/$year"
+        val endDateString = "31/12/$year"
         val formatter = SimpleDateFormat(Constants.ADD_OPERATION_DATE_FORMAT_DISPLAY, Locale.FRANCE)
         val startDate = formatter.parse(date)
+        val endDate = formatter.parse(endDateString)
 
         specialtiesCollection.document(specialty)
             .collection("activities")
             .whereGreaterThan("startDate", startDate)
+            .whereLessThan("startDate", endDate)
             .whereEqualTo("type", Constants.TYPE_OPERATION_INTERVENTION)
             .get().addOnCompleteListener {
                 if (it.isSuccessful) {

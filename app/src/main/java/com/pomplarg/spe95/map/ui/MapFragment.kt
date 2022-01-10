@@ -15,10 +15,12 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.button.MaterialButtonToggleGroup
 import com.pomplarg.spe95.R
 import com.pomplarg.spe95.databinding.FragmentMapBinding
 import com.pomplarg.spe95.speoperations.data.SpeOperation
 import com.pomplarg.spe95.speoperations.ui.SpeOperationFragmentArgs
+import com.pomplarg.spe95.utils.Constants
 import com.pomplarg.spe95.utils.dateTimestampToString
 import com.pomplarg.spe95.utils.geopointToString
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -40,7 +42,19 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.map) as? SupportMapFragment
 
-        mapViewModel.fetchLocations(specialtyDocument)
+        binding.btnMapYearSelection.check(R.id.btn_map_year_2022)
+
+        mapViewModel.fetchLocations(specialtyDocument, Constants.YEAR_2022.toInt())
+
+        binding.btnMapYearSelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            val yearChecked = when (checkedId) {
+                R.id.btn_map_year_2020 -> Constants.YEAR_2020.toInt()
+                R.id.btn_map_year_2021 -> Constants.YEAR_2021.toInt()
+                R.id.btn_map_year_2022 -> Constants.YEAR_2022.toInt()
+                else                   -> Constants.YEAR_2022.toInt()
+            }
+            mapViewModel.fetchLocations(specialtyDocument, yearChecked)
+        }
 
         mapFragment?.getMapAsync(this)
         return binding.root
@@ -49,7 +63,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
     override fun onMapReady(map: GoogleMap?) {
         map?.apply {
             mapViewModel.locationsLd.observe(viewLifecycleOwner, Observer { speOperations ->
-
+                map.clear()
                 val customPopupAdapter = CustomInfoWindowAdapter()
                 map.setInfoWindowAdapter(customPopupAdapter)
                 map.setOnInfoWindowClickListener(this@MapFragment)
