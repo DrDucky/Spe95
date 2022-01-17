@@ -102,6 +102,7 @@ dependencies {
     implementation "com.firebaseui:firebase-ui-storage:$firestore_ui_version"
     implementation "com.google.firebase:firebase-crashlytics:$firebase_crashlytics_version"
     implementation "com.google.firebase:firebase-analytics:$firebase_analytics_version"
+    implementation "com.google.firebase:firebase-config-ktx:$firebase_config_version"
 
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
 
@@ -111,5 +112,6 @@ dependencies {
 
     implementation "com.github.PhilJay:MPAndroidChart:v$mpandroidchart_version"
 
+    implementation "com.google.android.play:core:$play_core_version"
 
 }
