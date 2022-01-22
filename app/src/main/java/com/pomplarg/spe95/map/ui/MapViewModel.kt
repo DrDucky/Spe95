@@ -24,10 +24,10 @@ class MapViewModel(private val repository: MapRepository) : ViewModel(), Corouti
     private var getStatsJob: Job? = null
 
     //fetch all locations of interventions in a specific specialty
-    fun fetchLocations(specialty: String) {
+    fun fetchLocations(specialty: String, year: Int) {
         if (getStatsJob?.isActive == true) getStatsJob?.cancel()
         getStatsJob = launch {
-            repository.getLocationsPerSpecialtyAndYear(specialty, locationsLd)
+            repository.getLocationsPerSpecialtyAndYear(specialty, locationsLd, year)
         }
     }
 }

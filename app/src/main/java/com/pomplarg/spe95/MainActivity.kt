@@ -16,7 +16,16 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.InstallStateUpdatedListener
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.InstallStatus
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.pomplarg.spe95.databinding.ActivityMainBinding
 import com.pomplarg.spe95.signin.ui.SignInActivity
 import com.pomplarg.spe95.utils.Constants
@@ -32,6 +41,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var args: Bundle
     private lateinit var graph: NavGraph
     private lateinit var auth: FirebaseAuth
+    val appUpdateManager: AppUpdateManager by lazy { AppUpdateManagerFactory.create(this) }
+    var updateType: String? = FLEXIBLE
+
+    private val updateListener: InstallStateUpdatedListener? = InstallStateUpdatedListener { installState ->
+        if (installState.installStatus() == InstallStatus.DOWNLOADED) {
+            showDialogForCompleteUpdate()
+        }
+    }
 
     private lateinit var binding: ActivityMainBinding
     private fun goToLoginActivity() {
@@ -49,6 +66,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (currentUser == null) {
             goToLoginActivity()
         } else {
+
+            //Check if app update is present
+            val firebaseRemoteConfig = Firebase.remoteConfig
+            firebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
+            retrieveConfig(firebaseRemoteConfig)
+
+
             binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_main)
             drawerLayout = binding.drawerLayout
@@ -91,6 +115,44 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        appUpdateManager
+            .appUpdateInfo
+            .addOnSuccessListener { appUpdateInfo ->
+
+                when (updateType) {
+                    FLEXIBLE  -> {
+                        if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+                            showDialogForCompleteUpdate()
+                        }
+                    }
+
+                    IMMEDIATE -> {
+                        if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
+                        ) {
+                            // If an in-app update is already running, resume the update.
+                            appUpdateManager.startUpdateFlowForResult(
+                                appUpdateInfo,
+                                AppUpdateType.IMMEDIATE,
+                                this,
+                                IMMEDIATE_UPDATE_REQUEST_CODE
+                            )
+                        }
+                    }
+                }
+            }
+    }
+
+    override fun onDestroy() {
+        if (updateType == FLEXIBLE) {
+            updateListener?.let {
+                appUpdateManager.unregisterListener(it)
+            }
+        }
+        super.onDestroy()
+    }
+
     private fun logout(v: View) {
         AlertDialog.Builder(this)
             .setTitle("Déconnexion")
@@ -102,6 +164,57 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 goToLoginActivity()
             }
             .show()
+    }
+
+    private fun retrieveConfig(firebaseRemoteConfig: FirebaseRemoteConfig) {
+        firebaseRemoteConfig.fetchAndActivate().addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                updateType = firebaseRemoteConfig.getString(IN_APP_CONFIG_KEY)
+                if (updateType == FLEXIBLE) {
+                    checkForFlexibleInappUpdate()
+                } else {
+                    checkForImmediateAppUpdate()
+                }
+            }
+        }
+    }
+
+    private fun checkForFlexibleInappUpdate() {
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+        // Checks that the platform will allow the specified type of update.
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+                updateListener?.let {
+                    appUpdateManager.registerListener(it)
+                }
+                // Request the update.
+                appUpdateManager.startUpdateFlowForResult(appUpdateInfo, AppUpdateType.FLEXIBLE, this, FLEXIBLE_UPDATE_REQUEST_CODE)
+            }
+        }
+    }
+
+    private fun checkForImmediateAppUpdate() {
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+        // Checks that the platform will allow the specified type of update.
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                // Request the update.
+                appUpdateManager.startUpdateFlowForResult(appUpdateInfo, AppUpdateType.IMMEDIATE, this, IMMEDIATE_UPDATE_REQUEST_CODE)
+            }
+        }
+    }
+
+    private fun showDialogForCompleteUpdate() {
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Mise à jour de l'application")
+        builder.setMessage("\nUne mise à jour vient d'être effectuée. Vous devez redémarrer l'application.")
+        builder.setPositiveButton("Restart") { dialog, which ->
+            appUpdateManager.completeUpdate()
+        }
+        builder.show()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -159,6 +272,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun updateTitle(titleToolbar: String) {
         binding.toolbar.title = titleToolbar
+    }
+
+    companion object {
+        const val TAG = "MainActivity"
+        const val FLEXIBLE = "flexible"
+        const val IMMEDIATE = "immediate"
+        const val IN_APP_CONFIG_KEY = "in_app_update_type"
+        const val FLEXIBLE_UPDATE_REQUEST_CODE = 1
+        const val IMMEDIATE_UPDATE_REQUEST_CODE = 2
     }
 }
 

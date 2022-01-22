@@ -1,5 +1,12 @@
 /build
-src/debug/google-services.json
-src/release/google-services.json
+# IntelliJ
+*.iml
+.idea/
+# Keystore files
+*.jks
+*.keystore
 ../spe95-release
 ../keystore.properties
+# Google Services (e.g. APIs or Firebase)
+src/debug/google-services.json
+src/release/google-services.json

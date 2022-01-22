@@ -347,45 +347,6 @@ class StatistiqueRepository {
         }
     }
 
-    /**
-     * Update postOperation list field of IDs
-     * Used to avoid doublons in postOperation() method
-     */
-    fun updatePostOperation(
-        year: String, idOperation: String
-    ) {
-        val postOperationField = hashMapOf(
-            "postOperation" to FieldValue.arrayUnion(idOperation)
-        )
-
-        statistiqueCollection.document(year)
-            .set(postOperationField, SetOptions.merge())
-            .addOnSuccessListener { Log.v(TAG, "DocumentSnapshot successfully written!") }
-            .addOnFailureListener { e ->
-                Log.e(TAG, "Error when setting stock", e)
-            }
-    }
-
-    /**
-     * Fetch postOperation list field of IDs
-     * Used to avoid doublons in postOperation() method
-     * @return true if operation has already been added to db
-     */
-    suspend fun fetchPostOperation(
-        idOperation: String
-    ): Boolean {
-        return when (val documentSnapshot =
-            statistiqueCollection
-                .whereArrayContains("postOperation", idOperation)
-                .get().await()) {
-            is Result.Success -> {
-                return documentSnapshot.data.documents.size != 0
-            }
-            else              -> false
-        }
-    }
-
-
     companion object {
         const val TAG = "StatistiqueRepository"
         const val FIRESTORE_MAP_STOCK_KEY = "SdStock"

@@ -30,6 +30,7 @@ ext {
     firebase_auth_version = '20.0.0'
     firebase_crashlytics_version = '17.2.2'
     firebase_analytics_version = '18.0.0'
+    firebase_config_version = '19.2.0'
     glide_version = '4.11.0'
     firestore_ui_version = '3.3.0'
     constraint_layout_version = '2.0.4'
@@ -38,6 +39,7 @@ ext {
     mpandroidchart_version = '3.1.0'
     material_version = '1.3.0'
     flexbox_version = '2.0.1'
+    play_core_version = '1.10.3'
 }
 
 allprojects {
