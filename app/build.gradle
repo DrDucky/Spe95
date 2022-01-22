@@ -36,8 +36,8 @@ android {
         applicationId "com.plomparg.spe95"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 16
-        versionName "1.0.15"
+        versionCode 17
+        versionName "1.0.16"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_PLACES_KEY", getEnvVariable('API_PLACES_KEY'))
     }
