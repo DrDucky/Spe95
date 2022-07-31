@@ -1,14 +1,23 @@
 package com.pomplarg.spe95.statistiques.data
 
+import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.*
+import com.google.firebase.storage.FirebaseStorage
 import com.pomplarg.spe95.data.Result
 import com.pomplarg.spe95.data.await
-import com.pomplarg.spe95.speoperations.data.AgentOnOperation
-import com.pomplarg.spe95.speoperations.data.MaterialCyno
-import com.pomplarg.spe95.speoperations.data.MaterialSd
+import com.pomplarg.spe95.speoperations.data.*
 import com.pomplarg.spe95.utils.Constants
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class StatistiqueRepository {
 
@@ -128,187 +137,112 @@ class StatistiqueRepository {
             }
     }
 
-    fun addOperationStats(specialtyDocument: String, year: String, typeOperation: String, motif: String) {
-        var count = 0
+    fun addOperationStats(
+        specialtyDocument: String,
+        year: String,
+        currentMonth: Int,
+        newSpeOperation: SpeOperation,
+        ldPhotoRaAbsolutePath: MutableLiveData<Uri>,
+        ldOperationAdded: MutableLiveData<Boolean>,
+    ) {
+        val materialCyno = newSpeOperation.materialsCyno
+        val materialSd = newSpeOperation.materialsSd
+        val agents = newSpeOperation.agentOnOperation
+        val typeOperation = newSpeOperation.type
+        val motif = newSpeOperation.motif
+        val statDoc = statistiqueCollection.document(year)
+        val activitiesDoc = specialtiesCollection.document(specialtyDocument).collection("activities").document()
+        var docDataMotifs = HashMap<Any, Any>()
+        var docDataMaterialCyno = HashMap<Any, Any>()
+        var docDataMaterialSd = HashMap<Any, Any>()
+        statistiqueCollection.document(year)
+            .get()
+            .addOnSuccessListener { document ->
+                docDataMotifs = getMotifsData(document, specialtyDocument, motif, typeOperation)
+                docDataMaterialCyno = getMaterialCynoData(document, typeOperation, materialCyno, specialtyDocument)
+                docDataMaterialSd = getMaterialSdData(document, materialSd, specialtyDocument)
+
+                agents?.forEach {
+                    it.id?.let { agentId ->
+                        statistiqueCollection.document(year).collection(agentId).document(specialtyDocument)
+                            .get()
+                            .addOnSuccessListener { document ->
+                                val agentDoc = statistiqueCollection.document(year).collection(agentId).document(specialtyDocument)
+                                val docDataAgent = getAgentData(document, typeOperation, currentMonth, it)
+                                firestoreInstance.runBatch { batch ->
+                                    batch.set(activitiesDoc, newSpeOperation)
+                                    batch.set(statDoc, docDataMotifs, SetOptions.merge())
+                                    batch.set(statDoc, docDataMaterialCyno, SetOptions.merge())
+                                    batch.set(statDoc, docDataMaterialSd, SetOptions.merge())
+                                    batch.set(agentDoc, docDataAgent, SetOptions.merge())
+                                }.addOnCompleteListener { response ->
+                                    if (response.isSuccessful) {
+                                        ldPhotoRaAbsolutePath.value?.let { absolutePath -> addPhoto(specialtyDocument, activitiesDoc.id, absolutePath) }
+                                        Log.d(TAG, "Batch success")
+                                        ldOperationAdded.value = true
+                                    } else {
+                                        Log.w(TAG, "Transaction failure : " + response.exception)
+                                        ldOperationAdded.value = false
+                                    }
+                                }
+                            }
+                    }
+                }
+
+            }
+    }
+
+    private fun getMotifsData(document: DocumentSnapshot, specialtyDocument: String, motif: String, typeOperation: String): HashMap<Any, Any> {
         val docData: HashMap<Any, Any> = hashMapOf()
+        var count = 0
 
         if (typeOperation == Constants.TYPE_OPERATION_INTERVENTION) {
-            statistiqueCollection.document(year)
-                .get()
-                .addOnSuccessListener { document ->
-                    if (document.exists()) {
-                        val statMotifs: HashMap<String, Int>? = document.data?.get(specialtyDocument) as? HashMap<String, Int>
-                        statMotifs?.let {
-                            for (statMotif in statMotifs) {
-                                if (statMotif.key == motif) {
-                                    count = statMotif.value
-                                }
-                            }
+            if (document.exists()) {
+                val statMotifs: HashMap<String, Int>? = document.data?.get(specialtyDocument) as? HashMap<String, Int>
+                statMotifs?.let {
+                    for (statMotif in statMotifs) {
+                        if (statMotif.key == motif) {
+                            count = statMotif.value
                         }
                     }
-
-                    val nestedData = hashMapOf(
-                        motif to count + 1
-                    )
-                    docData[specialtyDocument] = nestedData
-
-                    statistiqueCollection.document(year).set(
-                        docData, SetOptions.merge()
-                    )
                 }
-                .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error getting documents: ", exception)
-                }
+            }
+
+            val nestedData = hashMapOf(
+                motif to count + 1
+            )
+            docData[specialtyDocument] = nestedData
         }
+        return docData
     }
 
-    fun addMaterialStat(specialtyDocument: String, year: String, type: String, materialCyno: List<MaterialCyno>?, materialSd: List<MaterialSd>?) {
-
+    private fun getMaterialCynoData(document: DocumentSnapshot, typeOperation: String, materialCyno: List<MaterialCyno>?, specialtyDocument: String): HashMap<Any, Any> {
+        val docData: HashMap<Any, Any> = hashMapOf()
         when (specialtyDocument) {
             Constants.FIRESTORE_CYNO_DOCUMENT -> {
+                materialCyno?.let {
+                    for (material in it) {
 
-                statistiqueCollection.document(year)
-                    .get()
-                    .addOnSuccessListener { document ->
-                        materialCyno?.let {
-                            for (material in it) {
-
-                                val docDataTypeAndTime: HashMap<Any, Any> = hashMapOf()
-                                val docData: HashMap<Any, Any> = hashMapOf()
-
-                                var countType = 0
-                                var countTime = 0
-
-                                if (document.exists()) {
-                                    val statsCynoRemote: HashMap<String?, HashMap<String?, Long?>?>? = document.data?.get(material.name) as? HashMap<String?, HashMap<String?, Long?>?>?
-                                    statsCynoRemote?.forEach { (key, value) ->
-                                        if (key.equals("type")) {
-                                            for (i in value!!.keys) {
-                                                if (i.equals(type)) {
-                                                    Log.e(TAG, "count already present : $i and $value[i]")
-                                                    countType = value[i]!!.toInt()
-                                                }
-                                            }
-                                        }
-                                        if (key.equals("time")) {
-                                            for (i in value!!.keys) {
-                                                if (i.equals(type)) {
-                                                    Log.e(TAG, "count already present : $i and $value[i]")
-                                                    countTime = value[i]!!.toInt()
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-                                val nestedDataType = hashMapOf(
-                                    type to countType + 1
-                                )
-
-                                val nestedDataTime = hashMapOf(
-                                    type to countTime + material.time!!
-                                )
-                                docDataTypeAndTime["type"] = nestedDataType
-                                docDataTypeAndTime["time"] = nestedDataTime
-                                docData[material.name!!] = docDataTypeAndTime
-
-                                statistiqueCollection.document(year).set(
-                                    docData, SetOptions.merge()
-                                )
-                            }
-                        }
-
-                    }
-                    .addOnFailureListener { exception ->
-                        Log.w(TAG, "Error getting documents: ", exception)
-                    }
-            }
-            Constants.FIRESTORE_SD_DOCUMENT -> {
-                statistiqueCollection.document(year)
-                    .get()
-                    .addOnSuccessListener { document ->
-                        materialSd?.let {
-                            for (material in it) {
-                                material.quantity?.let { quantity ->
-                                    if (quantity > 0) {
-
-                                        val docData: HashMap<Any, Any> = hashMapOf()
-
-                                        var countMaterial = 0
-
-                                        if (document.exists()) {
-                                            val statsSdRemote: HashMap<String?, Long?>? = document.data?.get(FIRESTORE_MAP_STOCK_KEY) as? HashMap<String?, Long?>?
-                                            statsSdRemote?.forEach { (key, value) ->
-                                                if (key.equals(material.name)) {
-                                                    countMaterial = value!!.toInt()
-                                                }
-                                            }
-                                        }
-
-                                        val nestedDataStock = hashMapOf(
-                                            material.name to countMaterial - quantity
-                                        )
-
-                                        docData[FIRESTORE_MAP_STOCK_KEY] = nestedDataStock
-
-                                        statistiqueCollection.document(year).set(
-                                            docData, SetOptions.merge()
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .addOnFailureListener { exception ->
-                        Log.w(TAG, "Error getting documents: ", exception)
-                    }
-            }
-        }
-    }
-
-    fun addAgentStats(specialtyDocument: String, year: String, currentMonth: Int, typeOperation: String, agents: List<AgentOnOperation>?) {
-        agents?.forEach {
-            it.id?.let { agentId ->
-                statistiqueCollection.document(year).collection(agentId).document(specialtyDocument)
-                    .get()
-                    .addOnSuccessListener { document ->
-                        val docData: HashMap<Any, Any> = hashMapOf()
+                        val docDataTypeAndTime: HashMap<Any, Any> = hashMapOf()
 
                         var countType = 0
                         var countTime = 0
-                        var countTypeByMonth = 0
-                        var countTimeByMonth = 0
 
                         if (document.exists()) {
-                            val statType: HashMap<String, Int>? = document.data?.get("type") as? HashMap<String, Int>
-                            statType?.let { typeMap ->
-                                for (statTypeIt in typeMap) {
-                                    if (statTypeIt.key == typeOperation) {
-                                        countType = statTypeIt.value
+                            val statsCynoRemote: HashMap<String?, HashMap<String?, Long?>?>? = document.data?.get(material.name) as? HashMap<String?, HashMap<String?, Long?>?>?
+                            statsCynoRemote?.forEach { (key, value) ->
+                                if (key.equals("type")) {
+                                    for (i in value!!.keys) {
+                                        if (i.equals(typeOperation)) {
+                                            countType = value[i]!!.toInt()
+                                        }
                                     }
                                 }
-                            }
-                            val statTime: HashMap<String, Int>? = document.data?.get("time") as? HashMap<String, Int>
-                            statTime?.let { timeMap ->
-                                for (statTimeIt in timeMap) {
-                                    if (statTimeIt.key == typeOperation) {
-                                        countTime = statTimeIt.value
-                                    }
-                                }
-                            }
-                            val statTypeByMonth: HashMap<String, Int>? = document.data?.get("type-$currentMonth") as? HashMap<String, Int>
-                            statTypeByMonth?.let { typeMap ->
-                                for (statTypeIt in typeMap) {
-                                    if (statTypeIt.key == typeOperation) {
-                                        countTypeByMonth = statTypeIt.value
-                                    }
-                                }
-                            }
-                            val statTimeByMonth: HashMap<String, Int>? = document.data?.get("time-$currentMonth") as? HashMap<String, Int>
-                            statTimeByMonth?.let { timeMap ->
-                                for (statTimeIt in timeMap) {
-                                    if (statTimeIt.key == typeOperation) {
-                                        countTimeByMonth = statTimeIt.value
+                                if (key.equals("time")) {
+                                    for (i in value!!.keys) {
+                                        if (i.equals(typeOperation)) {
+                                            countTime = value[i]!!.toInt()
+                                        }
                                     }
                                 }
                             }
@@ -319,36 +253,157 @@ class StatistiqueRepository {
                         )
 
                         val nestedDataTime = hashMapOf(
-                            typeOperation to countTime + it.time!!
+                            typeOperation to countTime + material.time!!
                         )
-
-                        val nestedDataTypeByMonth = hashMapOf(
-                            typeOperation to countTypeByMonth + 1
-                        )
-
-                        val nestedDataTimeByMonth = hashMapOf(
-                            typeOperation to countTimeByMonth + it.time!!
-                        )
-
-                        docData["type"] = nestedDataType
-                        docData["time"] = nestedDataTime
-
-                        docData["type-$currentMonth"] = nestedDataTypeByMonth
-                        docData["time-$currentMonth"] = nestedDataTimeByMonth
-
-                        statistiqueCollection.document(year).collection(agentId).document(specialtyDocument).set(
-                            docData, SetOptions.merge()
-                        )
+                        docDataTypeAndTime["type"] = nestedDataType
+                        docDataTypeAndTime["time"] = nestedDataTime
+                        docData[material.name!!] = docDataTypeAndTime
                     }
-                    .addOnFailureListener { exception ->
-                        Log.w(TAG, "Error getting documents: ", exception)
-                    }
+                }
             }
         }
+        return docData
+    }
+
+    private fun getMaterialSdData(document: DocumentSnapshot, materialSd: List<MaterialSd>?, specialtyDocument: String): HashMap<Any, Any> {
+        val docData: HashMap<Any, Any> = hashMapOf()
+        when (specialtyDocument) {
+            Constants.FIRESTORE_SD_DOCUMENT -> {
+                materialSd?.let {
+                    for (material in it) {
+                        material.quantity?.let { quantity ->
+                            if (quantity > 0) {
+
+                                var countMaterial = 0
+
+                                if (document.exists()) {
+                                    val statsSdRemote: HashMap<String?, Long?>? = document.data?.get(FIRESTORE_MAP_STOCK_KEY) as? HashMap<String?, Long?>?
+                                    statsSdRemote?.forEach { (key, value) ->
+                                        if (key.equals(material.name)) {
+                                            countMaterial = value!!.toInt()
+                                        }
+                                    }
+                                }
+
+                                val nestedDataStock = hashMapOf(
+                                    material.name to countMaterial - quantity
+                                )
+
+                                docData[FIRESTORE_MAP_STOCK_KEY] = nestedDataStock
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return docData
+    }
+
+    private fun getAgentData(document: DocumentSnapshot, typeOperation: String, currentMonth: Int, agentOnOperation: AgentOnOperation): HashMap<Any, Any> {
+        val docData: HashMap<Any, Any> = hashMapOf()
+
+        var countType = 0
+        var countTime = 0
+        var countTypeByMonth = 0
+        var countTimeByMonth = 0
+
+        if (document.exists()) {
+            val statType: HashMap<String, Int>? = document.data?.get("type") as? HashMap<String, Int>
+            statType?.let { typeMap ->
+                for (statTypeIt in typeMap) {
+                    if (statTypeIt.key == typeOperation) {
+                        countType = statTypeIt.value
+                    }
+                }
+            }
+            val statTime: HashMap<String, Int>? = document.data?.get("time") as? HashMap<String, Int>
+            statTime?.let { timeMap ->
+                for (statTimeIt in timeMap) {
+                    if (statTimeIt.key == typeOperation) {
+                        countTime = statTimeIt.value
+                    }
+                }
+            }
+            val statTypeByMonth: HashMap<String, Int>? = document.data?.get("type-$currentMonth") as? HashMap<String, Int>
+            statTypeByMonth?.let { typeMap ->
+                for (statTypeIt in typeMap) {
+                    if (statTypeIt.key == typeOperation) {
+                        countTypeByMonth = statTypeIt.value
+                    }
+                }
+            }
+            val statTimeByMonth: HashMap<String, Int>? = document.data?.get("time-$currentMonth") as? HashMap<String, Int>
+            statTimeByMonth?.let { timeMap ->
+                for (statTimeIt in timeMap) {
+                    if (statTimeIt.key == typeOperation) {
+                        countTimeByMonth = statTimeIt.value
+                    }
+                }
+            }
+        }
+
+        val nestedDataType = hashMapOf(
+            typeOperation to countType + 1
+        )
+
+        val nestedDataTime = hashMapOf(
+            typeOperation to countTime + agentOnOperation.time!!
+        )
+
+        val nestedDataTypeByMonth = hashMapOf(
+            typeOperation to countTypeByMonth + 1
+        )
+
+        val nestedDataTimeByMonth = hashMapOf(
+            typeOperation to countTimeByMonth + agentOnOperation.time!!
+        )
+
+        docData["type"] = nestedDataType
+        docData["time"] = nestedDataTime
+
+        docData["type-$currentMonth"] = nestedDataTypeByMonth
+        docData["time-$currentMonth"] = nestedDataTimeByMonth
+
+        return docData
     }
 
     companion object {
         const val TAG = "StatistiqueRepository"
         const val FIRESTORE_MAP_STOCK_KEY = "SdStock"
+        const val FIRESTORE_MAP_PHOTO_RA_KEY = "photoRa"
+    }
+
+    /**
+     * add a photo in firebase storage
+     */
+    fun addPhoto(
+        specialtyDocument: String,
+        speOperationDocId: String,
+        path: Uri
+    ) {
+
+        val storageRef = FirebaseStorage.getInstance().reference
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRANCE).format(Date())
+        var pathOnServer = "JPEG_${timeStamp}_.jpg"
+        val photosRef = storageRef.child("images/${pathOnServer}")
+        var uploadTask = photosRef.putFile(path)
+        // Register observers to listen for when the download is done or if it fails
+        uploadTask.addOnFailureListener {
+            // Handle unsuccessful uploads
+        }.addOnSuccessListener { taskSnapshot ->
+            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+            // ...
+
+            val data = hashMapOf(FIRESTORE_MAP_PHOTO_RA_KEY to photosRef.path)
+
+            //We set the photo Path into speOperation object into firestore
+            specialtiesCollection.document(specialtyDocument).collection("activities")
+                .document(speOperationDocId)
+                .set(data, SetOptions.merge())
+                .addOnSuccessListener { Log.v(SpeOperationRepository.TAG, "Photo path successfully written!") }
+                .addOnFailureListener { e ->
+                    Log.e(StatistiqueRepository.TAG, "Error when setting photo path stock", e)
+                }
+        }
     }
 }

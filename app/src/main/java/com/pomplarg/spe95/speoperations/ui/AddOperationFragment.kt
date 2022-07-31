@@ -226,22 +226,14 @@ class AddOperationFragment : Fragment() {
         agentViewModel.fetchAllAgentsPerSpecialty(specialtyDocument)
 
         //Observables
-        speOperationViewModel.operationAdded.observe(viewLifecycleOwner, Observer {
-            displayMainBloc(binding, true)
-            Snackbar.make(
-                requireView(),
-                getString(R.string.add_operation_operation_added),
-                Snackbar.LENGTH_LONG
-            ).show()
-            val direction =
-                AddOperationFragmentDirections.actionAddOperationFragmentToSpeOperationFragment()
-                    .setSpecialty(args.specialty)
-            findNavController().navigate(direction)
-        })
-
         speOperationViewModel.ldOperationAdded.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                speOperationViewModel.addPostOperation()
+            if(it) {
+                displayMainBloc(binding, true)
+                Snackbar.make(
+                    requireView(),
+                    getString(R.string.add_operation_operation_added),
+                    Snackbar.LENGTH_LONG
+                ).show()
             } else {
                 displayMainBloc(binding, true)
                 Snackbar.make(
@@ -250,6 +242,10 @@ class AddOperationFragment : Fragment() {
                     Snackbar.LENGTH_LONG
                 ).show()
             }
+            val direction =
+                AddOperationFragmentDirections.actionAddOperationFragmentToSpeOperationFragment()
+                    .setSpecialty(args.specialty)
+            findNavController().navigate(direction)
         })
 
         speOperationViewModel._genericException.observe(viewLifecycleOwner, Observer {
