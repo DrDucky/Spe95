@@ -23,7 +23,8 @@
         <activity
             android:name="com.pomplarg.spe95.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,13 +37,15 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:noHistory="true"
             android:excludeFromRecents="true"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:exported="true"/>
 
 
         <activity
             android:name="com.pomplarg.spe95.FullScreenActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:exported="true"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
