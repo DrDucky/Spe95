@@ -1,5 +1,3 @@
-apply from: rootProject.file('read_secrets.gradle')
-
 apply plugin: 'com.android.application'
 
 apply plugin: 'com.google.gms.google-services'  // Google Services plugin
@@ -13,6 +11,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 apply plugin: "androidx.navigation.safeargs"
+
+apply plugin: 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 
 def keystorePropertiesFile= rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
@@ -38,7 +38,7 @@ android {
         versionCode 18
         versionName "1.0.17"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_PLACES_KEY", getEnvVariable('API_PLACES_KEY'))
+        manifestPlaceholders.MAPS_API_KEY = "XXX"
     }
     buildTypes {
         debug {
@@ -60,6 +60,9 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    lintOptions {
+        disable 'NullSafeMutableLiveData'
     }
 }
 

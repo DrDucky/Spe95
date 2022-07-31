@@ -47,21 +47,23 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
         mapViewModel.fetchLocations(specialtyDocument, Constants.YEAR_2022.toInt())
 
         binding.btnMapYearSelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            val yearChecked = when (checkedId) {
-                R.id.btn_map_year_2020 -> Constants.YEAR_2020.toInt()
-                R.id.btn_map_year_2021 -> Constants.YEAR_2021.toInt()
-                R.id.btn_map_year_2022 -> Constants.YEAR_2022.toInt()
-                else                   -> Constants.YEAR_2022.toInt()
+            if (isChecked) {
+                val yearChecked = when (checkedId) {
+                    R.id.btn_map_year_2020 -> Constants.YEAR_2020.toInt()
+                    R.id.btn_map_year_2021 -> Constants.YEAR_2021.toInt()
+                    R.id.btn_map_year_2022 -> Constants.YEAR_2022.toInt()
+                    else                   -> Constants.YEAR_2022.toInt()
+                }
+                mapViewModel.fetchLocations(specialtyDocument, yearChecked)
             }
-            mapViewModel.fetchLocations(specialtyDocument, yearChecked)
         }
 
         mapFragment?.getMapAsync(this)
         return binding.root
     }
 
-    override fun onMapReady(map: GoogleMap?) {
-        map?.apply {
+    override fun onMapReady(map: GoogleMap) {
+        map.apply {
             mapViewModel.locationsLd.observe(viewLifecycleOwner, Observer { speOperations ->
                 map.clear()
                 val customPopupAdapter = CustomInfoWindowAdapter()
@@ -73,7 +75,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
                         val marquerOptions = MarkerOptions()
                             .position(LatLng(geoPoint.latitude, geoPoint.longitude))
                         val marker = map.addMarker(marquerOptions)
-                        marker.tag = speOperation
+                        marker?.tag = speOperation
                     }
                 }
             })
@@ -81,13 +83,13 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
     }
 
     internal inner class CustomInfoWindowAdapter : GoogleMap.InfoWindowAdapter {
-        override fun getInfoWindow(p0: Marker?): View? {
+        override fun getInfoWindow(p0: Marker): View? {
             return null
         }
 
-        override fun getInfoContents(marker: Marker?): View {
+        override fun getInfoContents(marker: Marker): View {
             val popupContent: View = layoutInflater.inflate(R.layout.popup_map, null)
-            val operation = marker?.tag as SpeOperation
+            val operation = marker.tag as SpeOperation
             val title = popupContent.findViewById<TextView>(R.id.tv_popup_title)
             val date = popupContent.findViewById<TextView>(R.id.tv_popup_date)
             val address = popupContent.findViewById<TextView>(R.id.tv_popup_address)
@@ -101,8 +103,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
 
     }
 
-    override fun onInfoWindowClick(marker: Marker?) {
-        val speOperation = marker?.tag as SpeOperation
+    override fun onInfoWindowClick(marker: Marker) {
+        val speOperation = marker.tag as SpeOperation
         val direction =
             MapFragmentDirections.actionMapFragmentToSpeOperationtDetailsFragment()
                 .setSpeOperationId(speOperation.id)
