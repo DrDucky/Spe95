@@ -40,13 +40,6 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_stats_year_2020"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/year_2020" />
-
-                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_stats_year_2021"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
@@ -59,6 +52,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/year_2022" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_stats_year_2023"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/year_2023" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <include layout="@layout/view_template_background" />

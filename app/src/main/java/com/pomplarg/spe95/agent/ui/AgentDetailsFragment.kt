@@ -62,35 +62,39 @@ class AgentDetailsFragment : Fragment() {
         statistiquesViewModel.fetchAgentStats(agentId, Constants.FIRESTORE_CYNO_DOCUMENT, Constants.YEAR_2022)
 
         binding.btnYearSelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            val yearChecked = when (checkedId) {
-                R.id.btn_year_2020 -> Constants.YEAR_2020
-                R.id.btn_year_2021 -> Constants.YEAR_2021
-                R.id.btn_year_2022 -> Constants.YEAR_2022
-                else               -> Constants.YEAR_2022
+            if (isChecked) {
+                val yearChecked = when (checkedId) {
+                    R.id.btn_year_2021 -> Constants.YEAR_2021
+                    R.id.btn_year_2022 -> Constants.YEAR_2022
+                    R.id.btn_year_2023 -> Constants.YEAR_2023
+                    else               -> Constants.YEAR_2023
+                }
+                val specialtyChecked = when (binding.btnSpecialtySelection.checkedButtonId) {
+                    R.id.btn_specialty_cyno -> Constants.FIRESTORE_CYNO_DOCUMENT
+                    R.id.btn_specialty_sd   -> Constants.FIRESTORE_SD_DOCUMENT
+                    R.id.btn_specialty_ra   -> Constants.FIRESTORE_RA_DOCUMENT
+                    else                    -> Constants.FIRESTORE_CYNO_DOCUMENT
+                }
+                statistiquesViewModel.fetchAgentStats(agentId, specialtyChecked, yearChecked)
             }
-            val specialtyChecked = when (binding.btnSpecialtySelection.checkedButtonId) {
-                R.id.btn_specialty_cyno -> Constants.FIRESTORE_CYNO_DOCUMENT
-                R.id.btn_specialty_sd -> Constants.FIRESTORE_SD_DOCUMENT
-                R.id.btn_specialty_ra -> Constants.FIRESTORE_RA_DOCUMENT
-                else                    -> Constants.FIRESTORE_CYNO_DOCUMENT
-            }
-            statistiquesViewModel.fetchAgentStats(agentId, specialtyChecked, yearChecked)
         }
 
         binding.btnSpecialtySelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            val yearChecked = when (binding.btnYearSelection.checkedButtonId) {
-                R.id.btn_year_2020 -> Constants.YEAR_2020
-                R.id.btn_year_2021 -> Constants.YEAR_2021
-                R.id.btn_year_2022 -> Constants.YEAR_2022
-                else               -> Constants.YEAR_2022
+            if (isChecked) {
+                val yearChecked = when (binding.btnYearSelection.checkedButtonId) {
+                    R.id.btn_year_2021 -> Constants.YEAR_2021
+                    R.id.btn_year_2022 -> Constants.YEAR_2022
+                    R.id.btn_year_2023 -> Constants.YEAR_2023
+                    else               -> Constants.YEAR_2023
+                }
+                val specialtyChecked = when (checkedId) {
+                    R.id.btn_specialty_cyno -> Constants.FIRESTORE_CYNO_DOCUMENT
+                    R.id.btn_specialty_sd   -> Constants.FIRESTORE_SD_DOCUMENT
+                    R.id.btn_specialty_ra   -> Constants.FIRESTORE_RA_DOCUMENT
+                    else                    -> Constants.FIRESTORE_CYNO_DOCUMENT
+                }
+                statistiquesViewModel.fetchAgentStats(agentId, specialtyChecked, yearChecked)
             }
-            val specialtyChecked = when (checkedId) {
-                R.id.btn_specialty_cyno -> Constants.FIRESTORE_CYNO_DOCUMENT
-                R.id.btn_specialty_sd -> Constants.FIRESTORE_SD_DOCUMENT
-                R.id.btn_specialty_ra -> Constants.FIRESTORE_RA_DOCUMENT
-                else                    -> Constants.FIRESTORE_CYNO_DOCUMENT
-            }
-            statistiquesViewModel.fetchAgentStats(agentId, specialtyChecked, yearChecked)
         }
     }
 

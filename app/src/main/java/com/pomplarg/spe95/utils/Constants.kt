@@ -128,9 +128,8 @@ class Constants {
         const val RA_ACTION_CONDITIONNEMENT = "Conditionnement"
         const val RA_ACTION_TRANSPORT = "Transport"
 
-        const val YEAR_2020 = "2020"
         const val YEAR_2021 = "2021"
         const val YEAR_2022 = "2022"
-
+        const val YEAR_2023 = "2023"
     }
 }

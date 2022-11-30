@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.GeoPoint
 import com.pomplarg.spe95.data.Result
-import com.pomplarg.spe95.data.SingleLiveEvent
 import com.pomplarg.spe95.speoperations.data.*
 import com.pomplarg.spe95.statistiques.data.StatistiqueRepository
 import com.pomplarg.spe95.utils.Constants
@@ -37,10 +36,6 @@ class SpeOperationViewModel(
 
     var speOperationsLd: MutableLiveData<List<SpeOperation>> = MutableLiveData()
     var speOperationLd: MutableLiveData<SpeOperation> = MutableLiveData()
-    private val newSpeOperation = SpeOperation()
-
-    private val _operationAdded = SingleLiveEvent<Any>()
-    val operationAdded = _operationAdded
 
     val _ldOperationAdded: MutableLiveData<Boolean> = MutableLiveData()
     val ldOperationAdded: LiveData<Boolean> = _ldOperationAdded
@@ -247,6 +242,7 @@ class SpeOperationViewModel(
      * Add an operation into Firestore
      */
     fun addOperationIntoFirestore() {
+        val newSpeOperation = SpeOperation()
         val cDate = Calendar.getInstance()
         newSpeOperation.id = cDate.time.time
         id.value?.let {
@@ -415,20 +411,16 @@ class SpeOperationViewModel(
             newSpeOperation.materialsRa = listOfMaterials
         }
 
-        repository.addSpeOperationIntoRemoteDB(specialtyDocument, newSpeOperation, _ldOperationAdded, _ldPhotoRaAbsolutePath)
-
+        addOperation(newSpeOperation)
     }
 
-    fun addPostOperation() {
+    private fun addOperation(newSpeOperation: SpeOperation) {
         val speOperationDate = Date(newSpeOperation.startDate!!.seconds * 1000)
         val c = Calendar.getInstance()
         c.time = speOperationDate
         val monthNumber = c.get(Calendar.MONTH) + 1 //return 1-12
 
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-        statsRepository.addOperationStats(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.motif)
-        statsRepository.addMaterialStat(specialtyDocument, currentYear.toString(), newSpeOperation.type, newSpeOperation.materialsCyno, newSpeOperation.materialsSd)
-        statsRepository.addAgentStats(specialtyDocument, currentYear.toString(), monthNumber, newSpeOperation.type, newSpeOperation.agentOnOperation)
-        _operationAdded.call()
+        statsRepository.addOperationStats(specialtyDocument, currentYear.toString(), monthNumber, newSpeOperation, _ldPhotoRaAbsolutePath, _ldOperationAdded)
     }
 }

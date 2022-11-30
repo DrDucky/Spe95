@@ -218,9 +218,9 @@
     <string name="statistiques_alert_title">Stock insuffisant</string>
     <string name="statistiques_alert_threshold">Attention, Alerte ! Stock de %01$s insuffisant</string>
     <string name="time">Durée</string>
-    <string name="year_2020">2020</string>
     <string name="year_2021">2021</string>
     <string name="year_2022">2022</string>
+    <string name="year_2023">2023</string>
 
     <!-- Map -->
     <string name="intervention_number">Intervention n°%01$s</string>

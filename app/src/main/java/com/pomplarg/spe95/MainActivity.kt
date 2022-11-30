@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val navInflater = navController.navInflater
 
             graph = navInflater.inflate(R.navigation.nav_main)
-            graph.startDestination = R.id.speOperationFragment
+            graph.setStartDestination(R.id.speOperationFragment)
 
             val pref: String? =
                 PreferenceManager.getDefaultSharedPreferences(this)

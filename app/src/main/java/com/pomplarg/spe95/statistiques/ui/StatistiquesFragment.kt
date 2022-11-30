@@ -141,13 +141,15 @@ class StatistiquesFragment : Fragment() {
             })
         }
         binding.btnStatsYearSelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            val yearChecked = when (checkedId) {
-                R.id.btn_stats_year_2020 -> Constants.YEAR_2020
-                R.id.btn_stats_year_2021 -> Constants.YEAR_2021
-                R.id.btn_stats_year_2022 -> Constants.YEAR_2022
-                else                     -> Constants.YEAR_2022
+            if (isChecked) {
+                val yearChecked = when (checkedId) {
+                    R.id.btn_stats_year_2021 -> Constants.YEAR_2021
+                    R.id.btn_stats_year_2022 -> Constants.YEAR_2022
+                    R.id.btn_stats_year_2023 -> Constants.YEAR_2023
+                    else                     -> Constants.YEAR_2023
+                }
+                statistiquesViewModel.fetchStats(specialtyDocument, yearChecked)
             }
-            statistiquesViewModel.fetchStats(specialtyDocument, yearChecked)
         }
     }
 

@@ -18,6 +18,6 @@ class App : Application() {
         }
 
         // Initialize the Google Places SDK
-        Places.initialize(applicationContext, BuildConfig.API_PLACES_KEY)
+        Places.initialize(applicationContext, BuildConfig.MAPS_API_KEY)
     }
 }
