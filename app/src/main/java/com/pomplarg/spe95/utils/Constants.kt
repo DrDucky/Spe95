@@ -6,6 +6,7 @@ class Constants {
         const val FIRESTORE_SD_DOCUMENT = "sd"
         const val FIRESTORE_RA_DOCUMENT = "ra"
 
+        const val TYPE_OPERATION_REGULATION = "Regulation"
         const val TYPE_OPERATION_INTERVENTION = "Intervention"
         const val TYPE_OPERATION_TRAINING = "Entrainement"
         const val TYPE_OPERATION_FORMATION = "Formation"

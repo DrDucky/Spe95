@@ -46,6 +46,7 @@ class SpeOperationFragment : Fragment() {
         /**
          * Floating Action Buttons for adding operations
          */
+        fabInit(binding.fabAddRegulation)
         fabInit(binding.fabAddIntervention)
         fabInit(binding.fabAddTraining)
         fabInit(binding.fabAddFormation)
@@ -54,11 +55,13 @@ class SpeOperationFragment : Fragment() {
         binding.fabAddOperation.setOnClickListener(View.OnClickListener {
             isRotate = it.rotateFab(!isRotate)
             if (isRotate) {
+                fabShowIn(binding.fabAddRegulation)
                 fabShowIn(binding.fabAddIntervention)
                 fabShowIn(binding.fabAddTraining)
                 fabShowIn(binding.fabAddFormation)
                 fabShowIn(binding.fabAddInformation)
             } else {
+                fabShowOut(binding.fabAddRegulation)
                 fabShowOut(binding.fabAddIntervention)
                 fabShowOut(binding.fabAddTraining)
                 fabShowOut(binding.fabAddFormation)
