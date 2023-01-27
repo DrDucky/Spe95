@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.pomplarg.spe95.utils.Constants" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vmSpeOperation"
+            type="com.pomplarg.spe95.speoperations.ui.SpeOperationViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_decision_title"
+            style="@style/CategoryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dimen_4dp"
+            android:paddingTop="@dimen/dimen_8dp"
+            android:paddingBottom="@dimen/dimen_8dp"
+            android:text="@string/decision_subtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/decision_declenchement_sdis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={vmSpeOperation._decisionCynoDeclenchementSdis}"
+            android:text="@string/decision_cyno_declenchement_sdis"
+            app:layout_constraintBottom_toTopOf="@id/decision_prise_en_charge_police"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_decision_title" />
+
+        <CheckBox
+            android:id="@+id/decision_prise_en_charge_police"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={vmSpeOperation._decisionCynoDeclenchementPolice}"
+            android:text="@string/decision_cyno_declenchement_police"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/decision_declenchement_sdis" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

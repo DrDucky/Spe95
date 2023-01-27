@@ -86,7 +86,7 @@ fun setDataToChart(stats: HashMap<String?, Long?>?, chart: PieChart, title: Stri
         Color.rgb(140, 234, 255), //Entrainement
         Color.rgb(255, 140, 157), //Information
         Color.rgb(192, 255, 140), //Formation
-        Color.rgb(255, 247, 140)
+        Color.rgb(255, 247, 140) //Regulation
     )
     val dataset = PieDataSet(entries, "Motifs")
     dataset.colors = colors
@@ -109,6 +109,7 @@ fun setBarDataToChart(stats: HashMap<Int, HashMap<String?, Long?>?>, chart: BarC
     val entriesGroupInterventions = arrayListOf<BarEntry>()
     val entriesGroupFormations = arrayListOf<BarEntry>()
     val entriesGroupInformation = arrayListOf<BarEntry>()
+    val entriesGroupRegulations = arrayListOf<BarEntry>()
 
     var totalCount = 0f
     for (i in 1..12) {
@@ -116,6 +117,7 @@ fun setBarDataToChart(stats: HashMap<Int, HashMap<String?, Long?>?>, chart: BarC
         entriesGroupInterventions.add(i - 1, BarEntry(i.toFloat(), 0f))
         entriesGroupFormations.add(i - 1, BarEntry(i.toFloat(), 0f))
         entriesGroupInformation.add(i - 1, BarEntry(i.toFloat(), 0f))
+        entriesGroupRegulations.add(i - 1, BarEntry(i.toFloat(), 0f))
 
         stats[i]?.forEach {
             when (it.key) {
@@ -143,6 +145,12 @@ fun setBarDataToChart(stats: HashMap<Int, HashMap<String?, Long?>?>, chart: BarC
                         totalCount += value.toFloat()
                     }
                 }
+                Constants.TYPE_OPERATION_REGULATION -> {
+                    it.value?.let { value ->
+                        entriesGroupRegulations[i - 1] = BarEntry(i.toFloat(), value.toFloat())
+                        totalCount += value.toFloat()
+                    }
+                }
             }
         }
     }
@@ -151,13 +159,15 @@ fun setBarDataToChart(stats: HashMap<Int, HashMap<String?, Long?>?>, chart: BarC
     val setIntervention = BarDataSet(entriesGroupInterventions, Constants.TYPE_OPERATION_INTERVENTION)
     val setFormation = BarDataSet(entriesGroupFormations, Constants.TYPE_OPERATION_FORMATION)
     val setInformation = BarDataSet(entriesGroupInformation, Constants.TYPE_OPERATION_INFORMATION)
+    val setRegulation = BarDataSet(entriesGroupRegulations, Constants.TYPE_OPERATION_REGULATION)
 
     setIntervention.color = Color.rgb(255, 208, 140)
     setTraining.color = Color.rgb(140, 234, 255)
     setInformation.color = Color.rgb(255, 140, 157)
     setFormation.color = Color.rgb(192, 255, 140)
+    setRegulation.color = Color.rgb(255, 247, 140)
 
-    val barData = BarData(setTraining, setIntervention, setFormation, setInformation)
+    val barData = BarData(setTraining, setIntervention, setFormation, setInformation, setRegulation)
     if (hourAndTimeFormat)
         barData.setValueFormatter(vfHourAndTime)
     else
