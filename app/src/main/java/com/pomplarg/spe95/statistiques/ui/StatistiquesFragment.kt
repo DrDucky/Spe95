@@ -50,8 +50,8 @@ class StatistiquesFragment : Fragment() {
     private fun subscribeUi(binding: FragmentStatistiquesBinding) {
 
         //Defaut buttons
-        binding.btnStatsYearSelection.check(R.id.btn_stats_year_2022)
-        statistiquesViewModel.fetchStats(specialtyDocument, Constants.YEAR_2022)
+        binding.btnStatsYearSelection.check(R.id.btn_stats_year_2023)
+        statistiquesViewModel.fetchStats(specialtyDocument, Constants.YEAR_2023)
 
         //Common Stats to all specialties
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
