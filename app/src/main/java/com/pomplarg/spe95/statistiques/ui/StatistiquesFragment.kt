@@ -20,6 +20,7 @@ import com.pomplarg.spe95.utils.configurePieChart
 import com.pomplarg.spe95.utils.setDataToChart
 import kotlinx.android.synthetic.main.grid_cyno_statistiques.view.*
 import kotlinx.android.synthetic.main.grid_cyno_statistiques.view.type_chart
+import kotlinx.android.synthetic.main.grid_ra_statistiques.view.*
 import kotlinx.android.synthetic.main.grid_sd_statistiques.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -52,6 +53,7 @@ class StatistiquesFragment : Fragment() {
         //Defaut buttons
         binding.btnStatsYearSelection.check(R.id.btn_stats_year_2023)
         statistiquesViewModel.fetchStats(specialtyDocument, Constants.YEAR_2023)
+        statistiquesViewModel.fetchRegulationsCount(specialtyDocument, Constants.YEAR_2023)
 
         //Common Stats to all specialties
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
@@ -64,6 +66,7 @@ class StatistiquesFragment : Fragment() {
                 configurePieChart(binding.chartsCynoStats.nerone_chart, context)
                 configurePieChart(binding.chartsCynoStats.priaxe_chart, context)
                 configurePieChart(binding.chartsCynoStats.sniper_chart, context)
+                configurePieChart(binding.chartsCynoStats.decisions_cyno_regul_chart, context)
 
                 setDataToChart(it.motifs, binding.chartsCynoStats.type_chart, "Motifs d'intervention", false)
                 setDataToChart(it.ipso, binding.chartsCynoStats.ipso_chart, "Ipso", true)
@@ -80,10 +83,20 @@ class StatistiquesFragment : Fragment() {
             }
             if (Constants.FIRESTORE_RA_DOCUMENT == specialtyDocument) {
                 //Update UI
+                configurePieChart(binding.chartsRaStats.decisions_ra_regul_chart, context)
                 configurePieChart(binding.chartsRaStats.type_chart, context)
                 setDataToChart(it.motifs, binding.chartsRaStats.type_chart, "Motifs d'intervention", false)
             }
         })
+
+        statistiquesViewModel.operationsRegulationsLd.observe(viewLifecycleOwner) {
+            statistiquesViewModel.getRegulationsStatistiques(specialtyDocument, it)
+        }
+
+        statistiquesViewModel.operationsRegulationsStatsLd.observe(viewLifecycleOwner) {
+            setDataToChart(it.regulationsDecisions, binding.chartsRaStats.decisions_ra_regul_chart, "Décisions régulation", false)
+            setDataToChart(it.regulationsDecisions, binding.chartsCynoStats.decisions_cyno_regul_chart, "Décisions régulation", false)
+        }
 
         //SD "functionnality" only
         if (Constants.FIRESTORE_SD_DOCUMENT == specialtyDocument) {
@@ -101,7 +114,7 @@ class StatistiquesFragment : Fragment() {
 
             statistiquesViewModel.fetchSdStock(currentYear.toString())
 
-            statistiquesViewModel.statsStocksLd.observe(viewLifecycleOwner, {
+            statistiquesViewModel.statsStocksLd.observe(viewLifecycleOwner) {
                 materialSdAdapter.submitList(it)
                 val spinnerList = mutableListOf<String>()
                 it.forEach { material ->
@@ -138,7 +151,7 @@ class StatistiquesFragment : Fragment() {
                         }
                         .show()
                 }
-            })
+            }
         }
         binding.btnStatsYearSelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (isChecked) {
@@ -149,6 +162,7 @@ class StatistiquesFragment : Fragment() {
                     else                     -> Constants.YEAR_2023
                 }
                 statistiquesViewModel.fetchStats(specialtyDocument, yearChecked)
+                statistiquesViewModel.fetchRegulationsCount(specialtyDocument, yearChecked)
             }
         }
     }

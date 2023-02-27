@@ -2,21 +2,15 @@ package com.pomplarg.spe95.statistiques.data
 
 import android.net.Uri
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
 import com.pomplarg.spe95.data.Result
 import com.pomplarg.spe95.data.await
 import com.pomplarg.spe95.speoperations.data.*
 import com.pomplarg.spe95.utils.Constants
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class StatistiqueRepository {
@@ -36,7 +30,7 @@ class StatistiqueRepository {
         return when (val documentSnapshot =
             statistiqueCollection.document(year)
                 .get().await()) {
-            is Result.Success -> {
+            is Result.Success  -> {
                 val stats = Statistique(null, null)
                 stats.motifs = documentSnapshot.data[specialty] as HashMap<String?, Long?>?
                 val ipsoTime = documentSnapshot.data[Constants.CYNO_DOG_IPSO] as HashMap<String?, HashMap<String?, Long?>?>?
@@ -53,8 +47,27 @@ class StatistiqueRepository {
 
                 Result.Success(stats)
             }
-            is Result.Error -> Result.Error(documentSnapshot.exception)
+            is Result.Error    -> Result.Error(documentSnapshot.exception)
             is Result.Canceled -> Result.Canceled(documentSnapshot.exception)
+        }
+    }
+
+    fun getRegulationsList(statsRegulationsLd: MutableLiveData<List<SpeOperation>>, specialtyDocument: String, year: String) {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val startDate = dateFormat.parse("$year-01-01")
+        val endDate = dateFormat.parse("$year-12-31")
+        val activitiesRegulationQuery = specialtiesCollection.document(specialtyDocument).collection("activities")
+            .whereEqualTo("type", Constants.TYPE_OPERATION_REGULATION)
+            .whereGreaterThanOrEqualTo("startDate", startDate!!)
+            .whereLessThanOrEqualTo("startDate", endDate!!)
+        activitiesRegulationQuery.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val regulationsList = task.result.toObjects(SpeOperation::class.java)
+                statsRegulationsLd.value = regulationsList
+                Log.d(TAG, "All regulations = " + regulationsList.size)
+            } else {
+                Log.d(TAG, "Count failed: ", task.exception)
+            }
         }
     }
 
