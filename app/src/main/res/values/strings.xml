@@ -181,8 +181,8 @@
 
     <string name="space">&#160;</string>
     <string name="agents_chip_filter_cyno">Cyno</string>
-    <string name="agents_chip_filter_sd">SD</string>
-    <string name="agents_chip_filter_ra">RA</string>
+    <string name="agents_chip_filter_sd">USAR</string>
+    <string name="agents_chip_filter_ra">RAN</string>
     <string name="spe_operation_personnel_title">Personnel</string>
     <string name="spe_operation_personnel_unit_chief_title">Chef d\'unité</string>
     <string name="spe_operation_personnel_subtitle">Personnel engagé</string>
