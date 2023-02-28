@@ -30,7 +30,14 @@ fun configurePieChart(chart: PieChart, context: Context?) {
     chart.isRotationEnabled = false
     chart.isHighlightPerTapEnabled = true
     chart.animateY(1400, Easing.EaseInOutQuad)
-    chart.legend.isEnabled = false
+    chart.legend.isEnabled = true
+    chart.legend.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
+    chart.legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+    chart.legend.orientation = Legend.LegendOrientation.HORIZONTAL
+    chart.legend.setDrawInside(false)
+    chart.setDrawEntryLabels(false)
+    chart.description.isEnabled = false
+    chart.legend.isWordWrapEnabled = true
 }
 
 fun configureBarChart(chart: BarChart, context: Context?, hourAndTimeFormat: Boolean) {
@@ -88,7 +95,7 @@ fun setDataToChart(stats: HashMap<String?, Long?>?, chart: PieChart, title: Stri
         Color.rgb(192, 255, 140), //Formation
         Color.rgb(255, 247, 140) //Regulation
     )
-    val dataset = PieDataSet(entries, "Motifs")
+    val dataset = PieDataSet(entries, "")
     dataset.colors = colors
     dataset.valueTextSize = 16f
     if (hourAndTimeFormat) {

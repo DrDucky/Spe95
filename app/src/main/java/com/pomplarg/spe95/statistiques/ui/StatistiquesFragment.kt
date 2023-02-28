@@ -66,7 +66,6 @@ class StatistiquesFragment : Fragment() {
                 configurePieChart(binding.chartsCynoStats.nerone_chart, context)
                 configurePieChart(binding.chartsCynoStats.priaxe_chart, context)
                 configurePieChart(binding.chartsCynoStats.sniper_chart, context)
-                configurePieChart(binding.chartsCynoStats.decisions_cyno_regul_chart, context)
 
                 setDataToChart(it.motifs, binding.chartsCynoStats.type_chart, "Motifs d'intervention", false)
                 setDataToChart(it.ipso, binding.chartsCynoStats.ipso_chart, "Ipso", true)
@@ -83,7 +82,6 @@ class StatistiquesFragment : Fragment() {
             }
             if (Constants.FIRESTORE_RA_DOCUMENT == specialtyDocument) {
                 //Update UI
-                configurePieChart(binding.chartsRaStats.decisions_ra_regul_chart, context)
                 configurePieChart(binding.chartsRaStats.type_chart, context)
                 setDataToChart(it.motifs, binding.chartsRaStats.type_chart, "Motifs d'intervention", false)
             }
@@ -94,6 +92,8 @@ class StatistiquesFragment : Fragment() {
         }
 
         statistiquesViewModel.operationsRegulationsStatsLd.observe(viewLifecycleOwner) {
+            configurePieChart(binding.chartsRaStats.decisions_ra_regul_chart, context)
+            configurePieChart(binding.chartsCynoStats.decisions_cyno_regul_chart, context)
             setDataToChart(it.regulationsDecisions, binding.chartsRaStats.decisions_ra_regul_chart, "Décisions régulation", false)
             setDataToChart(it.regulationsDecisions, binding.chartsCynoStats.decisions_cyno_regul_chart, "Décisions régulation", false)
         }
