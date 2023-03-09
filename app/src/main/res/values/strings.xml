@@ -17,6 +17,7 @@
     <string name="engins_subtitle">Engins sur les lieux</string>
     <string name="spe_subtitle">Spécialités sur les lieux</string>
     <string name="transport_subtitle">Transport</string>
+    <string name="decision_subtitle">Décision</string>
     <string name="cyno_priaxe_display">Pri-Axe</string>
 
     <!-- Add Operations -->
@@ -170,10 +171,18 @@
     <string name="action_condition_title">Conditionnement d\'un animal</string>
     <string name="action_transport_title">Transport</string>
 
+    <!-- Decision Regulation -->
+    <string name="decision_declenchement_sdis">Déclenchement SDIS :</string>
+    <string name="decision_cyno_declenchement_sdis">Déclenchement SDIS</string>
+    <string name="decision_cyno_declenchement_police">Déclenchement Police</string>
+    <string name="decision_prise_en_charge_mairie">Prise en charge Mairie</string>
+    <string name="decision_prise_en_charge_police">Prise en charge Police</string>
+    <string name="decision_autre">Autre :</string>
+
     <string name="space">&#160;</string>
     <string name="agents_chip_filter_cyno">Cyno</string>
-    <string name="agents_chip_filter_sd">SD</string>
-    <string name="agents_chip_filter_ra">RA</string>
+    <string name="agents_chip_filter_sd">USAR</string>
+    <string name="agents_chip_filter_ra">RAN</string>
     <string name="spe_operation_personnel_title">Personnel</string>
     <string name="spe_operation_personnel_unit_chief_title">Chef d\'unité</string>
     <string name="spe_operation_personnel_subtitle">Personnel engagé</string>
@@ -191,6 +200,7 @@
     <string name="stock_update_popup_title">Mise à jour du stock</string>
     <string name="stock_update_popup_message">Etes-vous sûr de vouloir mettre à jour le stock ? </string>
     <string name="stock_update_btn">Mettre à jour</string>
+    <string name="precisions">Précisions</string>
 
 
     <!-- Screen titles -->

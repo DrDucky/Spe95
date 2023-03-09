@@ -346,6 +346,20 @@
                             tools:listitem="@layout/list_item_material_cyno" />
 
                         <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_decisions_cyno_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:fadeScrollbars="false"
+                            android:paddingStart="@dimen/dimen_16dp"
+                            android:scrollbars="vertical"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:context="com.pomplarg.spe95.MainActivity"
+                            tools:listitem="@layout/list_item_decisions_cyno" />
+
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_material_sd_list"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

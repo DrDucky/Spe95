@@ -8,10 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.pomplarg.spe95.databinding.FragmentSpeOperationsBinding
-import com.pomplarg.spe95.utils.fabInit
-import com.pomplarg.spe95.utils.fabShowIn
-import com.pomplarg.spe95.utils.fabShowOut
-import com.pomplarg.spe95.utils.rotateFab
+import com.pomplarg.spe95.utils.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -46,6 +43,7 @@ class SpeOperationFragment : Fragment() {
         /**
          * Floating Action Buttons for adding operations
          */
+        fabInit(binding.fabAddRegulation)
         fabInit(binding.fabAddIntervention)
         fabInit(binding.fabAddTraining)
         fabInit(binding.fabAddFormation)
@@ -54,11 +52,17 @@ class SpeOperationFragment : Fragment() {
         binding.fabAddOperation.setOnClickListener(View.OnClickListener {
             isRotate = it.rotateFab(!isRotate)
             if (isRotate) {
+                if(specialtyDocument != Constants.FIRESTORE_SD_DOCUMENT) { //Hide the fab regulation button for SD
+                    fabShowIn(binding.fabAddRegulation)
+                }
                 fabShowIn(binding.fabAddIntervention)
                 fabShowIn(binding.fabAddTraining)
                 fabShowIn(binding.fabAddFormation)
                 fabShowIn(binding.fabAddInformation)
             } else {
+                if(specialtyDocument != Constants.FIRESTORE_SD_DOCUMENT) {
+                    fabShowOut(binding.fabAddRegulation)
+                }
                 fabShowOut(binding.fabAddIntervention)
                 fabShowOut(binding.fabAddTraining)
                 fabShowOut(binding.fabAddFormation)

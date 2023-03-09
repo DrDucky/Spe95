@@ -6,6 +6,7 @@ class Constants {
         const val FIRESTORE_SD_DOCUMENT = "sd"
         const val FIRESTORE_RA_DOCUMENT = "ra"
 
+        const val TYPE_OPERATION_REGULATION = "Regulation"
         const val TYPE_OPERATION_INTERVENTION = "Intervention"
         const val TYPE_OPERATION_TRAINING = "Entrainement"
         const val TYPE_OPERATION_FORMATION = "Formation"
@@ -127,6 +128,14 @@ class Constants {
         const val RA_ACTION_ASSISTANCE = "Assistance"
         const val RA_ACTION_CONDITIONNEMENT = "Conditionnement"
         const val RA_ACTION_TRANSPORT = "Transport"
+        const val RA_DECISION_DECLENCHEMENT_SDIS = "Déclenchement SDIS"
+        const val RA_DECISION_DECLENCHEMENT_SDIS_PRECISION = "Déclenchement SDIS Précisions "
+        const val RA_DECISION_PRISE_EN_CHARGE_MAIRIE = "Prise en charge Mairie"
+        const val RA_DECISION_PRISE_EN_CHARGE_POLICE = "Prise en charge Police"
+        const val RA_DECISION_AUTRE = "Décision Autre"
+        const val RA_DECISION_AUTRE_PRECISIONS = "Décision Précisions Autre "
+        const val RA_DECISION_CYNO_DECLENCHEMENT_SDIS = "Cyno Déclenchement SDIS"
+        const val RA_DECISION_CYNO_DECLENCHEMENT_POLICE = "Cyno Déclenchement Police"
 
         const val YEAR_2021 = "2021"
         const val YEAR_2022 = "2022"

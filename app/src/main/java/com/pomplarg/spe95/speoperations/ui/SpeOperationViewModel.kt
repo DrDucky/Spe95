@@ -205,6 +205,15 @@ class SpeOperationViewModel(
     val _actionAssistance: MutableLiveData<Boolean> = MutableLiveData(false)
     val _actionConditionnement: MutableLiveData<Boolean> = MutableLiveData(false)
     val _actionTransport: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _decisionDeclenchementSdis: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _decisionDeclenchementSdisPrecisions: MutableLiveData<String> = MutableLiveData()
+    val _decisionPriseEnChargeMairie: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _decisionPriseEnChargePolice: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _decisionAutre: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _decisionAutrePrecisions: MutableLiveData<String> = MutableLiveData()
+
+    val _decisionCynoDeclenchementSdis: MutableLiveData<Boolean> = MutableLiveData(false)
+    val _decisionCynoDeclenchementPolice: MutableLiveData<Boolean> = MutableLiveData(false)
 
     val _ldPhotoRaAbsolutePath: MutableLiveData<Uri> = MutableLiveData()
 
@@ -271,6 +280,7 @@ class SpeOperationViewModel(
          */
         if (specialtyDocument == Constants.FIRESTORE_CYNO_DOCUMENT) {
             val listOfMaterials = ArrayList<MaterialCyno>()
+            val listOfDecisions = ArrayList<DecisionCyno>()
             _equipementCynoIpso.value?.let {
                 listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_IPSO, it.toTime()))
             }
@@ -286,7 +296,10 @@ class SpeOperationViewModel(
             _equipementCynoSniper.value?.let {
                 listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_SNIPER, it.toTime()))
             }
+            if (_decisionCynoDeclenchementSdis.value == true) listOfDecisions.add(DecisionCyno(Constants.RA_DECISION_CYNO_DECLENCHEMENT_SDIS))
+            if (_decisionCynoDeclenchementPolice.value == true) listOfDecisions.add(DecisionCyno(Constants.RA_DECISION_CYNO_DECLENCHEMENT_POLICE))
             newSpeOperation.materialsCyno = listOfMaterials
+            newSpeOperation.decisionsCyno = listOfDecisions
         }
 
         /**
@@ -407,6 +420,13 @@ class SpeOperationViewModel(
             if (_actionAssistance.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_ASSISTANCE))
             if (_actionConditionnement.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_CONDITIONNEMENT))
             if (_actionTransport.value == true) listOfMaterials.add(MaterialRa(Constants.RA_ACTION_TRANSPORT))
+
+            if (_decisionDeclenchementSdis.value == true) listOfMaterials.add(MaterialRa(Constants.RA_DECISION_DECLENCHEMENT_SDIS))
+            if (!_decisionDeclenchementSdisPrecisions.value.isNullOrEmpty()) listOfMaterials.add(MaterialRa((Constants.RA_DECISION_DECLENCHEMENT_SDIS_PRECISION) + _decisionDeclenchementSdisPrecisions.value))
+            if (_decisionPriseEnChargeMairie.value == true) listOfMaterials.add(MaterialRa(Constants.RA_DECISION_PRISE_EN_CHARGE_MAIRIE))
+            if (_decisionPriseEnChargePolice.value == true) listOfMaterials.add(MaterialRa(Constants.RA_DECISION_PRISE_EN_CHARGE_POLICE))
+            if (_decisionAutre.value == true) listOfMaterials.add(MaterialRa(Constants.RA_DECISION_AUTRE))
+            if (!_decisionAutrePrecisions.value.isNullOrEmpty()) listOfMaterials.add(MaterialRa((Constants.RA_DECISION_AUTRE_PRECISIONS) + _decisionAutrePrecisions.value))
 
             newSpeOperation.materialsRa = listOfMaterials
         }

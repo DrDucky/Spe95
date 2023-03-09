@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.pomplarg.spe95.utils.Constants" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vmSpeOperation"
+            type="com.pomplarg.spe95.speoperations.ui.SpeOperationViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_equipment_animal_type_title"
+            style="@style/CategoryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dimen_4dp"
+            android:paddingTop="@dimen/dimen_8dp"
+            android:paddingBottom="@dimen/dimen_8dp"
+            android:text="@string/type_subtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/type_domestique"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={vmSpeOperation._animalTypeDomestique}"
+            android:text="@string/animal_type_domestique"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_equipment_animal_type_title" />
+
+        <CheckBox
+            android:id="@+id/type_sauvage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={vmSpeOperation._animalTypeSauvage}"
+            android:text="@string/animal_type_sauvage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/type_domestique" />
+
+        <CheckBox
+            android:id="@+id/type_elevage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={vmSpeOperation._animalTypeElevage}"
+            android:text="@string/animal_type_elevage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/type_sauvage" />
+
+        <CheckBox
+            android:id="@+id/type_autochtone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={vmSpeOperation._animalTypeAutochtone}"
+            android:text="@string/animal_type_autochtone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/type_elevage" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_decision_title"
+            style="@style/CategoryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dimen_4dp"
+            android:paddingTop="@dimen/dimen_8dp"
+            android:paddingBottom="@dimen/dimen_8dp"
+            android:text="@string/decision_subtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/type_autochtone" />
+
+        <CheckBox
+            android:id="@+id/decision_declenchement_sdis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={vmSpeOperation._decisionDeclenchementSdis}"
+            android:text="@string/decision_declenchement_sdis"
+            app:layout_constraintBottom_toTopOf="@id/til_decision_declenchement_sdis_decision"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_decision_title" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_decision_declenchement_sdis_decision"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="@dimen/default_margin_form_fields"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:hint="@string/precisions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/decision_declenchement_sdis">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_decision_declenchement_sdis_decision"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:singleLine="true"
+                android:text="@={vmSpeOperation._decisionDeclenchementSdisPrecisions}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/decision_prise_en_charge_mairie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={vmSpeOperation._decisionPriseEnChargeMairie}"
+            android:text="@string/decision_prise_en_charge_mairie"
+            app:layout_constraintBottom_toTopOf="@id/decision_prise_en_charge_police"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_decision_declenchement_sdis_decision" />
+
+        <CheckBox
+            android:id="@+id/decision_prise_en_charge_police"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={vmSpeOperation._decisionPriseEnChargePolice}"
+            android:text="@string/decision_prise_en_charge_police"
+            app:layout_constraintBottom_toTopOf="@id/decision_autre"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/decision_prise_en_charge_mairie" />
+
+        <CheckBox
+            android:id="@+id/decision_autre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={vmSpeOperation._decisionAutre}"
+            android:text="@string/decision_autre"
+            app:layout_constraintBottom_toTopOf="@id/til_decision_autre"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/decision_prise_en_charge_police" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_decision_autre"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="@dimen/default_margin_form_fields"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:hint="@string/precisions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/decision_autre">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_decision_autre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:singleLine="true"
+                android:text="@={vmSpeOperation._decisionAutrePrecisions}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

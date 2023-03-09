@@ -26,6 +26,8 @@
         <item>AVP</item>
         <item>Noyade</item>
         <item>Recherche souterraine</item>
+        <item>Pistage</item>
+        <item>Réquisition</item>
     </string-array>
     <string-array name="motifs_sd">
         <item>Effondrement</item>

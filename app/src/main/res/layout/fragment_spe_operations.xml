@@ -47,6 +47,37 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/fab_add_regulation"
+                android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_REGULATION)}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/colorSecondary"
+                    android:elevation="2dp"
+                    android:padding="@dimen/dimen_8dp"
+                    android:text="@{Constants.TYPE_OPERATION_REGULATION}"
+                    android:textColor="@color/white" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    style="@style/Widget.MaterialComponents.FloatingActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_16dp"
+                    app:backgroundTint="@color/colorSecondary"
+                    app:fabSize="mini"
+                    app:rippleColor="@color/white"
+                    app:srcCompat="@drawable/ic_type_regulation"
+                    app:tint="@color/white"
+                    android:clickable="false"
+                    android:focusable="false" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/fab_add_intervention"
                 android:onClick="@{(view) -> handler.onAddOperationClick(view, specialty, Constants.TYPE_OPERATION_INTERVENTION)}"
                 android:layout_width="wrap_content"

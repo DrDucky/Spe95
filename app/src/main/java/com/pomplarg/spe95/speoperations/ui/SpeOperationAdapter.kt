@@ -40,6 +40,8 @@ class SpeOperationAdapter :
                 .override(100, 100)
                 .into(imageView);*/
             when (speOperation.type) {
+                Constants.TYPE_OPERATION_REGULATION ->
+                    displayIcon(imageView, R.drawable.ic_type_regulation)
                 Constants.TYPE_OPERATION_INTERVENTION ->
                     displayIcon(imageView, R.drawable.ic_type_intervention)
                 Constants.TYPE_OPERATION_TRAINING ->

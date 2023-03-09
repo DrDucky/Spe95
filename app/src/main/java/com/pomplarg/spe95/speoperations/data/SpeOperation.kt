@@ -52,6 +52,9 @@ data class SpeOperation(
     @field:SerializedName("materialsCyno")
     var materialsCyno: List<MaterialCyno>? = ArrayList(),
 
+    @field:SerializedName("decisionsCyno")
+    var decisionsCyno: List<DecisionCyno>? = ArrayList(),
+
     @field:SerializedName("materialsSd")
     var materialsSd: List<MaterialSd>? = ArrayList(),
 

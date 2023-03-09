@@ -9,6 +9,8 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.utils.ColorTemplate
+import com.github.mikephil.charting.utils.ColorTemplate.rgb
 import com.pomplarg.spe95.R
 import java.text.DateFormatSymbols
 import java.util.*
@@ -30,7 +32,14 @@ fun configurePieChart(chart: PieChart, context: Context?) {
     chart.isRotationEnabled = false
     chart.isHighlightPerTapEnabled = true
     chart.animateY(1400, Easing.EaseInOutQuad)
-    chart.legend.isEnabled = false
+    chart.legend.isEnabled = true
+    chart.legend.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
+    chart.legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+    chart.legend.orientation = Legend.LegendOrientation.HORIZONTAL
+    chart.legend.setDrawInside(false)
+    chart.setDrawEntryLabels(false)
+    chart.description.isEnabled = false
+    chart.legend.isWordWrapEnabled = true
 }
 
 fun configureBarChart(chart: BarChart, context: Context?, hourAndTimeFormat: Boolean) {
@@ -80,15 +89,8 @@ fun setDataToChart(stats: HashMap<String?, Long?>?, chart: PieChart, title: Stri
         entries.add(PieEntry(it.value!!.toFloat(), it.key))
         totalCount += it.value!!
     }
-    //ColorTemplate.VORDIPLOM_COLORS
-    val colors = arrayListOf<Int>(
-        Color.rgb(255, 208, 140), //Intervention
-        Color.rgb(140, 234, 255), //Entrainement
-        Color.rgb(255, 140, 157), //Information
-        Color.rgb(192, 255, 140), //Formation
-        Color.rgb(255, 247, 140)
-    )
-    val dataset = PieDataSet(entries, "Motifs")
+    val colors = getColors()
+    val dataset = PieDataSet(entries, "")
     dataset.colors = colors
     dataset.valueTextSize = 16f
     if (hourAndTimeFormat) {
@@ -109,6 +111,7 @@ fun setBarDataToChart(stats: HashMap<Int, HashMap<String?, Long?>?>, chart: BarC
     val entriesGroupInterventions = arrayListOf<BarEntry>()
     val entriesGroupFormations = arrayListOf<BarEntry>()
     val entriesGroupInformation = arrayListOf<BarEntry>()
+    val entriesGroupRegulations = arrayListOf<BarEntry>()
 
     var totalCount = 0f
     for (i in 1..12) {
@@ -116,6 +119,7 @@ fun setBarDataToChart(stats: HashMap<Int, HashMap<String?, Long?>?>, chart: BarC
         entriesGroupInterventions.add(i - 1, BarEntry(i.toFloat(), 0f))
         entriesGroupFormations.add(i - 1, BarEntry(i.toFloat(), 0f))
         entriesGroupInformation.add(i - 1, BarEntry(i.toFloat(), 0f))
+        entriesGroupRegulations.add(i - 1, BarEntry(i.toFloat(), 0f))
 
         stats[i]?.forEach {
             when (it.key) {
@@ -143,6 +147,12 @@ fun setBarDataToChart(stats: HashMap<Int, HashMap<String?, Long?>?>, chart: BarC
                         totalCount += value.toFloat()
                     }
                 }
+                Constants.TYPE_OPERATION_REGULATION -> {
+                    it.value?.let { value ->
+                        entriesGroupRegulations[i - 1] = BarEntry(i.toFloat(), value.toFloat())
+                        totalCount += value.toFloat()
+                    }
+                }
             }
         }
     }
@@ -151,13 +161,15 @@ fun setBarDataToChart(stats: HashMap<Int, HashMap<String?, Long?>?>, chart: BarC
     val setIntervention = BarDataSet(entriesGroupInterventions, Constants.TYPE_OPERATION_INTERVENTION)
     val setFormation = BarDataSet(entriesGroupFormations, Constants.TYPE_OPERATION_FORMATION)
     val setInformation = BarDataSet(entriesGroupInformation, Constants.TYPE_OPERATION_INFORMATION)
+    val setRegulation = BarDataSet(entriesGroupRegulations, Constants.TYPE_OPERATION_REGULATION)
 
-    setIntervention.color = Color.rgb(255, 208, 140)
-    setTraining.color = Color.rgb(140, 234, 255)
-    setInformation.color = Color.rgb(255, 140, 157)
-    setFormation.color = Color.rgb(192, 255, 140)
+    setIntervention.color = getColors()[0]
+    setTraining.color = getColors()[1]
+    setInformation.color = getColors()[2]
+    setFormation.color = getColors()[3]
+    setRegulation.color = getColors()[4]
 
-    val barData = BarData(setTraining, setIntervention, setFormation, setInformation)
+    val barData = BarData(setTraining, setIntervention, setFormation, setInformation, setRegulation)
     if (hourAndTimeFormat)
         barData.setValueFormatter(vfHourAndTime)
     else
@@ -201,4 +213,17 @@ var vfMonth: ValueFormatter = object : ValueFormatter() {
             "" //Hack for the library : mandatory to be on 13 labels to display december...
         }
     }
+}
+
+fun getColors(): List<Int> {
+    return listOf(
+        rgb("#ffb3ba"),
+        rgb("#ffdfba"),
+        rgb("#ffffba"),
+        rgb("#baffc9"),
+        rgb("#bae1ff"),
+        rgb("#ffee65"),
+        rgb("#beb9db"),
+        rgb("#fdcce5")
+    )
 }

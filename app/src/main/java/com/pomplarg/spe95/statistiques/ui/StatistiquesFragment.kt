@@ -14,15 +14,18 @@ import com.pomplarg.spe95.R
 import com.pomplarg.spe95.agent.ui.MaterialSdAdapter
 import com.pomplarg.spe95.databinding.FragmentStatistiquesBinding
 import com.pomplarg.spe95.speoperations.data.AlertStock
+import com.pomplarg.spe95.speoperations.data.MaterialSd
 import com.pomplarg.spe95.speoperations.ui.SpeOperationFragmentArgs
 import com.pomplarg.spe95.utils.Constants
 import com.pomplarg.spe95.utils.configurePieChart
 import com.pomplarg.spe95.utils.setDataToChart
 import kotlinx.android.synthetic.main.grid_cyno_statistiques.view.*
 import kotlinx.android.synthetic.main.grid_cyno_statistiques.view.type_chart
+import kotlinx.android.synthetic.main.grid_ra_statistiques.view.*
 import kotlinx.android.synthetic.main.grid_sd_statistiques.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
+import kotlin.collections.HashMap
 
 class StatistiquesFragment : Fragment() {
 
@@ -50,8 +53,9 @@ class StatistiquesFragment : Fragment() {
     private fun subscribeUi(binding: FragmentStatistiquesBinding) {
 
         //Defaut buttons
-        binding.btnStatsYearSelection.check(R.id.btn_stats_year_2022)
-        statistiquesViewModel.fetchStats(specialtyDocument, Constants.YEAR_2022)
+        binding.btnStatsYearSelection.check(R.id.btn_stats_year_2023)
+        statistiquesViewModel.fetchStats(specialtyDocument, Constants.YEAR_2023)
+        statistiquesViewModel.fetchOperations(specialtyDocument, Constants.YEAR_2023)
 
         //Common Stats to all specialties
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
@@ -85,6 +89,17 @@ class StatistiquesFragment : Fragment() {
             }
         })
 
+        statistiquesViewModel.operationsLd.observe(viewLifecycleOwner) { listAllOperations ->
+            val regulationsDecisions = statistiquesViewModel.getRegulationsStatistiques(specialtyDocument, listAllOperations.filter { it.type == Constants.TYPE_OPERATION_REGULATION })
+            configureRegulationChart(binding, regulationsDecisions)
+            val interventionsDestinations = statistiquesViewModel.getDecisionsStatistiques(listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
+            configureDestinationChart(binding, interventionsDestinations)
+            val interventionsTransports = statistiquesViewModel.getTransportsStatistiques(listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
+            configureTransportChart(binding, interventionsTransports)
+            val interventionsActions = statistiquesViewModel.getActionsStatistiques(listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
+            configureActionChart(binding, interventionsActions)
+        }
+
         //SD "functionnality" only
         if (Constants.FIRESTORE_SD_DOCUMENT == specialtyDocument) {
             val alerts = arrayListOf<AlertStock>()
@@ -101,8 +116,9 @@ class StatistiquesFragment : Fragment() {
 
             statistiquesViewModel.fetchSdStock(currentYear.toString())
 
-            statistiquesViewModel.statsStocksLd.observe(viewLifecycleOwner, {
-                materialSdAdapter.submitList(it)
+            statistiquesViewModel.statsStocksLd.observe(viewLifecycleOwner) {
+                val stockList = it.toMutableList().sortedBy { stock -> stock.name }
+                materialSdAdapter.submitList(stockList)
                 val spinnerList = mutableListOf<String>()
                 it.forEach { material ->
                     material.quantity?.let { quantity ->
@@ -138,7 +154,7 @@ class StatistiquesFragment : Fragment() {
                         }
                         .show()
                 }
-            })
+            }
         }
         binding.btnStatsYearSelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (isChecked) {
@@ -149,8 +165,31 @@ class StatistiquesFragment : Fragment() {
                     else                     -> Constants.YEAR_2023
                 }
                 statistiquesViewModel.fetchStats(specialtyDocument, yearChecked)
+                statistiquesViewModel.fetchOperations(specialtyDocument, yearChecked)
             }
         }
+    }
+
+    private fun configureTransportChart(binding: FragmentStatistiquesBinding, interventionsTransports: HashMap<String?, Long?>) {
+        configurePieChart(binding.chartsRaStats.transports_ra_chart, context)
+        setDataToChart(interventionsTransports, binding.chartsRaStats.transports_ra_chart, "Transports interventions", false)
+    }
+
+    private fun configureActionChart(binding: FragmentStatistiquesBinding, interventionsActions: HashMap<String?, Long?>) {
+        configurePieChart(binding.chartsRaStats.actions_ra_chart, context)
+        setDataToChart(interventionsActions, binding.chartsRaStats.actions_ra_chart, "Actions interventions", false)
+    }
+
+    private fun configureRegulationChart(binding: FragmentStatistiquesBinding, regulationsDecisions: HashMap<String?, Long?>) {
+        configurePieChart(binding.chartsRaStats.decisions_ra_regul_chart, context)
+        configurePieChart(binding.chartsCynoStats.decisions_cyno_regul_chart, context)
+        setDataToChart(regulationsDecisions, binding.chartsRaStats.decisions_ra_regul_chart, "Décisions régulation", false)
+        setDataToChart(regulationsDecisions, binding.chartsCynoStats.decisions_cyno_regul_chart, "Décisions régulation", false)
+    }
+
+    private fun configureDestinationChart(binding: FragmentStatistiquesBinding, interventionsDestinations: HashMap<String?, Long?>) {
+        configurePieChart(binding.chartsRaStats.destinations_ra_chart, context)
+        setDataToChart(interventionsDestinations, binding.chartsRaStats.destinations_ra_chart, "Destinations interventions", false)
     }
 
     private fun updateStock(materialName: String, quantity: String, year: String) {

@@ -57,9 +57,9 @@ class AgentDetailsFragment : Fragment() {
         //By default
         configurePieChart(binding.timesChart, context)
         configurePieChart(binding.typeChart, context)
-        binding.btnYearSelection.check(R.id.btn_year_2022)
+        binding.btnYearSelection.check(R.id.btn_year_2023)
         binding.btnSpecialtySelection.check(R.id.btn_specialty_cyno)
-        statistiquesViewModel.fetchAgentStats(agentId, Constants.FIRESTORE_CYNO_DOCUMENT, Constants.YEAR_2022)
+        statistiquesViewModel.fetchAgentStats(agentId, Constants.FIRESTORE_CYNO_DOCUMENT, Constants.YEAR_2023)
 
         binding.btnYearSelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (isChecked) {

@@ -43,10 +43,7 @@ import com.pomplarg.spe95.R
 import com.pomplarg.spe95.ToolbarTitleListener
 import com.pomplarg.spe95.agent.data.Agent
 import com.pomplarg.spe95.agent.ui.AgentViewModel
-import com.pomplarg.spe95.databinding.FragmentAddOperationBinding
-import com.pomplarg.spe95.databinding.ListItemAddOperationEquipmentCynoBinding
-import com.pomplarg.spe95.databinding.ListItemAddOperationEquipmentRaBinding
-import com.pomplarg.spe95.databinding.ListItemAddOperationEquipmentSdBinding
+import com.pomplarg.spe95.databinding.*
 import com.pomplarg.spe95.speoperations.data.AgentOnOperation
 import com.pomplarg.spe95.utils.Constants
 import com.pomplarg.spe95.utils.hasConnectivity
@@ -101,6 +98,10 @@ class AddOperationFragment : Fragment() {
             ListItemAddOperationEquipmentSdBinding.inflate(inflater, container, false)
         val bindingListEquipmentRa =
             ListItemAddOperationEquipmentRaBinding.inflate(inflater, container, false)
+        val bindingListEquipmentRaRegulation =
+            ListItemAddOperationEquipmentRaRegulationBinding.inflate(inflater, container, false)
+        val bindingListEquipmentCynoRegulation =
+            ListItemAddOperationEquipmentCynoRegulationBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = this
         context ?: return binding.root
@@ -124,6 +125,8 @@ class AddOperationFragment : Fragment() {
             bindingListEquipmentCyno,
             bindingListEquipmentSd,
             bindingListEquipmentRa,
+            bindingListEquipmentRaRegulation,
+            bindingListEquipmentCynoRegulation,
             connected
         )
         binding.vmSpeOperation = speOperationViewModel
@@ -144,7 +147,7 @@ class AddOperationFragment : Fragment() {
         autocompleteFragment?.setLocationRestriction(
             RectangularBounds.newInstance(
                 LatLng(34.6036508, -14.3554670),
-                LatLng(71.1969183,69.1406268)
+                LatLng(71.1969183, 69.1406268)
             )
         )
         autocompleteFragment?.setOnPlaceSelectedListener(object : PlaceSelectionListener {
@@ -227,7 +230,7 @@ class AddOperationFragment : Fragment() {
 
         //Observables
         speOperationViewModel.ldOperationAdded.observe(viewLifecycleOwner, Observer {
-            if(it) {
+            if (it) {
                 displayMainBloc(binding, true)
                 Snackbar.make(
                     requireView(),
@@ -264,7 +267,7 @@ class AddOperationFragment : Fragment() {
 
     fun displayMainBloc(binding: FragmentAddOperationBinding, isShow: Boolean) {
         when (isShow) {
-            true -> {
+            true  -> {
                 binding.mainLayoutAddOperation.visibility = View.VISIBLE
                 binding.progressbarAddOperation.visibility = View.GONE
             }
@@ -364,12 +367,16 @@ class AddOperationFragment : Fragment() {
         bindingListEquipmentCyno: ListItemAddOperationEquipmentCynoBinding,
         bindingListEquipmentSd: ListItemAddOperationEquipmentSdBinding,
         bindingListEquipmentRa: ListItemAddOperationEquipmentRaBinding,
-        connected: Boolean
+        bindingListEquipmentRaRegulation: ListItemAddOperationEquipmentRaRegulationBinding,
+        bindingListEquipmentCynoRegulation: ListItemAddOperationEquipmentCynoRegulationBinding,
+        connected: Boolean,
     ) {
 
         bindingListEquipmentCyno.vmSpeOperation = vmSpeOperationViewModel
         bindingListEquipmentSd.vmSpeOperation = vmSpeOperationViewModel
         bindingListEquipmentRa.vmSpeOperation = vmSpeOperationViewModel
+        bindingListEquipmentRaRegulation.vmSpeOperation = vmSpeOperationViewModel
+        bindingListEquipmentCynoRegulation.vmSpeOperation = vmSpeOperationViewModel
 
         //Checkboxes cliquables (ouverture de popup)
         bindingListEquipmentSd.lspcc.setOnClickListener { buttonView ->
@@ -402,9 +409,23 @@ class AddOperationFragment : Fragment() {
 
         var layoutToAdd: View? = null
         when (specialtyId) {
-            Constants.FIRESTORE_CYNO_DOCUMENT -> layoutToAdd = bindingListEquipmentCyno.root
-            Constants.FIRESTORE_SD_DOCUMENT -> layoutToAdd = bindingListEquipmentSd.root
-            Constants.FIRESTORE_RA_DOCUMENT -> layoutToAdd = bindingListEquipmentRa.root
+            Constants.FIRESTORE_CYNO_DOCUMENT -> layoutToAdd =
+                if (vmSpeOperationViewModel.type.value!!
+                    == Constants.TYPE_OPERATION_REGULATION
+                ) {
+                    bindingListEquipmentCynoRegulation.root
+                } else {
+                    bindingListEquipmentCyno.root
+                }
+            Constants.FIRESTORE_SD_DOCUMENT   -> layoutToAdd = bindingListEquipmentSd.root
+            Constants.FIRESTORE_RA_DOCUMENT   -> layoutToAdd =
+                if (vmSpeOperationViewModel.type.value!!
+                    == Constants.TYPE_OPERATION_REGULATION
+                ) {
+                    bindingListEquipmentRaRegulation.root
+                } else {
+                    bindingListEquipmentRa.root
+                }
         }
 
         binding.equipment.addView(layoutToAdd)
@@ -413,8 +434,8 @@ class AddOperationFragment : Fragment() {
         var arrayForMotifs: Int = R.array.motifs_cyno //Default value
         when (specialtyId) {
             Constants.FIRESTORE_CYNO_DOCUMENT -> arrayForMotifs = R.array.motifs_cyno
-            Constants.FIRESTORE_SD_DOCUMENT -> arrayForMotifs = R.array.motifs_sd
-            Constants.FIRESTORE_RA_DOCUMENT -> arrayForMotifs = R.array.motifs_ra
+            Constants.FIRESTORE_SD_DOCUMENT   -> arrayForMotifs = R.array.motifs_sd
+            Constants.FIRESTORE_RA_DOCUMENT   -> arrayForMotifs = R.array.motifs_ra
         }
         val adapter =
             ArrayAdapter(

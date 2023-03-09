@@ -23,6 +23,33 @@
             android:minWidth="@dimen/chartpie_min_width"
             android:minHeight="@dimen/chartpie_min_height" />
 
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/decisions_ra_regul_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/chartpie_min_width"
+            android:minHeight="@dimen/chartpie_min_height" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/destinations_ra_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/chartpie_min_width"
+            android:minHeight="@dimen/chartpie_min_height" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/transports_ra_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/chartpie_min_width"
+            android:minHeight="@dimen/chartpie_min_height" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/actions_ra_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/chartpie_min_width"
+            android:minHeight="@dimen/chartpie_min_height" />
     </com.google.android.flexbox.FlexboxLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

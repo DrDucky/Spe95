@@ -52,4 +52,11 @@
         android:layout_height="wrap_content"
         android:minHeight="@dimen/chartpie_min_height"
         android:minWidth="@dimen/chartpie_min_width" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/decisions_cyno_regul_chart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/chartpie_min_width"
+        android:minHeight="@dimen/chartpie_min_height" />
 </com.google.android.flexbox.FlexboxLayout>
