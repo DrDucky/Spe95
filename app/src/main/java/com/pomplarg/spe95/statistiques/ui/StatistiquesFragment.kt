@@ -14,6 +14,7 @@ import com.pomplarg.spe95.R
 import com.pomplarg.spe95.agent.ui.MaterialSdAdapter
 import com.pomplarg.spe95.databinding.FragmentStatistiquesBinding
 import com.pomplarg.spe95.speoperations.data.AlertStock
+import com.pomplarg.spe95.speoperations.data.MaterialSd
 import com.pomplarg.spe95.speoperations.ui.SpeOperationFragmentArgs
 import com.pomplarg.spe95.utils.Constants
 import com.pomplarg.spe95.utils.configurePieChart
@@ -116,7 +117,8 @@ class StatistiquesFragment : Fragment() {
             statistiquesViewModel.fetchSdStock(currentYear.toString())
 
             statistiquesViewModel.statsStocksLd.observe(viewLifecycleOwner) {
-                materialSdAdapter.submitList(it)
+                val stockList = it.toMutableList().sortedBy { stock -> stock.name }
+                materialSdAdapter.submitList(stockList)
                 val spinnerList = mutableListOf<String>()
                 it.forEach { material ->
                     material.quantity?.let { quantity ->
