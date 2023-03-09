@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.grid_ra_statistiques.view.*
 import kotlinx.android.synthetic.main.grid_sd_statistiques.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
+import kotlin.collections.HashMap
 
 class StatistiquesFragment : Fragment() {
 
@@ -53,7 +54,7 @@ class StatistiquesFragment : Fragment() {
         //Defaut buttons
         binding.btnStatsYearSelection.check(R.id.btn_stats_year_2023)
         statistiquesViewModel.fetchStats(specialtyDocument, Constants.YEAR_2023)
-        statistiquesViewModel.fetchRegulationsCount(specialtyDocument, Constants.YEAR_2023)
+        statistiquesViewModel.fetchOperations(specialtyDocument, Constants.YEAR_2023)
 
         //Common Stats to all specialties
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
@@ -87,15 +88,15 @@ class StatistiquesFragment : Fragment() {
             }
         })
 
-        statistiquesViewModel.operationsRegulationsLd.observe(viewLifecycleOwner) {
-            statistiquesViewModel.getRegulationsStatistiques(specialtyDocument, it)
-        }
-
-        statistiquesViewModel.operationsRegulationsStatsLd.observe(viewLifecycleOwner) {
-            configurePieChart(binding.chartsRaStats.decisions_ra_regul_chart, context)
-            configurePieChart(binding.chartsCynoStats.decisions_cyno_regul_chart, context)
-            setDataToChart(it.regulationsDecisions, binding.chartsRaStats.decisions_ra_regul_chart, "Décisions régulation", false)
-            setDataToChart(it.regulationsDecisions, binding.chartsCynoStats.decisions_cyno_regul_chart, "Décisions régulation", false)
+        statistiquesViewModel.operationsLd.observe(viewLifecycleOwner) { listAllOperations ->
+            val regulationsDecisions = statistiquesViewModel.getRegulationsStatistiques(specialtyDocument, listAllOperations.filter { it.type == Constants.TYPE_OPERATION_REGULATION })
+            configureRegulationChart(binding, regulationsDecisions)
+            val interventionsDestinations = statistiquesViewModel.getDecisionsStatistiques(listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
+            configureDestinationChart(binding, interventionsDestinations)
+            val interventionsTransports = statistiquesViewModel.getTransportsStatistiques(listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
+            configureTransportChart(binding, interventionsTransports)
+            val interventionsActions = statistiquesViewModel.getActionsStatistiques(listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
+            configureActionChart(binding, interventionsActions)
         }
 
         //SD "functionnality" only
@@ -162,9 +163,31 @@ class StatistiquesFragment : Fragment() {
                     else                     -> Constants.YEAR_2023
                 }
                 statistiquesViewModel.fetchStats(specialtyDocument, yearChecked)
-                statistiquesViewModel.fetchRegulationsCount(specialtyDocument, yearChecked)
+                statistiquesViewModel.fetchOperations(specialtyDocument, yearChecked)
             }
         }
+    }
+
+    private fun configureTransportChart(binding: FragmentStatistiquesBinding, interventionsTransports: HashMap<String?, Long?>) {
+        configurePieChart(binding.chartsRaStats.transports_ra_chart, context)
+        setDataToChart(interventionsTransports, binding.chartsRaStats.transports_ra_chart, "Transports interventions", false)
+    }
+
+    private fun configureActionChart(binding: FragmentStatistiquesBinding, interventionsActions: HashMap<String?, Long?>) {
+        configurePieChart(binding.chartsRaStats.actions_ra_chart, context)
+        setDataToChart(interventionsActions, binding.chartsRaStats.actions_ra_chart, "Actions interventions", false)
+    }
+
+    private fun configureRegulationChart(binding: FragmentStatistiquesBinding, regulationsDecisions: HashMap<String?, Long?>) {
+        configurePieChart(binding.chartsRaStats.decisions_ra_regul_chart, context)
+        configurePieChart(binding.chartsCynoStats.decisions_cyno_regul_chart, context)
+        setDataToChart(regulationsDecisions, binding.chartsRaStats.decisions_ra_regul_chart, "Décisions régulation", false)
+        setDataToChart(regulationsDecisions, binding.chartsCynoStats.decisions_cyno_regul_chart, "Décisions régulation", false)
+    }
+
+    private fun configureDestinationChart(binding: FragmentStatistiquesBinding, interventionsDestinations: HashMap<String?, Long?>) {
+        configurePieChart(binding.chartsRaStats.destinations_ra_chart, context)
+        setDataToChart(interventionsDestinations, binding.chartsRaStats.destinations_ra_chart, "Destinations interventions", false)
     }
 
     private fun updateStock(materialName: String, quantity: String, year: String) {

@@ -9,6 +9,8 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.utils.ColorTemplate
+import com.github.mikephil.charting.utils.ColorTemplate.rgb
 import com.pomplarg.spe95.R
 import java.text.DateFormatSymbols
 import java.util.*
@@ -87,14 +89,7 @@ fun setDataToChart(stats: HashMap<String?, Long?>?, chart: PieChart, title: Stri
         entries.add(PieEntry(it.value!!.toFloat(), it.key))
         totalCount += it.value!!
     }
-    //ColorTemplate.VORDIPLOM_COLORS
-    val colors = arrayListOf<Int>(
-        Color.rgb(255, 208, 140), //Intervention
-        Color.rgb(140, 234, 255), //Entrainement
-        Color.rgb(255, 140, 157), //Information
-        Color.rgb(192, 255, 140), //Formation
-        Color.rgb(255, 247, 140) //Regulation
-    )
+    val colors = getColors()
     val dataset = PieDataSet(entries, "")
     dataset.colors = colors
     dataset.valueTextSize = 16f
@@ -168,11 +163,11 @@ fun setBarDataToChart(stats: HashMap<Int, HashMap<String?, Long?>?>, chart: BarC
     val setInformation = BarDataSet(entriesGroupInformation, Constants.TYPE_OPERATION_INFORMATION)
     val setRegulation = BarDataSet(entriesGroupRegulations, Constants.TYPE_OPERATION_REGULATION)
 
-    setIntervention.color = Color.rgb(255, 208, 140)
-    setTraining.color = Color.rgb(140, 234, 255)
-    setInformation.color = Color.rgb(255, 140, 157)
-    setFormation.color = Color.rgb(192, 255, 140)
-    setRegulation.color = Color.rgb(255, 247, 140)
+    setIntervention.color = getColors()[0]
+    setTraining.color = getColors()[1]
+    setInformation.color = getColors()[2]
+    setFormation.color = getColors()[3]
+    setRegulation.color = getColors()[4]
 
     val barData = BarData(setTraining, setIntervention, setFormation, setInformation, setRegulation)
     if (hourAndTimeFormat)
@@ -218,4 +213,17 @@ var vfMonth: ValueFormatter = object : ValueFormatter() {
             "" //Hack for the library : mandatory to be on 13 labels to display december...
         }
     }
+}
+
+fun getColors(): List<Int> {
+    return listOf(
+        rgb("#ffb3ba"),
+        rgb("#ffdfba"),
+        rgb("#ffffba"),
+        rgb("#baffc9"),
+        rgb("#bae1ff"),
+        rgb("#ffee65"),
+        rgb("#beb9db"),
+        rgb("#fdcce5")
+    )
 }

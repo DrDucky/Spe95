@@ -71,6 +71,24 @@ class StatistiqueRepository {
         }
     }
 
+    fun getAllOperationsCurrentYear(statsOperationsLd: MutableLiveData<List<SpeOperation>>, specialtyDocument: String, year: String) {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val startDate = dateFormat.parse("$year-01-01")
+        val endDate = dateFormat.parse("$year-12-31")
+        val activitiesQuery = specialtiesCollection.document(specialtyDocument).collection("activities")
+            .whereGreaterThanOrEqualTo("startDate", startDate!!)
+            .whereLessThanOrEqualTo("startDate", endDate!!)
+        activitiesQuery.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val speOperationsList = task.result.toObjects(SpeOperation::class.java)
+                statsOperationsLd.value = speOperationsList
+                Log.d(TAG, "All operations = " + speOperationsList.size)
+            } else {
+                Log.d(TAG, "Count failed: ", task.exception)
+            }
+        }
+    }
+
     /**
      * Retrieve all stats by agent and year
      * @return list of stats for a given agent
