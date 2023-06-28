@@ -226,8 +226,7 @@ class SpeOperationViewModel(
             when (val result =
                 repository.getSpeOperationFromRemoteDB(specialtyDocument, speOperationId)) {
                 is Result.Success -> speOperationLd.value = result.data
-                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+                else              -> {}//Nothing to do
             }
         }
     }
@@ -241,8 +240,7 @@ class SpeOperationViewModel(
         getUserJob = launch {
             when (val result = repository.getSpeOperationsFromRemoteDB(specialtyDocument)) {
                 is Result.Success -> speOperationsLd.value = result.data
-                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+                else              -> {}//Nothing to do
             }
         }
     }

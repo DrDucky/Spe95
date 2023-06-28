@@ -3,7 +3,10 @@ package com.pomplarg.spe95.agent.ui
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.*
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -26,7 +29,7 @@ class AddAgentFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentAddAgentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         context ?: return binding.root
@@ -134,9 +137,27 @@ class AddAgentFragment : Fragment() {
             findNavController().navigate(direction)
         })
 
+        setupMenu()
 
-        setHasOptionsMenu(true)
         return binding.root
+    }
+
+    private fun setupMenu() {
+        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
+            override fun onPrepareMenu(menu: Menu) {
+                // Hide the menu (map and stats button)
+                menu.setGroupVisible(R.id.main_menu_group, false)
+            }
+
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_toolbar, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Validate and handle the selected menu item
+                return false
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun validate(
@@ -173,12 +194,5 @@ class AddAgentFragment : Fragment() {
         }
 
         return isValid
-    }
-
-    /**
-     * Hide the menu (map and stats button)
-     */
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.setGroupVisible(R.id.main_menu_group, false)
     }
 }

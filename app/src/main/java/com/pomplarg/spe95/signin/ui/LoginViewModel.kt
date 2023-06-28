@@ -52,7 +52,7 @@ class LoginViewModel(
                 repository.loginUser(email.value!!, password.value!!)) {
                 is Result.Success -> _loginSucceeded.call()
                 is Result.Error   -> loginError.value = result.exception.toString()
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+                else              -> {}//Nothing to do
             }
         }
     }

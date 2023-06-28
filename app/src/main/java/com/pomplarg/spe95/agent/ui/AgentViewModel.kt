@@ -73,8 +73,7 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
                     agentsAllLd.value = result.data
                     agentsLd.value = result.data
                 }
-                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+                else              -> {}//Nothing to do
             }
         }
     }
@@ -85,8 +84,7 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
         getUserJob = launch {
             when (val result = repository.getAllAgentsPerSpecialty(specialty)) {
                 is Result.Success -> agentsLd.value = result.data
-                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+                else              -> {}//Nothing to do
             }
         }
     }
@@ -176,8 +174,8 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
                         agentAdded.call()
                     }
                 }
-                is Result.Error -> _genericException.value = result.exception.message
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+                is Result.Error   -> _genericException.value = result.exception.message
+                else              -> {}//Nothing to do
             }
         }
     }
@@ -197,7 +195,8 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
             when (val result =
                 repository.deleteAgentIntoRemoteDB(agentId)) {
                 is Result.Success -> _agentDeleted.value = true
-                is Result.Error -> _genericException.value = result.exception.message
+                is Result.Error   -> _genericException.value = result.exception.message
+                else              -> {}//Nothing to do
             }
         }
     }

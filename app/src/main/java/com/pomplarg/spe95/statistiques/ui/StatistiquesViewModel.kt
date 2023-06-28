@@ -44,8 +44,7 @@ class StatistiquesViewModel(private val repository: StatistiqueRepository) : Vie
                 is Result.Success -> {
                     statsMotifsLd.value = result.data
                 }
-                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+                else              -> {}//Nothing to do
             }
         }
     }

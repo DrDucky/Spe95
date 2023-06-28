@@ -1,62 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:flexWrap="wrap"
-    app:alignItems="flex_start"
-    app:alignContent="center"
-    app:justifyContent="center"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/type_chart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/chartpie_min_height"
-        android:minWidth="@dimen/chartpie_min_width" />
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:alignContent="center"
+        app:alignItems="flex_start"
+        app:flexWrap="wrap"
+        app:justifyContent="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:viewBindingIgnore="true">
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/ipso_chart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/chartpie_min_height"
-        android:minWidth="@dimen/chartpie_min_width" />
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/type_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/chartpie_min_width"
+            android:minHeight="@dimen/chartpie_min_height" />
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/nano_chart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/chartpie_min_height"
-        android:minWidth="@dimen/chartpie_min_width" />
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/ipso_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/chartpie_min_width"
+            android:minHeight="@dimen/chartpie_min_height" />
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/nerone_chart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/chartpie_min_height"
-        android:minWidth="@dimen/chartpie_min_width" />
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/nano_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/chartpie_min_width"
+            android:minHeight="@dimen/chartpie_min_height" />
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/priaxe_chart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/chartpie_min_height"
-        android:minWidth="@dimen/chartpie_min_width" />
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/nerone_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/chartpie_min_width"
+            android:minHeight="@dimen/chartpie_min_height" />
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/sniper_chart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/chartpie_min_height"
-        android:minWidth="@dimen/chartpie_min_width" />
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/priaxe_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/chartpie_min_width"
+            android:minHeight="@dimen/chartpie_min_height" />
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/decisions_cyno_regul_chart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="@dimen/chartpie_min_width"
-        android:minHeight="@dimen/chartpie_min_height" />
-</com.google.android.flexbox.FlexboxLayout>
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/sniper_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/chartpie_min_width"
+            android:minHeight="@dimen/chartpie_min_height" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/decisions_cyno_regul_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/chartpie_min_width"
+            android:minHeight="@dimen/chartpie_min_height" />
+    </com.google.android.flexbox.FlexboxLayout>
+</layout>

@@ -1,7 +1,9 @@
 package com.pomplarg.spe95.utils
 
 import android.content.Context
+import android.location.Address
 import android.location.Geocoder
+import android.os.Build
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 import com.pomplarg.spe95.R
@@ -62,7 +64,7 @@ fun geopointToString(
         val geocoder = Geocoder(context)
         try {
             val adressList = geocoder.getFromLocation(value.latitude, value.longitude, 1)
-            adressList[0].getAddressLine(0) //Display correct address
+            adressList?.firstOrNull()!!.getAddressLine(0) //Display correct address
         } catch (e: Exception) {
             ""
         }
