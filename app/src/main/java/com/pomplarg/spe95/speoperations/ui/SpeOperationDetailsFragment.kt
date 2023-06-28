@@ -33,6 +33,7 @@ class SpeOperationDetailsFragment : Fragment() {
     }
     private val agentsViewModel: AgentViewModel by viewModel()
     private val agentDetailsViewModel: AgentDetailsViewModel by viewModel()
+    private lateinit var agentAdapter: AgentAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,13 +49,11 @@ class SpeOperationDetailsFragment : Fragment() {
 
         val speOperationId = args.speOperationId
         specialtyDocument = args.specialtyDetails
-        val adapter = AgentAdapter(false)
         val materialAdapter = MaterialCynoAdapter()
         val decisionsCynoAdapter = DecisionsCynoAdapter()
         val materialSdAdapter = MaterialSdAdapter()
         val materialRaAdapter = MaterialRaAdapter()
         val enginsSdAdapter = EnginsSdAdapter()
-        binding.rvTeamAgentList.adapter = adapter
         binding.rvMaterialCynoList.adapter = materialAdapter
         binding.rvDecisionsCynoList.adapter = decisionsCynoAdapter
         binding.rvMaterialSdList.adapter = materialSdAdapter
@@ -65,7 +64,7 @@ class SpeOperationDetailsFragment : Fragment() {
         binding.handler = speOperationHandler
 
         speOperationViewModel.fetchSpeOperationInformation(speOperationId)
-        subscribeUi(binding, adapter, materialAdapter, decisionsCynoAdapter, materialSdAdapter, enginsSdAdapter, materialRaAdapter)
+        subscribeUi(binding, materialAdapter, decisionsCynoAdapter, materialSdAdapter, enginsSdAdapter, materialRaAdapter)
         setHasOptionsMenu(true)
 
         return binding.root
@@ -73,7 +72,6 @@ class SpeOperationDetailsFragment : Fragment() {
 
     private fun subscribeUi(
         binding: FragmentSpeOperationDetailsBinding,
-        adapter: AgentAdapter,
         materialCynoAdapter: MaterialCynoAdapter,
         decisionsCynoAdapter: DecisionsCynoAdapter,
         materialSdAdapter: MaterialSdAdapter,
@@ -96,7 +94,7 @@ class SpeOperationDetailsFragment : Fragment() {
             })
 
         agentsViewModel.agentsLd.observe(viewLifecycleOwner, Observer { it ->
-            adapter.submitList(it)
+            agentAdapter.submitList(it)
         })
 
         agentDetailsViewModel.agentLd.observe(viewLifecycleOwner, Observer { it ->
@@ -115,6 +113,9 @@ class SpeOperationDetailsFragment : Fragment() {
     ) {
         if (speOperation.id != 0L) {
             speOperation.apply {
+
+                agentAdapter = AgentAdapter(false, this.agentOnOperation)
+                binding.rvTeamAgentList.adapter = agentAdapter
                 binding.speOperation = speOperation
                 binding.tvOperationEmpty.visibility = View.GONE
                 binding.mainLayoutOperationDetail.visibility = View.VISIBLE

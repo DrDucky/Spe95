@@ -85,15 +85,17 @@ class AddAgentFragment : Fragment() {
 
         //Observables
         agentViewModel.agentAdded.observe(viewLifecycleOwner, Observer {
-            hideKeyboard()
-            Snackbar.make(
-                requireView(),
-                getString(R.string.add_agent_agent_added),
-                Snackbar.LENGTH_LONG
-            ).show()
-            val direction =
-                AddAgentFragmentDirections.actionAddAgentFragmentToAgentFragment()
-            findNavController().navigate(direction)
+            if (it) {
+                hideKeyboard()
+                Snackbar.make(
+                    requireView(),
+                    getString(R.string.add_agent_agent_added),
+                    Snackbar.LENGTH_LONG
+                ).show()
+                val direction =
+                    AddAgentFragmentDirections.actionAddAgentFragmentToAgentFragment()
+                findNavController().navigate(direction)
+            }
         })
 
         agentViewModel._genericException.observe(viewLifecycleOwner, Observer {

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pomplarg.spe95.data.Result
-import com.pomplarg.spe95.data.SingleLiveEvent
 import com.pomplarg.spe95.signin.data.LoginRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +24,7 @@ class LoginViewModel(
     // -- Coroutine jobs
     private var getUserJob: Job? = null
 
-    private val _loginSucceeded = SingleLiveEvent<Any>()
+    private val _loginSucceeded = MutableLiveData<Boolean>(false)
     val loginSucceed = _loginSucceeded
 
     // VM attributes
@@ -39,8 +38,6 @@ class LoginViewModel(
 
     var loginError: MutableLiveData<String> = MutableLiveData()
 
-    val btnSigninState = SingleLiveEvent<Any>()
-
 
     /**
      * Login into Firebase
@@ -49,8 +46,10 @@ class LoginViewModel(
         if (getUserJob?.isActive == true) getUserJob?.cancel()
         getUserJob = launch {
             when (val result =
-                repository.loginUser(email.value!!, password.value!!)) {
-                is Result.Success -> _loginSucceeded.call()
+                email.value?.let { email ->
+                    password.value?.let { password -> repository.loginUser(email, password) }
+                }) {
+                is Result.Success -> _loginSucceeded.value = true
                 is Result.Error   -> loginError.value = result.exception.toString()
                 else              -> {}//Nothing to do
             }
@@ -68,8 +67,6 @@ class LoginViewModel(
         } else {
             _emailError.value = null
         }
-
-        btnSigninState.call()
     }
 
     fun onPasswordTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -78,6 +75,5 @@ class LoginViewModel(
         } else {
             _passwordError.value = null
         }
-        btnSigninState.call()
     }
 }

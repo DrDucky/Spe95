@@ -32,8 +32,10 @@ class SignInActivity : AppCompatActivity() {
 
         //Observables
         loginViewModel.loginSucceed.observe(this, Observer {
-            intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            if (it) {
+                intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
         })
 
         loginViewModel._emailError.observe(this, Observer {
@@ -51,14 +53,5 @@ class SignInActivity : AppCompatActivity() {
                 Snackbar.LENGTH_LONG
             ).show()
         })
-
-        loginViewModel.btnSigninState.observe(this, Observer {
-            updateBtnState(binding)
-        })
-    }
-
-    private fun updateBtnState(binding: ActivitySigninBinding) {
-        binding.btnSignin.isEnabled = !binding.etEmail.text.isNullOrEmpty()
-                && !binding.etPassword.text.isNullOrEmpty()
     }
 }

@@ -5,9 +5,11 @@
       <map>
         <entry key="..\:/workspace/Spe95/app/src/main/res/drawable/ic_type_intervention.xml" value="0.1" />
         <entry key="..\:/workspace/Spe95/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/workspace/Spe95/app/src/main/res/layout/activity_signin.xml" value="0.1" />
         <entry key="..\:/workspace/Spe95/app/src/main/res/layout/fragment_spe_operations.xml" value="0.1" />
         <entry key="..\:/workspace/Spe95/app/src/main/res/layout/grid_ra_statistiques.xml" value="0.1" />
         <entry key="..\:/workspace/Spe95/app/src/main/res/layout/grid_sd_statistiques.xml" value="0.1" />
+        <entry key="..\:/workspace/Spe95/app/src/main/res/layout/list_item_agent.xml" value="0.1" />
         <entry key="..\:/workspace/Spe95/app/src/main/res/menu/menu_toolbar.xml" value="0.1" />
       </map>
     </option>
