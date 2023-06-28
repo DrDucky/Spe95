@@ -93,6 +93,8 @@ class StatistiquesFragment : Fragment() {
             configureTransportChart(binding, interventionsTransports)
             val interventionsActions = statistiquesViewModel.getActionsStatistiques(listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
             configureActionChart(binding, interventionsActions)
+            val enginsSd = statistiquesViewModel.getEnginsStatistiques(specialtyDocument, listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
+            configureEnginsChart(binding, enginsSd)
         }
 
         //SD "functionnality" only
@@ -185,6 +187,11 @@ class StatistiquesFragment : Fragment() {
     private fun configureDestinationChart(binding: FragmentStatistiquesBinding, interventionsDestinations: HashMap<String?, Long?>) {
         configurePieChart(binding.chartsRaStats.destinationsRaChart, context)
         setDataToChart(interventionsDestinations, binding.chartsRaStats.destinationsRaChart, "Destinations interventions", false)
+    }
+
+    private fun configureEnginsChart(binding: FragmentStatistiquesBinding, enginsStatistique: HashMap<String?, Long?>) {
+        configurePieChart(binding.chartsSdStats.enginsChart, context)
+        setDataToChart(enginsStatistique, binding.chartsSdStats.enginsChart, "Engins", false)
     }
 
     private fun updateStock(materialName: String, quantity: String, year: String) {
