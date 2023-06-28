@@ -31,6 +31,10 @@
         <variable
             name="isSniperChecked"
             type="java.lang.Boolean" />
+
+        <variable
+            name="isUlcoChecked"
+            type="java.lang.Boolean" />
     </data>
 
     <LinearLayout
@@ -68,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:barrierDirection="end"
-                    app:constraint_referenced_ids="ipso,nano, nerone, priaxe, sniper" />
+                    app:constraint_referenced_ids="ipso,nano, nerone, priaxe, sniper, ulco" />
 
                 <CheckBox
                     android:id="@+id/ipso"
@@ -223,7 +227,7 @@
                     android:visibility="@{isSniperChecked ? View.VISIBLE : View.GONE, default = gone}"
                     app:helperText="@string/add_operation_time_helper"
                     app:layout_constraintBottom_toBottomOf="@+id/sniper"
-                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintStart_toEndOf="@+id/guideline"
                     app:layout_constraintTop_toTopOf="@+id/sniper"
                     tools:visibility="visible">
 
@@ -234,6 +238,38 @@
                         android:ems="5"
                         android:inputType="time"
                         android:text="@={vmSpeOperation._equipementCynoSniper}" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <CheckBox
+                    android:id="@+id/ulco"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:checked="@={isUlcoChecked}"
+                    android:text="@{Constants.CYNO_DOG_ULCO}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sniper" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ulco_time"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:hint="@string/time"
+                    android:visibility="@{isUlcoChecked ? View.VISIBLE : View.GONE, default = gone}"
+                    app:helperText="@string/add_operation_time_helper"
+                    app:layout_constraintBottom_toBottomOf="@+id/ulco"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toTopOf="@+id/ulco"
+                    tools:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_ulco_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="5"
+                        android:inputType="time"
+                        android:text="@={vmSpeOperation._equipementCynoUlco}" />
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>

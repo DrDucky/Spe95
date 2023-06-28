@@ -38,12 +38,14 @@ class StatistiqueRepository {
                 val neroneTime = documentSnapshot.data[Constants.CYNO_DOG_NERONE] as HashMap<String?, HashMap<String?, Long?>?>?
                 val priaxeTime = documentSnapshot.data[Constants.CYNO_DOG_PRIAXE] as HashMap<String?, HashMap<String?, Long?>?>?
                 val sniperTime = documentSnapshot.data[Constants.CYNO_DOG_SNIPER] as HashMap<String?, HashMap<String?, Long?>?>?
+                val ulcoTime = documentSnapshot.data[Constants.CYNO_DOG_ULCO] as HashMap<String?, HashMap<String?, Long?>?>?
 
                 stats.ipso = ipsoTime?.get("time")
                 stats.nano = nanoTime?.get("time")
                 stats.nerone = neroneTime?.get("time")
                 stats.priaxe = priaxeTime?.get("time")
                 stats.sniper = sniperTime?.get("time")
+                stats.ulco = ulcoTime?.get("time")
 
                 Result.Success(stats)
             }

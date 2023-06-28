@@ -86,6 +86,7 @@ class SpeOperationViewModel(
     val _equipementCynoNerone: MutableLiveData<String> = MutableLiveData()
     val _equipementCynoPriaxe: MutableLiveData<String> = MutableLiveData()
     val _equipementCynoSniper: MutableLiveData<String> = MutableLiveData()
+    val _equipementCynoUlco: MutableLiveData<String> = MutableLiveData()
 
     val _equipementSdLspcc44: MutableLiveData<Boolean> = MutableLiveData(false)
     val _equipementSdLspcc46: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -293,6 +294,9 @@ class SpeOperationViewModel(
             }
             _equipementCynoSniper.value?.let {
                 listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_SNIPER, it.toTime()))
+            }
+            _equipementCynoUlco.value?.let {
+                listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_ULCO, it.toTime()))
             }
             if (_decisionCynoDeclenchementSdis.value == true) listOfDecisions.add(DecisionCyno(Constants.RA_DECISION_CYNO_DECLENCHEMENT_SDIS))
             if (_decisionCynoDeclenchementPolice.value == true) listOfDecisions.add(DecisionCyno(Constants.RA_DECISION_CYNO_DECLENCHEMENT_POLICE))
