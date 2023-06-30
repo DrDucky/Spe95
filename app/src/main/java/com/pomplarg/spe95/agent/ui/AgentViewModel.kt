@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.pomplarg.spe95.agent.data.Agent
 import com.pomplarg.spe95.agent.data.AgentRepository
 import com.pomplarg.spe95.data.Result
-import com.pomplarg.spe95.data.SingleLiveEvent
 import com.pomplarg.spe95.utils.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +23,7 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
 
     // -- Coroutine jobs
     private var getUserJob: Job? = null
-    private val _agentAdded = SingleLiveEvent<Any>()
+    private val _agentAdded = MutableLiveData<Boolean>(false)
     val agentAdded = _agentAdded
 
     var _agentIdAdded: MutableLiveData<String> = MutableLiveData()
@@ -73,8 +72,7 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
                     agentsAllLd.value = result.data
                     agentsLd.value = result.data
                 }
-                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+                else              -> {}//Nothing to do
             }
         }
     }
@@ -85,8 +83,7 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
         getUserJob = launch {
             when (val result = repository.getAllAgentsPerSpecialty(specialty)) {
                 is Result.Success -> agentsLd.value = result.data
-                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+                else              -> {}//Nothing to do
             }
         }
     }
@@ -173,11 +170,11 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
                         _agentEdited.value = true
                     } else {
                         _agentIdAdded.value = result.data
-                        agentAdded.call()
+                        agentAdded.value = true
                     }
                 }
-                is Result.Error -> _genericException.value = result.exception.message
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+                is Result.Error   -> _genericException.value = result.exception.message
+                else              -> {}//Nothing to do
             }
         }
     }
@@ -197,7 +194,8 @@ class AgentViewModel(private val repository: AgentRepository) : ViewModel(), Cor
             when (val result =
                 repository.deleteAgentIntoRemoteDB(agentId)) {
                 is Result.Success -> _agentDeleted.value = true
-                is Result.Error -> _genericException.value = result.exception.message
+                is Result.Error   -> _genericException.value = result.exception.message
+                else              -> {}//Nothing to do
             }
         }
     }

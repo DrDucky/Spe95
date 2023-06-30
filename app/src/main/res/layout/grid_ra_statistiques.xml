@@ -1,55 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flx_type_chart"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:alignContent="center"
-        app:alignItems="flex_start"
-        app:flexWrap="wrap"
-        app:justifyContent="space_around"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        tools:viewBindingIgnore="true">
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/type_chart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="@dimen/chartpie_min_width"
-            android:minHeight="@dimen/chartpie_min_height" />
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/flx_type_chart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:alignContent="center"
+            app:alignItems="flex_start"
+            app:flexWrap="wrap"
+            app:justifyContent="space_around"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/decisions_ra_regul_chart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="@dimen/chartpie_min_width"
-            android:minHeight="@dimen/chartpie_min_height" />
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/type_chart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/chartpie_min_width"
+                android:minHeight="@dimen/chartpie_min_height" />
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/destinations_ra_chart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="@dimen/chartpie_min_width"
-            android:minHeight="@dimen/chartpie_min_height" />
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/decisions_ra_regul_chart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/chartpie_min_width"
+                android:minHeight="@dimen/chartpie_min_height" />
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/transports_ra_chart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="@dimen/chartpie_min_width"
-            android:minHeight="@dimen/chartpie_min_height" />
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/destinations_ra_chart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/chartpie_min_width"
+                android:minHeight="@dimen/chartpie_min_height" />
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/actions_ra_chart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="@dimen/chartpie_min_width"
-            android:minHeight="@dimen/chartpie_min_height" />
-    </com.google.android.flexbox.FlexboxLayout>
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/transports_ra_chart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/chartpie_min_width"
+                android:minHeight="@dimen/chartpie_min_height" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/actions_ra_chart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/chartpie_min_width"
+                android:minHeight="@dimen/chartpie_min_height" />
+        </com.google.android.flexbox.FlexboxLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -3,10 +3,7 @@ package com.pomplarg.spe95.statistiques.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pomplarg.spe95.data.Result
-import com.pomplarg.spe95.speoperations.data.DecisionCyno
-import com.pomplarg.spe95.speoperations.data.MaterialRa
-import com.pomplarg.spe95.speoperations.data.MaterialSd
-import com.pomplarg.spe95.speoperations.data.SpeOperation
+import com.pomplarg.spe95.speoperations.data.*
 import com.pomplarg.spe95.statistiques.data.Statistique
 import com.pomplarg.spe95.statistiques.data.StatistiqueRepository
 import com.pomplarg.spe95.utils.Constants
@@ -44,8 +41,7 @@ class StatistiquesViewModel(private val repository: StatistiqueRepository) : Vie
                 is Result.Success -> {
                     statsMotifsLd.value = result.data
                 }
-                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+                else              -> {}//Nothing to do
             }
         }
     }
@@ -55,6 +51,50 @@ class StatistiquesViewModel(private val repository: StatistiqueRepository) : Vie
         getRegulationJob = launch {
             repository.getAllOperationsCurrentYear(operationsLd, specialty, year)
         }
+    }
+
+
+    fun getEnginsStatistiques(specialtyDocument: String, enginsList: List<SpeOperation>): HashMap<String?, Long?> {
+        val enginsStatistique: HashMap<String?, Long?> = HashMap()
+
+        val countEnginsCesd = enginsList.filter {
+            it.enginsSd!!.contains(EnginSd(Constants.SD_ENGINS_CESD))
+        }.size
+
+        val countEnginsVlrsd = enginsList.filter {
+            it.enginsSd!!.contains(EnginSd(Constants.SD_ENGINS_VLRSD))
+        }.size
+
+        val countEnginsVtuSdCep = enginsList.filter {
+            it.enginsSd!!.contains(EnginSd(Constants.SD_ENGINS_VTU_CEP))
+        }.size
+
+        val countEnginsVtuSdBez = enginsList.filter {
+            it.enginsSd!!.contains(EnginSd(Constants.SD_ENGINS_VTU_BEZ))
+        }.size
+
+        val countEnginsVtuSdGra = enginsList.filter {
+            it.enginsSd!!.contains(EnginSd(Constants.SD_ENGINS_VTU_GRA))
+        }.size
+
+        val countEnginsVtuSdArg = enginsList.filter {
+            it.enginsSd!!.contains(EnginSd(Constants.SD_ENGINS_VTU_ARG))
+        }.size
+
+        val countEnginsVidSpe = enginsList.filter {
+            it.enginsSd!!.contains(EnginSd(Constants.SD_ENGINS_VID_SPE))
+        }.size
+
+        if (specialtyDocument == Constants.FIRESTORE_SD_DOCUMENT) {
+            enginsStatistique[Constants.SD_ENGINS_CESD] = countEnginsCesd.toLong()
+            enginsStatistique[Constants.SD_ENGINS_VLRSD] = countEnginsVlrsd.toLong()
+            enginsStatistique[Constants.SD_ENGINS_VTU_CEP] = countEnginsVtuSdCep.toLong()
+            enginsStatistique[Constants.SD_ENGINS_VTU_BEZ] = countEnginsVtuSdBez.toLong()
+            enginsStatistique[Constants.SD_ENGINS_VTU_GRA] = countEnginsVtuSdGra.toLong()
+            enginsStatistique[Constants.SD_ENGINS_VTU_ARG] = countEnginsVtuSdArg.toLong()
+            enginsStatistique[Constants.SD_ENGINS_VID_SPE] = countEnginsVidSpe.toLong()
+        }
+        return enginsStatistique
     }
 
     fun getRegulationsStatistiques(specialtyDocument: String, regulationsList: List<SpeOperation>): HashMap<String?, Long?> {

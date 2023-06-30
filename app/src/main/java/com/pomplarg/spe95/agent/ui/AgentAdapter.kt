@@ -12,18 +12,19 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.pomplarg.spe95.agent.data.Agent
 import com.pomplarg.spe95.databinding.ListItemAgentBinding
+import com.pomplarg.spe95.speoperations.data.AgentOnOperation
 import com.pomplarg.spe95.speoperations.ui.SpeOperationHandlerClick
 import com.pomplarg.spe95.utils.AvatarGenerator
+import com.pomplarg.spe95.utils.timeToString
 
 
-class AgentAdapter(private val shouldBeClickable: Boolean = true) : ListAdapter<Agent, AgentAdapter.AgentViewHolder>(DiffCallback()) {
+class AgentAdapter(private val shouldBeClickable: Boolean = true, private val agentsOnOperation: List<AgentOnOperation>? = null) : ListAdapter<Agent, AgentAdapter.AgentViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AgentViewHolder {
         return AgentViewHolder(
             ListItemAgentBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
-
         )
     }
 
@@ -37,7 +38,7 @@ class AgentAdapter(private val shouldBeClickable: Boolean = true) : ListAdapter<
         var storageReference: StorageReference? = null
 
         holder.apply {
-            bind(agent)
+            bind(agent, agentsOnOperation)
 
             if (agent.avatar.isNotEmpty()) {
                 storageReference =
@@ -57,11 +58,18 @@ class AgentAdapter(private val shouldBeClickable: Boolean = true) : ListAdapter<
     }
 
     class AgentViewHolder(
-        val binding: ListItemAgentBinding
+        val binding: ListItemAgentBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Agent) {
+        fun bind(item: Agent, agentsOnOperation: List<AgentOnOperation>?) {
             binding.apply {
                 agent = item
+                if (agentsOnOperation != null) {
+                    for (agentOnOperation in agentsOnOperation) {
+                        if (agentOnOperation.id == item.id) {
+                            time = timeToString(agentOnOperation.time)
+                        }
+                    }
+                }
                 executePendingBindings()
             }
         }

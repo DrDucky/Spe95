@@ -86,6 +86,7 @@ class SpeOperationViewModel(
     val _equipementCynoNerone: MutableLiveData<String> = MutableLiveData()
     val _equipementCynoPriaxe: MutableLiveData<String> = MutableLiveData()
     val _equipementCynoSniper: MutableLiveData<String> = MutableLiveData()
+    val _equipementCynoUlco: MutableLiveData<String> = MutableLiveData()
 
     val _equipementSdLspcc44: MutableLiveData<Boolean> = MutableLiveData(false)
     val _equipementSdLspcc46: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -226,8 +227,7 @@ class SpeOperationViewModel(
             when (val result =
                 repository.getSpeOperationFromRemoteDB(specialtyDocument, speOperationId)) {
                 is Result.Success -> speOperationLd.value = result.data
-                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+                else              -> {}//Nothing to do
             }
         }
     }
@@ -241,8 +241,7 @@ class SpeOperationViewModel(
         getUserJob = launch {
             when (val result = repository.getSpeOperationsFromRemoteDB(specialtyDocument)) {
                 is Result.Success -> speOperationsLd.value = result.data
-                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+                else              -> {}//Nothing to do
             }
         }
     }
@@ -295,6 +294,9 @@ class SpeOperationViewModel(
             }
             _equipementCynoSniper.value?.let {
                 listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_SNIPER, it.toTime()))
+            }
+            _equipementCynoUlco.value?.let {
+                listOfMaterials.add(MaterialCyno(Constants.CYNO_DOG_ULCO, it.toTime()))
             }
             if (_decisionCynoDeclenchementSdis.value == true) listOfDecisions.add(DecisionCyno(Constants.RA_DECISION_CYNO_DECLENCHEMENT_SDIS))
             if (_decisionCynoDeclenchementPolice.value == true) listOfDecisions.add(DecisionCyno(Constants.RA_DECISION_CYNO_DECLENCHEMENT_POLICE))

@@ -14,15 +14,10 @@ import com.pomplarg.spe95.R
 import com.pomplarg.spe95.agent.ui.MaterialSdAdapter
 import com.pomplarg.spe95.databinding.FragmentStatistiquesBinding
 import com.pomplarg.spe95.speoperations.data.AlertStock
-import com.pomplarg.spe95.speoperations.data.MaterialSd
 import com.pomplarg.spe95.speoperations.ui.SpeOperationFragmentArgs
 import com.pomplarg.spe95.utils.Constants
 import com.pomplarg.spe95.utils.configurePieChart
 import com.pomplarg.spe95.utils.setDataToChart
-import kotlinx.android.synthetic.main.grid_cyno_statistiques.view.*
-import kotlinx.android.synthetic.main.grid_cyno_statistiques.view.type_chart
-import kotlinx.android.synthetic.main.grid_ra_statistiques.view.*
-import kotlinx.android.synthetic.main.grid_sd_statistiques.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.collections.HashMap
@@ -43,7 +38,7 @@ class StatistiquesFragment : Fragment() {
         specialtyDocument = args.specialty
 
         binding.specialty = specialtyDocument
-        binding.chartsSdStats.rv_material_sd_list_stock.adapter = materialSdAdapter
+        binding.chartsSdStats.rvMaterialSdListStock.adapter = materialSdAdapter
 
         subscribeUi(binding)
 
@@ -62,30 +57,32 @@ class StatistiquesFragment : Fragment() {
         statistiquesViewModel.statsMotifsLd.observe(viewLifecycleOwner, Observer {
             if (Constants.FIRESTORE_CYNO_DOCUMENT == specialtyDocument) {
                 //Update UI
-                configurePieChart(binding.chartsCynoStats.type_chart, context)
-                configurePieChart(binding.chartsCynoStats.ipso_chart, context)
-                configurePieChart(binding.chartsCynoStats.nano_chart, context)
-                configurePieChart(binding.chartsCynoStats.nerone_chart, context)
-                configurePieChart(binding.chartsCynoStats.priaxe_chart, context)
-                configurePieChart(binding.chartsCynoStats.sniper_chart, context)
+                configurePieChart(binding.chartsCynoStats.typeChart, context)
+                configurePieChart(binding.chartsCynoStats.ipsoChart, context)
+                configurePieChart(binding.chartsCynoStats.nanoChart, context)
+                configurePieChart(binding.chartsCynoStats.neroneChart, context)
+                configurePieChart(binding.chartsCynoStats.priaxeChart, context)
+                configurePieChart(binding.chartsCynoStats.sniperChart, context)
+                configurePieChart(binding.chartsCynoStats.ulcoChart, context)
 
-                setDataToChart(it.motifs, binding.chartsCynoStats.type_chart, "Motifs d'intervention", false)
-                setDataToChart(it.ipso, binding.chartsCynoStats.ipso_chart, "Ipso", true)
-                setDataToChart(it.nano, binding.chartsCynoStats.nano_chart, "Nano", true)
-                setDataToChart(it.nerone, binding.chartsCynoStats.nerone_chart, "Nerone", true)
-                setDataToChart(it.priaxe, binding.chartsCynoStats.priaxe_chart, "Priaxe", true)
-                setDataToChart(it.sniper, binding.chartsCynoStats.sniper_chart, "Sniper", true)
+                setDataToChart(it.motifs, binding.chartsCynoStats.typeChart, "Motifs d'intervention", false)
+                setDataToChart(it.ipso, binding.chartsCynoStats.ipsoChart, "Ipso", true)
+                setDataToChart(it.nano, binding.chartsCynoStats.nanoChart, "Nano", true)
+                setDataToChart(it.nerone, binding.chartsCynoStats.neroneChart, "Nerone", true)
+                setDataToChart(it.priaxe, binding.chartsCynoStats.priaxeChart, "Priaxe", true)
+                setDataToChart(it.sniper, binding.chartsCynoStats.sniperChart, "Sniper", true)
+                setDataToChart(it.ulco, binding.chartsCynoStats.ulcoChart, "Ulco", true)
 
             }
             if (Constants.FIRESTORE_SD_DOCUMENT == specialtyDocument) {
                 //Update UI
-                configurePieChart(binding.chartsSdStats.type_chart, context)
-                setDataToChart(it.motifs, binding.chartsSdStats.type_chart, "Motifs d'intervention", false)
+                configurePieChart(binding.chartsSdStats.typeChart, context)
+                setDataToChart(it.motifs, binding.chartsSdStats.typeChart, "Motifs d'intervention", false)
             }
             if (Constants.FIRESTORE_RA_DOCUMENT == specialtyDocument) {
                 //Update UI
-                configurePieChart(binding.chartsRaStats.type_chart, context)
-                setDataToChart(it.motifs, binding.chartsRaStats.type_chart, "Motifs d'intervention", false)
+                configurePieChart(binding.chartsRaStats.typeChart, context)
+                setDataToChart(it.motifs, binding.chartsRaStats.typeChart, "Motifs d'intervention", false)
             }
         })
 
@@ -98,6 +95,8 @@ class StatistiquesFragment : Fragment() {
             configureTransportChart(binding, interventionsTransports)
             val interventionsActions = statistiquesViewModel.getActionsStatistiques(listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
             configureActionChart(binding, interventionsActions)
+            val enginsSd = statistiquesViewModel.getEnginsStatistiques(specialtyDocument, listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
+            configureEnginsChart(binding, enginsSd)
         }
 
         //SD "functionnality" only
@@ -140,15 +139,15 @@ class StatistiquesFragment : Fragment() {
                 }
                 spinnerList.sort()
                 val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, spinnerList)
-                binding.chartsSdStats.sp_stock_update.adapter = adapter
-                binding.chartsSdStats.btn_stock_update.setOnClickListener {
+                binding.chartsSdStats.spStockUpdate.adapter = adapter
+                binding.chartsSdStats.btnStockUpdate.setOnClickListener {
                     MaterialAlertDialogBuilder(requireContext())
                         .setTitle(context?.resources?.getString(R.string.stock_update_popup_title))
                         .setMessage(context?.resources?.getString(R.string.stock_update_popup_message))
                         .setPositiveButton(android.R.string.ok) { _, _ ->
                             updateStock(
-                                binding.chartsSdStats.sp_stock_update.selectedItem.toString(),
-                                binding.chartsSdStats.et_stock_update.text.toString(),
+                                binding.chartsSdStats.spStockUpdate.selectedItem.toString(),
+                                binding.chartsSdStats.etStockUpdate.text.toString(),
                                 currentYear.toString()
                             )
                         }
@@ -171,25 +170,30 @@ class StatistiquesFragment : Fragment() {
     }
 
     private fun configureTransportChart(binding: FragmentStatistiquesBinding, interventionsTransports: HashMap<String?, Long?>) {
-        configurePieChart(binding.chartsRaStats.transports_ra_chart, context)
-        setDataToChart(interventionsTransports, binding.chartsRaStats.transports_ra_chart, "Transports interventions", false)
+        configurePieChart(binding.chartsRaStats.transportsRaChart, context)
+        setDataToChart(interventionsTransports, binding.chartsRaStats.transportsRaChart, "Transports interventions", false)
     }
 
     private fun configureActionChart(binding: FragmentStatistiquesBinding, interventionsActions: HashMap<String?, Long?>) {
-        configurePieChart(binding.chartsRaStats.actions_ra_chart, context)
-        setDataToChart(interventionsActions, binding.chartsRaStats.actions_ra_chart, "Actions interventions", false)
+        configurePieChart(binding.chartsRaStats.actionsRaChart, context)
+        setDataToChart(interventionsActions, binding.chartsRaStats.actionsRaChart, "Actions interventions", false)
     }
 
     private fun configureRegulationChart(binding: FragmentStatistiquesBinding, regulationsDecisions: HashMap<String?, Long?>) {
-        configurePieChart(binding.chartsRaStats.decisions_ra_regul_chart, context)
-        configurePieChart(binding.chartsCynoStats.decisions_cyno_regul_chart, context)
-        setDataToChart(regulationsDecisions, binding.chartsRaStats.decisions_ra_regul_chart, "Décisions régulation", false)
-        setDataToChart(regulationsDecisions, binding.chartsCynoStats.decisions_cyno_regul_chart, "Décisions régulation", false)
+        configurePieChart(binding.chartsRaStats.decisionsRaRegulChart, context)
+        configurePieChart(binding.chartsCynoStats.decisionsCynoRegulChart, context)
+        setDataToChart(regulationsDecisions, binding.chartsRaStats.decisionsRaRegulChart, "Décisions régulation", false)
+        setDataToChart(regulationsDecisions, binding.chartsCynoStats.decisionsCynoRegulChart, "Décisions régulation", false)
     }
 
     private fun configureDestinationChart(binding: FragmentStatistiquesBinding, interventionsDestinations: HashMap<String?, Long?>) {
-        configurePieChart(binding.chartsRaStats.destinations_ra_chart, context)
-        setDataToChart(interventionsDestinations, binding.chartsRaStats.destinations_ra_chart, "Destinations interventions", false)
+        configurePieChart(binding.chartsRaStats.destinationsRaChart, context)
+        setDataToChart(interventionsDestinations, binding.chartsRaStats.destinationsRaChart, "Destinations interventions", false)
+    }
+
+    private fun configureEnginsChart(binding: FragmentStatistiquesBinding, enginsStatistique: HashMap<String?, Long?>) {
+        configurePieChart(binding.chartsSdStats.enginsChart, context)
+        setDataToChart(enginsStatistique, binding.chartsSdStats.enginsChart, "Engins", false)
     }
 
     private fun updateStock(materialName: String, quantity: String, year: String) {

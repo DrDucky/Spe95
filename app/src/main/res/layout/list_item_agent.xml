@@ -12,6 +12,10 @@
         <variable
             name="agent"
             type="com.pomplarg.spe95.agent.data.Agent" />
+
+        <variable
+            name="time"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,8 +44,21 @@
             android:paddingStart="@dimen/dimen_16dp"
             app:layout_constraintStart_toEndOf="@id/iv_agent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_time"
             tools:text="Pierre Dupont" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@{time}"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:paddingStart="@dimen/dimen_16dp"
+            app:layout_constraintStart_toEndOf="@id/iv_agent"
+            app:layout_constraintTop_toBottomOf="@id/firstname"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="60" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -28,8 +28,7 @@ class AgentDetailsViewModel(private val repository: AgentRepository) : ViewModel
         getUserJob = launch {
             when (val result = repository.getAgentFromRemoteDB(agentId)) {
                 is com.pomplarg.spe95.data.Result.Success -> agentLd.value = result.data
-                //is Result2.Error -> _snackbarText.value = R.string.error_fetching
-                //is Result2.Canceled -> _snackbarText.value = R.string.canceled
+                else                                      -> {}//Nothing to do
             }
         }
     }

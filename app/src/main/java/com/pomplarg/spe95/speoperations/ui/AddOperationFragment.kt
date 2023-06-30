@@ -15,10 +15,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.CompoundButton
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -39,6 +42,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.google.firebase.firestore.GeoPoint
+import com.pomplarg.spe95.BuildConfig
 import com.pomplarg.spe95.R
 import com.pomplarg.spe95.ToolbarTitleListener
 import com.pomplarg.spe95.agent.data.Agent
@@ -47,8 +51,6 @@ import com.pomplarg.spe95.databinding.*
 import com.pomplarg.spe95.speoperations.data.AgentOnOperation
 import com.pomplarg.spe95.utils.Constants
 import com.pomplarg.spe95.utils.hasConnectivity
-import kotlinx.android.synthetic.main.list_item_add_operation_equipment_ra.*
-import kotlinx.android.synthetic.main.list_item_add_operation_equipment_sd.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.io.File
@@ -61,6 +63,7 @@ import java.util.*
 class AddOperationFragment : Fragment() {
 
     private lateinit var specialtyDocument: String
+    private lateinit var imageRA: ImageView
     private val args: AddOperationFragmentArgs by navArgs()
     private val agentViewModel: AgentViewModel by viewModel()
     private val regex = Regex("\\d*:\\d*")
@@ -89,7 +92,7 @@ class AddOperationFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val binding = FragmentAddOperationBinding.inflate(inflater, container, false)
         val bindingListEquipmentCyno =
@@ -105,6 +108,7 @@ class AddOperationFragment : Fragment() {
 
         binding.lifecycleOwner = this
         context ?: return binding.root
+        imageRA = bindingListEquipmentRa.ivAddPicture
 
 
         val connected = hasConnectivity(context)
@@ -175,7 +179,7 @@ class AddOperationFragment : Fragment() {
         }
 
         binding.btnAddOperation.setOnClickListener(View.OnClickListener {
-            if (validate(speOperationViewModel, binding, args.specialty)) {
+            if (validate(speOperationViewModel, binding, bindingListEquipmentSd, args.specialty)) {
                 speOperationViewModel._teamAgent.value = teamListWithTime
                 displayMainBloc(binding, false)
                 speOperationViewModel.addOperationIntoFirestore()
@@ -204,11 +208,11 @@ class AddOperationFragment : Fragment() {
                         photoFile?.also {
                             val photoURI: Uri = FileProvider.getUriForFile(
                                 context,
-                                "com.pomplarg.spe95.fileprovider",
+                                BuildConfig.APPLICATION_ID + ".fileprovider",
                                 it
                             )
                             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+                            takePictureLauncher.launch(takePictureIntent)
                         }
                     }
                 }
@@ -218,7 +222,7 @@ class AddOperationFragment : Fragment() {
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(intent, resources.getString(R.string.add_operation_select_picture)), PICK_IMAGE)
+            pickImageLauncher.launch(Intent.createChooser(intent, resources.getString(R.string.add_operation_select_picture)))
         }
 
         val currentTimeInMillis = Calendar.getInstance().timeInMillis
@@ -483,6 +487,7 @@ class AddOperationFragment : Fragment() {
     private fun validate(
         vmSpeOperationViewModel: SpeOperationViewModel,
         binding: FragmentAddOperationBinding,
+        bindingListEquipmentSd: ListItemAddOperationEquipmentSdBinding,
         specialty: String
     ): Boolean {
         val mandatoryFieldError: String = getString(R.string.add_operation_error_mandatory_field)
@@ -567,18 +572,19 @@ class AddOperationFragment : Fragment() {
                 vmSpeOperationViewModel._equipementSdEtaiementBoisGoussetQuantity.value!! != 0
             ) {
                 isValid = false
-                binding.equipment.tv_etaiement_category_gousset.error = mandatoryFieldError//app:error does not work...
+                bindingListEquipmentSd.tvEtaiementCategoryGousset.error = mandatoryFieldError//app:error does not work...
             } else
-                binding.equipment.tv_etaiement_category_gousset.error = null
+                bindingListEquipmentSd.tvEtaiementCategoryGousset.error = null
 
             if (vmSpeOperationViewModel._equipementSdEtaiementBoisVolige.value == false &&
                 vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value != null &&
                 vmSpeOperationViewModel._equipementSdEtaiementBoisVoligeQuantity.value!! != 0
             ) {
                 isValid = false
-                binding.equipment.tv_etaiement_category_volige.error = mandatoryFieldError
+
+                bindingListEquipmentSd.tvEtaiementCategoryVolige.error = mandatoryFieldError
             } else
-                binding.equipment.tv_etaiement_category_volige.error = null
+                bindingListEquipmentSd.tvEtaiementCategoryVolige.error = null
 
             if (vmSpeOperationViewModel._equipementSdEtaiementBoisChevron.value == false &&
                 vmSpeOperationViewModel._equipementSdEtaiementBoisChevronQuantity.value != null &&
@@ -586,9 +592,9 @@ class AddOperationFragment : Fragment() {
 
             ) {
                 isValid = false
-                binding.equipment.tv_etaiement_category_chevron.error = mandatoryFieldError
+                bindingListEquipmentSd.tvEtaiementCategoryChevron.error = mandatoryFieldError
             } else
-                binding.equipment.tv_etaiement_category_chevron.error = null
+                bindingListEquipmentSd.tvEtaiementCategoryChevron.error = null
 
             if (vmSpeOperationViewModel._equipementSdEtaiementBoisBastaing.value == false &&
                 vmSpeOperationViewModel._equipementSdEtaiementBoisBastaingQuantity.value != null &&
@@ -596,9 +602,9 @@ class AddOperationFragment : Fragment() {
 
             ) {
                 isValid = false
-                binding.equipment.tv_etaiement_category_bastaing.error = mandatoryFieldError
+                bindingListEquipmentSd.tvEtaiementCategoryBastaing.error = mandatoryFieldError
             } else
-                binding.equipment.tv_etaiement_category_bastaing.error = null
+                bindingListEquipmentSd.tvEtaiementCategoryBastaing.error = null
 
 
             if (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalPetit.value == false &&
@@ -607,9 +613,9 @@ class AddOperationFragment : Fragment() {
 
             ) {
                 isValid = false
-                binding.equipment.tv_etaiement_category_etai_metallique_petit.error = mandatoryFieldError
+                bindingListEquipmentSd.tvEtaiementCategoryEtaiMetalliquePetit.error = mandatoryFieldError
             } else
-                binding.equipment.tv_etaiement_category_etai_metallique_petit.error = null
+                bindingListEquipmentSd.tvEtaiementCategoryEtaiMetalliquePetit.error = null
 
             if (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyen.value == false &&
                 vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalMoyenQuantity.value != null &&
@@ -617,9 +623,9 @@ class AddOperationFragment : Fragment() {
 
             ) {
                 isValid = false
-                binding.equipment.tv_etaiement_category_etai_metallique_moyen.error = mandatoryFieldError
+                bindingListEquipmentSd.tvEtaiementCategoryEtaiMetalliqueMoyen.error = mandatoryFieldError
             } else
-                binding.equipment.tv_etaiement_category_etai_metallique_moyen.error = null
+                bindingListEquipmentSd.tvEtaiementCategoryEtaiMetalliqueMoyen.error = null
 
             if (vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrand.value == false &&
                 vmSpeOperationViewModel._equipementSdEtaiementEtaiMetalGrandQuantity.value != null &&
@@ -627,9 +633,9 @@ class AddOperationFragment : Fragment() {
 
             ) {
                 isValid = false
-                binding.equipment.tv_etaiement_category_etai_metallique_grand.error = mandatoryFieldError
+                bindingListEquipmentSd.tvEtaiementCategoryEtaiMetalliqueGrand.error = mandatoryFieldError
             } else
-                binding.equipment.tv_etaiement_category_etai_metallique_grand.error = null
+                bindingListEquipmentSd.tvEtaiementCategoryEtaiMetalliqueGrand.error = null
 
             if ((vmSpeOperationViewModel._equipementSdPetitMatVis.value == true &&
                         vmSpeOperationViewModel._equipementSdPetitMatVisQuantity.value != null &&
@@ -640,9 +646,9 @@ class AddOperationFragment : Fragment() {
                         )
             ) {
                 isValid = false
-                binding.equipment.tip_petit_materiel_category_vis.error = mandatoryFieldError
+                bindingListEquipmentSd.tipPetitMaterielCategoryVis.error = mandatoryFieldError
             } else
-                binding.equipment.tip_petit_materiel_category_vis.error = null
+                bindingListEquipmentSd.tipPetitMaterielCategoryVis.error = null
 
             if ((vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95.value == true &&
                         vmSpeOperationViewModel._equipementSdPetitMatCarburantSP95Quantity.value != null &&
@@ -653,9 +659,9 @@ class AddOperationFragment : Fragment() {
                         )
             ) {
                 isValid = false
-                binding.equipment.tip_petit_materiel_category_carburant_sp95.error = mandatoryFieldError
+                bindingListEquipmentSd.etPetitMaterielCategoryCarburantSp95.error = mandatoryFieldError
             } else
-                binding.equipment.tip_petit_materiel_category_carburant_sp95.error = null
+                bindingListEquipmentSd.etPetitMaterielCategoryCarburantSp95.error = null
 
             if ((vmSpeOperationViewModel._equipementSdPetitMatCarburantMarline.value == true &&
                         vmSpeOperationViewModel._equipementSdPetitMatCarburantMarlineQuantity.value != null &&
@@ -666,9 +672,9 @@ class AddOperationFragment : Fragment() {
                         )
             ) {
                 isValid = false
-                binding.equipment.tip_petit_materiel_category_carburant_marline.error = mandatoryFieldError
+                bindingListEquipmentSd.tipPetitMaterielCategoryCarburantMarline.error = mandatoryFieldError
             } else
-                binding.equipment.tip_petit_materiel_category_carburant_marline.error = null
+                bindingListEquipmentSd.tipPetitMaterielCategoryCarburantMarline.error = null
 
             if ((vmSpeOperationViewModel._equipementSdPetitMatCarburantMelange.value == true &&
                         vmSpeOperationViewModel._equipementSdPetitMatCarburantMelangeQuantity.value != null &&
@@ -679,9 +685,9 @@ class AddOperationFragment : Fragment() {
                         )
             ) {
                 isValid = false
-                binding.equipment.tip_petit_materiel_category_carburant_melange.error = mandatoryFieldError
+                bindingListEquipmentSd.tipPetitMaterielCategoryCarburantMelange.error = mandatoryFieldError
             } else
-                binding.equipment.tip_petit_materiel_category_carburant_melange.error = null
+                bindingListEquipmentSd.tipPetitMaterielCategoryCarburantMelange.error = null
 
         }
 
@@ -806,29 +812,27 @@ class AddOperationFragment : Fragment() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            val file = File(currentPhotoPath)
-            val bitmap = BitmapFactory.decodeFile(file.path)
-            iv_add_picture.setImageBitmap(bitmap)
-            speOperationViewModel._ldPhotoRaAbsolutePath.value = file.toUri()
-        }
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
-            val imageUri = data?.data as Uri
+    private var pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val imageUri = result.data?.data as Uri
             val inputStream: InputStream? = context?.contentResolver?.openInputStream(imageUri)
             if (inputStream != null) {
                 val imageBitmap = BitmapFactory.decodeStream(inputStream)
-                iv_add_picture.setImageBitmap(imageBitmap)
+                imageRA.setImageBitmap(imageBitmap)
                 speOperationViewModel._ldPhotoRaAbsolutePath.value = imageUri
                 inputStream.close()
             }
         }
+
     }
 
-
-    companion object {
-        const val REQUEST_IMAGE_CAPTURE = 1
-        const val PICK_IMAGE = 2
+    private var takePictureLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val file = File(currentPhotoPath)
+            val bitmap = BitmapFactory.decodeFile(file.path)
+            imageRA.setImageBitmap(bitmap)
+            speOperationViewModel._ldPhotoRaAbsolutePath.value = file.toUri()
+        }
     }
 }
 

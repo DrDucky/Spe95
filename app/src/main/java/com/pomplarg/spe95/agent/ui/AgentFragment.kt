@@ -2,7 +2,10 @@ package com.pomplarg.spe95.agent.ui
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import com.pomplarg.spe95.R
 import com.pomplarg.spe95.databinding.FragmentAgentsBinding
@@ -16,7 +19,7 @@ class AgentFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val binding = FragmentAgentsBinding.inflate(inflater, container, false)
         context ?: return binding.root
@@ -38,9 +41,27 @@ class AgentFragment : Fragment() {
 
         subscribeUi(binding, adapter)
 
-        setHasOptionsMenu(true)
+        setupMenu()
 
         return binding.root
+    }
+
+    private fun setupMenu() {
+        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
+            override fun onPrepareMenu(menu: Menu) {
+                // Hide the menu (map and stats button)
+                menu.setGroupVisible(R.id.main_menu_group, false)
+            }
+
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_toolbar, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Validate and handle the selected menu item
+                return false
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun subscribeUi(binding: FragmentAgentsBinding, adapter: AgentAdapter) {
@@ -59,12 +80,5 @@ class AgentFragment : Fragment() {
             binding.progressBar.visibility = View.GONE
         })
 
-    }
-
-    /**
-     * Hide the menu (map and stats button)
-     */
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.setGroupVisible(R.id.main_menu_group, false)
     }
 }

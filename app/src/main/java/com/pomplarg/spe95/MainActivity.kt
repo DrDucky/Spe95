@@ -27,10 +27,10 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.pomplarg.spe95.databinding.ActivityMainBinding
+import com.pomplarg.spe95.databinding.NavHeaderBinding
 import com.pomplarg.spe95.signin.ui.SignInActivity
 import com.pomplarg.spe95.utils.Constants
 import com.pomplarg.spe95.utils.Constants.Companion.SHARED_PREF_FRAGMENT_KEY
-import kotlinx.android.synthetic.main.nav_header.view.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ToolbarTitleListener {
@@ -107,8 +107,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             binding.navigationView.setNavigationItemSelectedListener(this)
             binding.navigationView.setCheckedItem(R.id.cyno_fragment)
             binding.logout.setOnClickListener(::logout)
-            binding.navigationView.getHeaderView(0).tv_header_username.text = currentUser.email
-            binding.navigationView.getHeaderView(0).tv_header_version.text = getString(R.string.menu_version, BuildConfig.VERSION_NAME)
+            val headerBinding: NavHeaderBinding = NavHeaderBinding.bind(binding.navigationView.getHeaderView(0))
+            headerBinding.tvHeaderUsername.text = currentUser.email
+            headerBinding.tvHeaderVersion.text = getString(R.string.menu_version, BuildConfig.VERSION_NAME)
 
             //Open by default the menu to select the good specialty
             drawerLayout.openDrawer(GravityCompat.START)
