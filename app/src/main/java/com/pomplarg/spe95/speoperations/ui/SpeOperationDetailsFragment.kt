@@ -54,6 +54,7 @@ class SpeOperationDetailsFragment : Fragment() {
         val materialSdAdapter = MaterialSdAdapter()
         val materialRaAdapter = MaterialRaAdapter()
         val enginsSdAdapter = EnginsSdAdapter()
+        agentAdapter = AgentAdapter()
         binding.rvMaterialCynoList.adapter = materialAdapter
         binding.rvDecisionsCynoList.adapter = decisionsCynoAdapter
         binding.rvMaterialSdList.adapter = materialSdAdapter
@@ -113,7 +114,6 @@ class SpeOperationDetailsFragment : Fragment() {
     ) {
         if (speOperation.id != 0L) {
             speOperation.apply {
-
                 agentAdapter = AgentAdapter(false, this.agentOnOperation)
                 binding.rvTeamAgentList.adapter = agentAdapter
                 binding.speOperation = speOperation

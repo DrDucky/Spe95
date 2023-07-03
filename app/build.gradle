@@ -34,8 +34,8 @@ android {
         applicationId "com.plomparg.spe95"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode 22
-        versionName "1.0.20"
+        versionCode 23
+        versionName "1.0.21"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders.MAPS_API_KEY = "XXX"
     }
