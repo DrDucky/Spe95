@@ -174,10 +174,11 @@ fun setBarDataToChart(stats: HashMap<Int, HashMap<String?, Long?>?>, chart: BarC
         barData.setValueFormatter(vfHourAndTime)
     else
         barData.setValueFormatter(vf)
-    barData.barWidth = 0.2f
+    barData.barWidth = 0.15f // x5 datasets
     chart.data = barData
-    val groupSpace = 0.08f
-    val barSpace = 0.03f
+    val groupSpace = 0.15f
+    val barSpace = 0.02f // x5 datasets
+    // (0.03 + 0.15) * 5 + 0.15 = 1.00 -> interval per "group"
     chart.groupBars(1f, groupSpace, barSpace)
 
     chart.invalidate()
