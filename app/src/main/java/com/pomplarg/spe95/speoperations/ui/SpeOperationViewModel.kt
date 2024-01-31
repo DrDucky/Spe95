@@ -441,8 +441,7 @@ class SpeOperationViewModel(
         val c = Calendar.getInstance()
         c.time = speOperationDate
         val monthNumber = c.get(Calendar.MONTH) + 1 //return 1-12
-
-        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-        statsRepository.addOperationStats(specialtyDocument, currentYear.toString(), monthNumber, newSpeOperation, _ldPhotoRaAbsolutePath, _ldOperationAdded)
+        val yearNumber = c.get(Calendar.YEAR)
+        statsRepository.addOperationStats(specialtyDocument, yearNumber.toString(), monthNumber, newSpeOperation, _ldPhotoRaAbsolutePath, _ldOperationAdded)
     }
 }

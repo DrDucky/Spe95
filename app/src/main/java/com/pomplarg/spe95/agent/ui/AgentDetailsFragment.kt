@@ -78,17 +78,17 @@ class AgentDetailsFragment : Fragment() {
         //By default
         configurePieChart(binding.timesChart, context)
         configurePieChart(binding.typeChart, context)
-        binding.btnYearSelection.check(R.id.btn_year_2023)
+        binding.btnYearSelection.check(R.id.btn_year_2024)
         binding.btnSpecialtySelection.check(R.id.btn_specialty_cyno)
-        statistiquesViewModel.fetchAgentStats(agentId, Constants.FIRESTORE_CYNO_DOCUMENT, Constants.YEAR_2023)
+        statistiquesViewModel.fetchAgentStats(agentId, Constants.FIRESTORE_CYNO_DOCUMENT, Constants.YEAR_2024)
 
         binding.btnYearSelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (isChecked) {
                 val yearChecked = when (checkedId) {
-                    R.id.btn_year_2021 -> Constants.YEAR_2021
                     R.id.btn_year_2022 -> Constants.YEAR_2022
                     R.id.btn_year_2023 -> Constants.YEAR_2023
-                    else               -> Constants.YEAR_2023
+                    R.id.btn_year_2024 -> Constants.YEAR_2024
+                    else               -> Constants.YEAR_2024
                 }
                 val specialtyChecked = when (binding.btnSpecialtySelection.checkedButtonId) {
                     R.id.btn_specialty_cyno -> Constants.FIRESTORE_CYNO_DOCUMENT
@@ -103,10 +103,10 @@ class AgentDetailsFragment : Fragment() {
         binding.btnSpecialtySelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (isChecked) {
                 val yearChecked = when (binding.btnYearSelection.checkedButtonId) {
-                    R.id.btn_year_2021 -> Constants.YEAR_2021
                     R.id.btn_year_2022 -> Constants.YEAR_2022
                     R.id.btn_year_2023 -> Constants.YEAR_2023
-                    else               -> Constants.YEAR_2023
+                    R.id.btn_year_2024 -> Constants.YEAR_2024
+                    else               -> Constants.YEAR_2024
                 }
                 val specialtyChecked = when (checkedId) {
                     R.id.btn_specialty_cyno -> Constants.FIRESTORE_CYNO_DOCUMENT

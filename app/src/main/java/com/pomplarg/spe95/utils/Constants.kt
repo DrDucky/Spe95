@@ -138,8 +138,8 @@ class Constants {
         const val RA_DECISION_CYNO_DECLENCHEMENT_SDIS = "Cyno Déclenchement SDIS"
         const val RA_DECISION_CYNO_DECLENCHEMENT_POLICE = "Cyno Déclenchement Police"
 
-        const val YEAR_2021 = "2021"
         const val YEAR_2022 = "2022"
         const val YEAR_2023 = "2023"
+        const val YEAR_2024 = "2024"
     }
 }

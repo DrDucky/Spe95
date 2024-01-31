@@ -48,9 +48,9 @@ class StatistiquesFragment : Fragment() {
     private fun subscribeUi(binding: FragmentStatistiquesBinding) {
 
         //Defaut buttons
-        binding.btnStatsYearSelection.check(R.id.btn_stats_year_2023)
-        statistiquesViewModel.fetchStats(specialtyDocument, Constants.YEAR_2023)
-        statistiquesViewModel.fetchOperations(specialtyDocument, Constants.YEAR_2023)
+        binding.btnStatsYearSelection.check(R.id.btn_stats_year_2024)
+        statistiquesViewModel.fetchStats(specialtyDocument, Constants.YEAR_2024)
+        statistiquesViewModel.fetchOperations(specialtyDocument, Constants.YEAR_2024)
 
         //Common Stats to all specialties
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
@@ -158,10 +158,10 @@ class StatistiquesFragment : Fragment() {
         binding.btnStatsYearSelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (isChecked) {
                 val yearChecked = when (checkedId) {
-                    R.id.btn_stats_year_2021 -> Constants.YEAR_2021
                     R.id.btn_stats_year_2022 -> Constants.YEAR_2022
                     R.id.btn_stats_year_2023 -> Constants.YEAR_2023
-                    else                     -> Constants.YEAR_2023
+                    R.id.btn_stats_year_2024 -> Constants.YEAR_2024
+                    else                     -> Constants.YEAR_2024
                 }
                 statistiquesViewModel.fetchStats(specialtyDocument, yearChecked)
                 statistiquesViewModel.fetchOperations(specialtyDocument, yearChecked)
