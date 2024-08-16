@@ -49,6 +49,16 @@
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer
 
+-keep class com.google.firebase.** {
+    *;
+}
+-keep class com.google.android.gms.** {
+    *;
+}
+-dontwarn com.google.firebase.**
+-dontwarn com.google.android.gms.**
+
 -keep public class com.github.mikephil.charting.animation.* {
     public protected *;
+
 }
