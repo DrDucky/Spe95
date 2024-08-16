@@ -114,6 +114,6 @@ dependencies {
 
     implementation "com.github.PhilJay:MPAndroidChart:v$mpandroidchart_version"
 
-    implementation "com.google.android.play:core:$play_core_version"
+    implementation "com.google.android.play:app-update-ktx:$play_app_update_version"
 
 }
