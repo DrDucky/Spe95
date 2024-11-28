@@ -230,6 +230,19 @@ class StatistiquesViewModel(private val repository: StatistiqueRepository) : Vie
         return interventionsActions
     }
 
+    fun getMotifsStatistiques(motifsCynoArray: Array<String>, operationsList: List<SpeOperation>): HashMap<String?, Long?> {
+        val interventionsMotifs: HashMap<String?, Long?> = HashMap()
+
+        for (i in motifsCynoArray) {
+            val motif = operationsList.filter {
+                it.motif.contains(i)
+            }.size
+
+            interventionsMotifs[i] = motif.toLong()
+        }
+        return interventionsMotifs
+    }
+
     //fetch all the stock for SD Specialty
     fun fetchSdStock(year: String) {
         if (getStockJob?.isActive == true) getStockJob?.cancel()

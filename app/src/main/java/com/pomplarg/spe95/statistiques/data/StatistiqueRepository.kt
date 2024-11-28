@@ -32,7 +32,6 @@ class StatistiqueRepository {
                 .get().await()) {
             is Result.Success  -> {
                 val stats = Statistique(null, null)
-                stats.motifs = documentSnapshot.data[specialty] as HashMap<String?, Long?>?
                 val ipsoTime = documentSnapshot.data[Constants.CYNO_DOG_IPSO] as HashMap<String?, HashMap<String?, Long?>?>?
                 val nanoTime = documentSnapshot.data[Constants.CYNO_DOG_NANO] as HashMap<String?, HashMap<String?, Long?>?>?
                 val neroneTime = documentSnapshot.data[Constants.CYNO_DOG_NERONE] as HashMap<String?, HashMap<String?, Long?>?>?

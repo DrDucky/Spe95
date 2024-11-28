@@ -65,7 +65,6 @@ class StatistiquesFragment : Fragment() {
                 configurePieChart(binding.chartsCynoStats.sniperChart, context)
                 configurePieChart(binding.chartsCynoStats.ulcoChart, context)
 
-                setDataToChart(it.motifs, binding.chartsCynoStats.typeChart, "Motifs d'intervention", false)
                 setDataToChart(it.ipso, binding.chartsCynoStats.ipsoChart, "Ipso", true)
                 setDataToChart(it.nano, binding.chartsCynoStats.nanoChart, "Nano", true)
                 setDataToChart(it.nerone, binding.chartsCynoStats.neroneChart, "Nerone", true)
@@ -87,6 +86,11 @@ class StatistiquesFragment : Fragment() {
         })
 
         statistiquesViewModel.operationsLd.observe(viewLifecycleOwner) { listAllOperations ->
+            var motifsCynoArray = resources.getStringArray(R.array.motifs_cyno)
+
+            val motifsInterventions = statistiquesViewModel.getMotifsStatistiques(motifsCynoArray, listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
+            setDataToChart(motifsInterventions, binding.chartsCynoStats.typeChart, "Motifs d'intervention", false)
+
             val regulationsDecisions = statistiquesViewModel.getRegulationsStatistiques(specialtyDocument, listAllOperations.filter { it.type == Constants.TYPE_OPERATION_REGULATION })
             configureRegulationChart(binding, regulationsDecisions)
             val interventionsDestinations = statistiquesViewModel.getDecisionsStatistiques(listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
