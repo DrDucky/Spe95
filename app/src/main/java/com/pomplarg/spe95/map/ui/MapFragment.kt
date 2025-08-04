@@ -42,17 +42,17 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.map) as? SupportMapFragment
 
-        binding.btnMapYearSelection.check(R.id.btn_map_year_2024)
+        binding.btnMapYearSelection.check(R.id.btn_map_year_2025)
 
-        mapViewModel.fetchLocations(specialtyDocument, Constants.YEAR_2024.toInt())
+        mapViewModel.fetchLocations(specialtyDocument, Constants.YEAR_2025.toInt())
 
         binding.btnMapYearSelection.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (isChecked) {
                 val yearChecked = when (checkedId) {
-                    R.id.btn_map_year_2022 -> Constants.YEAR_2022.toInt()
                     R.id.btn_map_year_2023 -> Constants.YEAR_2023.toInt()
                     R.id.btn_map_year_2024 -> Constants.YEAR_2024.toInt()
-                    else                   -> Constants.YEAR_2024.toInt()
+                    R.id.btn_map_year_2025 -> Constants.YEAR_2025.toInt()
+                    else                   -> Constants.YEAR_2025.toInt()
                 }
                 mapViewModel.fetchLocations(specialtyDocument, yearChecked)
             }
