@@ -225,6 +225,7 @@ fun getColors(): List<Int> {
         rgb("#bae1ff"),
         rgb("#ffee65"),
         rgb("#beb9db"),
-        rgb("#fdcce5")
+        rgb("#fdcce5"),
+        rgb("#f95d6a")
     )
 }

@@ -57,13 +57,13 @@ class StatistiquesFragment : Fragment() {
         statistiquesViewModel.statsMotifsLd.observe(viewLifecycleOwner, Observer {
             if (Constants.FIRESTORE_CYNO_DOCUMENT == specialtyDocument) {
                 //Update UI
-                configurePieChart(binding.chartsCynoStats.typeChart, context)
                 configurePieChart(binding.chartsCynoStats.ipsoChart, context)
                 configurePieChart(binding.chartsCynoStats.nanoChart, context)
                 configurePieChart(binding.chartsCynoStats.neroneChart, context)
                 configurePieChart(binding.chartsCynoStats.priaxeChart, context)
                 configurePieChart(binding.chartsCynoStats.sniperChart, context)
                 configurePieChart(binding.chartsCynoStats.ulcoChart, context)
+
 
                 setDataToChart(it.ipso, binding.chartsCynoStats.ipsoChart, "Ipso", true)
                 setDataToChart(it.nano, binding.chartsCynoStats.nanoChart, "Nano", true)
@@ -73,23 +73,31 @@ class StatistiquesFragment : Fragment() {
                 setDataToChart(it.ulco, binding.chartsCynoStats.ulcoChart, "Ulco", true)
 
             }
-            if (Constants.FIRESTORE_SD_DOCUMENT == specialtyDocument) {
-                //Update UI
-                configurePieChart(binding.chartsSdStats.typeChart, context)
-                setDataToChart(it.motifs, binding.chartsSdStats.typeChart, "Motifs d'intervention", false)
-            }
-            if (Constants.FIRESTORE_RA_DOCUMENT == specialtyDocument) {
-                //Update UI
-                configurePieChart(binding.chartsRaStats.typeChart, context)
-                setDataToChart(it.motifs, binding.chartsRaStats.typeChart, "Motifs d'intervention", false)
-            }
         })
 
         statistiquesViewModel.operationsLd.observe(viewLifecycleOwner) { listAllOperations ->
-            var motifsCynoArray = resources.getStringArray(R.array.motifs_cyno)
+            when (specialtyDocument) {
+                Constants.FIRESTORE_CYNO_DOCUMENT -> {
+                    val motifsCynoArray = resources.getStringArray(R.array.motifs_cyno)
+                    val motifsInterventions = statistiquesViewModel.getMotifsStatistiques(motifsCynoArray, listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
+                    configurePieChart(binding.chartsCynoStats.typeChart, context)
+                    setDataToChart(motifsInterventions, binding.chartsCynoStats.typeChart, "Motifs d'intervention", false)
+                }
 
-            val motifsInterventions = statistiquesViewModel.getMotifsStatistiques(motifsCynoArray, listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
-            setDataToChart(motifsInterventions, binding.chartsCynoStats.typeChart, "Motifs d'intervention", false)
+                Constants.FIRESTORE_SD_DOCUMENT -> {
+                    val motifsSDArray = resources.getStringArray(R.array.motifs_sd)
+                    val motifsSDInterventions = statistiquesViewModel.getMotifsStatistiques(motifsSDArray, listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
+                    configurePieChart(binding.chartsSdStats.typeChart, context)
+                    setDataToChart(motifsSDInterventions, binding.chartsSdStats.typeChart, "Motifs d'intervention", false)
+                }
+
+                Constants.FIRESTORE_RA_DOCUMENT -> {
+                    val motifsRaArray = resources.getStringArray(R.array.motifs_ra)
+                    val motifsRaInterventions = statistiquesViewModel.getMotifsStatistiques(motifsRaArray, listAllOperations.filter { it.type == Constants.TYPE_OPERATION_INTERVENTION })
+                    configurePieChart(binding.chartsRaStats.typeChart, context)
+                    setDataToChart(motifsRaInterventions, binding.chartsRaStats.typeChart, "Motifs d'intervention", false)
+                }
+            }
 
             val regulationsDecisions = statistiquesViewModel.getRegulationsStatistiques(specialtyDocument, listAllOperations.filter { it.type == Constants.TYPE_OPERATION_REGULATION })
             configureRegulationChart(binding, regulationsDecisions)

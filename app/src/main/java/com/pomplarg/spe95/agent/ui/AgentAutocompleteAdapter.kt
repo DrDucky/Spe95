@@ -50,15 +50,15 @@ class AgentAutocompleteAdapter(
             }
 
             override fun performFiltering(charSequence: CharSequence?): Filter.FilterResults {
-                val queryString = charSequence?.toString()?.toLowerCase(Locale.getDefault())
+                val queryString = charSequence?.toString()?.lowercase()
 
                 val filterResults = Filter.FilterResults()
                 filterResults.values = if (queryString == null || queryString.isEmpty())
                     allAgents
                 else
                     allAgents.filter {
-                        it.firstname.unaccent().toLowerCase(Locale.getDefault()).contains(queryString) ||
-                                it.lastname.unaccent().toLowerCase(Locale.getDefault()).contains(queryString)
+                        it.firstname.unaccent().lowercase().contains(queryString) ||
+                                it.lastname.unaccent().lowercase().contains(queryString)
                     }
                 return filterResults
             }

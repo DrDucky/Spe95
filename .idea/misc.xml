@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/workspace/Spe95/app/src/main/res/drawable/ic_type_intervention.xml" value="0.1" />
+        <entry key="..\:/workspace/Spe95/app/src/main/res/layout/activity_fullscreen.xml" value="0.10416666666666667" />
         <entry key="..\:/workspace/Spe95/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/workspace/Spe95/app/src/main/res/layout/activity_signin.xml" value="0.1" />
+        <entry key="..\:/workspace/Spe95/app/src/main/res/layout/fragment_agent_details.xml" value="0.10416666666666667" />
         <entry key="..\:/workspace/Spe95/app/src/main/res/layout/fragment_spe_operations.xml" value="0.1" />
         <entry key="..\:/workspace/Spe95/app/src/main/res/layout/grid_ra_statistiques.xml" value="0.1" />
         <entry key="..\:/workspace/Spe95/app/src/main/res/layout/grid_sd_statistiques.xml" value="0.1" />
@@ -15,7 +17,8 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="12" project-jdk-type="JavaSDK">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -63,7 +63,7 @@ class AvatarGenerator {
         }
 
         private fun firstCharacter(name: String): String {
-            return name.first().toString().toUpperCase(Locale.getDefault())
+            return name.first().toString().uppercase()
         }
 
         private fun textPainter(): TextPaint {
