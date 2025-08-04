@@ -29,7 +29,7 @@ ext {
     gson_version = '2.10.1'
     nav_version = "2.9.3"
     lifecycle_version = '2.9.2'
-    glide_version = '4.15.1'
+    glide_version = '4.16.0'
     firestore_ui_version = '8.0.2'
     constraint_layout_version = '2.2.1'
     preferences_version = "1.2.1"

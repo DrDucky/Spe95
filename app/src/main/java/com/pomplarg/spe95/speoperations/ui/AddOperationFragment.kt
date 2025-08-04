@@ -194,26 +194,23 @@ class AddOperationFragment : Fragment() {
         bindingListEquipmentRa.btnAddPicture.setOnClickListener(View.OnClickListener {
             context?.let { context ->
                 Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-                    // Ensure that there's a camera activity to handle the intent
-                    takePictureIntent.resolveActivity(context.packageManager)?.also {
-                        // Create the File where the photo should go
-                        val photoFile: File? = try {
-                            createImageFile(context)
-                        } catch (ex: IOException) {
-                            // Error occurred while creating the File
-                            Toast.makeText(context, "Erreur lors de la création de la photo", Toast.LENGTH_LONG).show()
-                            null
-                        }
-                        // Continue only if the File was successfully created
-                        photoFile?.also {
-                            val photoURI: Uri = FileProvider.getUriForFile(
-                                context,
-                                BuildConfig.APPLICATION_ID + ".fileprovider",
-                                it
-                            )
-                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                            takePictureLauncher.launch(takePictureIntent)
-                        }
+                    // Create the File where the photo should go
+                    val photoFile: File? = try {
+                        createImageFile(context)
+                    } catch (ex: IOException) {
+                        // Error occurred while creating the File
+                        Toast.makeText(context, "Erreur lors de la création de la photo", Toast.LENGTH_LONG).show()
+                        null
+                    }
+                    // Continue only if the File was successfully created
+                    photoFile?.also {
+                        val photoURI: Uri = FileProvider.getUriForFile(
+                            context,
+                            BuildConfig.APPLICATION_ID + ".fileprovider",
+                            it
+                        )
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                        takePictureLauncher.launch(takePictureIntent)
                     }
                 }
             }
